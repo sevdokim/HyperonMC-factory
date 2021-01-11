@@ -35,7 +35,7 @@ else
     export EXTARGET=0                             #exclusive target (1=S4, 2=target, 3=Sa, 0=all of them)
 fi
 #
-export MCDIR=/lustre/ihep.su/user/s/sevdokim/HyperonMC_05.02.2019  #name of top MC directory
+export MCDIR=/afs/ihep.su/user/s/sevdokim/HyperonMC-factory/  #name of top MC directory
 export REGGEN_CARDS=$MCDIR/${PERIOD}_Gener/RegGen_$MESON.cards                  #name of RegGen.cards
 export MACRODIR=$MCDIR/Hyp_RegGen/                                              #name of MC tool directory
 #export ANDIR=/data1/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/               #name of top analysis directory

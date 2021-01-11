@@ -4,8 +4,8 @@
     export NTHREADS=1                              # total number of production threads   
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
-    export CONVERT_ONLY=yes                        # yes or no 
-#    export CONVERT_ONLY=no    
+#    export CONVERT_ONLY=yes                        # yes or no 
+    export CONVERT_ONLY=no    
 #    
     export TGT_PRFX=pb3mm                          # Hyperon Tgts dlya formirovaniya imeni file_list_nov08.dat ==> file_list_nov08_be79mm.dat
                                                    # TGT_PRFX = be79mm, c78mm, al35mm, al17mm, cu3mm, cu7mm, sn5mm, pb3mm, ch80mm     
@@ -74,7 +74,7 @@ do
 		*)          export THICKNESS_S4=6.000  ;; #default value (6mm) 
 	    esac
 
-	    for mass in {700..1700..50} #c is control parameter for omg width 
+	    for mass in {700..700..50} #c is control parameter for omg width 
 	    do
 		#MESON=${MES}_${HYCONDITION}_width${width}MeV
 		MESON=${MES}
