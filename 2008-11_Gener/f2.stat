@@ -1,0 +1,11 @@
+#f2 mesons by target
+#target     s4_6mm (events)        s4_1mm (events)     eff_thickness_s4 (mm)
+al17        0                      2802	               1.000
+al35        9650                   9716		       3.491
+be79        15674                  79976	       1.819
+c78         12236                  57557	       1.877
+cu7         9277                   11886	       3.192
+sn5         1365                   4578		       2.148
+pb3         25480                  1889		       5.655
+ch80        5531                   9400		       2.852
+eff_thickness_s4 = (6mm*N_s4_6mm + 1mm*N_s4_1mm)/(N_s4_6mm + N_s4_1mm)

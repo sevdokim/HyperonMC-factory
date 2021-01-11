@@ -1,0 +1,97 @@
+*** Begin of history file: Tue Jun 23 17:34:57 2020
+opt stat
+opt fit
+set fcol 2
+zone 1 2
+hi/file reggen_omg.hbook
+hi/file 1 reggen_omg.hbook
+hi/pl 22
+hi/pl 22(0.7:1.0)
+hi/pl 22(0.65:0.95)
+vec/crea par(10) r 40000.m 0.782 0.084
+vec/crea par(10) r 40000. 0.782 0.084
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 400000. 0.782 0.084
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 4000000. 0.782 0.084
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 40000. 0.782 0.084
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 4000000. 0.782 0.084
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+set fcol 2
+vec/crea par(10) r 400000. 0.782 0.084
+vec/crea par(10) r 400000. 0.782 0.084
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+fun/plot omg_bw_gams.f 0. 3.
+fun/plot omg_bw_gams.f 0. 3.
+fun/plot omg_bw_gams.f 0. 3.
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+hi/fit 22(0.7:0.9) omg_bw_gams.f ! 3 par
+hi/fit 22(0.65:0.95) omg_bw_gams.f ! 3 par
+hi/pl 22(0.60:1.00)
+hi/fit 22(0.65:0.95) omg_bw_gams.f e 3 par
+hi/pl 22(0.75:0.85)
+hi/fit 22(0.65:0.95) omg_bw_gams.f e 3 par
+hi/del 0
+close 0
+hi/file 1 reggen.hbook
+hi/pl 22
+hi/pl 22(0.75:0.85)
+hi/fit 22(0.65:0.95) omg_bw_gams.f e 3 par
+hi/fit 22(0.65:0.95) omg_bw_gams.f e 3 par
+hi/fit 22(0.70:0.90) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.85) omg_bw_gams.f e 3 par
+hi/pl 22(0.75:0.85)
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/pl 22(0.75:0.85)
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+vec/crea par(10) r 400000. 782.0 8.4
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 4000. 782.0 8.4
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 4000. 782.0 8.4
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 4000. 782.0 8.4
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 4000. 0.7820 0.0084
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+vec/crea par(10) r 4. 0.7820 0.0084
+hi/fit 22(0.75:0.812) omg_bw_gams.f ! 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+vec/crea par(10) r 4. 0.7820 0.0084
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+vec/crea par(10) r 4525. 0.7820 0.0084
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+vec/crea par(10) r 4525. 0.7820 0.0084
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/del 0
+close 0
+hi/file 1 reggen.hbook
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/del 0
+close 0
+hi/file 1 reggen.hbook
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+hi/fit 22(0.75:0.812) omg_bw_gams.f e 3 par
+q
+*** End   of history file: Tue Jun 23 20:23:50 2020

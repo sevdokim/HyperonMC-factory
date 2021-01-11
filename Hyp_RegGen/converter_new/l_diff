@@ -1,0 +1,170 @@
+10,11c10
+< double alfa1[100];
+< int KKK, ISTEP;
+---
+> 
+24,161d22
+< double calc_ecorr(double x, double* alfa, int istep, int kkk)
+< {
+<   double val_0,val_1;
+<   val_0=x;
+<   for(int j=1;j<=istep;j++){
+<     val_1=val_0+alfa[(j-1)*10];
+<     for(int i=2;i<=kkk;i++)
+<       val_1+=alfa[(j-1)*10+i-1]*pow(log(val_0),i-1);
+<     val_0=val_1;
+<   }
+<   return val_0;
+< }
+< double PolLaGrange(double x, double *xi, double *fxi, int n)
+< {
+<   if (n<=0) return 0;
+<   double *li = new double[n];
+<   double pol = 0.;
+<   //cout<<"xi[0] = "<<xi[0]<<endl;
+<   for (int i = 0; i<n; i++)
+<     {
+<       li[i] = 1.;
+<       for (int j = 0; j<n; j++)
+< 	{
+< 	  if (j!=i) li[i]*=(x-xi[j])/(xi[i]-xi[j]);
+< 	}
+<       pol+=fxi[i]*li[i];
+<     }
+<   delete[] li;
+<   return pol;
+< }
+< double une_corr_new(double x)
+< {
+<   static bool first_time = true,isEcorMatrix=false;
+<   static double ecor_coefs[10];
+<   static double b[10],matrix[10][10];
+<   static double e[100001], e_corr[100001],dE, eBegin = 0.2, eEnd = 10.; 
+<   static int kkk, istep;
+< 
+<   if(first_time){
+<     first_time=false;
+<     // =========== read e_cor_matrix.dat first =================
+<     FILE* ecormatrix = fopen("e_cor_matrix.dat","r");
+<     if(ecormatrix!=NULL){
+<       fscanf(ecormatrix,"%d",&kkk);
+<       fscanf(ecormatrix,"%d",&istep);
+<       KKK=kkk;
+<       ISTEP=istep;
+<       for (int i = 0;i<10; i++){
+< 	for (int j=0;j<10; j++){
+< 	  fscanf(ecormatrix,"%lf", &matrix[i][j]);	
+< 	  printf("%23.10e ", matrix[i][j]);
+< 	}
+< 	printf("\n");
+<       }
+<       printf("\n");
+<       for(int i = 0;i<10; i++){
+< 	fscanf(ecormatrix,"%lf", &b[i]);
+< 	printf("%23.10e ",b[i]);
+<       }
+<       printf("\n");
+<       for (int i = 0;i<10; i++){
+< 	for (int j=0;j<10; j++){
+< 	  fscanf(ecormatrix,"%lf", &alfa1[i*10+j]);
+< 	  printf("%23.10e ", alfa1[i*10+j]);
+< 	}
+< 	printf("\n");
+<       }
+<       isEcorMatrix=true;
+<       // ============ prepare e vs e_corr array ================
+<       //e is photon energy
+<       //e_corr is corrected energy
+<       //range from eBegin to eEnd GeV
+<       //lets find e_corr[i] close to 0.5+dE*i
+<       // == first, find E such that ecorr(E) = 0.5
+<       dE=(eEnd-eBegin)/100000.;
+<       int iStep = 0;
+<       double ecor_cur, ecor_pr, e_cur, ecor_goal, EStep, ecor_new;
+<       e_cur=eBegin;
+<       for (iStep = 0;iStep<=100000;iStep++){
+< 	ecor_goal = eBegin+iStep*dE;
+< 	e_cur=ecor_goal;
+< 	//if(iStep%200==0)cout<<"goal en ="<<ecor_goal<<" and current en="<<e_cur<<endl;
+< 	ecor_cur = calc_ecorr(e_cur, alfa1, istep, kkk);
+< 	//if(iStep%200==0)cout<<"ecor_cur en ="<<ecor_cur<<endl;
+< 	EStep = ecor_cur-e_cur;
+< 	ecor_pr  = (calc_ecorr(ecor_cur,alfa1, istep, kkk )-ecor_cur)/EStep;
+< 	while(fabs(ecor_cur-ecor_goal)>0.0000001){
+< 	  //cout<<"goal en ="<<ecor_goal<<" and current en="<<e_cur<<endl;
+< 	  EStep = (ecor_goal-ecor_cur)/ecor_pr;
+< 	  e_cur = e_cur+EStep;
+< 	  ecor_new=calc_ecorr(e_cur, alfa1, istep, kkk);
+< 	  ecor_pr  = (ecor_new - ecor_cur)/EStep;
+< 	  ecor_cur = ecor_new;
+< 	  
+< 	}
+< 	e_corr[iStep] = ecor_cur;
+< 	e[iStep]      = e_cur;
+< 	
+< 	//if(iStep%200==0)cout<<"e_corr = " <<e_corr[iStep]<< "  for e = " << e[iStep]<< " and iStep = "<<iStep<<endl;
+<       }
+<     }
+<   }
+<   
+<   if(isEcorMatrix){
+<     int index = 100000*(x-eBegin)/(eEnd-eBegin);
+<     //cout<<"index = "<<index<<endl;
+<     if(index<0) return x;//no correction
+<     if(index==0){//linear approximation between 1st and 2nd points
+<       return PolLaGrange(x,e_corr,e,2);
+<     }
+<     if(index>=100000){//linear approximation between (n-1)th and n-th points
+<       return PolLaGrange(x,&e_corr[100000-1],&e[100000-1],2);
+<     }
+<     return PolLaGrange(x,&e_corr[index-1],&e[index-1],4);
+<   }
+<   else {return x;}//no energy correction
+<   
+< }
+< double draw_unecorr(double *x, double* par){
+<   return une_corr_new(x[0]);
+< }
+< double draw_ecorr(double *x, double* par){
+<   static bool first = true;
+<   if (first){une_corr_new(5.);first=false;}
+<   return calc_ecorr(x[0],alfa1, ISTEP,KKK);
+< }
+< double draw_ecorrOverE(double *x, double* par){
+<   return draw_ecorr(x,par)/x[0];
+< }
+< double draw_ecorrMinusE(double *x, double* par){
+<   return draw_ecorr(x,par)-x[0];
+< }
+< double draw_ecorrOverEminus1(double *x, double* par){
+<   return draw_ecorr(x,par)/x[0]-1.;
+< }
+< 
+< 
+< 
+174,175d34
+<   cout<<"une_corr_new(0.2) = " << une_corr_new(0.2)<<endl;
+<   //return 0;
+246,249c105
+< 	if(string[0]=='b') {
+< 	  fscanf(input," %d",&ieve);
+< 	  //printf("%d\n",ieve);
+< 	  }
+---
+> 	if(string[0]=='b') {fscanf(input," %d",&ieve);/*printf("%d\n",ieve);*/}
+254c110
+< 		//	e[j]+=energy_dep[i][j]*1.159;
+---
+> 	      	e[j]+=energy_dep[i][j]*1.159;
+256,258c112
+< 		//if(i+1==PhotonNumber&&e[j]>0.05)e[j]=une_corr_new(e[j]); //uncor for every cell - old way
+< 		//e[j]+=energy_dep[i][j]*1.159; //uncor for every cell - old way
+< 		e[j]+=energy_dep[i][j]*1.159*une_corr_new(initial_photon_energy[i])/initial_photon_energy[i];//unecor for every photon - new way
+---
+> 		if(i+1==PhotonNumber&&e[j]>0.5)e[j]=une_corr(e[j]);
+278c132
+< 	    if(fscanf(input,"%lf %d ", &energy_dep[PhotonNumber][fin], &fin )==EOF) break;
+---
+> 	    fscanf(input,"%lf %d ", &energy_dep[PhotonNumber][fin], &fin );
+288d141
+< 

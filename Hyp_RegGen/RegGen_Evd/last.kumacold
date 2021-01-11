@@ -1,0 +1,140 @@
+*** Begin of history file: Mon Jan 13 21:25:18 2020
+opt stat
+zone 1 2
+hi/file 1 reggen.hbook
+hi/lis
+zone 1 2
+hi/pl 10
+hi/pl 11
+hi/pl 20
+hi/pl 21
+hi/pl 22
+hi/pl 23
+hi/pl 24
+hi/pl 25
+hi/pl 23
+hi/del 0
+close 0
+hi/file 1 reggen.hbook
+hi/pl 23
+hi/pl 21
+hi/pl 22
+ hi/del 0
+ close 0
+ hi/file 1 reggen.hbook
+hi/del 0
+close 0
+shell pwd
+hi/file 1 ../2015-03/cali_mar15_cu7mm_old.hbook
+hi/pl 30121
+ hi/del 0
+ close 0
+ hi/file 1 ../2015-03/cali_mar15_cu7mm.hbook
+hi/pl 30121
+hi/pl 30121
+hi/del 0
+ close 0
+ hi/file 1 ../2015-03/cali_mar15_cu3mm.hboo
+ hi/file 1 2015-03/cali_mar15_cu3mm.hboo
+shell pwd
+cd ..
+ls
+shell pwd
+hi/file 1 ../2015-03/cali_mar15_cu3mm.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../hsum_23.04.2018_scnd/calir_mar15.hbook
+hi/pl 30121
+opt fit
+set fcol 2
+vec/crea par(9) r 1500. 550. 30. 1000,
+vec/crea par(9) r 1500. 550. 30. 1000.
+hi/fit 30121(450.:650.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p1 ! 5 par
+hi/fit 30121(425.:675.) g+p1 ! 5 par
+hi/fit 30121(425.:675.) g+p1 ! 5 par
+hi/del 0
+close 0
+hi/file 1 ../hsum_23.04.2018_scnd/calir_nov08.hbook
+hi/fit 30121(425.:675.) g+p1 ! 5 par
+zoom
+hi/pl 104165
+hi/pl 104138
+hi/del 0
+close 0
+hi/file 1 ../hsum_23.04.2018_scnd/calir_mar15.hbook
+hi/pl 104138
+ hi/del 0
+ close 0
+hi/file 1 ../hsum_23.04.2018_scnd/calir_nov07.hbook
+hi/pl 104138
+hi/pl 104138(3600.:3650.)
+hi/pl 104138
+hi/del 0
+  close 0
+ hi/file 1 ../hsum_23.04.2018_scnd/calibr_23.04.2018_scnd.hbook
+hi/pl 30121
+vec/crea par(9) r 150000. 550. 30. 100000. 11000. -15.05
+hi/fit 30121(425.:675.) g+p1 ! 5 par
+hi/fit 30121(425.:675.) g+p1 ! 5 par
+hi/fit 30121(425.:675.) g+p1 ! 5 par
+hi/pl 104138
+hi/pl 104155
+hi/pl 104155(0.25:1.85)
+hi/pl 104155(0.45:0.85)
+hi/pl 114155
+hi/pl 114155(0.45:0.85)
+hi/pl 114155(0.45:1.25)
+hi/pl 114155(0.45:1.25) e
+hi/pl 214255
+hi/pl 314355
+hi/pl 314355(0.4:1.0)
+zoom
+hi/pl 113155
+hi/pl 113157
+hi/pl 103157
+hi/pl 113157
+hi/pl -113157
+sub 113157 -113157 -1113157 1.0 0.05
+hi/pl -1113157
+sub 113157 -113157 -1113157 1.0 0.02
+hi/pl -1113157
+sub 113157 -113157 -1113157 1.0 0.017
+hi/pl -1113157
+zoom
+hi/pl -1113157(0.2:1.2)
+hi/pl -1113157(0.2:1.0)
+hi/pl -1113157(0.2:1.0) e
+hi/pl -1113157(0.2:1.0)
+zoom
+sub 113157 -113157 -1113157 1.0 0.018
+hi/pl -1113157(0.2:1.0)
+zoom
+sub 113157 -113157 -1113157 1.0 0.0185
+hi/pl -1113157(0.2:1.0)
+zoom
+sub 113157 -113157 -1113157 1.0 0.019
+hi/pl -1113157(0.2:1.0)
+zoom
+hi/pl -1113157(0.6:1.0)
+zoom
+hi/fit -1113157(0.6:1.0) g+p0 ! 4 par
+vec/crea par(8) 6500. 0.782 0.037 200.
+vec/crea par(8) r 6500. 0.782 0.037 200.
+hi/fit -1113157(0.6:1.0) g+p0 ! 4 par
+hi/fit -1113157(0.6:1.0) g+p0 ! 4 par
+hi/fit -1113157(0.61:1.0) g+p0 ! 4 par
+hi/fit -1113157(0.61:1.0) g+p1 ! 5 par
+hi/fit -1113157(0.61:1.0) g+p1 ! 5 par
+hi/fit -1113157(0.61:1.0) g+p1 ! 5 par
+hi/fit -1113157(0.61:1.0) g+p2 ! 6 par
+hi/fit -1113157(0.61:1.0) g+p2 ! 6 par
+hi/pl -1113157(0.6:1.0)
+hi/pl -1113157(0.6:0.95)
+hi/fit -1113157(0.61:0.95) g+p2 ! 6 par
+hi/fit -1113157(0.61:0.95) g+p2 ! 6 par
+hi/pl -1113157(0.6:0.95)
+zoom
+q
+*** End   of history file: Mon Jan 13 23:20:38 2020

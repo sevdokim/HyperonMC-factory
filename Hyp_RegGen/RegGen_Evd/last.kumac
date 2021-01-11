@@ -1,0 +1,8 @@
+*** Begin of history file: Tue Jan 14 10:24:30 2020
+hi/file 1 reggen.hbook
+hi/pl 22
+hi/pl 23
+sh ls *.hbook -lth
+hi/pl 23(-0.1:0.)
+q
+*** End   of history file: Tue Jan 14 15:27:23 2020

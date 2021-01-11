@@ -1,0 +1,18 @@
+DEFINES       = -Dlong32="int" -Dlong64="long long"
+
+F77 = gfortran
+OPT = -O2 -g
+F77FLAGS      = $(OPT) -I. -Wall -fbounds-check -fno-automatic -finit-local-zero -ffixed-line-length-none -fno-align-commons
+
+FILES = hyp_RegGen.f hyp_RegGen_main.f   
+OBJS  = hyp_RegGen.o hyp_RegGen_main.o trapfpe.o    
+F77LIBS = -L/usr/local/lib -lcrypt -lnsl        
+.f.o:   
+	$(F77) -c $(F77FLAGS) $(FILES)
+all:    hyp_RegGen
+hyp_RegGen: $(OBJS)
+	$(F77) -o hyp_RegGen_main $(OBJS) $(F77LIBS) \
+        -lz \
+        `cernlib packlib,mathlib,kernlib`
+clean:  
+	rm -f $(OBJS) hyp_RegGen
