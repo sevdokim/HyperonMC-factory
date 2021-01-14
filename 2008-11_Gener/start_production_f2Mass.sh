@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-    export EVENTNUMBER=1000                     # Total event number to be generated per 1 production thread  
-    export NTHREADS=1                              # total number of production threads   
+    export EVENTNUMBER=500000                     # Total event number to be generated per 1 production thread  
+    export NTHREADS=10                             # total number of production threads   
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #    export CONVERT_ONLY=yes                        # yes or no 
@@ -61,7 +61,7 @@ do
 	for TGTPRFX in be79mm
 	do
 	    #effective s4 thickness for f2 meson (see f2.stat)
-	    case "$TGT_PRFX" in
+	    case "$TGTPRFX" in
 		"be79mm")   export THICKNESS_S4=1.819 ;;
 		"c78mm")    export THICKNESS_S4=1.877 ;;
 		"al35mm")   export THICKNESS_S4=3.491 ;;
@@ -74,7 +74,7 @@ do
 		*)          export THICKNESS_S4=6.000  ;; #default value (6mm) 
 	    esac
 
-	    for mass in {700..700..50} #c is control parameter for omg width 
+	    for mass in {700..1700..50} #c is control parameter for omg width 
 	    do
 		#MESON=${MES}_${HYCONDITION}_width${width}MeV
 		MESON=${MES}
