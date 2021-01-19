@@ -57,8 +57,8 @@ do
             *)         n=0 ;;
 	esac
 	export MESON=$MES
-#	for TGTPRFX in al35mm cu7mm sn5mm pb3mm c78mm be79mm ch80mm # al35mm cu7mm sn5mm pb3mm
-	for TGTPRFX in be79mm
+	for TGTPRFX in al35mm cu7mm sn5mm pb3mm c78mm be79mm ch80mm # al35mm cu7mm sn5mm pb3mm
+#	for TGTPRFX in be79mm
 	do
 	    #effective s4 thickness for f2 meson (see f2.stat)
 	    case "$TGTPRFX" in
@@ -74,7 +74,7 @@ do
 		*)          export THICKNESS_S4=6.000  ;; #default value (6mm) 
 	    esac
 
-	    for mass in {700..1700..50} #c is control parameter for omg width 
+	    for mass in {700..1900..50} #c is control parameter for omg width 
 	    do
 		#MESON=${MES}_${HYCONDITION}_width${width}MeV
 		MESON=${MES}

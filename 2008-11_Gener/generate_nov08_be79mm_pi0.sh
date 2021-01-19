@@ -96,10 +96,25 @@ do
  # if [ ! -f Run${SEED}.gz ] ; then # this is attempt to resubmit failed jobs. 
   echo '1target_qsub macro:' $MCDIR/generate_1target_qsub_scratch.sh
   printenv > shell_env.sh
-  qsub -q ihep-medium $MCDIR/generate_1target_qsub_scratch.sh
- # fi
-# qsub $SUFFIX.sh  #submit the production thread using 'torque' batch system. alice5 is compatible to run 8 threads simultaneously.
-# echo $SUFFIX.sh
+  #use this if in case if some jobs failed and you want to resubmit them
+  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
+  if [ ! -e $MCRUNSDIR/Run${SEED}.gz ] ; then
+      if [ -e generated.tar ] || [ -e MC_res.dat ] ; then
+	  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
+	  #qsub -q ihep-short $MCDIR/generate_1target_qsub_scratch.sh
+	  rm -f generated.tar MC_res.dat log* 
+	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
+	  qsub -q ihep-medium ${SUFFIX}.sh
+      else
+	  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
+	  rm -f generated.tar MC_res.dat log*
+	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
+	  qsub -q ihep-medium ${SUFFIX}.sh
+      fi
+  fi
+  
+  # qsub $SUFFIX.sh  #submit the production thread using 'torque' batch system. alice5 is compatible to run 8 threads simultaneously.
+  # echo $SUFFIX.sh
   let i+=1
 done
 
