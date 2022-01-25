@@ -1,14 +1,14 @@
 function prefix_by_period () {
     #======= first, read period list ================
     if [ -z ${hy_periods_names} ]; then
-	if ls $HYLUSTREMC/periods.list >& /dev/null ; then
+	if /bin/ls $REPO_HYPERONMC_FACTORY/periods.list >& /dev/null ; then
 	    i=0
-	    for line in $(cat $HYLUSTREMC/periods.list)
+	    for line in $(cat $REPO_HYPERONMC_FACTORY/periods.list)
 	    do
 		if [ ! -z $line ] ; then
 		    period=$(echo $line | awk -F: '{ print $1 }' )
 		    if [ -z $period ] ; then 
-			(1>&2 echo "$HYLUSTREMC/periods.list is wrongly formatted. Please check. Stopping...")
+			(1>&2 echo "$REPO_HYPERONMC_FACTORY/periods.list is wrongly formatted. Please check. Stopping...")
 			(1>&2 echo "It should be like that: ")
 			(1>&2 echo "period1:prefix1")
 			(1>&2 echo "period2:prefix2")
@@ -26,7 +26,7 @@ function prefix_by_period () {
 	    export hy_periods_number=$i
 	    echo "I read $hy_periods_number periods">/dev/null
 	else
-            (1>&2 echo "no periods.list found. Please specify HYLUSTREMC variable with path to periods.list file.")
+            (1>&2 echo "no periods.list found. Please specify REPO_HYPERONMC_FACTORY variable with path to periods.list file.")
             return 1
 	fi
     fi
@@ -35,7 +35,7 @@ function prefix_by_period () {
     do
 	#echo 'input is' $input >/dev/null
 	i=1
-	while [ $(echo $hy_periods_names | awk -F: -v pos=$i '{ print $pos }' ) != $input ] && [ $i -le $hy_periods_number ] ; do let i+=1 ; done
+	while [ "$(echo $hy_periods_names | awk -F: -v pos=$i '{ print $pos }' )" != $input ] && [ $i -le $hy_periods_number ] ; do let i+=1 ; done
 	if [ $i -gt $hy_periods_number ] ; then echo 'unknown' ;
 	else echo $(echo $hy_periods_prefixes | awk -F: -v pos=$i '{ print $pos }' )
 	fi    
@@ -56,3 +56,19 @@ function list_periods () {
     return 0
 }
 export -f list_periods
+function period_by_prefix () {
+    if prefix_by_period ; then
+	for input in "$@"
+	do
+	    i=1
+            while [ "$(echo $hy_periods_prefixes | awk -F: -v pos=$i '{ print $pos }' )" != $input ] && [ $i -le $hy_periods_number ] ; do let i+=1 ; done
+            if [ $i -gt $hy_periods_number ] ; then echo 'unknown' ;
+            else echo $(echo $hy_periods_names | awk -F: -v pos=$i '{ print $pos }' )
+            fi
+	done
+    else
+	echo 'no periods' ; return 1;
+    fi
+    return 0
+}
+export -f period_by_prefix
