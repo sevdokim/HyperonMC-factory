@@ -10,12 +10,11 @@ using namespace std;
 
 double rnd_gauss()
 {
-  double rho,phi,R;
-  R=rand()/2147483648.;
+  static double rho,phi,R, rmax = double(RAND_MAX);
+  R=rand()/rmax;
   rho=sqrt(-2*log(R));
-  phi=(rand()/2147483648.)*2*3.14159265358979;
+  phi=(rand()/rmax)*2*3.14159265358979;
   return rho*cos(phi);
-  
 }
 
 
@@ -35,12 +34,14 @@ const char *fCoeff = "coeff_old.dat";
 const char *fAbsoluteConnect = "hard_soft.dat";
 const char *fMCCoeff = "MC_calibr.dat";
 const char *fCalibrCards = "calibr.cards";
+const char *fBadChannels = "bad_channels.dat";
 int         fHadr[900];      // hardware address
 float       fCalibr[900];
 float       fMCCalibr[640];
 int         gBuf[40000];
 static int         MISS[7] = {1100, 1200, 1300, 1400, 1500, 1600, 2900};
 static int         Cher[4] = {1,32,33,34};
+static bool badChannels[640];
 //Cher[0] ==1 => new address format (by default); Cher[0] == 0 => old address format
 //Cher[0]==-1 => do not write cherenkovs data  
 
@@ -187,7 +188,25 @@ static void readConnectionTable()
      }
    }
    if(int_eNorm > 0) eNorm = int_eNorm/10000.;
-   
+   fclose(fp);
+
+   //bad channels
+   for (int i = 0; i < 640; i++) {
+     badChannels[i] = false;
+   }
+   fp = fopen(fBadChannels, "r");
+   if (!fp) {
+     cout << "No bad channels are provided. All channels considered to be good!" << endl;
+   } else {
+     cout << "Reading bad channels from " << fBadChannels << "." << endl;
+     int badChannel = -1;
+     while (EOF != fscanf(fp, "%d\n", &badChannel)) {
+       if (badChannel > 640 || badChannel < 1) continue;
+       cout << "Bad channel " << badChannel << endl;
+       badChannels[badChannel - 1] = true;
+     }
+   }
+
    // i don't use it by now
    /* fp = fopen(fMCCoeff, "r"); */
    /* if (!fp) {      printf("failed to open MC coeff. table: %s\n", fMCCoeff); */
@@ -357,38 +376,41 @@ static void processEnergy(float *e,int time)
    gGroupLen = 0;
    fIdx = 8;
    for (i = 0; i < 640; ++i) {
-      hadr = fHadr[i];
-      //cout<<"e["<<i<<"]= "<<e[i]<<endl;
-      TotalEnergy+=e[i];
-      if (!hadr || (e[i] == 0)) {   // no such channel or no signal
-	//	if (!hadr){cerr<<"cell= "<<i<<"hadr= "<<hadr<<endl;}
-         continue;
-      }
-
-      c = fCalibr[i];
-      //ashum = (int)(3.*rnd_gauss()+0.933*sqrt(e[i]*1000./c)*rnd_gauss());
-      //ashum = (int)(4.*rnd_gauss()+1.244*sqrt(e[i]*1000./c)*rnd_gauss());
-      //ashum = (int)(3.6*rnd_gauss()+1.196*sqrt(e[i]*1000./c)*rnd_gauss());
-      //ashum = (int)(3.3*rnd_gauss()+1.0263*sqrt(e[i]*1000./c)*rnd_gauss());
-//Evd  17.04.2019
-//Sdv float A=0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2)
-      float A=5.0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2)
-      sigma=0.01*e[i]*sqrt(A*A/e[i] + B*B/e[i]/e[i] + C*C);
-      ashum=(int)(sigma*rnd_gauss()*1000./c);
-      a = (int)(e[i]*1000./(c*eNorm));
-      if (c == 0) a = 0;
-      v = /*(hadr << 16) + */a+ashum;
-      if (v <= 10) {  // zero amplitude
-	//cout<<"a= "<<a<<"c= "<<c<<"e[i]= "<<e[i]<<"i= "<<i<<endl;
-         continue;
-
-      }
-      gGroupLen+=2;
-      gBuf[fIdx] = hadr;
-      gBuf[fIdx+1] = v;
-
-      fIdx+=2;
-      
+     //reject bad channels
+     if (badChannels[i]) continue;
+     
+     hadr = fHadr[i];
+     //cout<<"e["<<i<<"]= "<<e[i]<<endl;
+     TotalEnergy+=e[i];
+     if (!hadr || (e[i] == 0)) {   // no such channel or no signal
+       //	if (!hadr){cerr<<"cell= "<<i<<"hadr= "<<hadr<<endl;}
+       continue;
+     }
+     
+     c = fCalibr[i];
+     //ashum = (int)(3.*rnd_gauss()+0.933*sqrt(e[i]*1000./c)*rnd_gauss());
+     //ashum = (int)(4.*rnd_gauss()+1.244*sqrt(e[i]*1000./c)*rnd_gauss());
+     //ashum = (int)(3.6*rnd_gauss()+1.196*sqrt(e[i]*1000./c)*rnd_gauss());
+     //ashum = (int)(3.3*rnd_gauss()+1.0263*sqrt(e[i]*1000./c)*rnd_gauss());
+     //Evd  17.04.2019
+     //Sdv float A=0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2)
+     float A=5.0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2)
+     sigma=0.01*e[i]*sqrt(A*A/e[i] + B*B/e[i]/e[i] + C*C);
+     ashum=(int)(sigma*rnd_gauss()*1000./c);
+     a = (int)(e[i]*1000./(c*eNorm));
+     if (c == 0) a = 0;
+     v = /*(hadr << 16) + */a+ashum;
+     if (v <= 10) {  // zero amplitude
+       //cout<<"a= "<<a<<"c= "<<c<<"e[i]= "<<e[i]<<"i= "<<i<<endl;
+       continue;
+       
+     }
+     gGroupLen+=2;
+     gBuf[fIdx] = hadr;
+     gBuf[fIdx+1] = v;
+     
+     fIdx+=2;
+     
    }
    
    //cherenkovskie schetchiki
@@ -460,18 +482,12 @@ static void processEnergy(float *e,int time)
 //______________________________________________________________________________
 static void writeAndReset()
 {
-   //
-
-   int   hadr;      // hardware address
-   int   a;         // amplitude
-   int   debug = 0;
-   int   i = 0;
    int   len = gBuf[3] + 16;
 
    if (gGroupLen > 1) {
       gzwrite(fFile, gBuf, len);
-
-      for (i = 0; i < len/4; i++) {
+      
+      for (int i = 0; i < len/4; i++) {
          gBuf[i] = 0;
       }
    }

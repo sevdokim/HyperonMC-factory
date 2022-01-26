@@ -1,4 +1,11 @@
 function reconvert_threads () {
+    if [ -z $HYCONVERTER]; then 
+	HYCONVERTER=$REPO_HYPERONMC_FACTORY/converter/exe
+    else
+	HYCONVERTER=$REPO_HYPERONMC_FACTORY/Hyp_RegGen/converter/exe
+    fi
+    if ! /bin/ls $HYCONVERTER ; then echo "cannot find converter! stopping"; return 1; fi
+    
     this_wd=$(pwd)
     if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]; then
 	echo "Usage: reconvert_threads /path/to/threads/list /path/to/anchors period1:period2:...:periodN "
@@ -8,19 +15,19 @@ function reconvert_threads () {
 	echo "Please export production_name=..."
     fi
     if [ ! -f $1 ] ; then
-	echo "no production list found: $1"
+	echo "no list of production threads found: $1"
 	return 1 
     fi
-    if ! ls $REPO_HYPERONMC_TOOLS/converter/exe ; then echo "cannot find converter! stopping"; return 1; fi  
+
     target=$(echo $production_name | awk -F'_' '{ print $2}')
     echo "I recieved folloving period list: $3"
     for period in $(echo $3 | awk -F':' '{ for ( i=1; i<=NF; i++) print $i}')
     do
-	if ls $2/$period ; then
+	if /bin/ls $2/$period ; then
 	    echo "I found $2/$period, linking anchor files to $this_wd/$period"
 	    mkdir -p /scratch/$USER/$this_wd/$period/
 	    mkdir -p $RECONVERTING_TOP_DIRECTORY/$production_name/$period/MCruns
-	    for anchor in calibr.cards coeff_old.dat e_cor_matrix.dat h_s_new.dat ; do 
+	    for anchor in calibr.cards coeff_old.dat e_cor_matrix.dat h_s_new.dat bad_channels.dat ; do 
 		cp $2/$period/$anchor /scratch/$USER/$this_wd/$period/$anchor
 	    done
 	    if [ -f $2/$period/file_list_$(prefix_by_period $period)_${target}.dat ] ; then
@@ -50,8 +57,9 @@ function reconvert_threads () {
 			    echo "I go to period $period"
 			    cd /scratch/$USER/$this_wd/$period
 			    if [ -f file_list.dat ] ; then
-				$REPO_HYPERONMC_TOOLS/converter/exe ../MC_res.dat ${SEED} >& log_converter_${SEED}
+				$HYCONVERTER ../MC_res.dat ${SEED} >& log_converter_${SEED}
 				mv Run${SEED}.gz $RECONVERTING_TOP_DIRECTORY/$production_name/$period/MCruns
+				mv log_converter_${SEED} $RECONVERTING_TOP_DIRECTORY/$production_name/$period/reconvert_thread_$i
 			    else
 				echo "no file_list.dat for $period in /scratch/$USER/$this_wd/$period"
 			    fi
@@ -83,7 +91,7 @@ function reconvert_production () {
 	return 1
     fi
     if [ -z $RECONVERTING_TOP_DIRECTORY ] || ! mkdir -p $RECONVERTING_TOP_DIRECTORY; then
-	echo "Please export RECONVERTING_TOP_DIRECTORY=/path/to/top/reconvert/directory"
+	echo "Please export RECONVERTING_TOP_DIRECTORY=/absolute/path/to/top/reconvert/directory"
 	return 1
     fi
     this_wd=$(pwd)

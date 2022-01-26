@@ -1,0 +1,114 @@
+#######################################################
+# U-70, 2008, November-December
+#             Be 75 mm form PS (Dec 18, 2008)
+# Wed Nov 12 20:30:14 2008 -> Fri Nov 14 21:41:10 2008 
+#######################################################
+#/Distance mm: 3700; 79.  9781
+#/Distance mm: 3913; 79. 10378    --> version of the 2018 activity
+#/Distance mm: 3795; 79.  9962    --> the new 2019 version for Nov08 C12
+#/Distance mm: 3876; 79.  9858
+#/Distance mm: 3876; 79.  9849
+#/Distance mm: 3853; 79.  9849    --> version of the 2018 activity after Z corr
+#/Distance mm: 3805; 79.  9726    --> versiya osnovnogo progona s Enor=7860
+#/Distance mm: 3698; 79.  9726    --> for MC tuning 
+#/Distance mm: 3698; 79.  9964    --> popytka perenormirovki energii 
+/ Distance mm: 3698; 79. 10050
+/data/HYPERON_data/2008-11/data/
+#--------------------------------
+run07108.mid.gz
+run07109.mid.gz
+run07110.mid.gz
+run07111.mid.gz
+run07112.mid.gz
+run07113.mid.gz
+run07114.mid.gz
+#run07115.mid.gz# Empty
+run07116.mid.gz 
+run07117.mid.gz
+run07118.mid.gz
+run07119.mid.gz
+run07120.mid.gz
+run07121.mid.gz
+run07122.mid.gz
+run07123.mid.gz
+run07124.mid.gz
+run07125.mid.gz
+run07126.mid.gz
+run07127.mid.gz
+run07128.mid.gz
+run07129.mid.gz
+run07130.mid.gz
+run07131.mid.gz
+run07132.mid.gz
+run07133.mid.gz
+run07134.mid.gz
+#run07136.mid.gz# Empty
+run07137.mid.gz
+run07142.mid.gz
+run07143.mid.gz
+run07144.mid.gz
+run07145.mid.gz
+run07146.mid.gz
+run07147.mid.gz
+run07148.mid.gz
+run07149.mid.gz
+run07150.mid.gz
+run07151.mid.gz
+run07152.mid.gz
+run07153.mid.gz
+# Something changed at run 7154 to 7190
+# Из бортового журнала (13.11.2008): 
+# постоянно генерят: модуль (11-20), addr.2380, гист. 593.  
+#                  : модуль (4-3)  , addr.2775, гист. 177.
+# После 7194 генереж пропал (гист. 593).  
+run07154.mid.gz
+run07155.mid.gz
+run07156.mid.gz
+run07157.mid.gz
+#run07158.mid.gz# Empty
+run07159.mid.gz
+run07160.mid.gz
+run07161.mid.gz
+run07162.mid.gz
+run07163.mid.gz
+run07164.mid.gz
+run07165.mid.gz
+run07166.mid.gz
+run07167.mid.gz
+run07168.mid.gz
+run07169.mid.gz
+run07170.mid.gz
+run07171.mid.gz
+run07172.mid.gz
+run07173.mid.gz
+run07174.mid.gz
+run07175.mid.gz
+run07176.mid.gz
+run07177.mid.gz
+run07178.mid.gz
+run07179.mid.gz
+run07180.mid.gz
+run07181.mid.gz
+run07182.mid.gz
+run07183.mid.gz
+run07184.mid.gz
+run07185.mid.gz
+run07186.mid.gz
+run07187.mid.gz
+run07188.mid.gz
+run07189.mid.gz
+run07190.mid.gz
+#run07191.mid.gz# Empty
+#run07192.mid.gz# Empty
+#run07193.mid.gz# Empty
+#run07195.mid.gz# Empty
+run07196.mid.gz
+run07197.mid.gz
+run07198.mid.gz
+run07199.mid.gz
+run07200.mid.gz
+run07201.mid.gz
+#run07202.mid.gz# Empty
+#run07203.mid.gz# Empty
+#run07204.mid.gz# Empty
+run07206.mid.gz

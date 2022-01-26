@@ -17,7 +17,9 @@ OBJS = main.o writeHyp.o
 $(EXE):	$(OBJS)
 	$(C++) -o $(EXE)             \
 	$(OBJS)                      \
-        /usr/lib/x86_64-linux-gnu/libz.so
+	-lz
+#	/usr/lib64/libz.so
+#        /usr/lib/x86_64-linux-gnu/libz.so
 #       /cern/pro/lib/libgeant321.a  \
 #	/cern/pro/lib/libpacklib.a   \
 #	/cern/pro/lib/libmathlib.a   \

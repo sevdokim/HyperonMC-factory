@@ -1,6 +1,7 @@
 function prefix_by_period () {
     #======= first, read period list ================
     if [ -z ${hy_periods_names} ]; then
+	REPO_HYPERONMC_FACTORY=$(dirname "${BASH_SOURCE[0]}")
 	if /bin/ls $REPO_HYPERONMC_FACTORY/periods.list >& /dev/null ; then
 	    i=0
 	    for line in $(cat $REPO_HYPERONMC_FACTORY/periods.list)
@@ -26,7 +27,7 @@ function prefix_by_period () {
 	    export hy_periods_number=$i
 	    echo "I read $hy_periods_number periods">/dev/null
 	else
-            (1>&2 echo "no periods.list found. Please specify REPO_HYPERONMC_FACTORY variable with path to periods.list file.")
+            (1>&2 echo "no periods.list found in $REPO_HYPERONMC_FACTORY. Aborting")
             return 1
 	fi
     fi

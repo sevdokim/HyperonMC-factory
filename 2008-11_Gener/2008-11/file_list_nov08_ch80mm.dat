@@ -1,0 +1,21 @@
+##########################################
+# U-70, 2007, november
+##########################################
+# Polistirol, 80mm
+#/Distance mm: 3711; 80
+#/Distance mm: 3711; 80.  9582
+#/Distance mm: 3711; 80. 10053
+#/Distance mm: 3692; 80.  9657
+#/Distance mm: 3692; 80. 10052
+#/Distance mm: 3692; 80.  9855
+#/Distance mm: 3692; 80.  9903
+#/Distance mm: 3640; 80.  9903
+#/Distance mm: 3453; 80.  9398
+#/Distance mm: 3606; 80.  9398
+#/Distance mm: 3591; 80.  9398     --> Enorm best
+/ Distance mm: 3695; 80. 10050
+/data/HYPERON_data/2007-11/data/
+#--------------------------------
+# 
+# This is dummy file_list only to make MC of CH80 in nov08 run envonment
+# where was no sach target
