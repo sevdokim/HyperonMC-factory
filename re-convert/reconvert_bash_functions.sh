@@ -1,7 +1,5 @@
 function reconvert_threads () {
     if [ -z $HYCONVERTER]; then 
-	HYCONVERTER=$REPO_HYPERONMC_FACTORY/converter/exe
-    else
 	HYCONVERTER=$REPO_HYPERONMC_FACTORY/Hyp_RegGen/converter/exe
     fi
     if ! /bin/ls $HYCONVERTER ; then echo "cannot find converter! stopping"; return 1; fi
@@ -59,7 +57,7 @@ function reconvert_threads () {
 			    if [ -f file_list.dat ] ; then
 				$HYCONVERTER ../MC_res.dat ${SEED} >& log_converter_${SEED}
 				mv Run${SEED}.gz $RECONVERTING_TOP_DIRECTORY/$production_name/$period/MCruns
-				mv log_converter_${SEED} $RECONVERTING_TOP_DIRECTORY/$production_name/$period/reconvert_thread_$i
+				mv log_converter_${SEED} $RECONVERTING_TOP_DIRECTORY/$production_name/reconvert_thread_$i/log_converter_$period_${SEED}
 			    else
 				echo "no file_list.dat for $period in /scratch/$USER/$this_wd/$period"
 			    fi
