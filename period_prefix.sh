@@ -1,7 +1,10 @@
 function prefix_by_period () {
     #======= first, read period list ================
     if [ -z ${hy_periods_names} ]; then
-	REPO_HYPERONMC_FACTORY=$(dirname "${BASH_SOURCE[0]}")
+	if [ -z $REPO_HYPERONMC_FACTORY ]; then
+	    REPO_HYPERONMC_FACTORY=$(dirname $(realpath "${BASH_SOURCE[0]}"))
+	    echo "No REPO_HYPERONMC_FACTORY setted. I set it to be ${REPO_HYPERONMC_FACTORY}"
+	fi
 	if /bin/ls $REPO_HYPERONMC_FACTORY/periods.list >& /dev/null ; then
 	    i=0
 	    for line in $(cat $REPO_HYPERONMC_FACTORY/periods.list)

@@ -2,7 +2,7 @@
 #PBS -l ncpus=1
 #PBS -l vmem=1000mb
 #PBS -l cput=02:00:00
-#PBS -l walltime=12:00:00
+#PBS -l walltime=2:00:00
 #PBS -q ihep-short
 #PBS -V
 

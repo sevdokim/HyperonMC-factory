@@ -24,7 +24,7 @@ function reconvert_threads () {
 	if /bin/ls $2/$period ; then
 	    echo "I found $2/$period, linking anchor files to $this_wd/$period"
 	    mkdir -p /scratch/$USER/$this_wd/$period/
-	    mkdir -p $RECONVERTING_TOP_DIRECTORY/$production_name/$period/MCruns
+	    mkdir -p $RECONVERTING_TOP_DIRECTORY/$period/$production_name/MCruns
 	    for anchor in calibr.cards coeff_old.dat e_cor_matrix.dat h_s_new.dat bad_channels.dat ; do 
 		cp $2/$period/$anchor /scratch/$USER/$this_wd/$period/$anchor
 	    done
@@ -56,8 +56,8 @@ function reconvert_threads () {
 			    cd /scratch/$USER/$this_wd/$period
 			    if [ -f file_list.dat ] ; then
 				$HYCONVERTER ../MC_res.dat ${SEED} >& log_converter_${SEED}
-				mv Run${SEED}.gz $RECONVERTING_TOP_DIRECTORY/$production_name/$period/MCruns
-				mv log_converter_${SEED} $RECONVERTING_TOP_DIRECTORY/$production_name/reconvert_thread_$i/log_converter_$period_${SEED}
+				mv Run${SEED}.gz $RECONVERTING_TOP_DIRECTORY/$period/$production_name/MCruns/
+				mv log_converter_${SEED} $RECONVERTING_TOP_DIRECTORY/$period/$production_name/log_converter_${SEED}_${period}_thread$i
 			    else
 				echo "no file_list.dat for $period in /scratch/$USER/$this_wd/$period"
 			    fi
@@ -121,8 +121,15 @@ function reconvert_production () {
 	    mv thread_list_$i $RECONVERTING_TOP_DIRECTORY/$production_name/reconvert_thread_$i
 	    cd $RECONVERTING_TOP_DIRECTORY/$production_name/reconvert_thread_$i
 	    echo "thread_list_$i $2 $3 $max_threads" > reconvert_threads.parameters
-	    if [ $USE_TORQUE = YES ] ; then qsub $REPO_HYPERONMC_FACTORY/re-convert/reconvert_1thread.sh ;
-	    else reconvert_threads thread_list_$i $2 $3 $max_threads ; fi
+	    if [ -z $USE_TORQUE ]; then
+		reconvert_threads thread_list_$i $2 $3 $max_threads
+	    else
+		if [ $USE_TORQUE = YES ]; then
+		    qsub -q ihep-short $REPO_HYPERONMC_FACTORY/re-convert/reconvert_1thread.sh ;
+		else
+		    reconvert_threads thread_list_$i $2 $3 $max_threads
+		fi
+	    fi
 	fi
     done
     cd $this_wd

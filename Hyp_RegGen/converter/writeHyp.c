@@ -394,7 +394,8 @@ static void processEnergy(float *e,int time)
      //ashum = (int)(3.3*rnd_gauss()+1.0263*sqrt(e[i]*1000./c)*rnd_gauss());
      //Evd  17.04.2019
      //Sdv float A=0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2)
-     float A=5.0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2)
+     //float A=5.0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2) //before 27.01.22
+     float A=0.0,B=3.,C=5,sigma;
      sigma=0.01*e[i]*sqrt(A*A/e[i] + B*B/e[i]/e[i] + C*C);
      ashum=(int)(sigma*rnd_gauss()*1000./c);
      a = (int)(e[i]*1000./(c*eNorm));
