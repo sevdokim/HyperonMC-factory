@@ -1703,7 +1703,7 @@ C     +                         0.74576, 0.00423, 0.057, 3*0./        !  Resonan
      +                           0., 0.032, 0.057, 0.00, 2*0./        !  Resonans probability
 C
 C-    data Mchanel  /     1,   2,   1,   1,   1,  1,  1, 1, 1, 0 /    !  Decay cahannels
-      data Mchanel  /     1,   1,   1,   1,   1,  1,  1, 1, 1, 1 /    !  Decay cahannels
+      data Mchanel  /     1,   3,   1,   1,   1,  1,  1, 2, 1, 1 /    !  Decay cahannels
       data Pchanel  /  1.00, 9*0.0,                              !  pi0 /pi0->2Y/
      2                39.41, 32.68, 0.0256, 7*0.0,               !  eta /eta->2Y, eta->3pi0->6Y, eta->2Ypi0->4Y/
      3                1.0, 0.0, 0.0, 0.0,   6*0.0, !  omg /omg->pi0Y->3Y, omg->3pi0, omg->2pi0, omg->etapi0/
@@ -1711,9 +1711,11 @@ C-    data Mchanel  /     1,   2,   1,   1,   1,  1,  1, 1, 1, 0 /    !  Decay c
      5                1.000, 9*0.0,                              !  f2 /f2->2pi0->4Y/
      6                1.000, 9*0.0,                              !  2pi0 /2pi0->4Y/
      7                1.000, 9*0.0,                              !  f0 /f0->2pi0->4Y/
-     8                1.000, 9*0.0,                              !  pi0 /pi0->2Y/ for MC Z-scale calibration
-     9                1.000, 9*0.0,                              !  eta /eta->2Y/ for MC Z-scale calibration
-     +                1.000,                 9*0.0  /            !  rho0(770)->pi0gamma
+c     8                1.000, 9*0.0,                              !  pi0 /pi0->2Y/ for MC Z-scale calibration
+C     9                1.000, 9*0.0,                              !  eta /eta->2Y/ for MC Z-scale calibration
+     8                2.220, 22.8, 8*0.0,                        !  eta' /eta'->2Y, eta'->pi0pi0eta/                                                                                                       
+     9                1.000, 9*0.0,                              !  a0(980) /a0->etapi0/                 
+     +                1.000,                 9*0.0  /            !  a2(1320)->etapi0
       data CtauK0     / 2.6844  /                                 !  C*lifetime(K0s)
 C ..............................................................................
       Logical Lstart
@@ -1727,6 +1729,10 @@ C
 C      
       data  WidOmg, 	Widf0,	  Widf2,    WidRho0    !  Widths of resonances in MeV 
      +/      8.490,     350.0,	  186.7,    151.7 /  
+      data AmEtaP,  AmA0980, AmA21320 
+     +/    0.95778, 1.0,     1.318 /
+      data WidEtaP,  WidA0980, WidA21320
+     +/    0.000198, 0.1,      0.107 /
 C---------------------------------------------------------------------------------   
 C
       if(Nreson.gt.Mreson) then
@@ -1945,15 +1951,18 @@ C
          enddo
       endif
 C
-      if (Nreson.eq.2) then	                    !  Resonans 2 - eta 
+      if (Nreson.eq.2) then	                    !  Resonans 2 - eta
+         Pc(5) = AmEta
          cntrl_prmtr=Pgamma(1,0)
          if (cntrl_prmtr.gt.0.) then
             if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
      c           Nchanel=1
             if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
      c           Nchanel=2
+            if(cntrl_prmtr.gt.10.) then
+               Pc(5) = cntrl_prmtr/1000.            ! MeV -> GeV
+            endif
          endif
-         Pc(5) = AmEta
          call reaction(Nreson, T, Pd(5))  
          call abtocds(Pa,Pb(5),Pc,Pd,T)
 	 if (T.gt.0.) go to 1000
@@ -2013,6 +2022,77 @@ C
 	Pgamma(9,j) =22.                            !  PDG code of photon
 	Pgamma(10,j)=100*Nreson+10*Nchanel+j        !  Photon hystory code
 	enddo
+      endif
+C
+      if (Nreson.eq.3) then                         !  Resonance 3 - omega
+C-       Pc(5) = Amw + (s2w/2.36)*rnd_gauss(1.)     !  Simple Gauss distribution
+C
+         cntrl_prmtr=Pgamma(1,0)
+         if (cntrl_prmtr.gt.0.) then
+            if(cntrl_prmtr.lt.0.1) WidOmg = cntrl_prmtr*1000. !  read width from control parameter from 0 to 0.1 GeV
+            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005) 
+     c           Nchanel=1
+            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
+     c           Nchanel=2
+            if(cntrl_prmtr.lt.1.0035.and.cntrl_prmtr.gt.1.0025)
+     c           Nchanel=3
+            if(cntrl_prmtr.lt.1.0045.and.cntrl_prmtr.gt.1.0035)
+     c           Nchanel=4
+         endif
+ 345     call BW_rand_omg(AmOmg,WidOmg ,rnd_BW) !  GAMS BW for omg(782)  
+         Pc(5) = 0.001*rnd_BW                       !  MeV => GeV   
+C    
+         call reaction(Nreson, T, Pd(5))            !  Just like eta 
+         call abtocds(Pa,Pb(5),Pc,Pd,T)      
+         if (T.gt.0) go to 1000
+C
+         if (Nchanel.eq.1) then !  Excl. channel = w -> pi0Y -> 3Y
+            P1(5) = Ampi0
+            if(Pc(5).le.Ampi0) goto 345
+            call decays(Pc, P1, Pgamma(1,1))
+            call decays(P1, Pgamma(1,2), Pgamma(1,3))
+            Ngamma = 3
+         endif
+C     
+         if (Nchanel.eq.2) then !  Excl. channel = omg->3pi0                                                                                                        
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = Ampi0
+            if(Pc(5).le.(3.*Ampi0)) goto 345
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
+         endif
+C
+         if (Nchanel.eq.3) then !  Excl. channel = omg->2pi0
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            if(Pc(5).le.(2.*Ampi0)) goto 345
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+C
+         if (Nchanel.eq.4) then !  Excl. channel = omg->etapi0
+            P1(5) = AmEta
+            P2(5) = Ampi0
+            if(Pc(5).le.(AmEta+Ampi0)) goto 345
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+C         
+         do j=1,Ngamma
+         Pgamma(6,j) = 0.
+	 Pgamma(7,j) = 0.
+	 Pgamma(8,j) = 0.
+	 Pgamma(9,j) =22.                           !  PDG code of photon
+	 Pgamma(10,j)=100*Nreson+10*Nchanel+j       !  Photon hystory code
+         enddo
       endif
 C
       if (Nreson.eq.4) then                         !  Resonance 4 - K0s
@@ -2103,13 +2183,13 @@ c        write(*,*) 'gamma ',j,': (px py pz e) = (',Pgamma(1,j),Pgamma(2,j), Pga
 C                                                                                             
       if (Nreson.eq.6) then                         !  Resonance 6 - 2pi0 
  854     R1=REGRNDM(0)                                                                        
-C-       R2=REGRNDM(0)                              !                                           
-C-       FF=Double_Mass_distr_2pi0(R1*2100.)        !  M.Stolpovsky mass distribution   
-C-       FF=Double_Mass_distr_2pi0(R1*2750.)        !  M.Stolpovsky mass distribution                                                                                               
-C-       if((R2*800.).gt.FF) go to 854 
-C-       Pc(5) = FF     !                                          
+         R2=REGRNDM(0)          !                                           
+         FF=Double_Mass_distr_2pi0(R1*2100.) !  M.Stolpovsky mass distribution   
+         FF=Double_Mass_distr_2pi0(R1*2750.) !  M.Stolpovsky mass distribution                                                                                               
+         if((R2*800.).gt.FF) go to 854 
+         Pc(5) = FF             !                                          
 C                                                               
-         Pc(5) = 0.270 + 2.480*R1                   !  ===> Uniform distribution up 2.5
+C         Pc(5) = 0.270 + 2.480*R1                   !  ===> Uniform distribution up 2.5
          P1(5) = Ampi0                              !       but actually due to t & MisMs                                          
          P2(5) = Ampi0                              !       this is not unifomdistribution                                          
  855     call reaction(Nreson, T, Pd(5))
@@ -2133,102 +2213,6 @@ C
          enddo                                                                                
       endif                                                                                   
 C                                         
-      if (Nreson.eq.3) then                         !  Resonance 3 - omega
-C-       Pc(5) = Amw + (s2w/2.36)*rnd_gauss(1.)     !  Simple Gauss distribution
-C
-         cntrl_prmtr=Pgamma(1,0)
-         if (cntrl_prmtr.gt.0.) then
-            if(cntrl_prmtr.lt.0.1) WidOmg = cntrl_prmtr*1000. !  read width from control parameter from 0 to 0.1 GeV
-            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005) 
-     c           Nchanel=1
-            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
-     c           Nchanel=2
-            if(cntrl_prmtr.lt.1.0035.and.cntrl_prmtr.gt.1.0025)
-     c           Nchanel=3
-            if(cntrl_prmtr.lt.1.0045.and.cntrl_prmtr.gt.1.0035)
-     c           Nchanel=4
-         endif
- 345     call BW_rand_omg(AmOmg,WidOmg ,rnd_BW) !  GAMS BW for omg(782)  
-         Pc(5) = 0.001*rnd_BW                       !  MeV => GeV   
-C    
-         call reaction(Nreson, T, Pd(5))            !  Just like eta 
-         call abtocds(Pa,Pb(5),Pc,Pd,T)      
-         if (T.gt.0) go to 1000
-C
-         if (Nchanel.eq.1) then !  Excl. channel = w -> pi0Y -> 3Y
-            P1(5) = Ampi0
-            if(Pc(5).le.Ampi0) goto 345
-            call decays(Pc, P1, Pgamma(1,1))
-            call decays(P1, Pgamma(1,2), Pgamma(1,3))
-            Ngamma = 3
-         endif
-C     
-         if (Nchanel.eq.2) then !  Excl. channel = omg->3pi0                                                                                                        
-            P1(5) = Ampi0
-            P2(5) = Ampi0
-            P3(5) = Ampi0
-            if(Pc(5).le.(3.*Ampi0)) goto 345
-            call STAR3T(Pc, P1, P2, P3)
-            call decays(P1, Pgamma(1,1), Pgamma(1,2))
-            call decays(P2, Pgamma(1,3), Pgamma(1,4))
-            call decays(P3, Pgamma(1,5), Pgamma(1,6))
-            Ngamma = 6
-         endif
-C
-         if (Nchanel.eq.3) then !  Excl. channel = omg->2pi0
-            P1(5) = Ampi0
-            P2(5) = Ampi0
-            if(Pc(5).le.(2.*Ampi0)) goto 345
-            call decays(Pc, P1, P2)
-            call decays(P1, Pgamma(1,1), Pgamma(1,2))
-            call decays(P2, Pgamma(1,3), Pgamma(1,4))
-            Ngamma = 4
-         endif
-C
-         if (Nchanel.eq.4) then !  Excl. channel = omg->etapi0
-            P1(5) = AmEta
-            P2(5) = Ampi0
-            if(Pc(5).le.(AmEta+Ampi0)) goto 345
-            call decays(Pc, P1, P2)
-            call decays(P1, Pgamma(1,1), Pgamma(1,2))
-            call decays(P2, Pgamma(1,3), Pgamma(1,4))
-            Ngamma = 4
-         endif
-C         
-         do j=1,Ngamma
-         Pgamma(6,j) = 0.
-	 Pgamma(7,j) = 0.
-	 Pgamma(8,j) = 0.
-	 Pgamma(9,j) =22.                           !  PDG code of photon
-	 Pgamma(10,j)=100*Nreson+10*Nchanel+j       !  Photon hystory code
-         enddo
-      endif
-C
-      if (Nreson.eq.10) then                        !  Resonance 10 - rho0(770)
-C-       Pc(5) = Amw + (s2w/2.36)*rnd_gauss(1.)     !  Simple Gauss distribution
-C          
-C         if (Pgamma(1,0).gt.0.) WidOmg = Pgamma(1,0)*1000. !  read width from control parameter
-         call BW_rand_omg(AmRho0,WidRho0 ,rnd_BW)     !  GAMS BW for omg(782)  
-         Pc(5) = 0.001*rnd_BW                       !  MeV => GeV   
-C    
-         call reaction(3, T, Pd(5))                 !  Just like omega 
-         call abtocds(Pa,Pb(5),Pc,Pd,T)      
-         if (T.gt.0) go to 1000 
-         if (Nchanel.eq.1) then                     !  Excl. channel = rho0(770) -> pi0Y -> 3Y
-          P1(5) = Ampi0
-          call decays(Pc, P1, Pgamma(1,1))
-          call decays(P1, Pgamma(1,2), Pgamma(1,3))
-          Ngamma = 3
-         endif
-C         
-         do j=1,Ngamma
-         Pgamma(6,j) = 0.
-	 Pgamma(7,j) = 0.
-	 Pgamma(8,j) = 0.
-	 Pgamma(9,j) =22.                           !  PDG code of photon
-	 Pgamma(10,j)=100*Nreson+10*Nchanel+j       !  Photon hystory code
-         enddo
-      endif	 	 
 C
       if (Nreson.eq.7) then                         !  Resonance 7 - f0(500) -> 2pi0	 
 	 call BW_rand_f0(Amf0,Widf0,rnd_BW)         !  GAMS BW for f0(500)
@@ -2257,18 +2241,28 @@ C
          enddo
       endif
 C
-      if (Nreson.eq.8.or.Nreson.eq.9) then         !  Monochromatic pi0 (8) or eta (9) for MC Z calibration	 
+      if (Nreson.eq.8) then         !  etaPrime	 
        
-         call reaction(Nreson, T, Pd(5))      
-         if (Nreson.eq.8) Pc(5) = Ampi0
-	 if (Nreson.eq.9) Pc(5) = Ameta
+         call reaction(2, T, Pd(5)) ! just like eta
+         Pc(5) = AmEtaP ! very small width -> let it be 0.
 C	 
 	 call abtocds(Pa,Pb(5),Pc,Pd,T)
 	 if (T.gt.0.) go to 1000
-         if (Nchanel.eq.1) then                    !  Excl. channel = pi0 -> 2Y or  eta -> 2Y
-C        write(*,*) 'Pi0->2Y'
-         call decays(Pc,Pgamma(1,1),Pgamma(1,2))
-         Ngamma = 2	 
+         if (Nchanel.eq.2) then                    !  Excl. channel = etaP -> 2Y
+C     write(*,*) 'Pi0->2Y'
+            call decays(Pc,Pgamma(1,1),Pgamma(1,2))
+            Ngamma = 2	 
+         endif
+C
+         if (Nchanel.eq.1) then ! excl channel etaP -> pi0pi0eta
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = AmEta
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
          endif
 C
          do j=1,Ngamma
@@ -2279,7 +2273,79 @@ C
 	 Pgamma(10,j)=100*Nreson+10*Nchanel+j       !  Photon hystory code
          enddo
       endif
+C     
+      if (Nreson.eq.9) then     !  a0(980)
+         call reaction(5, T, Pd(5)) ! just like f2(1270)
+ 366     call BW_rand_f0(1000.*AmA0980,1000.*WidA0980,rnd_BW) !  GAMS BW for f0(500)
+         Pc(5) = 0.001*rnd_BW   !  MeV => GeV
+         if (Pc(5).le.(Ampi0 + AmEta)) goto 366
 C
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.0.) go to 1000
+C
+         if (Nchanel.eq.1) then ! excl channel etaP -> pi0pi0eta
+            P1(5) = Ampi0
+            P2(5) = AmEta
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+C
+         do j=1,Ngamma
+         Pgamma(6,j) = 0.
+         Pgamma(7,j) = 0.
+         Pgamma(8,j) = 0.
+         Pgamma(9,j) =22.                           !  PDG code of photon
+         Pgamma(10,j)=100*Nreson+10*Nchanel+j       !  Photon hystory code
+         enddo
+      endif
+C     
+ 
+C
+      
+      if (Nreson.eq.10) then                        !  Resonance 10 - a2(1320) (former rho0(770))
+C     rho0(770)
+c$$$C         if (Pgamma(1,0).gt.0.) WidOmg = Pgamma(1,0)*1000. !  read width from control parameter
+c$$$         call BW_rand_omg(AmRho0,WidRho0 ,rnd_BW)     !  GAMS BW for omg(782)  
+c$$$         Pc(5) = 0.001*rnd_BW                       !  MeV => GeV   
+c$$$C    
+c$$$         call reaction(3, T, Pd(5))                 !  Just like omega 
+c$$$         call abtocds(Pa,Pb(5),Pc,Pd,T)      
+c$$$         if (T.gt.0) go to 1000 
+c$$$         if (Nchanel.eq.1) then                     !  Excl. channel = rho0(770) -> pi0Y -> 3Y
+c$$$          P1(5) = Ampi0
+c$$$          call decays(Pc, P1, Pgamma(1,1))
+c$$$          call decays(P1, Pgamma(1,2), Pgamma(1,3))
+c$$$          Ngamma = 3
+c$$$         endif
+C     a2(1320)
+         call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW)     !  GAMS BW for omg(782)  
+         Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
+ 1066    if (Pc(5).le.(Ampi0 + AmEta)) goto 1066
+C    
+         call reaction(5, T, Pd(5))                 !  Just like f2(1270) 
+         call abtocds(Pa,Pb(5),Pc,Pd,T)      
+         if (T.gt.0) go to 1000 
+         if (Nchanel.eq.1) then !  Excl. channel = rho0(770) -> pi0Y -> 3Y
+            P1(5) = Ampi0
+            P2(5) = AmEta
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+
+C         
+         do j=1,Ngamma
+         Pgamma(6,j) = 0.
+	 Pgamma(7,j) = 0.
+	 Pgamma(8,j) = 0.
+	 Pgamma(9,j) =22.                           !  PDG code of photon
+	 Pgamma(10,j)=100*Nreson+10*Nchanel+j       !  Photon hystory code
+         enddo
+      endif	 	 
+
 C-    write(*,*) 'Ngamma,Pd=',Ngamma,Pd
       Ngamma = Ngamma+1
       do k=1,5

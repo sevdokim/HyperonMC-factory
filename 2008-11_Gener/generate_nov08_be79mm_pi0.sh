@@ -82,7 +82,7 @@ echo
 #
 
 #i=$UNIC_CODE
-i=0
+i=60
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do
@@ -102,12 +102,12 @@ do
       if [ -e generated.tar ] || [ -e MC_res.dat ] ; then
 	  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
 	  #qsub -q ihep-short $MCDIR/generate_1target_qsub_scratch.sh
-	  rm -f generated.tar MC_res.dat log* 
+	  #rm -f generated.tar MC_res.dat log* 
 	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
-	  qsub -q ihep-medium ${SUFFIX}.sh
+	  qsub -q ihep-short ${SUFFIX}.sh
       else
 	  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
-	  rm -f generated.tar MC_res.dat log*
+	  #rm -f generated.tar MC_res.dat log*
 	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
 	  qsub -q ihep-medium ${SUFFIX}.sh
       fi

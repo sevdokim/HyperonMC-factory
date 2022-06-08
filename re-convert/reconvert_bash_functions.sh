@@ -25,7 +25,7 @@ function reconvert_threads () {
 	    echo "I found $2/$period, linking anchor files to $this_wd/$period"
 	    mkdir -p /scratch/$USER/$this_wd/$period/
 	    mkdir -p $RECONVERTING_TOP_DIRECTORY/$period/$production_name/MCruns
-	    for anchor in calibr.cards coeff_old.dat e_cor_matrix.dat h_s_new.dat bad_channels.dat ; do 
+	    for anchor in calibr.cards coeff_old.dat e_cor_matrix.dat h_s_new.dat bad_channels.dat mass_shifts.dat mass_shifts_MC.dat ; do 
 		cp $2/$period/$anchor /scratch/$USER/$this_wd/$period/$anchor
 	    done
 	    if [ -f $2/$period/file_list_$(prefix_by_period $period)_${target}.dat ] ; then

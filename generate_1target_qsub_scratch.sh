@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l ncpus=1
-#PBS -l vmem=1000mb
+#PBS -l vmem=4000mb
 #PBS -V
 
 # ^^^ qbatch system requirements.
@@ -101,7 +101,7 @@ fi
 echo "I cd'ed into " $(pwd)
 # copy everything we need
 echo "I remove links: "
-rm -fv RegGen.cards macro file_list.dat calibr.cards h_s_new.dat coeff_old.dat e_cor_matrix.dat run_g3_control.C g3tgeoConfig.C converter
+rm -fv RegGen.cards macro file_list.dat calibr.cards h_s_new.dat coeff_old.dat e_cor_matrix.dat run_g3_control.C g3tgeoConfig.C converter bad_channels.dat mass_shifts.dat mass_shifts_MC.dat
 if [ ! $CONVERT_ONLY = yes ] ; then
     echo "You didn't ask only to convert MC_res.dat so I remove previous production files (if any):"
     rm -fv MC_res.dat log_converter log_production MCgen.dat Run${SEED}.gz gphysi.dat Histos.root generated.tar *.bz2
@@ -114,13 +114,18 @@ ln -s $FILELIST ./file_list.dat
 ln -s $ANCHORS/calibr.cards     ./calibr.cards 
 ln -s $ANCHORS/h_s_new.dat	./h_s_new.dat
 ln -s $ANCHORS/coeff_old.dat    ./coeff_old.dat
-ln -s $ANCHORS/e_cor_matrix.dat	./e_cor_matrix.dat 
+ln -s $ANCHORS/e_cor_matrix.dat	./e_cor_matrix.dat
+ln -s $ANCHORS/bad_channels.dat ./bad_channels.dat
+ln -s $ANCHORS/mass_shifts.dat ./mass_shifts.dat
+ln -s $ANCHORS/mass_shifts_MC.dat ./mass_shifts_MC.dat
+
 #
 #cp -u $ANCHORS/calibr.cards ./
 #cp -u $ANCHORS/h_s_new.dat ./
 #cp -u $ANCHORS/coeff_old.dat ./
 #cp -u $ANCHORS/e_cor_matrix.dat ./
 # run MC priduction
+did_production=no
 if [ $CONVERT_ONLY = yes ] #if this flag is setted then we don't need to perform full simulation, only convert results to Hyperon data format
 then
     #check if we have archived simulation and if so then unpack it
@@ -134,9 +139,18 @@ then
     else
 	echo 'you asked to skip full simulation. Hovewer MC_res.dat does not exist. So I start full simulation.'
 	root -b -q run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
+	did_production=yes
     fi
 else
     root -b -q run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
+    did_production=yes
+fi
+if [ $did_production = yes ] ; then
+    mkdir -p $WD/$SUFFIX
+    echo "I produced new production files, cp log_production to $WD/$SUFFIX"
+    cp log_production $WD/$SUFFIX
+else
+    "I didnt produced new files."
 fi
 ln -s $MACRODIR/converter/exe ./converter  
 if [ -f MC_res.dat ] ; then 

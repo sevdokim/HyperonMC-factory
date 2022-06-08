@@ -18,7 +18,7 @@ double rnd_gauss()
 }
 
 
-
+const float mPi0 = 134.977; // MeV
 const int   kNch = 900; //24*24 + 8*8;
 gzFile      fFile = 0;
 static int  fRunNumber;
@@ -35,6 +35,8 @@ const char *fAbsoluteConnect = "hard_soft.dat";
 const char *fMCCoeff = "MC_calibr.dat";
 const char *fCalibrCards = "calibr.cards";
 const char *fBadChannels = "bad_channels.dat";
+const char *fMassShifts = "mass_shifts.dat";
+const char *fMassShiftsMC = "mass_shifts_MC.dat";
 int         fHadr[900];      // hardware address
 float       fCalibr[900];
 float       fMCCalibr[640];
@@ -175,8 +177,7 @@ static void readConnectionTable()
    fp=fopen("file_list.dat", "r");
    if(!fp) {
      cerr<<"ERROR: No filelist found"<< endl;
-   }
-   else{
+   } else {
      while ((fgets(buf, 500, fp))) {
        if (buf[0] == '#') continue;
        if ((buf[0]=='/')&&(buf[2]=='D')&&(buf[3]=='i')){
@@ -186,9 +187,9 @@ static void readConnectionTable()
 	 break;
        }
      }
+     fclose(fp);
    }
    if(int_eNorm > 0) eNorm = int_eNorm/10000.;
-   fclose(fp);
 
    //bad channels
    for (int i = 0; i < 640; i++) {
@@ -201,10 +202,51 @@ static void readConnectionTable()
      cout << "Reading bad channels from " << fBadChannels << "." << endl;
      int badChannel = -1;
      while (EOF != fscanf(fp, "%d\n", &badChannel)) {
-       if (badChannel > 640 || badChannel < 1) continue;
+       if (badChannel >= 640 || badChannel < 0) continue;
        cout << "Bad channel " << badChannel << endl;
-       badChannels[badChannel - 1] = true;
+       badChannels[badChannel] = true;
      }
+     fclose(fp);
+   }
+
+   //mass shifts of pi0 peak position in every cell (from experimental data)
+   fp = fopen(fMassShifts, "r");
+   if (!fp) {
+     cout << "No experimental mass shifts for calibration coefs are provided. No shift to calib coeffs is applied.";
+   } else {
+     cout << "Reading experimental mass shifts from " << fMassShifts << ". Shifts will be applied to calibration coefs." << endl;
+     int channel;
+     float massShift;
+     while (EOF != fscanf(fp, "%d %f\n", &channel, &massShift)) {
+       if (channel >= 640 || channel < 0) continue;
+       if (!badChannels[i] || fCalibr[i] == 0.) continue;
+       fCalibr[i] += 2. * massShift / mPi0 * fCalibr[i];
+       if (fCalibr[i] <= 0.) {
+	 fCalibr[i] = 0.;
+	 badChannels[i] = true;
+       }
+     }
+     fclose(fp);
+   } 
+
+   //mass shifts of pi0 peak position in every cell (from MC)
+   fp = fopen(fMassShiftsMC, "r");
+   if (!fp) {
+     cout << "No MC mass shifts for calibration coefs are provided. No shift to calib coeffs is applied.";
+   } else {
+     cout << "Reading MC mass shifts from " << fMassShifts << ". Shifts will be applied to calibration coefs." << endl;
+     int channel;
+     float massShift;
+     while (EOF != fscanf(fp, "%d %f\n", &channel, &massShift)) {
+       if (channel >= 640 || channel < 0) continue;
+       if (!badChannels[i] || fCalibr[i] == 0.) continue;
+       fCalibr[i] -= 2. * massShift / mPi0 * fCalibr[i];
+       if (fCalibr[i] <= 0.) {
+         fCalibr[i] = 0.;
+         badChannels[i] = true;
+       }
+     }
+     fclose(fp);
    }
 
    // i don't use it by now
@@ -226,10 +268,7 @@ static void readConnectionTable()
    /*    } */
    /* fclose(fp); */
    // init calibr (temporary solution)
-   for (i = 0; i < kNch; i++) {
-      
-     //      energy[i] = 0.2 ;  // used for debugging
-   }
+   //for (i = 0; i < kNch; i++) energy[i] = 0.2 ;  // used for debugging
    /* for(i=0;i<640;i++){ */
    /*     printf("%d\t%d\n",i,fHadr[i]); */
    /* } */
@@ -395,7 +434,7 @@ static void processEnergy(float *e,int time)
      //Evd  17.04.2019
      //Sdv float A=0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2)
      //float A=5.0,B=3,C=3,sigma;// sigma/E = sqrt(A^2/E + B^2/E^2 + C^2) //before 27.01.22
-     float A=0.0,B=3.,C=5,sigma;
+     float A=3.0, B=3.,C=5,sigma;
      sigma=0.01*e[i]*sqrt(A*A/e[i] + B*B/e[i]/e[i] + C*C);
      ashum=(int)(sigma*rnd_gauss()*1000./c);
      a = (int)(e[i]*1000./(c*eNorm));

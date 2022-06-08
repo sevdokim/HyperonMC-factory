@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-    export EVENTNUMBER=50000                     # Total event number to be generated per 1 production thread  
-    export NTHREADS=100                             # total number of production threads   
+    export EVENTNUMBER=100000                      # Total event number to be generated per 1 production thread  
+    export NTHREADS=40                             # total number of production threads   
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #    export CONVERT_ONLY=yes                        # yes or no 
@@ -10,7 +10,7 @@
     export TGT_PRFX=pb3mm                          # Hyperon Tgts dlya formirovaniya imeni file_list_nov08.dat ==> file_list_nov08_be79mm.dat
                                                    # TGT_PRFX = be79mm, c78mm, al35mm, al17mm, cu3mm, cu7mm, sn5mm, pb3mm, ch80mm     
     export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX   # production name     
-    export MESON=pi0
+    export MESON=K0
     export UNIC_CODE=10000
     export PRODUCTION_NAME=${PRODUCTION_NAME}_$MESON
     export THICKNESS_S4=6 #mm
@@ -34,16 +34,17 @@
   
 export HYCONDITION
 #for HYCONDITION in s4
-for HYCONDITION in s4
+for HYCONDITION in s4eff
 do
     case "$HYCONDITION" in
         "t2")    EXTARGET=2 ; cond=1 ;;
-        "s4")    EXTARGET=0 ; cond=2 ;;
+        "s4")    EXTARGET=1 ; cond=2 ;;
+	"s4eff") EXTARGET=0 ; cond=2 ;;
 	"sa")    EXTARGET=3 ; cond=3 ;;
         *)       EXTARGET=0 ; cond=0 ;;
     esac
     # for MES in pi0 eta omg f2 2pi0 K0   f0
-    for MES in eta #f2 #omg #eta f2 2pi0 K0 # f0
+    for MES in f0 2pi0 a2 #f0 #2pi0 f0 etap a0 a2 #omg #eta f2 2pi0 K0 # f0
     do 	
 	case "$MES" in
             "pi0")     n=1 ;;
@@ -53,7 +54,9 @@ do
             "f2")      n=5 ;;
             "2pi0")    n=6 ;;
             "f0")      n=7 ;;
-            "rho0")    n=8 ;;
+	    "etap")    n=8 ;;
+	    "a0")      n=9 ;;
+	    "a2")      n=10 ;;
             *)         n=0 ;;
 	esac
 	export MESON=$MES
@@ -81,7 +84,7 @@ do
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
 		export TGT_PRFX=$TGTPRFX
 		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_3pi0_PDG_${HYCONDITION}eff
+		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_PDG_${HYCONDITION}
 		export HYMC_CONFIG_DEFINED=yes
 		export CONTROL=$mass
 		echo " "
