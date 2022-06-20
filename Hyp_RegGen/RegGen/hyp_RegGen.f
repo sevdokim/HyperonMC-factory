@@ -2320,9 +2320,9 @@ c$$$          call decays(P1, Pgamma(1,2), Pgamma(1,3))
 c$$$          Ngamma = 3
 c$$$         endif
 C     a2(1320)
-         call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW)     !  GAMS BW for omg(782)  
-         Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
- 1066    if (Pc(5).le.(Ampi0 + AmEta)) goto 1066
+ 1066    call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW) !  GAMS BW for omg(782)  
+         Pc(5) = 0.001*rnd_BW   !  MeV => GeV
+         if (Pc(5).le.(Ampi0 + AmEta)) goto 1066
 C    
          call reaction(5, T, Pd(5))                 !  Just like f2(1270) 
          call abtocds(Pa,Pb(5),Pc,Pd,T)      

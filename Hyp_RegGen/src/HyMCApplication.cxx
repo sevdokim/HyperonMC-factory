@@ -514,6 +514,7 @@ void HyMCApplication::GeneratePrimaries()
 //  reggen_event_(&FlBeam,&fExChanel,&fExReson,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);//generate 1 event
   //pout[0][0]=fControl/10.; //examine T-resolution for f2(1270)
   pout[0][0]=1.000*fControl; //examine f2(1270) shape
+  if (fDebug ==2) cout << "generating 1 interaction" << endl;
   reggen_event_(&FlBeam,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);//generate 1 event
   while(nTries<1000 && iError) //in case of generator error try to generate until number of tries < 1000
     reggen_event_(&FlBeam,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);

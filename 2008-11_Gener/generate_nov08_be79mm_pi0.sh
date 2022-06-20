@@ -82,7 +82,7 @@ echo
 #
 
 #i=$UNIC_CODE
-i=60
+i=100
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do
@@ -109,7 +109,7 @@ do
 	  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
 	  #rm -f generated.tar MC_res.dat log*
 	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
-	  qsub -q ihep-medium ${SUFFIX}.sh
+	  qsub -q ihep-short ${SUFFIX}.sh
       fi
   fi
   
