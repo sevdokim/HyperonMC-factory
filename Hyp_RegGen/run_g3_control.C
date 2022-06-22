@@ -1,7 +1,7 @@
 //note that ExReson is iReac1 and  ExChanel is iReac2
 //extern "C" { int mi_main();}
 //  Double_t pout[500][10];  Float_t FlBeam = 7;  Int_t nTries = 1,  iError = 0, jRec = 0, istOut = 0, fortran_seed = 1;  reggen_event_(&FlBeam,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);
-void run_g3_control(Int_t targMaterial = 0,Int_t nev = 1000000, const char* suffix = "",int ExTarget=-1,int ExReson=-1,int ExChanel=-1, int control = 0, int seed = 0, const TString& configMacro = "g3tgeoConfig.C") 
+void run_g3_control(Int_t targMaterial = 0,Int_t nev = 1000000, const char* suffix = "",int ExTarget=-1,int ExReson=-1,int ExChanel=-1, double control = 0, int seed = 0, const TString& configMacro = "g3tgeoConfig.C") 
 {
 /// Macro function for running Example01 with Geant3 from
 /// Root interactive session
@@ -34,7 +34,7 @@ void run_g3_control(Int_t targMaterial = 0,Int_t nev = 1000000, const char* suff
   if(targMaterial)  appl->SetTargetMaterial(targMaterial);
   gRandom->SetSeed(seed);  //randomizer
 
-//appl->SetMomentum(7); 
+  //appl->SetMomentum(7); 
   appl->SetMomentum(7.200);  // Sdv
   appl->SetPCNumber(0);
   appl->SetExTarget(ExTarget);
@@ -44,7 +44,7 @@ void run_g3_control(Int_t targMaterial = 0,Int_t nev = 1000000, const char* suff
   // Initialize MC
   appl->InitMC(configMacro);
 
-gMC->SetCollectTracks(kFALSE);
+  gMC->SetCollectTracks(kFALSE);
   // Run MC  appl->SetHistosRoot("histos_0.root");
   char MCres[400];
   char Hist[400];

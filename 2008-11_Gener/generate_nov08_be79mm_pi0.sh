@@ -111,6 +111,9 @@ do
 	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
 	  qsub -q ihep-short ${SUFFIX}.sh
       fi
+  else
+      ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
+      qsub -q ihep-short ${SUFFIX}.sh
   fi
   
   # qsub $SUFFIX.sh  #submit the production thread using 'torque' batch system. alice5 is compatible to run 8 threads simultaneously.

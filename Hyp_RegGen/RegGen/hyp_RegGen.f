@@ -1963,6 +1963,8 @@ C
                Pc(5) = cntrl_prmtr/1000.            ! MeV -> GeV
             endif
          endif
+c         write (*,*) 'control  = ', cntrl_prmtr
+c         write (*,*) 'nChannel = ', Nchanel
          call reaction(Nreson, T, Pd(5))  
          call abtocds(Pa,Pb(5),Pc,Pd,T)
 	 if (T.gt.0.) go to 1000

@@ -72,7 +72,7 @@ class HyMCApplication : public TVirtualMCApplication
     void SetMCResults(char* filename);       //set file name to write MC data
     void SetHistosRoot(char* filename);      //set file name to write root histos
     void SetPCNumber(int pcnumber);          //set process number (if necessary)
-    void SetControl(int control);            //set parameter to control event gen
+    void SetControl(double control);            //set parameter to control event gen
     void SetExTarget(int hh);  
     void SetExReson (int hh);  
     void SetExChanel(int hh);  
@@ -128,7 +128,6 @@ class HyMCApplication : public TVirtualMCApplication
 
     // data members
     Int_t fDebug;
-    
     Int_t fLaNx;   ///< geomety formats of LGD2
     Int_t fLaNy;   ///< geomety formats of LGD2
     Int_t fSmNx;   ///< geomety formats of LGD2
@@ -152,14 +151,14 @@ class HyMCApplication : public TVirtualMCApplication
     TLorentzVector fPbeam,fPpart;///< 4-momenta of beam and generated particle
 
 
-    int   fPCNumber;   ///< Process copy number(using to randomize eventgen)
-    int   fControl;    ///< parameter to control event gen(see describtion in hyp_carlo.f)
-    int   fExReson;    ///< exclusive resonance  (steering parameter for event gen, if <0 then ignored)
-    int   fExChanel;   ///< exclusive chanel     (steering parameter for event gen, if <0 then ignored)
-    int   fExTarget;   ///< exclusive target     (steering parameter for event gen, if <0 then ignored)
-    Double_t fS4EnergyDep, fSaEnergyDep, fTargetEnergyDep;
-    Double_t fSaEnergyCut;
-    Bool_t fFinishTracking;
+    int       fPCNumber;   ///< Process copy number(using to randomize eventgen)
+    double    fControl;    ///< parameter to control event gen(see describtion in hyp_carlo.f)
+    int       fExReson;    ///< exclusive resonance  (steering parameter for event gen, if <0 then ignored)
+    int       fExChanel;   ///< exclusive chanel     (steering parameter for event gen, if <0 then ignored)
+    int       fExTarget;   ///< exclusive target     (steering parameter for event gen, if <0 then ignored)
+    Double_t  fS4EnergyDep, fSaEnergyDep, fTargetEnergyDep;
+    Double_t  fSaEnergyCut;
+    Bool_t    fFinishTracking;
 
     //bad variable names
 

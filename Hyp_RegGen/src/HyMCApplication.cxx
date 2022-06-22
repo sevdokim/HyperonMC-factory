@@ -122,9 +122,10 @@ void HyMCApplication::SetPCNumber(int pcnumber)
   fPCNumber = pcnumber;
 }
 //_____________________________________________________________________________
-void HyMCApplication::SetControl(int control)
+void HyMCApplication::SetControl(double control)
 {
   fControl = control;
+  cout << "HyMCApplication::SetControl() : control is now " << fControl << endl; 
 }
 //_____________________________________________________________________________
 void HyMCApplication::SetExTarget(int hh)
@@ -512,8 +513,7 @@ void HyMCApplication::GeneratePrimaries()
   if(EvntNumb == 0) //randomize RegGen
      nTries = gRandom->Integer(4294967295); //randomize numerical continua in eventgen
 //  reggen_event_(&FlBeam,&fExChanel,&fExReson,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);//generate 1 event
-  //pout[0][0]=fControl/10.; //examine T-resolution for f2(1270)
-  pout[0][0]=1.000*fControl; //examine f2(1270) shape
+  pout[0][0] = fControl; // control parameter
   if (fDebug ==2) cout << "generating 1 interaction" << endl;
   reggen_event_(&FlBeam,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);//generate 1 event
   while(nTries<1000 && iError) //in case of generator error try to generate until number of tries < 1000
