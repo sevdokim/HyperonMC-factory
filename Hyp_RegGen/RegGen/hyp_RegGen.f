@@ -2184,21 +2184,24 @@ c        write(*,*) 'gamma ',j,': (px py pz e) = (',Pgamma(1,j),Pgamma(2,j), Pga
                                                                                               
 C                                                                                             
       if (Nreson.eq.6) then                         !  Resonance 6 - 2pi0 
- 854     R1=REGRNDM(0)                                                                        
-         R2=REGRNDM(0)          !                                           
-c         FF=Double_Mass_distr_2pi0(R1*2100.) !  M.Stolpovsky mass distribution   
-         FF=Double_Mass_distr_2pi0(R1*2750.) !  M.Stolpovsky mass distribution                                                                                               
-         if((R2*800.).gt.FF) go to 854 
-         Pc(5) =  R1 * 2.750                 !
-         if (Pc(5).le.(2.*Ampi0)) goto 854
+         Pc(5) = Pgamma(1,0)*0.001                        ! read mass from control parameter
+         if (Pc(5).le.0.) then
+c 854        R1=REGRNDM(0)                                                                        
+c            R2=REGRNDM(0)       !                                           
+c     FF=Double_Mass_distr_2pi0(R1*2100.) !  M.Stolpovsky mass distribution   
+c            FF=Double_Mass_distr_2pi0(R1*2750.) !  M.Stolpovsky mass distribution                                                                                               
+c            if((R2*800.).gt.FF) go to 854 
+c     Pc(5) =  R1 * 2.750                 !
+c     if (Pc(5).le.(2.*Ampi0)) goto 854
 C                                                               
 C         Pc(5) = 0.270 + 2.480*R1                   !  ===> Uniform distribution up 2.5
+         endif
          P1(5) = Ampi0                              !       but actually due to t & MisMs                                          
          P2(5) = Ampi0                              !       this is not unifomdistribution                                          
  855     call reaction(Nreson, T, Pd(5))
 C-	                          Pd(5) = 0.938272  !  proton mass                                               
          call abtocds(Pa,Pb(5),Pc,Pd,T)  	 
-	 if (T.gt.0) go to 854                                                     
+	 if (T.gt.0) go to 855                                                     
          call decays(Pc, P1, P2)                                                                
 C                                                                                             
          if (Nchanel.eq.1) then                     !  Excl. channel 2pi0                     
