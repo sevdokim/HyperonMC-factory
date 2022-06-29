@@ -48,6 +48,8 @@ export ANCHORS=$MCDIR/${PERIOD}_Gener/
 export FILELIST=$MCDIR/${PERIOD}_Gener/file_list_$PERIOD_PRFX$TGT_PRFX.dat
 #export FILELIST=$MCDIR/${PERIOD}_Gener/file_lists/file_list_$PERIOD_PRFX$TGT_PRFX.dat
 #
+if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=ihep-short ; fi
+echo 'queue         =' $IHEP_QUEUE
 echo
 echo 'MCDIR         =' $MCDIR
 echo 'MACRODIR      =' $MACRODIR
@@ -86,39 +88,39 @@ i=100
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do
-  cd $MCDIR
-  export SEED=$[ $i+$TARGET*10000+$UNIC_CODE ]
-  echo "$i "'SEED='$SEED;
-  export SUFFIX=${PRODUCTION_NAME}_$i # name of directory where to run production thread.
-#
-  mkdir -p $WD/$SUFFIX
-  cd $WD/$SUFFIX 
- # if [ ! -f Run${SEED}.gz ] ; then # this is attempt to resubmit failed jobs. 
-  echo '1target_qsub macro:' $MCDIR/generate_1target_qsub_scratch.sh
-  printenv > shell_env.sh
-  #use this if in case if some jobs failed and you want to resubmit them
-  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
-  if [ ! -e $MCRUNSDIR/Run${SEED}.gz ] ; then
-      if [ -e generated.tar ] || [ -e MC_res.dat ] ; then
-	  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
-	  #qsub -q ihep-short $MCDIR/generate_1target_qsub_scratch.sh
-	  #rm -f generated.tar MC_res.dat log* 
-	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
-	  qsub -q ihep-short ${SUFFIX}.sh
-      else
-	  #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
-	  #rm -f generated.tar MC_res.dat log*
-	  ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
-	  qsub -q ihep-short ${SUFFIX}.sh
-      fi
-  else
-      ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
-      qsub -q ihep-short ${SUFFIX}.sh
-  fi
-  
-  # qsub $SUFFIX.sh  #submit the production thread using 'torque' batch system. alice5 is compatible to run 8 threads simultaneously.
-  # echo $SUFFIX.sh
-  let i+=1
+    cd $MCDIR
+    export SEED=$[ $i+$TARGET*10000+$UNIC_CODE ]
+    echo "$i "'SEED='$SEED;
+    export SUFFIX=${PRODUCTION_NAME}_$i # name of directory where to run production thread.
+    #
+    mkdir -p $WD/$SUFFIX
+    cd $WD/$SUFFIX 
+    # if [ ! -f Run${SEED}.gz ] ; then # this is attempt to resubmit failed jobs. 
+    echo '1target_qsub macro:' $MCDIR/generate_1target_qsub_scratch.sh
+    printenv > shell_env.sh
+    #use this if in case if some jobs failed and you want to resubmit them
+    #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
+    if [ ! -e $MCRUNSDIR/Run${SEED}.gz ] ; then
+	if [ -e generated.tar ] || [ -e MC_res.dat ] ; then
+	    #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
+	    #qsub -q ihep-short $MCDIR/generate_1target_qsub_scratch.sh
+	    #rm -f generated.tar MC_res.dat log* 
+	    ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
+	    qsub -q $IHEP_QUEUE ${SUFFIX}.sh
+	else
+	    #echo $WD/$SUFFIX && ls -lth $WD/$SUFFIX
+	    #rm -f generated.tar MC_res.dat log*
+	    ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
+	    qsub -q $IHEP_QUEUE ${SUFFIX}.sh
+	fi
+    else
+	ln -s $MCDIR/generate_1target_qsub_scratch.sh ${SUFFIX}.sh
+	qsub -q $IHEP_QUEUE ${SUFFIX}.sh
+    fi
+    
+    # qsub $SUFFIX.sh  #submit the production thread using 'torque' batch system. alice5 is compatible to run 8 threads simultaneously.
+    # echo $SUFFIX.sh
+    let i+=1
 done
 
 cd $MCDIR/${PERIOD}_Gener/

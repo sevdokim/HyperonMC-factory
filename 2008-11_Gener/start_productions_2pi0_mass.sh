@@ -1,7 +1,8 @@
 #!/bin/bash
 #
-    export EVENTNUMBER=100000                      # Total event number to be generated per 1 production thread  
-    export NTHREADS=50                             # total number of production threads   
+    export EVENTNUMBER=500000                      # Total event number to be generated per 1 production thread  
+    export NTHREADS=10                             # total number of production threads   
+    export IHEP_QUEUE=ihep-medium                  # queue name on IHEP Cluster
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #    export CONVERT_ONLY=yes                        # yes or no 
@@ -77,14 +78,14 @@ do
 		*)          export THICKNESS_S4=6.000  ;; #default value (6mm) 
 	    esac
 
-	    for mass in 0 #c is control parameter for omg width 
+	    for mass in {280..2000..20} #c is control parameter for 2pi0 mass 
 	    do
 		#MESON=${MES}_${HYCONDITION}_width${width}MeV
 		MESON=${MES}
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
 		export TGT_PRFX=$TGTPRFX
 		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_PDG_${HYCONDITION}
+		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_mass${mass}MeV_${HYCONDITION}
 		export HYMC_CONFIG_DEFINED=yes
 		export CONTROL=$mass
 		echo " "
@@ -100,4 +101,4 @@ do
 	done
     done
 done
-  unset HYMC_CONFIG_DEFINED
+unset HYMC_CONFIG_DEFINED
