@@ -84,7 +84,7 @@ echo
 #
 
 #i=$UNIC_CODE
-i=100
+i=120
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do

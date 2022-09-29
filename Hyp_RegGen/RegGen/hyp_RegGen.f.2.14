@@ -2,7 +2,7 @@ C
 !     subroutine RegGen_event    !   Initial routine
       subroutine RegGen_event(BeamMomentum,Ievent,Ierror,Iseed,Jrec,IstOut,Pout)  ! S.Sadovsky 
 C.........................................................................................
-C        version 2.14: f2(1270) width varying through control is added
+C        version 2.14: pi0 mass, f2(1270) width varying through control is added
 C        Version 2.13: omg->3pi0, omg->2pi0, omg->etapi0 channels added. 
 C          channel selection is done by external control parameter
 C        Version 2.12:

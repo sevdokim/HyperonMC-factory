@@ -1,5 +1,5 @@
-This_file_version 24.12.2019 eta inclusive from hyp_carlo (RegGen v.2.11_evd)
-Reactions  2 2
+This_file_version 24.12.2019 pi0 inclusive from hyp_carlo (RegGen v.2.14)
+Reactions  1 1
 Reaction_probabilities   83
 01. 1.0  02. 1.0  03. 1.0  04. 1.0  05. 1.0
 06. 1.0  07. 1.0  08. 1.0  09. 1.0  10. 1.0

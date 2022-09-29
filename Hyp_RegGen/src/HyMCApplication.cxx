@@ -516,8 +516,10 @@ void HyMCApplication::GeneratePrimaries()
   pout[0][0] = fControl; // control parameter
   if (fDebug ==2) cout << "generating 1 interaction" << endl;
   reggen_event_(&FlBeam,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);//generate 1 event
-  while(nTries<1000 && iError) //in case of generator error try to generate until number of tries < 1000
+  while(nTries<1000 && iError) { //in case of generator error try to generate until number of tries < 1000
+    pout[0][0] = fControl;
     reggen_event_(&FlBeam,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);
+  }
 //    reggen_event_(&FlBeam,&fExChanel,&fExReson,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);
   if(fDebug ==2 ){//print generated reaction number
     cout<< "RegGen: I generated 1 event with reaction number "<<jRec<< " and I tried "<<nTries<<" times. seed is " << fortran_seed <<endl;
