@@ -2384,13 +2384,12 @@ C!!!- Ngamma = 0
 C
       subroutine S_pi0pi0(X_mas)
       common/minmax/ X_min,X_max,A_max
-      real regrndm
-      data X_min,X_max,A_max / 0.3, 2.3, 19000. /
+      data X_min,X_max,A_max / 0.3, 2.8, 19000. /
 C
- 10    X_mas = X_min+(X_max-X_min)*REGRNDM(0)
+ 10    X_mas = X_min+(X_max-X_min)*RNDM(-1.)
 C      
       Wait  = s_fit_100gev(X_mas)
-      if (A_max*REGRNDM(0).gt.Wait) go to 10
+      if (A_max*RNDM(-1.).gt.Wait) go to 10
 C      
       RETURN
       END

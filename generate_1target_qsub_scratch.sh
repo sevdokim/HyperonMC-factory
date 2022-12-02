@@ -196,5 +196,5 @@ if [ ! $CONVERT_ONLY = yes ] ; then
     mkdir -p $WD/$SUFFIX
     cp -a * $WD/$SUFFIX
     chown -R :hyperon $WD/$SUFFIX
-    rm -vf $WD/$SUFFIX/log_production
+    # rm -vf $WD/$SUFFIX/log_production
 fi

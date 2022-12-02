@@ -11,7 +11,7 @@ OBJGEN  = hyp_RegGen.o
 OBJMAIN = trapfpe.o
 OBJFPE  = trapfpe.o
 #F77LIBS = `cernlib packlib`
-F77LIBS = -L/usr/local/lib -lcrypt -lnsl -L/usr/lib/libkernlib.so -L/usr/lib/libmathlib.so
+F77LIBS = -L/usr/local/lib -lcrypt -lnsl -L/usr/lib/x86_64-linux-gnu/libkernlib.so -L/usr/lib/x86_64-linux-gnu/libmathlib.so
 EXE     = ../../lib/tgt_linuxx8664gcc/libRegGen.so
 
 
