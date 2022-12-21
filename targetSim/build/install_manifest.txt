@@ -1,0 +1,2 @@
+/home/evdokimov/hyperon/targetSim/install/lib/libvmc_targetSim.so
+/home/evdokimov/hyperon/targetSim/install/lib/libvmc_targetSim_rdict.pcm
