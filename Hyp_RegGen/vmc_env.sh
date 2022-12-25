@@ -26,4 +26,4 @@ LD_LIBRARY_PATH=$VMC/geant3_rebuild/lib/tgt_linuxx8664gcc/:$LD_LIBRARY_PATH
 #LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$VMC/geant4_vmc/lib/tgt_linuxx8664gcc/
 
 #path for system libs
-#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$VMC/libs
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/

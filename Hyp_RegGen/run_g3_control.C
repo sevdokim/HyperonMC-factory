@@ -17,10 +17,12 @@ void run_g3_control(Int_t targMaterial = 0,Int_t nev = 1000000, const char* suff
   g3libs();
 
   // Load this example library
-  gSystem->Load("libHyperonMC_RegGen");
+  //gSystem->Load("libHyperonMC_RegGen");
+  gSystem->Load("libpacklib");
   gSystem->Load("libkernlib");
   gSystem->Load("libmathlib");
   gSystem->Load("libRegGen");
+  gSystem->Load("libHyperonMC_RegGen");
 
   // MC application
   HyMCApplication* appl 

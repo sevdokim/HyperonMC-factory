@@ -1858,6 +1858,14 @@ C
       Pb(3) = 0.
       Pb(4) = Dsqrt(Pb(5)**2 + Pb(3)**2 + Pb(2)**2 + Pb(1)**2) 	
 C
+CCC Some reading of control patameters
+C
+      if (Pgamma(1, 0).eq.11101.) then
+         AmF2 = Pgamma(2, 0)
+         WidF2 = Pgamma(3, 0)
+         write(*,*) 'RegGen: I use m(f2) = ', amf2, 'width(f2) = ', widf2
+      endif
+C
 C Photon masses:       
 C
       do j=1,Mgamma
@@ -2131,14 +2139,14 @@ C
 C     
       if (Nreson.eq.5) then                         !  Resonance 5 - f2
 C-
-         width_f2 = Pgamma(1,0) ! read width from control variable (see run_g3_control.C).
-         if(width_f2.le.0.0) width_f2 = Widf2
-         call BW_rand_f2(Amf2,width_f2,rnd_BW)
-C         call BW_rand_f2(Amf2,Widf2,rnd_BW)         !  GAMS BW for f2(1275)
+c         width_f2 = Pgamma(1,0) ! read width from control variable (see run_g3_control.C).
+c         if(width_f2.le.0.0) width_f2 = Widf2
+c         call BW_rand_f2(Amf2,width_f2,rnd_BW)
+         call BW_rand_f2(Amf2,Widf2,rnd_BW)         !  GAMS BW for f2(1275)
 	 Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
 C        added to change f2 mass via control parameter. comment out if not needed.
-         Rmass_f2 = Pgamma(1,0) ! fixed mass in MeV
-         if(Rmass_f2.gt.0.) Pc(5) = 0.001*Rmass_f2 ! MeV to GeV
+c         Rmass_f2 = Pgamma(1,0) ! fixed mass in MeV
+c         if(Rmass_f2.gt.0.) Pc(5) = 0.001*Rmass_f2 ! MeV to GeV
 C-	 
  5696    call reaction(Nreson, T, Pd(5))
          Tf2=T ! save first generated T in order not to destroy its distribution

@@ -52,7 +52,7 @@ HyMCApplication::HyMCApplication(const char *name, const char *title)
   gen3->SetSeed(iseed+2);     // ;kondr, v1.04
 
   
-  Double_t eBeam = TMath::Sqrt(0.139570*0.139570 + fMomentum*fMomentum);
+  //Double_t eBeam = TMath::Sqrt(0.139570*0.139570 + fMomentum*fMomentum);
 
   fDebug = 0;
 }
@@ -107,7 +107,7 @@ HyMCApplication::HyMCApplication(const char *name, const char *title, int seed)
   gen3 = new TRandom3(iseed); // ;kondr, v1.04
   gen3->SetSeed(iseed+2);     // ;kondr, v1.04
 
-  Double_t eBeam = TMath::Sqrt(0.139570*0.139570 + fMomentum*fMomentum);
+  //Double_t eBeam = TMath::Sqrt(0.139570*0.139570 + fMomentum*fMomentum);
   
   iseed = seed;
 
@@ -208,11 +208,8 @@ HyMCApplication::HyMCApplication()
 
   gen3 = new TRandom3(iseed);
 
-  Double_t eBeam = TMath::Sqrt(0.139570*0.139570 + fMomentum*fMomentum);
-  
-
-  
-   fDebug = 0;
+  //Double_t eBeam = TMath::Sqrt(0.139570*0.139570 + fMomentum*fMomentum);
+  fDebug = 0;
 }
 
 //_____________________________________________________________________________
@@ -511,9 +508,22 @@ void HyMCApplication::GeneratePrimaries()
   Int_t iError = 0, jRec = 0, istOut = 0;
   Int_t fortran_seed = gRandom->Integer(iseed);  // pass the seed into the RegGen generator ;kondr v.1.04
   if(EvntNumb == 0) //randomize RegGen
-     nTries = gRandom->Integer(4294967295); //randomize numerical continua in eventgen
-//  reggen_event_(&FlBeam,&fExChanel,&fExReson,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);//generate 1 event
+    nTries = gRandom->Integer(4294967295); //randomize numerical continua in eventgen
   pout[0][0] = fControl; // control parameter
+  if(EvntNumb == 0){//firts call; provide f2 mass & width to reggen                                                                                                                                   
+    if (fControl == 11101) {
+      if(!getenv("f2_mass")){
+        cout << "The environment variable f2_mass was not found." << endl;
+        exit(1);
+      }
+      sscanf(getenv("f2_mass"), "%lf", &pout[0][1]);
+      if(!getenv("f2_width")){
+        cout << "The environment variable f2_width was not found." << endl;
+        exit(1);
+      }
+      sscanf(getenv("f2_width"), "%lf", &pout[0][2]);
+    }
+  }
   if (fDebug ==2) cout << "generating 1 interaction" << endl;
   reggen_event_(&FlBeam,&nTries,&iError,&fortran_seed,&jRec,&istOut,&pout[0][0]);//generate 1 event
   while(nTries<1000 && iError) { //in case of generator error try to generate until number of tries < 1000
@@ -664,7 +674,7 @@ void HyMCApplication::GeneratePrimaries()
   pz=-pBeam.Z();
   e=eBeam;
   fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vertex[0], vertex[1], vertex[2], 0., polx, poly, polz, kPPrimary, ntr, 1., 0);
-
+  
   current_primary_number=nFinal-1+1;//+1 is bacward going pion
   fNPrimary=current_primary_number;
   max_gamma= nFinal;
@@ -732,20 +742,20 @@ void HyMCApplication::GeneratePrimaries()
   //also add missing mass
   //NOT NOW, do it later
   /*
-  Double_t Pproducts[10][8],Pmismas[8];
-  Int_t NPDGcodes,MPDGcode[10];
-  Float_t rProtonsToNucleons = 0.5;//dummy
-  int targMat=fDetConstruction.GetTargetMaterial();
-  if(targMat==2)rProtonsToNucleons=4./9.;
-  if(targMat==10)rProtonsToNucleons=6./12.;
-  if(targMat==3)rProtonsToNucleons=13./27.;
-  if(targMat==9)rProtonsToNucleons=29./63.;
-  if(targMat==8)rProtonsToNucleons=50./120.;
-  if(targMat==7)rProtonsToNucleons=82./208.;
-  
-  for(int iC=0;iC<8;iC++) Pmismas[iC]=Pgamma[Ngamma][iC];
-
-  if(fDebug){
+    Double_t Pproducts[10][8],Pmismas[8];
+    Int_t NPDGcodes,MPDGcode[10];
+    Float_t rProtonsToNucleons = 0.5;//dummy
+    int targMat=fDetConstruction.GetTargetMaterial();
+    if(targMat==2)rProtonsToNucleons=4./9.;
+    if(targMat==10)rProtonsToNucleons=6./12.;
+    if(targMat==3)rProtonsToNucleons=13./27.;
+    if(targMat==9)rProtonsToNucleons=29./63.;
+    if(targMat==8)rProtonsToNucleons=50./120.;
+    if(targMat==7)rProtonsToNucleons=82./208.;
+    
+    for(int iC=0;iC<8;iC++) Pmismas[iC]=Pgamma[Ngamma][iC];
+    
+    if(fDebug){
     cout<<"I've produced resonance Nreson= "<<Nreson<<endl;
     cout<<"Going to decay missing mass:"<<endl;
     cout<<"Px="<<Pmismas[0]<<endl;
@@ -753,10 +763,10 @@ void HyMCApplication::GeneratePrimaries()
     cout<<"Pz="<<Pmismas[2]<<endl;
     cout<<"E ="<<Pmismas[3]<<endl;
     cout<<"M ="<<Pmismas[4]<<endl;
-  }
+    }
 
-  decay_missingmass_(&Nreson,&rProtonsToNucleons,&Pmismas[0],&NPDGcodes,&MPDGcode[0],&Pproducts[0][0]);
-  for(int iPart=0;iPart<NPDGcodes;iPart++){
+    decay_missingmass_(&Nreson,&rProtonsToNucleons,&Pmismas[0],&NPDGcodes,&MPDGcode[0],&Pproducts[0][0]);
+    for(int iPart=0;iPart<NPDGcodes;iPart++){
     px = Pproducts[iPart][0];
     py = Pproducts[iPart][1];
     pz = Pproducts[iPart][2];
@@ -768,18 +778,18 @@ void HyMCApplication::GeneratePrimaries()
     initial_photon_energy[Ngamma+iPart]=e;
     if(isnan(e))initial_photon_energy[Ngamma+iPart]=0;
     if (!isnan(e))fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vertex[0]+x, vertex[1]+y, vertex[2]+z, 0., polx, poly, polz, kPPrimary, ntr, 1., 0);//adding missing mass products to stack
-  }
-  if(fDebug){
+    }
+    if(fDebug){
     cout<<"\n=====missing mass======"<<endl;
     for(int iPart=0;iPart<NPDGcodes;iPart++){
-      cout<<"part"<<iPart+1<<endl;
+    cout<<"part"<<iPart+1<<endl;
     cout<<"px= "<<Pproducts[iPart][0]<<endl;
     cout<<"py= "<<Pproducts[iPart][1]<<endl;
     cout<<"pz= "<<Pproducts[iPart][2]<<endl;
     cout<<"e = "<<Pproducts[iPart][3]<<endl;
     cout<<"pdg = "<<MPDGcode[iPart]<<endl;
     }
-  }
+    }
   */
   //fPpart.SetXYZT(Plab[0],Plab[1],Plab[2],Plab[3]);
   
@@ -805,7 +815,7 @@ void HyMCApplication::GeneratePrimaries()
   // }
   fFinishTracking=false;
 }
-
+  
 //_____________________________________________________________________________
 void HyMCApplication::BeginEvent()
 {    
