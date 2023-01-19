@@ -34,7 +34,7 @@ echo 'UNIC_CODE (dummy)           =' $UNIC_CODE
 echo
   
 export HYCONDITION
-iter=1
+iter=2
 for HYCONDITION in s4eff
 do
     case "$HYCONDITION" in
