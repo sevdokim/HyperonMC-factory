@@ -11,7 +11,8 @@
 /// \file E01/run_g4.C
 /// \brief Macro for running Example01 with Geant4.
 
-void run_g4(int seed = 0, const TString &configMacro = "g4tgeoConfig.C") {
+void run_g4(int nEvents = 100000, int seed = 0,
+            const TString &configMacro = "g4tgeoConfig.C") {
   /// Macro function for running Example01 with Geant4 from
   /// Root interactive session.
   /// Note that since Root 6 the libraries have to be loaded first
@@ -47,8 +48,8 @@ void run_g4(int seed = 0, const TString &configMacro = "g4tgeoConfig.C") {
   appl->InitMC(configMacro);
   // gROOT->ProcessLine("gMC->SetCollectTracks(1)");
   //     Run MC
-  appl->RunMC(100000);
+  appl->RunMC(nEvents);
   // gGeoManager->GetTopVolume()->Draw();
   // gGeoManager->DrawTracks("/*");
-  //     delete appl;
+  // delete appl;
 }
