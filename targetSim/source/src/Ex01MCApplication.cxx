@@ -91,11 +91,17 @@ void Ex01MCApplication::ConstructMaterials() {
   TGeoElement *elO = new TGeoElement("Oxygen", "O", z = 8., a = 16.00);
   TGeoElement *elH = new TGeoElement("Hydrogen", "H", z = 1., a = 1.01);
   TGeoElement *elC = new TGeoElement("Carbon", "C", z = 6., a = 12.01);
+  TGeoElement *elNa = new TGeoElement("Sodium", "Na", z = 11., a = 22.99);
+  TGeoElement *elI = new TGeoElement("Iodine", "I", z = 53., a = 126.90447);
+  TGeoElement *elBi = new TGeoElement("Bismut", "Bi", z = 83., a = 208.98);
+  TGeoElement *elGe = new TGeoElement("Germanium", "Ge", z = 32., a = 72.63);
 
+  //____Ar____
   a = 39.95;
   z = 18.;
   density = 1.782e-03;
   TGeoMaterial *matAr = new TGeoMaterial("ArgonGas", a, z, density);
+
   //____Air____
   TGeoMixture *matAir = new TGeoMixture("Air", 2, density = 1.29e-03);
   matAir->AddElement(elN, 0.761);
@@ -123,6 +129,28 @@ void Ex01MCApplication::ConstructMaterials() {
   //____Sn____
   TGeoMaterial *matSn =
       new TGeoMaterial("Sn", a = 118.71, z = 50., density = 7.31);
+
+  //____NaI____
+  TGeoMixture *matNaI = new TGeoMixture("NaI", 2, density = 3.67);
+  matNaI->AddElement(elNa, int(1));
+  matNaI->AddElement(elI, int(1));
+
+  //____BGO____
+  TGeoMixture *matBGO = new TGeoMixture("BGO", 3, density = 7.13);
+  matBGO->AddElement(elBi, int(4));
+  matBGO->AddElement(elGe, int(3));
+  matBGO->AddElement(elO, int(12));
+
+  //____Scintillator____
+  TGeoMixture *matSci = new TGeoMixture("Scintillator", 2, density = 1.032);
+  matSci->AddElement(elC, 9);
+  matSci->AddElement(elH, 10);
+
+  //____Plastic____
+  TGeoMixture *matPlastic = new TGeoMixture("POMPlastic", 3, density = 1.42);
+  matPlastic->AddElement(elC, 1);
+  matPlastic->AddElement(elH, 2);
+  matPlastic->AddElement(elO, 1);
 
   /*
     // Set material IDs
@@ -181,6 +209,18 @@ void Ex01MCApplication::ConstructMaterials() {
 
   fImedAir = 11;
   new TGeoMedium("Air", fImedAir, matAir, param);
+
+  fImedNaI = 12;
+  new TGeoMedium("NaI", fImedNaI, matNaI, param);
+
+  fImedBGO = 13;
+  new TGeoMedium("BGOcrystall", fImedBGO, matBGO, param);
+
+  fImedPlastic = 14;
+  new TGeoMedium("Plastic", fImedPlastic, matPlastic, param);
+
+  fImedSci = 15;
+  new TGeoMedium("Scintillator", fImedSci, matSci, param);
 }
 
 //_____________________________________________________________________________
@@ -188,19 +228,18 @@ void Ex01MCApplication::ConstructVolumes() {
   /// Contruct volumes using TGeo modeller
 
   //------------------------------ experimental hall (world volume)
-  //------------------------------ beam line along x axis
+  //------------------------------ beam line along z axis
 
   Double_t *ubuf = 0;
 
   Double_t expHall[3];
-  expHall[0] = 300.;
-  expHall[1] = 100.;
-  expHall[2] = 100.;
+  expHall[0] = 20.;
+  expHall[1] = 20.;
+  expHall[2] = 20.;
   TGeoVolume *top = gGeoManager->Volume("EXPH", "BOX", fImedAir, expHall, 3);
   gGeoManager->SetTopVolume(top);
 
-  //------------------------------ a tracker tube
-
+  //------------------------------ Target
   Double_t targetSize[3];
   targetSize[0] = 0.;
   targetSize[1] = fTargetRadius;
@@ -211,6 +250,97 @@ void Ex01MCApplication::ConstructVolumes() {
   Double_t posY = 0.;
   Double_t posZ = 0.;
   gGeoManager->Node("TARGET", 1, "EXPH", posX, posY, posZ, 0, kTRUE, ubuf);
+
+  //----------------------------- GaNT detector (NaI)
+  TGeoVolume *singleGantNaI = gGeoManager->MakeTube(
+      "SingleGantNaI", gGeoManager->GetMedium(fImedPlastic), 0., 4.6,
+      24.5 / 2.);
+  singleGantNaI->SetVisibility(kTRUE);
+  TGeoVolume *insideSingleGantNaI = gGeoManager->MakeTube(
+      "InsideSingleGantNaI", gGeoManager->GetMedium(fImedAir), 0., 4.1,
+      24. / 2.);
+  insideSingleGantNaI->SetVisibility(kFALSE);
+  TGeoVolume *crystallNaI = gGeoManager->MakeTube(
+      "crystallNaI", gGeoManager->GetMedium(fImedNaI), 0., 6.9 / 2., 6.9 / 2.);
+  crystallNaI->SetVisibility(kTRUE);
+  insideSingleGantNaI->AddNode(
+      crystallNaI, 1, new TGeoTranslation(0., 0., -(24. / 2. - 6.9 / 2.)));
+  singleGantNaI->AddNode(insideSingleGantNaI, 1,
+                         new TGeoTranslation(0., 0., 0.));
+
+  TGeoVolume *plastCPV = gGeoManager->MakeBox(
+      "plastCPV", gGeoManager->GetMedium(fImedSci), 4.4, 0.2, 16.);
+
+  double distGant = 14.6 / 2. + 0.4 + 0.5 + 24.5 / 2.;
+  double distCPV = 14.6 / 2. + 0.2;
+  distCPV = TMath::Sqrt(distCPV * distCPV + 0.7 * 0.7);
+  double dphiCPV = TMath::ATan(0.7 / 14.6) * 180. / TMath::Pi();
+
+  for (int i = 0; i < 3; i++) {
+    TGeoRotation *rot =
+        new TGeoRotation(Form("rot%d", i + 1), i * 240., -90., i * 240.);
+    // 3 GsNT modules
+    for (int iz = 0; iz < 3; iz++) {
+      top->AddNode(singleGantNaI, i * 3 + 1 + iz,
+                   new TGeoCombiTrans(
+                       distGant * TMath::Sin(i * 120. / 180. * TMath::Pi()),
+                       distGant * TMath::Cos(i * 120. / 180. * TMath::Pi()),
+                       -9.2 + iz * 9.2, rot));
+    }
+    // CPV module
+    top->AddNode(
+        plastCPV, i,
+        new TGeoCombiTrans(
+            distCPV * TMath::Sin((i * 120. + dphiCPV) / 180. * TMath::Pi()),
+            distCPV * TMath::Cos((i * 120. + dphiCPV) / 180. * TMath::Pi()), 0.,
+            new TGeoRotation(Form("rotCPV%d", i), 0., 0., 60. * i)));
+  }
+
+  //---------------------------- GaNT detector (BGO)
+  TGeoVolume *singleGantBGO = gGeoManager->MakeTube(
+      "SingleGantBGO", gGeoManager->GetMedium(fImedPlastic), 0., 4.6,
+      24.5 / 2.);
+  singleGantBGO->SetVisibility(kTRUE);
+  TGeoVolume *crystallBGO = gGeoManager->MakeTube(
+      "crystallBGO", gGeoManager->GetMedium(fImedBGO), 0., 6.9 / 2., 6.9 / 2.);
+  crystallBGO->SetVisibility(kTRUE);
+  TGeoVolume *insideSingleGantBGO = gGeoManager->MakeTube(
+      "InsideSingleGantBGO", gGeoManager->GetMedium(fImedAir), 0., 4.1,
+      24. / 2.);
+
+  insideSingleGantBGO->AddNode(
+      crystallBGO, 1, new TGeoTranslation(0., 0., -(24. / 2. - 6.9 / 2.)));
+  singleGantBGO->AddNode(insideSingleGantBGO, 1,
+                         new TGeoTranslation(0., 0., 0.));
+
+  for (int i = 3; i < 6; i++) {
+    TGeoRotation *rot =
+        new TGeoRotation(Form("rot%d", i + 1), 120. + (i - 3) * 240., 90.,
+                         120. + (i - 3) * 240.);
+    // 3 GaNT modules
+    for (int iz = 0; iz < 3; iz++) {
+      top->AddNode(
+          singleGantBGO, i * 3 + 1 + iz,
+          new TGeoCombiTrans(
+              distGant * TMath::Sin((i - 2.5) * 120. / 180. * TMath::Pi()),
+              distGant * TMath::Cos((i - 2.5) * 120. / 180. * TMath::Pi()),
+              -9.2 + iz * 9.2, rot));
+    }
+    // CPV module
+    top->AddNode(
+        plastCPV, i,
+        new TGeoCombiTrans(
+            distCPV *
+                TMath::Sin(((i - 2.5) * 120. + dphiCPV) / 180. * TMath::Pi()),
+            distCPV *
+                TMath::Cos(((i - 2.5) * 120. + dphiCPV) / 180. * TMath::Pi()),
+            0., new TGeoRotation(Form("rotCPV%d", i), 0., 0., 60. * (i - 4))));
+  }
+
+  // S_F
+  TGeoVolume *plastS_F = gGeoManager->MakeBox(
+      "S_F", gGeoManager->GetMedium(fImedSci), 10., 10., 0.3);
+  top->AddNode(plastS_F, 1, new TGeoTranslation(0., 0., 18.));
 
   // close geometry
   gGeoManager->CloseGeometry();
@@ -259,6 +389,47 @@ void Ex01MCApplication::InitMC(const char *setup) {
       "hEnergyOfSecondariesInTarget",
       "Energy of secondaries produced in target; E, GeV; counts", 5000, 0., 5.);
   hDeltaTheta = new TH1F("hDeltaTheta", "#Delta #Theta", 1000, -1., 1.);
+
+  hEnDepInCPV = new TH1F("hEnDepInCPV", "Deposed energy in CPV; E, GeV; counts",
+                         10000, 0., 1.);
+
+  hEnDepInSF = new TH1F("hEnDepInSF", "Deposed energy in S_{F}; E, GeV; counts",
+                        10000, 0., 1.);
+
+  hEnDepInBGO = new TH1F("hEnDepInBGO", "Deposed energy in BGO; E, GeV; counts",
+                         1000, 0., 1.);
+
+  hEnDepInNaI = new TH1F("hEnDepInNaI", "Deposed energy in NaI; E, GeV; counts",
+                         1000, 0., 1.);
+  hEnDepInBGOTriggered = new TH1F(
+      "hEnDepInBGOTriggered",
+      "Deposed energy in BGO (trigger passed); E, GeV; counts", 1000, 0., 1.);
+
+  hEnDepInNaITriggered = new TH1F(
+      "hEnDepInNaItriggered",
+      "Deposed energy in NaI (trigger passed); E, GeV; counts", 1000, 0., 1.);
+
+  // init pythia8
+  fPythia = new Pythia8::Pythia();
+  int pySeed = gRandom->GetSeed();
+  if (pySeed <= 0) {
+    pySeed = gRandom->Integer(900000000);
+  }
+  fPythia->readString("Random:setSeed = on");
+  fPythia->readString(Form("Random:Seed = %d", pySeed));
+  fPythia->readString("SoftQCD:all = on");
+  fPythia->readString("Beams:idA = 211");
+  fPythia->readString("Beams:idB = 2112");
+  fPythia->readString("Beams:eA = 7.");
+  fPythia->readString("Beams:eB = 0.");
+  fPythia->readString("Beams:frameType = 2");
+  // fPythia->readString("2214:onMode = off");
+  // fPythia->readString("2214:onIfAny = 2212 111");
+  fPythia->init();
+
+  // trigger thresholds
+  fCPVThreshold = 0.0008;
+  fSFThreashold = 0.0007;
 }
 
 //__________________________________________________________________________
@@ -343,17 +514,17 @@ void Ex01MCApplication::GeneratePrimaries() {
   Double_t polz = 0.;
 
   // Position
-  Double_t vx = 6. * (gRandom->Rndm() - 0.5);
-  Double_t vy = 6. * (gRandom->Rndm() - 0.5);
-  while (vx * vx + vy * vy >= 9.) {
-    vx = 6. * (gRandom->Rndm() - 0.5);
-    vy = 6. * (gRandom->Rndm() - 0.5);
+  Double_t vx = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
+  Double_t vy = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
+  while (vx * vx + vy * vy >= fTargetRadius * fTargetRadius) {
+    vx = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
+    vy = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
   }
   Double_t vz = fTargetThickness * (-0.5 + gRandom->Rndm());
   Double_t tof = 0.;
 
   // Momentum
-  Double_t px, py, pz, e = fInitialEnergy;
+  /*Double_t px, py, pz, e = fInitialEnergy;
   double phi = 2. * TMath::Pi() * gRandom->Rndm();
   double cosTheta = (gRandom->Rndm() - 0.5);
   double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
@@ -361,10 +532,27 @@ void Ex01MCApplication::GeneratePrimaries() {
   py = e * sinTheta * TMath::Cos(phi);
   pz = e * cosTheta;
   fInitialMomentum.SetXYZT(px, py, pz, e);
+  */
 
-  // Add particle to stack
-  fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
-                    poly, polz, kPPrimary, ntr, 1., 0);
+  // generate one event
+  while (!fPythia->next()) {
+    continue;
+  }
+
+  // Add particles to stack
+  Double_t px, py, pz, e;
+  for (int i = 1; i < fPythia->event.size(); i++) {
+    if (!fPythia->event[i].isFinal()) {
+      continue;
+    }
+    pdg = fPythia->event[i].id();
+    px = fPythia->event[i].px();
+    py = fPythia->event[i].py();
+    pz = fPythia->event[i].pz();
+    e = fPythia->event[i].e();
+    fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
+                      poly, polz, kPPrimary, ntr, 1., 0);
+  }
 }
 
 //_____________________________________________________________________________
@@ -376,6 +564,10 @@ void Ex01MCApplication::BeginEvent() {
   fEnDepOutTarget = 0;
   fEnergyOfSecondariesInTarget = 0;
   fDeltaTheta = 0;
+  fEnDepInBGO = 0;
+  fEnDepInNaI = 0;
+  fEnDepInCPV = 0;
+  fEnDepInSF = 0;
 }
 
 //_____________________________________________________________________________
@@ -412,12 +604,27 @@ void Ex01MCApplication::Stepping() {
     } else { // secondary track
       // new secondary track produced by primary photon inside target
       if (gMC->IsNewTrack() && fStack->GetCurrentParentTrackNumber() == 0) {
-
         fEnergyOfSecondariesInTarget += trackMomentum.T();
       }
     }
   } else { // outside target
     fEnDepOutTarget += gMC->Edep();
+  }
+  // deposed energy in NaI crystall
+  if (strcmp(gMC->CurrentVolName(), "crystallNaI") == 0) {
+    fEnDepInNaI += gMC->Edep();
+  }
+  // deposed energy in BGO crystall
+  if (strcmp(gMC->CurrentVolName(), "crystallBGO") == 0) {
+    fEnDepInBGO += gMC->Edep();
+  }
+  // deposed energy in CPV
+  if (strcmp(gMC->CurrentVolName(), "plastCPV") == 0) {
+    fEnDepInCPV += gMC->Edep();
+  }
+  // deposed energy in S_F
+  if (strcmp(gMC->CurrentVolName(), "S_F") == 0) {
+    fEnDepInSF += gMC->Edep();
   }
 
   /// Print track position, the current volume and current medium names.
@@ -467,6 +674,16 @@ void Ex01MCApplication::FinishEvent() {
   hEnergyWhenExitingTarget->Fill(fEnergyWhenExitingTarget);
   hEnergyOfSecondariesInTarget->Fill(fEnergyOfSecondariesInTarget);
   hDeltaTheta->Fill(fDeltaTheta);
+  hEnDepInBGO->Fill(fEnDepInBGO);
+  hEnDepInCPV->Fill(fEnDepInCPV);
+  hEnDepInNaI->Fill(fEnDepInNaI);
+  hEnDepInSF->Fill(fEnDepInSF);
+
+  // trigger condition
+  if (fEnDepInCPV < fCPVThreshold && fEnDepInSF < fSFThreashold) {
+    hEnDepInNaITriggered->Fill(fEnDepInNaI);
+    hEnDepInBGOTriggered->Fill(fEnDepInBGO);
+  }
 }
 
 //_____________________________________________________________________________

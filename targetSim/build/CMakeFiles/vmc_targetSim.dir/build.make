@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/evdokimov/hyperon/targetSim/source
+CMAKE_SOURCE_DIR = /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/evdokimov/hyperon/targetSim/build
+CMAKE_BINARY_DIR = /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/vmc_targetSim.dir/depend.make
@@ -57,18 +57,18 @@ include CMakeFiles/vmc_targetSim.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/vmc_targetSim.dir/flags.make
 
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/targetSimLinkDef.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01MCApplication.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01MCStack.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01DetectorConstructionOld.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01Particle.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01MCApplication.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01MCStack.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01DetectorConstructionOld.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/Ex01Particle.h
-vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/targetSim/source/include/targetSimLinkDef.h
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/evdokimov/hyperon/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating vmc_targetSim_dict.cxx, libvmc_targetSim_rdict.pcm, libvmc_targetSim.rootmap"
-	/usr/bin/cmake -E env LD_LIBRARY_PATH=/home/evdokimov/mysw/INSTALL/root/lib:/home/evdokimov/hyperon/targetSim/source/../install/lib:/home/evdokimov/mysw/INSTALL/geant4_vmc/lib:/home/evdokimov/mysw/INSTALL/geant4/lib:/home/evdokimov/mysw/INSTALL/geant3/lib:/home/evdokimov/mysw/INSTALL/vmc/lib:/home/evdokimov/mysw/INSTALL/root/lib:/home/evdokimov/mysw/INSTALL/geant4/lib:/home/evdokimov/mysw/INSTALL/geant3/lib:/home/evdokimov/mysw/INSTALL/vmc/lib:/home/evdokimov/mysw/INSTALL/vmc/lib:/home/evdokimov/mysw//INSTALL/vmc/lib /home/evdokimov/mysw/INSTALL/root/bin/rootcling -v2 -f vmc_targetSim_dict.cxx -s /home/evdokimov/hyperon/targetSim/build/libvmc_targetSim.so -rml libvmc_targetSim.so -rmf /home/evdokimov/hyperon/targetSim/build/libvmc_targetSim.rootmap -compilerI/usr/include/c++/9 -compilerI/usr/include/x86_64-linux-gnu/c++/9 -compilerI/usr/include/c++/9/backward -compilerI/usr/lib/gcc/x86_64-linux-gnu/9/include -compilerI/usr/local/include -compilerI/usr/include/x86_64-linux-gnu -compilerI/usr/include -compilerI/usr/lib/gcc/x86_64-linux-gnu/9/include -compilerI/usr/local/include -compilerI/usr/include/x86_64-linux-gnu -compilerI/usr/include -I/home/evdokimov/mysw/INSTALL/root/include -I/home/evdokimov/mysw/INSTALL/vmc/include/vmc -I/home/evdokimov/hyperon/targetSim/source/include -I/home/evdokimov/hyperon/targetSim/build -I/home/evdokimov/hyperon/targetSim/source Ex01MCApplication.h Ex01MCStack.h Ex01DetectorConstructionOld.h Ex01Particle.h /home/evdokimov/hyperon/targetSim/source/include/targetSimLinkDef.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/targetSimLinkDef.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01MCApplication.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01MCStack.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01DetectorConstructionOld.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01Particle.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01MCApplication.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01MCStack.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01DetectorConstructionOld.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/Ex01Particle.h
+vmc_targetSim_dict.cxx: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/targetSimLinkDef.h
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating vmc_targetSim_dict.cxx, libvmc_targetSim_rdict.pcm, libvmc_targetSim.rootmap"
+	/usr/bin/cmake -E env LD_LIBRARY_PATH=/home/evdokimov/mysw/INSTALL/root/lib:/home/evdokimov/mysw/INSTALL/geant4_vmc/lib:/home/evdokimov/mysw/INSTALL/geant4/lib:/home/evdokimov/mysw/INSTALL/geant3/lib:/home/evdokimov/mysw/INSTALL/vmc/lib:/home/evdokimov/mysw/INSTALL/root/lib:/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/../install:/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/../install/lib:/home/evdokimov/mysw/pythia8308/lib /home/evdokimov/mysw/INSTALL/root/bin/rootcling -v2 -f vmc_targetSim_dict.cxx -s /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/libvmc_targetSim.so -rml libvmc_targetSim.so -rmf /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/libvmc_targetSim.rootmap -compilerI/usr/include/c++/9 -compilerI/usr/include/x86_64-linux-gnu/c++/9 -compilerI/usr/include/c++/9/backward -compilerI/usr/lib/gcc/x86_64-linux-gnu/9/include -compilerI/usr/local/include -compilerI/usr/include/x86_64-linux-gnu -compilerI/usr/include -compilerI/usr/lib/gcc/x86_64-linux-gnu/9/include -compilerI/usr/local/include -compilerI/usr/include/x86_64-linux-gnu -compilerI/usr/include -I/home/evdokimov/mysw/INSTALL/root/include -I/home/evdokimov/mysw/INSTALL/vmc/include/vmc -I/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include -I/home/evdokimov/mysw/pythia8308/include -I/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build -I/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source Ex01MCApplication.h Ex01MCStack.h Ex01DetectorConstructionOld.h Ex01Particle.h /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include/targetSimLinkDef.h
 
 libvmc_targetSim_rdict.pcm: vmc_targetSim_dict.cxx
 	@$(CMAKE_COMMAND) -E touch_nocreate libvmc_targetSim_rdict.pcm
@@ -77,69 +77,69 @@ libvmc_targetSim.rootmap: vmc_targetSim_dict.cxx
 	@$(CMAKE_COMMAND) -E touch_nocreate libvmc_targetSim.rootmap
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.o: CMakeFiles/vmc_targetSim.dir/flags.make
-CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.o: /home/evdokimov/hyperon/targetSim/source/src/Ex01DetectorConstructionOld.cxx
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.o -c /home/evdokimov/hyperon/targetSim/source/src/Ex01DetectorConstructionOld.cxx
+CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.o: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01DetectorConstructionOld.cxx
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.o -c /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01DetectorConstructionOld.cxx
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/targetSim/source/src/Ex01DetectorConstructionOld.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01DetectorConstructionOld.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.i
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/targetSim/source/src/Ex01DetectorConstructionOld.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01DetectorConstructionOld.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01DetectorConstructionOld.cxx.s
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.o: CMakeFiles/vmc_targetSim.dir/flags.make
-CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.o: /home/evdokimov/hyperon/targetSim/source/src/Ex01MCApplication.cxx
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.o -c /home/evdokimov/hyperon/targetSim/source/src/Ex01MCApplication.cxx
+CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.o: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCApplication.cxx
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.o -c /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCApplication.cxx
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/targetSim/source/src/Ex01MCApplication.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCApplication.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.i
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/targetSim/source/src/Ex01MCApplication.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCApplication.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCApplication.cxx.s
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.o: CMakeFiles/vmc_targetSim.dir/flags.make
-CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.o: /home/evdokimov/hyperon/targetSim/source/src/Ex01MCStack.cxx
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.o -c /home/evdokimov/hyperon/targetSim/source/src/Ex01MCStack.cxx
+CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.o: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCStack.cxx
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.o -c /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCStack.cxx
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/targetSim/source/src/Ex01MCStack.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCStack.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.i
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/targetSim/source/src/Ex01MCStack.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01MCStack.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01MCStack.cxx.s
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.o: CMakeFiles/vmc_targetSim.dir/flags.make
-CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.o: /home/evdokimov/hyperon/targetSim/source/src/Ex01Particle.cxx
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.o -c /home/evdokimov/hyperon/targetSim/source/src/Ex01Particle.cxx
+CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.o: /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01Particle.cxx
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.o -c /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01Particle.cxx
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/targetSim/source/src/Ex01Particle.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01Particle.cxx > CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.i
 
 CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/targetSim/source/src/Ex01Particle.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/src/Ex01Particle.cxx -o CMakeFiles/vmc_targetSim.dir/src/Ex01Particle.cxx.s
 
 CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.o: CMakeFiles/vmc_targetSim.dir/flags.make
 CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.o: vmc_targetSim_dict.cxx
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.o -c /home/evdokimov/hyperon/targetSim/build/vmc_targetSim_dict.cxx
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.o -c /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/vmc_targetSim_dict.cxx
 
 CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/targetSim/build/vmc_targetSim_dict.cxx > CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/vmc_targetSim_dict.cxx > CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.i
 
 CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/targetSim/build/vmc_targetSim_dict.cxx -o CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/vmc_targetSim_dict.cxx -o CMakeFiles/vmc_targetSim.dir/vmc_targetSim_dict.cxx.s
 
 # Object files for target vmc_targetSim
 vmc_targetSim_OBJECTS = \
@@ -178,10 +178,12 @@ libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libMathCore.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libThread.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libMultiProc.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libROOTVecOps.so
+libvmc_targetSim.so: ~/mysw/pythia8308/lib/libpythia8.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libTree.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libGeom.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libEG.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libPhysics.so
+libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libGenVector.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libGraf3d.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libGpad.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libGraf.so
@@ -195,9 +197,9 @@ libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libRIO.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libThread.so
 libvmc_targetSim.so: /home/evdokimov/mysw/INSTALL/root/lib/libCore.so
 libvmc_targetSim.so: CMakeFiles/vmc_targetSim.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/evdokimov/hyperon/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library libvmc_targetSim.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library libvmc_targetSim.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/vmc_targetSim.dir/link.txt --verbose=$(VERBOSE)
-	rm /home/evdokimov/hyperon/targetSim/build/libvmc_targetSim.rootmap
+	rm /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/libvmc_targetSim.rootmap
 
 # Rule to build all files generated by this target.
 CMakeFiles/vmc_targetSim.dir/build: libvmc_targetSim.so
@@ -211,6 +213,6 @@ CMakeFiles/vmc_targetSim.dir/clean:
 CMakeFiles/vmc_targetSim.dir/depend: vmc_targetSim_dict.cxx
 CMakeFiles/vmc_targetSim.dir/depend: libvmc_targetSim_rdict.pcm
 CMakeFiles/vmc_targetSim.dir/depend: libvmc_targetSim.rootmap
-	cd /home/evdokimov/hyperon/targetSim/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/evdokimov/hyperon/targetSim/source /home/evdokimov/hyperon/targetSim/source /home/evdokimov/hyperon/targetSim/build /home/evdokimov/hyperon/targetSim/build /home/evdokimov/hyperon/targetSim/build/CMakeFiles/vmc_targetSim.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source /home/evdokimov/hyperon/HyperonMC-factory/targetSim/source /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build /home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/CMakeFiles/vmc_targetSim.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vmc_targetSim.dir/depend
 

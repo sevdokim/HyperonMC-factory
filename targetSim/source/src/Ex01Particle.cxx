@@ -22,21 +22,19 @@
 
 /// \cond CLASSIMP
 ClassImp(Ex01Particle)
-  /// \endcond
+    /// \endcond
 
-  //_____________________________________________________________________________
-  Ex01Particle::Ex01Particle(Int_t id, TParticle* particle)
-  : fID(id), fParticle(particle), fMother(0), fDaughters(0)
-{
+    //_____________________________________________________________________________
+    Ex01Particle::Ex01Particle(Int_t id, TParticle *particle)
+    : fID(id), fParticle(particle), fMother(0), fDaughters(0) {
   /// Standard constructor
   /// \param  id        The particle id
   /// \param  particle  The particle definition (TParticle)
 }
 
 //_____________________________________________________________________________
-Ex01Particle::Ex01Particle(Int_t id, TParticle* particle, Ex01Particle* mother)
-  : fID(id), fParticle(particle), fMother(mother), fDaughters(0)
-{
+Ex01Particle::Ex01Particle(Int_t id, TParticle *particle, Ex01Particle *mother)
+    : fID(id), fParticle(particle), fMother(mother), fDaughters(0) {
   /// Standard constructor
   /// \param  id        The particle id
   /// \param  particle  The particle definition (TParticle)
@@ -44,17 +42,16 @@ Ex01Particle::Ex01Particle(Int_t id, TParticle* particle, Ex01Particle* mother)
 }
 
 //_____________________________________________________________________________
-Ex01Particle::Ex01Particle() : fID(0), fParticle(0), fMother(0), fDaughters(0)
-{
+Ex01Particle::Ex01Particle() : fID(0), fParticle(0), fMother(0), fDaughters(0) {
   /// Default constructor
 }
 
 //_____________________________________________________________________________
-Ex01Particle::~Ex01Particle()
-{
+Ex01Particle::~Ex01Particle() {
   /// Destructor
-
-  if (fDaughters) delete fDaughters;
+  delete fParticle;
+  if (fDaughters)
+    delete fDaughters;
 }
 
 // operators
@@ -62,19 +59,18 @@ Ex01Particle::~Ex01Particle()
 // public methods
 
 //_____________________________________________________________________________
-void Ex01Particle::AddDaughter(Ex01Particle* particle)
-{
+void Ex01Particle::AddDaughter(Ex01Particle *particle) {
   /// Add particles daughter
   /// \param particle  The daughter particle
 
-  if (!fDaughters) fDaughters = new TObjArray();
+  if (!fDaughters)
+    fDaughters = new TObjArray();
 
   fDaughters->Add(particle);
 }
 
 //_____________________________________________________________________________
-void Ex01Particle::SetMother(Ex01Particle* particle)
-{
+void Ex01Particle::SetMother(Ex01Particle *particle) {
   /// Set particle mother
   /// \param  particle  The mother particle
 
@@ -82,46 +78,42 @@ void Ex01Particle::SetMother(Ex01Particle* particle)
 }
 
 //_____________________________________________________________________________
-Int_t Ex01Particle::GetID() const
-{
+Int_t Ex01Particle::GetID() const {
   /// \return The particle Id.
 
   return fID;
 }
 
 //_____________________________________________________________________________
-TParticle* Ex01Particle::GetParticle() const
-{
+TParticle *Ex01Particle::GetParticle() const {
   /// \return The particle definition (TParticle).
 
   return fParticle;
 }
 
 //_____________________________________________________________________________
-Ex01Particle* Ex01Particle::GetMother() const
-{
+Ex01Particle *Ex01Particle::GetMother() const {
   /// \return The particle mother.
 
   return fMother;
 }
 
 //_____________________________________________________________________________
-Int_t Ex01Particle::GetNofDaughters() const
-{
+Int_t Ex01Particle::GetNofDaughters() const {
   /// \return The number of daughters.
 
-  if (!fDaughters) return 0;
+  if (!fDaughters)
+    return 0;
 
   return fDaughters->GetEntriesFast();
 }
 
 //_____________________________________________________________________________
-Ex01Particle* Ex01Particle::GetDaughter(Int_t i) const
-{
+Ex01Particle *Ex01Particle::GetDaughter(Int_t i) const {
   /// \return   \em i -th daughter
   /// \param i  The daughter index
 
   // add test if i
 
-  return (Ex01Particle*)fDaughters->At(i);
+  return (Ex01Particle *)fDaughters->At(i);
 }

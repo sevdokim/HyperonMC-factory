@@ -10,7 +10,7 @@
 #include <string.h>
 #include <assert.h>
 #define G__DICTIONARY
-#include "RConfig.h"
+#include "ROOT/RConfig.hxx"
 #include "TClass.h"
 #include "TDictAttributeMap.h"
 #include "TInterpreter.h"
@@ -71,10 +71,10 @@ namespace ROOT {
    }
    TGenericClassInfo *GenerateInitInstance(const ::Ex01Particle*)
    {
-      return GenerateInitInstanceLocal((::Ex01Particle*)nullptr);
+      return GenerateInitInstanceLocal(static_cast<::Ex01Particle*>(nullptr));
    }
    // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const ::Ex01Particle*)nullptr); R__UseDummy(_R__UNIQUE_DICT_(Init));
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const ::Ex01Particle*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
 } // end of namespace ROOT
 
 namespace ROOT {
@@ -103,10 +103,10 @@ namespace ROOT {
    }
    TGenericClassInfo *GenerateInitInstance(const ::Ex01MCStack*)
    {
-      return GenerateInitInstanceLocal((::Ex01MCStack*)nullptr);
+      return GenerateInitInstanceLocal(static_cast<::Ex01MCStack*>(nullptr));
    }
    // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const ::Ex01MCStack*)nullptr); R__UseDummy(_R__UNIQUE_DICT_(Init));
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const ::Ex01MCStack*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
 } // end of namespace ROOT
 
 namespace ROOT {
@@ -122,7 +122,7 @@ namespace ROOT {
       ::Ex01MCApplication *ptr = nullptr;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::Ex01MCApplication >(nullptr);
       static ::ROOT::TGenericClassInfo 
-         instance("Ex01MCApplication", ::Ex01MCApplication::Class_Version(), "Ex01MCApplication.h", 34,
+         instance("Ex01MCApplication", ::Ex01MCApplication::Class_Version(), "Ex01MCApplication.h", 35,
                   typeid(::Ex01MCApplication), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::Ex01MCApplication::Dictionary, isa_proxy, 4,
                   sizeof(::Ex01MCApplication) );
@@ -135,10 +135,10 @@ namespace ROOT {
    }
    TGenericClassInfo *GenerateInitInstance(const ::Ex01MCApplication*)
    {
-      return GenerateInitInstanceLocal((::Ex01MCApplication*)nullptr);
+      return GenerateInitInstanceLocal(static_cast<::Ex01MCApplication*>(nullptr));
    }
    // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const ::Ex01MCApplication*)nullptr); R__UseDummy(_R__UNIQUE_DICT_(Init));
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const ::Ex01MCApplication*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
 } // end of namespace ROOT
 
 namespace ROOT {
@@ -167,10 +167,10 @@ namespace ROOT {
    }
    TGenericClassInfo *GenerateInitInstance(const ::Ex01DetectorConstructionOld*)
    {
-      return GenerateInitInstanceLocal((::Ex01DetectorConstructionOld*)nullptr);
+      return GenerateInitInstanceLocal(static_cast<::Ex01DetectorConstructionOld*>(nullptr));
    }
    // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const ::Ex01DetectorConstructionOld*)nullptr); R__UseDummy(_R__UNIQUE_DICT_(Init));
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const ::Ex01DetectorConstructionOld*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
 } // end of namespace ROOT
 
 //______________________________________________________________________________
@@ -335,14 +335,14 @@ namespace ROOT {
    }
    // Wrapper around operator delete
    static void delete_Ex01Particle(void *p) {
-      delete ((::Ex01Particle*)p);
+      delete (static_cast<::Ex01Particle*>(p));
    }
    static void deleteArray_Ex01Particle(void *p) {
-      delete [] ((::Ex01Particle*)p);
+      delete [] (static_cast<::Ex01Particle*>(p));
    }
    static void destruct_Ex01Particle(void *p) {
       typedef ::Ex01Particle current_t;
-      ((current_t*)p)->~current_t();
+      (static_cast<current_t*>(p))->~current_t();
    }
 } // end of namespace ROOT for class ::Ex01Particle
 
@@ -368,14 +368,14 @@ namespace ROOT {
    }
    // Wrapper around operator delete
    static void delete_Ex01MCStack(void *p) {
-      delete ((::Ex01MCStack*)p);
+      delete (static_cast<::Ex01MCStack*>(p));
    }
    static void deleteArray_Ex01MCStack(void *p) {
-      delete [] ((::Ex01MCStack*)p);
+      delete [] (static_cast<::Ex01MCStack*>(p));
    }
    static void destruct_Ex01MCStack(void *p) {
       typedef ::Ex01MCStack current_t;
-      ((current_t*)p)->~current_t();
+      (static_cast<current_t*>(p))->~current_t();
    }
 } // end of namespace ROOT for class ::Ex01MCStack
 
@@ -401,14 +401,14 @@ namespace ROOT {
    }
    // Wrapper around operator delete
    static void delete_Ex01MCApplication(void *p) {
-      delete ((::Ex01MCApplication*)p);
+      delete (static_cast<::Ex01MCApplication*>(p));
    }
    static void deleteArray_Ex01MCApplication(void *p) {
-      delete [] ((::Ex01MCApplication*)p);
+      delete [] (static_cast<::Ex01MCApplication*>(p));
    }
    static void destruct_Ex01MCApplication(void *p) {
       typedef ::Ex01MCApplication current_t;
-      ((current_t*)p)->~current_t();
+      (static_cast<current_t*>(p))->~current_t();
    }
 } // end of namespace ROOT for class ::Ex01MCApplication
 
@@ -434,14 +434,14 @@ namespace ROOT {
    }
    // Wrapper around operator delete
    static void delete_Ex01DetectorConstructionOld(void *p) {
-      delete ((::Ex01DetectorConstructionOld*)p);
+      delete (static_cast<::Ex01DetectorConstructionOld*>(p));
    }
    static void deleteArray_Ex01DetectorConstructionOld(void *p) {
-      delete [] ((::Ex01DetectorConstructionOld*)p);
+      delete [] (static_cast<::Ex01DetectorConstructionOld*>(p));
    }
    static void destruct_Ex01DetectorConstructionOld(void *p) {
       typedef ::Ex01DetectorConstructionOld current_t;
-      ((current_t*)p)->~current_t();
+      (static_cast<current_t*>(p))->~current_t();
    }
 } // end of namespace ROOT for class ::Ex01DetectorConstructionOld
 
@@ -457,11 +457,12 @@ nullptr
     static const char* includePaths[] = {
 "/home/evdokimov/mysw/INSTALL/root/include",
 "/home/evdokimov/mysw/INSTALL/vmc/include/vmc",
-"/home/evdokimov/hyperon/targetSim/source/include",
-"/home/evdokimov/hyperon/targetSim/build",
-"/home/evdokimov/hyperon/targetSim/source",
+"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include",
+"/home/evdokimov/mysw/pythia8308/include",
+"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build",
+"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source",
 "/home/evdokimov/mysw/INSTALL/root/include/",
-"/home/evdokimov/hyperon/targetSim/build/",
+"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/",
 nullptr
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(
@@ -470,10 +471,10 @@ nullptr
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
 extern int __Cling_AutoLoading_Map;
-class __attribute__((annotate(R"ATTRDUMP(Extended TParticle)ATTRDUMP"))) __attribute__((annotate("$clingAutoload$Ex01Particle.h")))  __attribute__((annotate("$clingAutoload$Ex01MCApplication.h")))  Ex01Particle;
-class __attribute__((annotate(R"ATTRDUMP(Ex01MCStack)ATTRDUMP"))) __attribute__((annotate("$clingAutoload$Ex01MCStack.h")))  __attribute__((annotate("$clingAutoload$Ex01MCApplication.h")))  Ex01MCStack;
-class __attribute__((annotate(R"ATTRDUMP(Interface to MonteCarlo application)ATTRDUMP"))) __attribute__((annotate("$clingAutoload$Ex01MCApplication.h")))  Ex01MCApplication;
-class __attribute__((annotate(R"ATTRDUMP(Ex01DetectorConstructionOld)ATTRDUMP"))) __attribute__((annotate("$clingAutoload$Ex01DetectorConstructionOld.h")))  Ex01DetectorConstructionOld;
+class __attribute__((annotate("$clingAutoload$Ex01Particle.h")))  __attribute__((annotate("$clingAutoload$Ex01MCApplication.h")))  Ex01Particle;
+class __attribute__((annotate("$clingAutoload$Ex01MCStack.h")))  __attribute__((annotate("$clingAutoload$Ex01MCApplication.h")))  Ex01MCStack;
+class __attribute__((annotate("$clingAutoload$Ex01MCApplication.h")))  Ex01MCApplication;
+class __attribute__((annotate("$clingAutoload$Ex01DetectorConstructionOld.h")))  Ex01DetectorConstructionOld;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
 #line 1 "libvmc_targetSim dictionary payload"

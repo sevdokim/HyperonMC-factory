@@ -18,6 +18,7 @@
 /// \author I. Hrivnacova; IPN, Orsay
 
 #include "Ex01MCStack.h"
+#include "Pythia8/Pythia.h"
 #include <TLorentzVector.h>
 #include <TVirtualMCApplication.h>
 
@@ -84,6 +85,10 @@ private:
   int fImedSn;
   int fImedCH2;
   int fImedTarget;
+  int fImedPlastic;
+  int fImedSci;
+  int fImedBGO;
+  int fImedNaI;
   double fTargetRadius;
   double fTargetThickness;
   double fEnDepTarget;
@@ -92,6 +97,12 @@ private:
   double fInitialEnergy;
   double fEnergyOfSecondariesInTarget;
   double fDeltaTheta;
+  double fEnDepInBGO;
+  double fEnDepInNaI;
+  double fEnDepInSF;
+  double fEnDepInCPV;
+  double fCPVThreshold;
+  double fSFThreashold;
   TLorentzVector fInitialMomentum;
   Bool_t fOldGeometry; ///< Option for geometry definition
   TFile *fFileSave;
@@ -100,6 +111,14 @@ private:
   TH1F *hEnergyWhenExitingTarget;
   TH1F *hEnergyOfSecondariesInTarget;
   TH1F *hDeltaTheta;
+  TH1F *hEnDepInCPV;
+  TH1F *hEnDepInNaI;
+  TH1F *hEnDepInBGO;
+  TH1F *hEnDepInSF;
+  TH1F *hEnDepInNaITriggered;
+  TH1F *hEnDepInBGOTriggered;
+
+  Pythia8::Pythia *fPythia;
 
   ClassDef(Ex01MCApplication, 1) // Interface to MonteCarlo application
 };
