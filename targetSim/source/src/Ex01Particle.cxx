@@ -50,8 +50,10 @@ Ex01Particle::Ex01Particle() : fID(0), fParticle(0), fMother(0), fDaughters(0) {
 Ex01Particle::~Ex01Particle() {
   /// Destructor
   delete fParticle;
-  if (fDaughters)
+  if (fDaughters) {
+    fDaughters->Delete();
     delete fDaughters;
+  }
 }
 
 // operators

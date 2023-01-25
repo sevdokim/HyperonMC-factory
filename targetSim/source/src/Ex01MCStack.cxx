@@ -217,6 +217,9 @@ void Ex01MCStack::Reset() {
   fCurrentTrack = -1;
   fNPrimary = 0;
   fParticles->Delete();
+  while (fStack.size()) {
+    fStack.pop();
+  }
 
   // fParticles->Clear();
 }
