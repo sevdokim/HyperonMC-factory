@@ -457,12 +457,12 @@ nullptr
     static const char* includePaths[] = {
 "/home/evdokimov/mysw/INSTALL/root/include",
 "/home/evdokimov/mysw/INSTALL/vmc/include/vmc",
-"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source/include",
+"/home/evdokimov/HyperonMC-factory/targetSim/source/include",
 "/home/evdokimov/mysw/pythia8308/include",
-"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build",
-"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source",
+"/home/evdokimov/HyperonMC-factory/targetSim/build",
+"/home/evdokimov/HyperonMC-factory/targetSim/source",
 "/home/evdokimov/mysw/INSTALL/root/include/",
-"/home/evdokimov/hyperon/HyperonMC-factory/targetSim/build/",
+"/home/evdokimov/HyperonMC-factory/targetSim/build/",
 nullptr
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(
