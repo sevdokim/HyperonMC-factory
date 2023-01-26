@@ -152,6 +152,9 @@ void Ex01MCApplication::ConstructMaterials() {
   matPlastic->AddElement(elH, 2);
   matPlastic->AddElement(elO, 1);
 
+  //____Vacuum_____
+  TGeoMaterial *matVac = new TGeoMaterial("Vacuum", a = 1., z = 1., density = 10e-10);
+  
   /*
     // Set material IDs
     // This step is needed, only if user wants to use the material Ids
@@ -221,7 +224,11 @@ void Ex01MCApplication::ConstructMaterials() {
 
   fImedSci = 15;
   new TGeoMedium("Scintillator", fImedSci, matSci, param);
-}
+
+  fImedVac = 16;
+  new TGeoMedium("Vacuum", fImedVac, matVac, param);
+  
+ }
 
 //_____________________________________________________________________________
 void Ex01MCApplication::ConstructVolumes() {
@@ -251,9 +258,12 @@ void Ex01MCApplication::ConstructVolumes() {
   Double_t posZ = 0.;
   gGeoManager->Node("TARGET", 1, "EXPH", posX, posY, posZ, 0, kTRUE, ubuf);
 
+  int iMedPOM =	fImedPlastic;
+  //int iMedPOM = fImedVac;
+  
   //----------------------------- GaNT detector (NaI)
   TGeoVolume *singleGantNaI = gGeoManager->MakeTube(
-      "SingleGantNaI", gGeoManager->GetMedium(fImedPlastic), 0., 4.6,
+      "SingleGantNaI", gGeoManager->GetMedium(iMedPOM), 0., 4.6,
       24.5 / 2.);
   singleGantNaI->SetVisibility(kTRUE);
   TGeoVolume *insideSingleGantNaI = gGeoManager->MakeTube(
@@ -298,7 +308,7 @@ void Ex01MCApplication::ConstructVolumes() {
 
   //---------------------------- GaNT detector (BGO)
   TGeoVolume *singleGantBGO = gGeoManager->MakeTube(
-      "SingleGantBGO", gGeoManager->GetMedium(fImedPlastic), 0., 4.6,
+      "SingleGantBGO", gGeoManager->GetMedium(iMedPOM), 0., 4.6,
       24.5 / 2.);
   singleGantBGO->SetVisibility(kTRUE);
   TGeoVolume *crystallBGO = gGeoManager->MakeTube(
@@ -440,7 +450,6 @@ void Ex01MCApplication::RunMC(Int_t nofEvents) {
   gMC->ProcessRun(nofEvents);
   FinishRun();
 }
-
 //_____________________________________________________________________________
 void Ex01MCApplication::FinishRun() {
   /// Finish MC run.
@@ -526,26 +535,22 @@ void Ex01MCApplication::GeneratePrimaries() {
 
   // Momentum
   Double_t px, py, pz, e = fInitialEnergy;
-  for (int i = 0; i < 10; i++) {
-    double phi = 2. * TMath::Pi() * gRandom->Rndm();
-    double cosTheta = (gRandom->Rndm() - 0.5);
-    double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
-    px = e * sinTheta * TMath::Sin(phi);
-    py = e * sinTheta * TMath::Cos(phi);
-    pz = e * cosTheta;
-    fInitialMomentum.SetXYZT(px, py, pz, e);
-    fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
+  double phi = 2. * TMath::Pi() * gRandom->Rndm();
+  double cosTheta = 2. * (gRandom->Rndm() - 0.5);
+  double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
+  px = e * sinTheta * TMath::Sin(phi);
+  py = e * sinTheta * TMath::Cos(phi);
+  pz = e * cosTheta;
+  fInitialMomentum.SetXYZT(px, py, pz, e);
+  fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
                       poly, polz, kPPrimary, ntr, 1., 0);
-  }
-
-  // generate one event with pythia
-  /*while (!fPythia->next()) {
+  
+  // generate one pythia event
+  while (!fPythia->next()) {
     continue;
   }
 
   // Add particles to stack
-  Double_t px, py, pz, e;
-
   for (int i = 1; i < fPythia->event.size(); i++) {
     if (!fPythia->event[i].isFinal()) {
       continue;

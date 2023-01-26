@@ -89,6 +89,7 @@ private:
   int fImedSci;
   int fImedBGO;
   int fImedNaI;
+  int fImedVac;
   double fTargetRadius;
   double fTargetThickness;
   double fEnDepTarget;
