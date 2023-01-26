@@ -46,10 +46,10 @@ void run_g4(int nEvents = 100000, int seed = 0,
 
   // Initialize MC
   appl->InitMC(configMacro);
-  // gROOT->ProcessLine("gMC->SetCollectTracks(1)");
+  gROOT->ProcessLine("gMC->SetCollectTracks(0)");
   //     Run MC
   appl->RunMC(nEvents);
-  // gGeoManager->GetTopVolume()->Draw();
+  gGeoManager->GetTopVolume()->Draw();
   // gGeoManager->DrawTracks("/*");
   // delete appl;
 }

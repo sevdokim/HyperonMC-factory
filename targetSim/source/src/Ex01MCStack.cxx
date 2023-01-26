@@ -22,11 +22,11 @@
 #include <TParticle.h>
 
 /// \cond CLASSIMP
-ClassImp(Ex01MCStack)
-    /// \endcond
+ClassImp(Ex01MCStack);
+/// \endcond
 
-    //_____________________________________________________________________________
-    Ex01MCStack::Ex01MCStack(Int_t size)
+//_____________________________________________________________________________
+Ex01MCStack::Ex01MCStack(Int_t size)
     : fParticles(0), fCurrentTrack(-1), fNPrimary(0) {
   /// Standard constructor
   /// \param size  The stack size
@@ -216,10 +216,12 @@ void Ex01MCStack::Reset() {
   // reset fStack
   fCurrentTrack = -1;
   fNPrimary = 0;
-  fParticles->Delete();
+  // fParticles->Delete();
+  for (int i = 0; i < fParticles->GetEntriesFast(); i++) {
+    delete fParticles->At(i);
+  }
+  fParticles->Clear();
   while (fStack.size()) {
     fStack.pop();
   }
-
-  // fParticles->Clear();
 }

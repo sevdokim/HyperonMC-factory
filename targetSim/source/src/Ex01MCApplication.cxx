@@ -49,7 +49,7 @@ ClassImp(Ex01MCApplication)
   /// \param title  The MC application description
 
   // create a user stack
-  fStack = new Ex01MCStack(10000);
+  fStack = new Ex01MCStack(100000);
 
   // create magnetic field (with zero value)
   fMagField = new TGeoUniformMagField();
@@ -397,17 +397,17 @@ void Ex01MCApplication::InitMC(const char *setup) {
                         10000, 0., 1.);
 
   hEnDepInBGO = new TH1F("hEnDepInBGO", "Deposed energy in BGO; E, GeV; counts",
-                         1000, 0., 1.);
+                         10000, 0., 1.);
 
   hEnDepInNaI = new TH1F("hEnDepInNaI", "Deposed energy in NaI; E, GeV; counts",
-                         1000, 0., 1.);
+                         10000, 0., 1.);
   hEnDepInBGOTriggered = new TH1F(
       "hEnDepInBGOTriggered",
-      "Deposed energy in BGO (trigger passed); E, GeV; counts", 1000, 0., 1.);
+      "Deposed energy in BGO (trigger passed); E, GeV; counts", 10000, 0., 1.);
 
   hEnDepInNaITriggered = new TH1F(
       "hEnDepInNaItriggered",
-      "Deposed energy in NaI (trigger passed); E, GeV; counts", 1000, 0., 1.);
+      "Deposed energy in NaI (trigger passed); E, GeV; counts", 10000, 0., 1.);
 
   // init pythia8
   fPythia = new Pythia8::Pythia();
@@ -415,7 +415,7 @@ void Ex01MCApplication::InitMC(const char *setup) {
   if (pySeed <= 0) {
     pySeed = gRandom->Integer(900000000);
   }
-  fPythia->readString("Random:setSeed = on");
+  fPythia->readString("LowEnergyQCD:all = on");
   fPythia->readString(Form("Random:Seed = %d", pySeed));
   fPythia->readString("SoftQCD:all = on");
   fPythia->readString("Beams:idA = 211");
@@ -446,6 +446,7 @@ void Ex01MCApplication::FinishRun() {
   /// Finish MC run.
   fFileSave->Write();
   fFileSave->Close();
+  fPythia->stat();
 }
 
 //_____________________________________________________________________________
@@ -524,23 +525,27 @@ void Ex01MCApplication::GeneratePrimaries() {
   Double_t tof = 0.;
 
   // Momentum
-  /*Double_t px, py, pz, e = fInitialEnergy;
-  double phi = 2. * TMath::Pi() * gRandom->Rndm();
-  double cosTheta = (gRandom->Rndm() - 0.5);
-  double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
-  px = e * sinTheta * TMath::Sin(phi);
-  py = e * sinTheta * TMath::Cos(phi);
-  pz = e * cosTheta;
-  fInitialMomentum.SetXYZT(px, py, pz, e);
-  */
+  Double_t px, py, pz, e = fInitialEnergy;
+  for (int i = 0; i < 10; i++) {
+    double phi = 2. * TMath::Pi() * gRandom->Rndm();
+    double cosTheta = (gRandom->Rndm() - 0.5);
+    double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
+    px = e * sinTheta * TMath::Sin(phi);
+    py = e * sinTheta * TMath::Cos(phi);
+    pz = e * cosTheta;
+    fInitialMomentum.SetXYZT(px, py, pz, e);
+    fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
+                      poly, polz, kPPrimary, ntr, 1., 0);
+  }
 
-  // generate one event
-  while (!fPythia->next()) {
+  // generate one event with pythia
+  /*while (!fPythia->next()) {
     continue;
   }
 
   // Add particles to stack
   Double_t px, py, pz, e;
+
   for (int i = 1; i < fPythia->event.size(); i++) {
     if (!fPythia->event[i].isFinal()) {
       continue;
@@ -552,7 +557,7 @@ void Ex01MCApplication::GeneratePrimaries() {
     e = fPythia->event[i].e();
     fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
                       poly, polz, kPPrimary, ntr, 1., 0);
-  }
+  }*/
 }
 
 //_____________________________________________________________________________
