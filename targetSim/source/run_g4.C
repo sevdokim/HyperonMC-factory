@@ -42,7 +42,7 @@ void run_g4(int nEvents = 100000, int seed = 0,
 
   appl->SetTargetRadius(3 /*cm*/);
   // photon energy
-  appl->SetInitialEnergy(0.005 /*GeV*/);
+  appl->SetInitialEnergy(0.0014 /*GeV*/);
 
   // Initialize MC
   appl->InitMC(configMacro);

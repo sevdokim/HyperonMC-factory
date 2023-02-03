@@ -11,7 +11,7 @@
 /// \file E01/run_g4.C
 /// \brief Macro for loading libraries to run Example01 with Geant4.
 
-#include "../macro/g4libs.C"
+#include "g4libs.C"
 
 void load_g4()
 {

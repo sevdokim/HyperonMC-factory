@@ -1,6 +1,6 @@
 #!/bin/bash
-job_prefix=py8_with5MeVphoton_
-NEVENTS=1000000
+job_prefix=muon50MeV_
+NEVENTS=50000
 for job in {1..20}
 do
     echo "Starting job $job"

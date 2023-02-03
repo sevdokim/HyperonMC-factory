@@ -153,7 +153,7 @@ void Ex01MCApplication::ConstructMaterials() {
   matPlastic->AddElement(elO, 1);
 
   //____Vacuum_____
-  TGeoMaterial *matVac = new TGeoMaterial("Vacuum", a = 1., z = 1., density = 10e-10);
+  TGeoMaterial *matVac = new TGeoMaterial("Vacuum", a = 1., z = 1., density = 10e-20);
   
   /*
     // Set material IDs
@@ -251,6 +251,7 @@ void Ex01MCApplication::ConstructVolumes() {
   targetSize[0] = 0.;
   targetSize[1] = fTargetRadius;
   targetSize[2] = fTargetThickness / 2.;
+  //gGeoManager->Volume("TARGET", "TUBE", fImedVac, targetSize, 3);
   gGeoManager->Volume("TARGET", "TUBE", fImedTarget, targetSize, 3);
 
   Double_t posX = 0.;
@@ -400,25 +401,54 @@ void Ex01MCApplication::InitMC(const char *setup) {
       "Energy of secondaries produced in target; E, GeV; counts", 5000, 0., 5.);
   hDeltaTheta = new TH1F("hDeltaTheta", "#Delta #Theta", 1000, -1., 1.);
 
-  hEnDepInCPV = new TH1F("hEnDepInCPV", "Deposed energy in CPV; E, GeV; counts",
-                         10000, 0., 1.);
-
+  for (int i = 0; i < 6; i++) {
+    hEnDepInCPV[i] = new TH1F(Form("hEnDepInCPV_%d", i), Form("Deposed energy in CPV M%d; E, GeV; counts", i),
+			      10000, 0., 1.);
+  }
+  hSumEnDepInCPV = new TH1F("hSumEnDepInCPV", "Sum of deposed energy in CPV; E, GeV; counts",
+			       10000, 0., 1.);
   hEnDepInSF = new TH1F("hEnDepInSF", "Deposed energy in S_{F}; E, GeV; counts",
                         10000, 0., 1.);
 
-  hEnDepInBGO = new TH1F("hEnDepInBGO", "Deposed energy in BGO; E, GeV; counts",
-                         10000, 0., 1.);
+  for (int i = 0; i < 9; i++) {
+    hEnDepInBGO[i] = new TH1F(Form("hEnDepInBGO%d", i), Form("Deposed energy in BGO M%d; E, GeV; counts", i),
+			      10000, 0., 1.);
+    
+    hEnDepInNaI[i] = new TH1F(Form("hEnDepInNaI%d", i), Form("Deposed energy in NaI M%d; E, GeV; counts", i),
+			      10000, 0., 1.);
+    hEnDepInBGOTriggered[i] = new TH1F(
+				       Form("hEnDepInBGOTriggered%d", i),
+				       Form("Deposed energy in BGO M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
+    
+    hEnDepInNaITriggered[i] = new TH1F(
+				       Form("hEnDepInNaITriggered%d", i),
+				       Form("Deposed energy in NaI M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
+    hMesEnInBGO[i] = new TH1F(Form("hMesEnInBGO%d", i), Form("Measured energy in BGO M%d; E, GeV; counts", i),
+                              10000, 0., 1.);
 
-  hEnDepInNaI = new TH1F("hEnDepInNaI", "Deposed energy in NaI; E, GeV; counts",
-                         10000, 0., 1.);
-  hEnDepInBGOTriggered = new TH1F(
-      "hEnDepInBGOTriggered",
-      "Deposed energy in BGO (trigger passed); E, GeV; counts", 10000, 0., 1.);
+    hMesEnInNaI[i] = new TH1F(Form("hMesEnInNaI%d", i), Form("Measured energy in NaI M%d; E, GeV; counts", i),
+                              10000, 0., 1.);
+    hMesEnInBGOTriggered[i] = new TH1F(
+                                       Form("hMesEnInBGOTriggered%d", i),
+                                       Form("Measured energy in BGO M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
 
-  hEnDepInNaITriggered = new TH1F(
-      "hEnDepInNaItriggered",
-      "Deposed energy in NaI (trigger passed); E, GeV; counts", 10000, 0., 1.);
+    hMesEnInNaITriggered[i] = new TH1F(
+                                       Form("hMesEnInNaITriggered%d", i),
+                                       Form("Measured energy in NaI M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
+  }
+  hSumEnDepInBGO = new TH1F("hSumEnDepInBGO", "Sum of deposed energy in BGO; E, GeV; counts",
+                              10000, 0., 1.);
 
+  hSumEnDepInNaI = new TH1F("hSumEnDepInNaI", "Sum of deposed energy in NaI; E, GeV; counts",
+                              10000, 0., 1.);
+  hSumEnDepInBGOTriggered = new TH1F(
+					"hSumEnDepInBGOTriggered",
+					"Sum of deposed energy in BGO (trigger passed); E, GeV; counts", 10000, 0., 1.);
+  
+  hSumEnDepInNaITriggered = new TH1F(
+					"hSumEnDepInNaItriggered",
+					"Sum of deposed energy in NaI (trigger passed); E, GeV; counts", 10000, 0., 1.);
+  
   // init pythia8
   fPythia = new Pythia8::Pythia();
   int pySeed = gRandom->GetSeed();
@@ -517,6 +547,7 @@ void Ex01MCApplication::GeneratePrimaries() {
 
   // photon
   Int_t pdg = 22;
+  //pdg = 13; //muon
 
   // Polarization
   Double_t polx = 0.;
@@ -536,7 +567,7 @@ void Ex01MCApplication::GeneratePrimaries() {
   // Momentum
   Double_t px, py, pz, e = fInitialEnergy;
   double phi = 2. * TMath::Pi() * gRandom->Rndm();
-  double cosTheta = 2. * (gRandom->Rndm() - 0.5);
+  double cosTheta = TMath::Sqrt(3.) * (gRandom->Rndm() - 0.5);
   double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
   px = e * sinTheta * TMath::Sin(phi);
   py = e * sinTheta * TMath::Cos(phi);
@@ -546,7 +577,7 @@ void Ex01MCApplication::GeneratePrimaries() {
                       poly, polz, kPPrimary, ntr, 1., 0);
   
   // generate one pythia event
-  while (!fPythia->next()) {
+  /*while (!fPythia->next()) {
     continue;
   }
 
@@ -562,7 +593,7 @@ void Ex01MCApplication::GeneratePrimaries() {
     e = fPythia->event[i].e();
     fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
                       poly, polz, kPPrimary, ntr, 1., 0);
-  }*/
+		      }*/
 }
 
 //_____________________________________________________________________________
@@ -574,9 +605,12 @@ void Ex01MCApplication::BeginEvent() {
   fEnDepOutTarget = 0;
   fEnergyOfSecondariesInTarget = 0;
   fDeltaTheta = 0;
-  fEnDepInBGO = 0;
-  fEnDepInNaI = 0;
-  fEnDepInCPV = 0;
+  for (int i = 0; i < 9; i++) {
+    fEnDepInBGO[i] = 0;
+    fEnDepInNaI[i] = 0;
+  }
+  for (int i = 0; i < 6; i++)
+    fEnDepInCPV[i] = 0;
   fEnDepInSF = 0;
 }
 
@@ -622,15 +656,24 @@ void Ex01MCApplication::Stepping() {
   }
   // deposed energy in NaI crystall
   if (strcmp(gMC->CurrentVolName(), "crystallNaI") == 0) {
-    fEnDepInNaI += gMC->Edep();
+    int copyNo;
+    gMC->CurrentVolOffID(2, copyNo);
+    //cout << "Path: " << gMC->CurrentVolPath() << "; volId = " << gMC->CurrentVolOffID(2, copyNo) << "; copy number = " << copyNo << endl;
+    fEnDepInNaI[copyNo - 1] += gMC->Edep();
   }
   // deposed energy in BGO crystall
   if (strcmp(gMC->CurrentVolName(), "crystallBGO") == 0) {
-    fEnDepInBGO += gMC->Edep();
+    int copyNo;
+    gMC->CurrentVolOffID(2, copyNo);
+    //cout << "Path: " << gMC->CurrentVolPath() << "; volId = " << gMC->CurrentVolOffID(2, copyNo) << "; copy number = " << copyNo << endl;
+    fEnDepInBGO[copyNo - 10] += gMC->Edep();
   }
   // deposed energy in CPV
   if (strcmp(gMC->CurrentVolName(), "plastCPV") == 0) {
-    fEnDepInCPV += gMC->Edep();
+    int copyNo;
+    //cout << "Path: " << gMC->CurrentVolPath() << "; volId = " << gMC->CurrentVolID(copyNo) << "; copy number = " << copyNo << endl;
+    gMC->CurrentVolID(copyNo);
+    fEnDepInCPV[copyNo] += gMC->Edep();
   }
   // deposed energy in S_F
   if (strcmp(gMC->CurrentVolName(), "S_F") == 0) {
@@ -684,15 +727,47 @@ void Ex01MCApplication::FinishEvent() {
   hEnergyWhenExitingTarget->Fill(fEnergyWhenExitingTarget);
   hEnergyOfSecondariesInTarget->Fill(fEnergyOfSecondariesInTarget);
   hDeltaTheta->Fill(fDeltaTheta);
-  hEnDepInBGO->Fill(fEnDepInBGO);
-  hEnDepInCPV->Fill(fEnDepInCPV);
-  hEnDepInNaI->Fill(fEnDepInNaI);
+  double sumEnBGO = 0, sumEnNaI = 0, sumEnCPV = 0;
+  static double kNaI = 0.3586, kBGO = 0.03586;
+  static auto measuredE = [](double e, double k) {
+    double mu = k * e * 1e6;
+    double eMes = (mu + TMath::Sqrt(mu) * gRandom->Gaus(0., 1.)) / k * 1e-6;
+    return eMes;
+  };
+  for (int i = 0; i < 9; i++) {
+    hEnDepInBGO[i]->Fill(fEnDepInBGO[i]);
+    hMesEnInBGO[i]->Fill(measuredE(fEnDepInBGO[i], kBGO));
+    sumEnBGO += fEnDepInBGO[i];
+    hEnDepInNaI[i]->Fill(fEnDepInNaI[i]);
+    hMesEnInNaI[i]->Fill(measuredE(fEnDepInNaI[i], kNaI));
+    sumEnNaI += fEnDepInNaI[i];
+  }
+  hSumEnDepInBGO->Fill(sumEnBGO);
+  hSumEnDepInNaI->Fill(sumEnNaI);
+  
+  for (int i = 0; i < 6; i++) {
+    sumEnCPV += fEnDepInCPV[i];
+    hEnDepInCPV[i]->Fill(fEnDepInCPV[i]);
+  }
+  hSumEnDepInCPV->Fill(sumEnCPV);
+  
   hEnDepInSF->Fill(fEnDepInSF);
 
   // trigger condition
-  if (fEnDepInCPV < fCPVThreshold && fEnDepInSF < fSFThreashold) {
-    hEnDepInNaITriggered->Fill(fEnDepInNaI);
-    hEnDepInBGOTriggered->Fill(fEnDepInBGO);
+  bool isCPVTriggered = false;
+  for (int i = 0; i < 6; i++) {
+    if (fEnDepInCPV[i] >= fCPVThreshold)
+      isCPVTriggered = true;
+  }
+  if (!isCPVTriggered && fEnDepInSF < fSFThreashold) {
+    for (int i = 0; i < 9; i++) {
+      hMesEnInNaITriggered[i]->Fill(measuredE(fEnDepInNaI[i], kNaI));
+      hEnDepInNaITriggered[i]->Fill(fEnDepInNaI[i]);
+      hMesEnInBGOTriggered[i]->Fill(measuredE(fEnDepInBGO[i], kBGO));
+      hEnDepInBGOTriggered[i]->Fill(fEnDepInBGO[i]);
+    }
+    hSumEnDepInBGOTriggered->Fill(sumEnBGO);
+    hSumEnDepInNaITriggered->Fill(sumEnNaI);
   }
 }
 

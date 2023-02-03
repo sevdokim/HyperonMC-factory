@@ -20,7 +20,7 @@ void Config() {
 
   // RunConfiguration for Geant4
   TG4RunConfiguration *runConfiguration =
-        new TG4RunConfiguration("geomRoot", "FTFP_BERT");
+        new TG4RunConfiguration("geomRoot", "FTFP_BERT_EMZ");
   // new TG4RunConfiguration("geomRoot", "Shielding");
   //new TG4RunConfiguration("geomRoot", "ShieldingLEND");
 
@@ -28,11 +28,12 @@ void Config() {
   TGeant4 *geant4 =
       new TGeant4("TGeant4", "The Geant4 Monte Carlo", runConfiguration);
   geant4->ProcessGeantCommand("/mcPhysics/rangeCuts 0.1 mm");
-  geant4->ProcessGeantCommand("/mcPhysics/emModel/setEmModel  SpecialUrbanMsc");
+  //geant4->ProcessGeantCommand("/mcPhysics/emModel/setEmModel  SpecialUrbanMsc");
   geant4->ProcessGeantCommand("/mcDet/setIsMaxStepInLowDensityMaterials true");
   geant4->ProcessGeantCommand("/mcDet/setMaxStepInLowDensityMaterials 10 m");
   geant4->ProcessGeantCommand("/mcVerbose/composedPhysicsList 2");
   geant4->ProcessGeantCommand("/mcTracking/skipNeutrino true");
-
+  geant4->ProcessGeantCommand("/mcVerbose/extraPhysicsList 2");
+  
   cout << "Geant4 has been created." << endl;
 }

@@ -98,10 +98,10 @@ private:
   double fInitialEnergy;
   double fEnergyOfSecondariesInTarget;
   double fDeltaTheta;
-  double fEnDepInBGO;
-  double fEnDepInNaI;
+  double fEnDepInBGO[9];
+  double fEnDepInNaI[9];
   double fEnDepInSF;
-  double fEnDepInCPV;
+  double fEnDepInCPV[6];
   double fCPVThreshold;
   double fSFThreashold;
   TLorentzVector fInitialMomentum;
@@ -112,12 +112,21 @@ private:
   TH1F *hEnergyWhenExitingTarget;
   TH1F *hEnergyOfSecondariesInTarget;
   TH1F *hDeltaTheta;
-  TH1F *hEnDepInCPV;
-  TH1F *hEnDepInNaI;
-  TH1F *hEnDepInBGO;
+  TH1F *hEnDepInCPV[6];
+  TH1F *hSumEnDepInCPV;
+  TH1F *hEnDepInNaI[9];
+  TH1F *hEnDepInBGO[9];
+  TH1F *hMesEnInNaI[9];
+  TH1F *hMesEnInBGO[9];
+  TH1F *hSumEnDepInNaI;
+  TH1F *hSumEnDepInBGO;
   TH1F *hEnDepInSF;
-  TH1F *hEnDepInNaITriggered;
-  TH1F *hEnDepInBGOTriggered;
+  TH1F *hEnDepInNaITriggered[9];
+  TH1F *hEnDepInBGOTriggered[9];
+  TH1F *hMesEnInNaITriggered[9];
+  TH1F *hMesEnInBGOTriggered[9];
+  TH1F *hSumEnDepInNaITriggered;
+  TH1F *hSumEnDepInBGOTriggered;
 
   Pythia8::Pythia *fPythia;
 
