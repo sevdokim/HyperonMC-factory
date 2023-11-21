@@ -1947,6 +1947,9 @@ C-    write(*,*) 'Hyp_Carlo: Nreson=',Nreson
          if (cntrl_prmtr.gt.0.) then
             Pc(5) = cntrl_prmtr/1000. ! MeV -> GeV
          endif
+         if (cntrl_prmtr.eq.(-0.01)) then
+            Pc(5) = 0.001 + regrndm(0)
+         endif
 	 call abtocds(Pa,Pb(5),Pc,Pd,T)
 	 if (T.gt.0.) go to 1000
          if (Nchanel.eq.1) then                     !  Excl. channel = pi0 -> 2Y

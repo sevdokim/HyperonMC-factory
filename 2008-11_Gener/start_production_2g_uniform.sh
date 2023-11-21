@@ -1,7 +1,7 @@
 #!/bin/bash
 #
     export EVENTNUMBER=100000                     # Total event number to be generated per 1 production thread  
-    export NTHREADS=200                             # total number of production threads   
+    export NTHREADS=50                            # total number of production threads   
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #    export CONVERT_ONLY=yes                        # yes or no 
@@ -43,7 +43,7 @@ do
         *)       EXTARGET=0 ; cond=0 ;;
     esac
     # for MES in pi0 eta omg f2 2pi0 K0   f0
-    for MES in eta #f2 #omg #eta f2 2pi0 K0 # f0
+    for MES in pi0 #eta #f2 #omg #eta f2 2pi0 K0 # f0
     do 	
 	case "$MES" in
             "pi0")     n=1 ;;
@@ -74,16 +74,18 @@ do
 		*)          export THICKNESS_S4=6.000  ;; #default value (6mm) 
 	    esac
 
-	    for mass in 0 #c is control parameter for omg width 
+	    for c in 0 
 	    do
 		#MESON=${MES}_${HYCONDITION}_width${width}MeV
 		MESON=${MES}
-		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
+		UNIC_CODE=$[ $cond*1000000+ $n*100000 ]
 		export TGT_PRFX=$TGTPRFX
 		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_3pi0_PDG_${HYCONDITION}eff
+		export PRODUCTION_NAME=${PRODUCTION_NAME}_2g_uniform_${HYCONDITION}eff
 		export HYMC_CONFIG_DEFINED=yes
-		export CONTROL=$mass
+		export IHEP_QUEUE=ihep-short
+		#export CONTROL=$mass
+		export CONTROL="-0.01" # uniform 2gamma mass distribution from 0.001 to 1.001 GeV/c2
 		echo " "
 		echo  MESON =                $MESON
 		echo  TGT_PRFX =             $TGT_PRFX
