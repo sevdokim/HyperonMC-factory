@@ -305,11 +305,11 @@ void HyMCApplication::RunMC(Int_t nofEvents)
   fLGD2EnergyHisto = new TH1F("LGD2EnergyHisto", "Registered LGD2 energy in event", 1000 , 0., 10.);  // Total energy dep. in LGD2
   fSaEnergyHisto = new TH1F("SaEnergyHisto", "Registered Sa energy in event", 10000 , 0, 1);           // Total energy dep. in Sa
   fS4EnergyHisto = new TH1F("S4EnergyHisto", "Registered S4 energy in event", 10000 , 0., 1);          // Total energy dep. in S4
-  fEffMassHisto =  new TH1F("EffMass 2Y", "EffMass", 100 , 0., 1);
+  fEffMassHisto =  new TH1F("hMass", "Mass of photon system", 2000 , 0., 2.);
   fTargetEnergyHisto = new TH1F("TargetEnergyHisto", "target energy in event", 10000 , 0., 1);
 
   fPhotonVertexZPosition=new TH1F("PhotonVertexZPositionHisto", "vertex Z pos", 10000, -100.,100);
-  fPtHisto = new TH1F("PtHisto","Pt in event", 5000, 0., 5.);
+  fPtHisto = new TH1F("hPt","Pt of photon system", 5000, 0., 5.);
   CoordHisto=new TH2F("CoordHisto","CoordHisto",100,-10.,10.,100,-10.,10.);
   cout<<"now "<<nofEvents<<" events will be processed. seed = " << iseed <<endl;
   gMC->ProcessRun(nofEvents);
@@ -582,7 +582,9 @@ void HyMCApplication::GeneratePrimaries()
   //and tracking is stopped to save time
   bool *isPushed = new bool[nFinal];
   TParticlePDG* particle;
+
   //add neutral particles to stack first
+  TLorentzVector pPhotons(0.,0.,0.,0.);
   int primariesCounter=0;
   for (int i = 0; i < nFinal; ++i) {
     isPushed[i] = 0;
@@ -595,6 +597,12 @@ void HyMCApplication::GeneratePrimaries()
     y  = pout[indices[i]][6];
     z  = pout[indices[i]][7];
     pdg = pout[indices[i]][8];
+    if (pdg == 22) { // photon
+      pPhotons.SetXYZT(pPhotons.X() + px,
+		       pPhotons.Y() + py,
+		       pPhotons.Z() + pz,
+		       pPhotons.T() + e);
+    }
     particle = TDatabasePDG::Instance()->GetParticle(pdg);
     //check if particle is neutral
     if(particle){
@@ -632,6 +640,8 @@ void HyMCApplication::GeneratePrimaries()
     initial_photon_energy[primariesCounter]=e;
     primariesCounter++;
   }
+  fEffMassHisto->Fill(pPhotons.M());
+  fPtHisto->Fill(pPhotons.Pt());
   //add charged particles to stack
   for (int i = 0; i < nFinal; ++i) {
     if(isPushed[i])continue;//skip particle if it is already added to the stack
@@ -802,8 +812,8 @@ void HyMCApplication::GeneratePrimaries()
   // fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vertex[0], vertex[1], vertex[2], 0., polx, poly, polz, kPPrimary, ntr, 1., 0);
   
   // if(fDebug)cout << " Ngamma = " << Ngamma;
-  // if(Ngamma>0){
-  //   //                    #gammas   #missing mass products  #beam particle  #counts from N-1 to 0
+  //if(Ngamma>0){
+    //                    #gammas   #missing mass products  #beam particle  #counts from N-1 to 0
   //   current_primary_number=Ngamma-1;//  + NPDGcodes               +1              -1;
   //   fNPrimary=current_primary_number;// + 1;//number of primary particles
   //   max_gamma=Ngamma;//+NPDGcodes;

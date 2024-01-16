@@ -1940,8 +1940,7 @@ C C-system:
 C             
 C-    write(*,*) 'Hyp_Carlo: Nreson=',Nreson 
       
-      if (Nreson.eq.1) then                        !  Resonans 1 - pi0
-         call reaction(Nreson, T, Pd(5))        
+      if (Nreson.eq.1) then                        !  Resonans 1 - pi0        
          Pc(5) = Ampi0
          cntrl_prmtr=Pgamma(1,0)
          if (cntrl_prmtr.gt.0.) then
@@ -1950,7 +1949,9 @@ C-    write(*,*) 'Hyp_Carlo: Nreson=',Nreson
          if (cntrl_prmtr.eq.(-0.01)) then
             Pc(5) = 0.001 + regrndm(0)
          endif
+ 1331    call reaction(Nreson, T, Pd(5))
 	 call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.0.) go to 1331
 	 if (T.gt.0.) go to 1000
          if (Nchanel.eq.1) then                     !  Excl. channel = pi0 -> 2Y
 C        write(*,*) 'Pi0->2Y'
