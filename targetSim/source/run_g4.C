@@ -42,14 +42,14 @@ void run_g4(int nEvents = 100000, int seed = 0,
 
   appl->SetTargetRadius(3 /*cm*/);
   // photon energy
-  appl->SetInitialEnergy(0.0014 /*GeV*/);
+  appl->SetInitialEnergy(6. /*GeV*/);
 
   // Initialize MC
   appl->InitMC(configMacro);
-  gROOT->ProcessLine("gMC->SetCollectTracks(0)");
+  gROOT->ProcessLine("gMC->SetCollectTracks(1)");
   //     Run MC
   appl->RunMC(nEvents);
   gGeoManager->GetTopVolume()->Draw();
-  // gGeoManager->DrawTracks("/*");
+  gGeoManager->DrawTracks("/*");
   // delete appl;
 }

@@ -1,3 +1,3 @@
 mkdir build
 cd build
-cmake -DVMC_DIR=~/mysw/INSTALL/vmc/lib/VMC-2.0.0 -DCMAKE_INSTALL_PREFIX=../install -DGeant4VMC_DIR=/home/evdokimov/mysw/INSTALL/geant4_vmc/lib/Geant4VMC-6.1.2 -DPYTHIA8=~/mysw/pythia8308 ../source/
+cmake -DVMC_DIR=$MYSW/INSTALL/vmc/lib/VMC-2.0.0 -DCMAKE_INSTALL_PREFIX=../install -DGeant4VMC_DIR=$MYSW/INSTALL/geant4_vmc/lib/Geant4VMC-6.1.2 -DPYTHIA8=$MYSW/pythia8308 ../source/

@@ -32,6 +32,7 @@
 #include <TThread.h>
 #include <TVirtualGeoTrack.h>
 #include <TVirtualMC.h>
+#include <TDatabasePDG.h>
 
 using namespace std;
 
@@ -554,6 +555,8 @@ void Ex01MCApplication::GeneratePrimaries() {
   Double_t poly = 0.;
   Double_t polz = 0.;
 
+  // spherical photons from target
+  /*
   // Position
   Double_t vx = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
   Double_t vy = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
@@ -565,6 +568,7 @@ void Ex01MCApplication::GeneratePrimaries() {
   Double_t tof = 0.;
 
   // Momentum
+  // spherical photons
   Double_t px, py, pz, e = fInitialEnergy;
   double phi = 2. * TMath::Pi() * gRandom->Rndm();
   double cosTheta = TMath::Sqrt(3.) * (gRandom->Rndm() - 0.5);
@@ -573,6 +577,34 @@ void Ex01MCApplication::GeneratePrimaries() {
   py = e * sinTheta * TMath::Cos(phi);
   pz = e * cosTheta;
   fInitialMomentum.SetXYZT(px, py, pz, e);
+  */
+  // beam muons
+  pdg = 13;
+  // Position
+  Double_t vx = 2. * 15. * (gRandom->Rndm() - 0.5);
+  Double_t vy = 2. * 15. * (gRandom->Rndm() - 0.5);
+  Double_t vz = -15.;
+  Double_t tof = 0.;
+
+  // Momentum
+  TDatabasePDG *pdgDB = TDatabasePDG::Instance();
+  double m = pdgDB->GetParticle(13)->Mass();
+  Double_t px, py, pz, e = fInitialEnergy;
+  px = 0.;
+  py = 0.;
+  pz = TMath::Sqrt(e * e - m * m);
+  fInitialMomentum.SetXYZT(px, py, pz, e);
+
+  
+  /*
+  cout << "Generated primary:" << endl;
+  cout << "pdg = " << pdg
+       << "; px = " << px
+       << "; py = " << py
+       << "; pz = " << pz
+       << "; e  = " << e
+       << endl;
+  */
   fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
                       poly, polz, kPPrimary, ntr, 1., 0);
   
