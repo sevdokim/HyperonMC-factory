@@ -94,7 +94,7 @@ bool HyMCApplication::InitMC(const char *setup) {
   fprintf(fMC_results, "b ");
   fFile = new TFile(fHistosRoot, "RECREATE");
 
-  fSavingTree = new TTree("HyMCResults", "Hyperon MC events");
+  // fSavingTree = new TTree("HyMCResults", "Hyperon MC events");
 
   fLGD2EnergyHisto =
       new TH1F("LGD2EnergyHisto", "Registered LGD2 energy in event", 1000, 0.,
@@ -115,7 +115,7 @@ bool HyMCApplication::InitMC(const char *setup) {
 
   // Hyperon MC event container (up to 20 primary particles)
   fHyMCEvent = new HyMCEvent(20);
-  fSavingTree->Branch("HyMCEvents", fHyMCEvent);
+  // fSavingTree->Branch("HyMCEvents", fHyMCEvent);
 
   // config pythia
   fPythia = new Pythia8::Pythia();
@@ -539,7 +539,7 @@ void HyMCApplication::FinishEvent() {
     // convert MC_results.dat with ../converter/exe
     evWr++;
   } // end Sa-discrimination
-  fSavingTree->Fill();
+  // fSavingTree->Fill();
 
   if (fLGD2EnergyHisto && (EnTotal > 0))
     fLGD2EnergyHisto->Fill(EnTotal);
