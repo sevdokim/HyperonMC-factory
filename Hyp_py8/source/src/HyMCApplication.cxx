@@ -126,11 +126,17 @@ bool HyMCApplication::InitMC(const char *setup) {
   fPythia->readString("LowEnergyQCD:all = on");
   fPythia->readString("Random:setSeed = on");
   fPythia->readString(Form("Random:seed = %d", pySeed));
-  fPythia->readString("Beams:idA = 211");  // pi+
-  fPythia->readString("Beams:idB = 2112"); // neutron
-  fPythia->readString(Form("Beams:eA = %lf", fMomentum));
+  fPythia->readString(Form("Beams:idA = %d", fBeamPdg)); // beam particle
+  fPythia->readString("Beams:idB = %d", fTargetPdg);     // target particle
+  double beamMass = TDatabasePDG::Instance()->GetParticle(fBeamPdg)->Mass();
+  double beamEnergy = TMath::Sqrt(fMomentum * fMomentum + beamMass * beamMass);
+  fPythia->readString(Form("Beams:eA = %lf", beamEnergy));
   fPythia->readString("Beams:eB = 0.");
   fPythia->readString("Beams:frameType = 2");
+  fPythia->readString("StringFlav:etaSup = 1.");
+  fPythia->readString("StringFlav:mesonUDvector = 1.");
+  fPythia->readString("StringFlav:mesonUDL1S1J2 = 5.");
+
   // fPythia->readString("2214:onMode = off");
   // fPythia->readString("2214:onIfAny = 2212 111");
   if (!fPythia->init()) {

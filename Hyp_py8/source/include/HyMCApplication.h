@@ -174,6 +174,8 @@ public:
     fDebug = deb;
     fDetConstruction.SetDebug(deb);
   }
+  void SetBeamPdg(int pdg) { fBeamPdg = pdg; }
+  void SetTargetPdg(int pdg) { fTargetPdg = pdg; }
 
   virtual void ConstructGeometry();
   void AddParticles();
@@ -213,6 +215,8 @@ private:
       fDetConstruction; ///< Dector geometry and physical volumes construction
 
   double fMomentum = 7.;         ///< beam momentum
+  int fBeamPdg = 211;            ///< pi+
+  int fTargetPdg = 2112;         ///< neutron
   TLorentzVector fPbeam, fPpart; ///< 4-momenta of beam and generated particle
   int fPCNumber = 0;   ///< Process copy number(using to randomize eventgen)
   double fControl = 0; ///< parameter to control event gen(see describtion in

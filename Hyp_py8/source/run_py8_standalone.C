@@ -9,11 +9,11 @@ void run_py8_standalone(int nEvents = 100) {
   fPythia->readString("LowEnergyQCD:all = on");
   fPythia->readString("Random:setSeed = on");
   fPythia->readString(Form("Random:seed = %d", pySeed));
-  // fPythia->readString("Beams:idA = 211"); // pi+
-  fPythia->readString("Beams:idA = 2212"); // proton
+  fPythia->readString("Beams:idA = 211"); // pi+
+  // fPythia->readString("Beams:idA = 2212"); // proton
   fPythia->readString("Beams:idB = 2112"); // neutron
   // fPythia->readString("Beams:idB = 1000060120");
-  fPythia->readString("Beams:eA = 7.");
+  fPythia->readString("Beams:eA = 7.001");
   fPythia->readString("Beams:eB = 0.");
   fPythia->readString("Beams:frameType = 2");
   fPythia->readString("StringFlav:etaSup = 1.");
@@ -35,7 +35,10 @@ void run_py8_standalone(int nEvents = 100) {
 
   fPythia->init();
 
+  TFile *fOut = new TFile("py8_standalone.root", "RECREATE");
   TH1F *hF2Mass = new TH1F("hF2Mass", "f2(1270) mass spectrum", 100, 0., 2.);
+  TH1F *hF2Energy =
+      new TH1F("hF2Energy", "f2(1270) energy spectrum", 700, 0., 7.);
   TH1F *hProcessCode =
       new TH1F("hProcessCode", "Process code", 200, -0.5, 199.5);
   TH1F *hMass2G = new TH1F("hMass2G", "Mass 2#gamma", 200, 0., 2.);
@@ -65,8 +68,9 @@ void run_py8_standalone(int nEvents = 100) {
       if (p.id() == 225) { // f2(1270) meson
         nF2++;
         hF2Mass->Fill(p.m());
-        fPythia->info.list();
-        fPythia->event.list();
+        hF2Energy->Fill(p.e());
+        // fPythia->info.list();
+        // fPythia->event.list();
       }
       if (!p.isFinal()) {
         continue;
@@ -94,4 +98,6 @@ void run_py8_standalone(int nEvents = 100) {
   }
   fPythia->stat();
   cout << "I generated " << nF2 << " f2(1270) mesons." << endl;
+  fOut->Write();
+  fOut->Close();
 }
