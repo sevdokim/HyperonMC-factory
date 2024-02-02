@@ -592,7 +592,7 @@ void HyDetectorConstruction::GambleVertex(Double_t *vertex) {
 
   // gamble target
   int Ntarget;
-  if (fExTarget >= 0 && fExTarget <= 3) {
+  if (fExTarget >= 1 && fExTarget <= 3) {
     Ntarget = fExTarget;
   } else {
     float rndmNumb = gRandom->Rndm();

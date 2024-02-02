@@ -202,7 +202,9 @@ void HyMCApplication::GeneratePrimaries() {
   while (!fPythia->next()) {
     continue;
   }
-  fPythia->info.list();
+  if (fDebug) {
+    fPythia->info.list();
+  }
   int pdg;
   double px, py, pz, e, vx, vy, vz, tof;
   // Add particles to stack
