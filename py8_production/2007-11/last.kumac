@@ -1,0 +1,87 @@
+*** Begin of history file: Fri May 22 12:42:06 2020
+opt stat
+hi/file 1 cal_nov07_pb3_nu=0.717.hbook
+zone 1 2
+hi/pl 103155
+hi/pl 104155
+hi/pl 5215
+hi/pl 5217
+hi/pl 5227
+hi/pl 103167
+hi/pl 103167
+sub 103167 103168 -103167
+hi/pl -103167
+hi/pl 5217
+hi/del 0
+close 0
+hi/file 1 cal_nov07_cu7_nu=0.717.hbook
+hi/pl 5217
+ hi/del 0
+close 0
+hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/hsum_24.01.2020_8500_c1/cal_nov08_cu7_nu=0.717.hbook
+hi/pl 103155
+hi/pl 104155
+hi/pl 103167
+hi/pl 5217
+hi/del 0
+close 0
+hi/file 1 cal_nov07_cu7_nu=0.717.hbook
+hi/pl 103167
+hi/pl 5217
+hi/pl 104155
+shell pwd
+hi/pl 5217
+shell ls -ltr *.hbook
+hi/del 0
+close 0
+hi/file 1 cal_nov07_al35_nu=0.717.hbook
+hi/pl 52127
+hi/pl 5217
+hi/pl 30121
+hi/pl 5207
+hi/pl 30121
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 cal_nov07_ch80_nu=0.717.hbook
+hi/pl 30121
+PAW > close 0
+close 0
+hi/del 0
+hi/file 1 cal_nov07_c78_nu=0.717.hbook
+hi/pl 30121
+ hi/pl 5217
+hi/del 0
+close 0
+hi/file 1 cal_nov07_be79_nu=0.717.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 cal_nov07_c78_nu=0.717.hbook
+hi/pl 30121
+hi/del 0
+close 0
+cal_nov07_al35_nu=0.717.hbook
+hi/file 1 cal_nov07_al35_nu=0.717.hbook
+hi/pl 30121
+shell pwd
+hi/del 0
+close 0
+hi/file 1 cal_nov07_be79_nu=0.717_nov07.hbook
+hi/pl 5217
+hi/pl 5217
+hi/pl 104165
+hi/pl 104165
+hi/pl 104167
+hi/pl 104167
+ hi/pl 104155
+ hi/pl 104155
+ hi/del 0
+close 0
+ hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/hsum_24.01.2020_8500_c1/hsum_24.01.2020_8500_c1/cal_nov07_be79_nu=0.717.hbook
+ hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/hsum_24.01.2020_8500_c1/cal_nov07_be79_nu=0.717.hbook
+hi/pl 104155
+hi/pl 104155
+hi/pl 104157
+q
+*** End   of history file: Fri May 22 18:28:03 2020

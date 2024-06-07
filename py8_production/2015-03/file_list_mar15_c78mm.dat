@@ -1,0 +1,21 @@
+##########################################
+# U-70, 2015, march
+##########################################
+# C-target, 78mm:    work in parallel with Denisov
+#/Distance mm: 3695; 78.  9637
+#/Distance mm: 3628; 78.  9637
+#/Distance mm: 3685; 78.  9774
+#/Distance mm: 3806; 78.  9774
+#/Distance mm: 3816; 78.  9774   -->  Enorm best
+/ Distance mm: 3695; 78. 10095
+/data/HYPERON_data/2015-03/
+#--------------------------------
+run26329.mid.gz
+run26332.mid.gz
+run26333.mid.gz
+run26357.mid.gz
+run26359.mid.gz
+run26361.mid.gz
+run26363.mid.gz
+
+

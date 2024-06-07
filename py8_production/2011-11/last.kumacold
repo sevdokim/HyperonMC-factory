@@ -1,0 +1,11 @@
+*** Begin of history file: Thu Jan  9 18:36:49 2020
+opt stat
+zone 1 2
+hi/file 1 calibr_nov11_sn5mm_8500.hbook
+hi/pl 30240
+hi/del 0
+close 0
+hi/file 1 calibr_nov11_sn5mm_8500_ze.hbook
+hi/pl 30240
+q
+*** End   of history file: Thu Jan  9 18:38:18 2020

@@ -2,6 +2,8 @@
 #
     export EVENTNUMBER=100000                     # Total event number to be generated per 1 production thread  
     export NTHREADS=200                             # total number of production threads   
+    #export IHEP_QUEUE=ihep-medium
+    export IHEP_QUEUE=ihep-short
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #    export CONVERT_ONLY=yes                        # yes or no 
@@ -80,7 +82,7 @@ do
 		MESON=${MES}
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
 		export TGT_PRFX=$TGTPRFX
-		export PRODUCTION_NAME=py8_$PERIOD_PRFX$TGT_PRFX  # production name
+		export PRODUCTION_NAME=py8_SoftQCDLowE_$PERIOD_PRFX$TGT_PRFX  # production name
 		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_${HYCONDITION}eff
 		export HYMC_CONFIG_DEFINED=yes
 		export CONTROL=$mass

@@ -1,0 +1,19 @@
+###########################################
+# U70 2013-03 session
+# Al 17mm target in HYPERON area
+###########################################
+#/Distance mm: 3660; 17.  9783
+#/Distance mm: 3685; 17.  9797
+#/Distance mm: 3665; 17.  9797
+#/Distance mm: 3604; 17.  9797
+#/Distance mm: 3734; 17.  9797   --> Enorm best
+#/Distance mm: 3667; 17. 10226   --> after _c1 e_cor_matrix.dat 
+/ Distance mm: 3667; 17. 10265 
+/data/HYPERON_data/2013-03/
+# 
+#                Al target 17.5 mm
+run23781.mid.gz
+run23786.mid.gz
+run23789.mid.gz
+run23793.mid.gz
+run23795.mid.gz

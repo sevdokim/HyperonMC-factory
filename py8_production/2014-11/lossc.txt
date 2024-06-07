@@ -1,0 +1,74 @@
+ i/o error reading data                         
+ event type is wrong                               
+ record length is wrong                            
+ last word out of record                            
+ zero event length                          
+ wrong spill length
+ too many clusters in lgd2
+ cluster width more than 6 cells
+ cluster size more than 3x3
+ bad cluster in small cells
+ cluster size more than 5x5 small cells
+ control code on 1 crate is not found
+ 5 bits on crate 1 not zero
+ control code on crate 2 not found
+ 5 bits on crate 2 not zero
+ control code on crate 3 not found
+ 5 bits on crate 3 not zero
+ spark number gt 10
+ wrong crate number in lgd2
+ address out of range in lgd2
+ too many bad ADC
+ wrong group number in chambers
+ decay point out of range
+ K+ pi angle under limit
+ too many clusters ...
+ track hits JINR wall
+ wrong cross point in MS-12
+ track out of field
+ negative deflection in MS-12
+ too many iterations in MS-12
+ wrong exit point from field
+ jinr wall channel overflow
+ too many clusters in JINR wall
+ *mcare cannot fit
+ too big cluster
+ track cluster not found, wall2
+ track cluster not found, wall1
+ eff.mass square negative
+ wrong pi0 in two gamma event
+ not one pair in 4g event
+ two pi0 not found
+ not one pair in 3g events
+ no pi0 in 3g event
+ positron energy under limit
+ Ke3 version is wrong
+ negative gamma energy in K2pig
+ K2pig version is wrong
+ wrong pi0 in 3g event
+........
+.........
+............
+...............
+................
+..................
+groups number less than 3
+..............
+............
+.................
+...............
+.................
+..................
+.................
+.......................
+..................
+.............
+.............
+..............
+...............
+................
+..............
+
+                                               
+
+ 

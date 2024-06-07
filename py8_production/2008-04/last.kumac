@@ -1,0 +1,362 @@
+*** Begin of history file: Sat Feb  8 18:12:41 2020
+opt stat
+opt fit
+set fcol 2
+zone 1 2
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2009-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2011-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print ms
+hi/del 0
+close 0
+hi/file 1  ../2007-11/cal_nov07_al35_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/cal_nov08_sn5_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/cal_nov08_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/calibr_nov09_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/prin ms
+hi/del 0
+close 0
+hi/file 1 ../2012-041/calibr.hbook
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/prin ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/pl 30121
+hi/pl m2
+vec/print m2
+vec/print rat
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/prin ms
+hi/del0
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/prin ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2011-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/prin ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-11/cal_nov12_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-04/cal_apr12_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2012-04/cal_apr12_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-04/cal_apr08_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2008-04/cal_apr08_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2008-04/cal_apr08_cu7_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../20012-04/calibr.hbook
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibrhbook
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+ve/print ms
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_sn5_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_cu7_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_al17_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_cu7_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_al17_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_sn5_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/cal_nov08_al35_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file  1 2007-11/cal_nov07_pb3_nu=0.717.hbook
+shell pwd
+hi/file  1 ../2007-11/cal_nov07_pb3_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file  1 ../2009-11/cal_nov09_al17_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 cal_nov09_be79_nu=0.717.hbook
+hi/file 1 ../2009-11/cal_nov09_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_cu7_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_sn5_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/prin ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_al17_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/prin ms
+hi/del 0
+close 0
+shell pwd
+hi/file 1 2009-11/2009-11/cal_nov09_c78_nu=0.717.hbook
+hi/file 1 2009-11/cal_nov09_c78_nu=0.717.hbook
+shell ls
+shell pwd
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_al17_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print rat
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+ve/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2009-11/cal_nov09_c78_nu=0.717_old.hbook
+exe eta_pi0_be.kumac
+shell pwd
+hi/del 0
+close 0
+hi/file 1 ../hsum_24.01.2020_8500/cal_tot_nu=0.717_8500.hbook
+hi/pl 30121
+zone 1 2
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../hsum_24.01.2020_8500/cal_tot_nu=0.717_8500.hbook
+hi/pl 30121
+hi/pl 30120
+shell pwd
+q
+*** End   of history file: Sun Feb 16 20:12:44 2020

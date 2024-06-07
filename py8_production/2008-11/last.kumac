@@ -1,0 +1,79 @@
+*** Begin of history file: Fri May 29 19:03:14 2020
+zone 1 2
+opt stat
+hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/2008-11
+hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/2008-11/calibr_7150.hbook
+hi/pl 104165
+hi/pl 104167
+hi/pl 104165
+hi/pl 104167
+hi/fit 104167 g
+set fcol 2
+hi/fit 104167 g
+hi/fit 104167 g
+shell pwd
+shell ls *.hbook -tlr
+hi/del 0
+close 0
+hi/file 1 calibr_7200.hbook
+hi/pl 104155
+hi/pl 104155
+hi/pl 30301
+hi/pl 104155
+hi/pl 104121
+hi/pl 104120
+hi/pl 104101
+hi/pl 104111
+hi/pl 104114
+hi/pl 10412o
+hi/pl 104120
+hi/pl 104121
+hi/pl 104122
+hi/pl 104123
+hi/pl 104124
+hi/pl 104125
+hi/pl 104126
+hi/pl 104127
+hi/pl 104128
+hi/pl 104129
+hi/pl 104130
+hi/pl 104131
+hi/pl 104132
+hi/pl 104133
+hi/pl 104134
+hi/pl 104135
+hi/pl 104136
+hi/pl 104137
+zoom
+hi/fit 104137(6.6:8.) g+p1
+cre par(9) r 2000. 7.0 0.29 3000. -1.
+vec/cre par(9) r 2000. 7.0 0.29 3000. -1.
+hi/fit 104137(6.6:8.) g+p1 ! 5 par
+hi/fit 104137(6.6:8.) g+p1 ! e par
+hi/fit 104137(6.6:8.) g+p1 e 5 par
+hi/fit 104137(6.5:8.) g+p1 e 5 par
+hi/fit 104137(6.9:8.) g e 3 par
+hi/fit 104137(6.5:8.) g+p1 e 5 par
+shell ls -ltr *.hbook
+hi/del 0
+close 0
+hi/file 1 calibr_7150.hbook
+hi/fit 104137(6.5:8.) g+p1 e 5 par
+hi/fit 104137(6.5:8.) g+p1 e 5 par
+opt fit
+hi/fit 104137(6.5:8.) g+p1 e 5 par
+hi/fit 104137(6.5:8.) g+p1 e 5 par
+hi/fit 104137(6.3:8.) g+p1 e 5 par
+hi/fit 104137(6.3:8.3) g+p1 e 5 par
+hi/fit 104137(6.3:8.) g+p1 e 5 par
+shell pwd
+ls ../
+shell ls ../
+shell ls ../hsum_24.01.2020_8500_c1 -ltr
+hi/del 0
+close 0
+shell ls ../hsum_24.01.2020_8500_c1/*.hbook -ltr
+hi/file 1 ../hsum_24.01.2020_8500_c1/cal_tot_nu=0.717_enr.hbook
+hi/fit 104137(6.5:8.) g+p1 e 5 par
+q
+*** End   of history file: Fri May 29 23:51:22 2020

@@ -1,0 +1,28 @@
+##########################################
+# U-70, 2016, november
+##########################################
+# C target, 78mm
+#/Distance mm: 3697; 78.  9743
+#/Distance mm: 3697; 78.  9912
+#/Distance mm: 3695; 78. 10017
+#/Distance mm: 3652; 78. 10017
+#/Distance mm: 3725; 78. 10217
+#/Distance mm: 3846; 78. 10217     --> Enorm best
+/ Distance mm: 3695; 78. 10422
+/data/HYPERON_data/2016-11/
+#--------------------------------
+run27038.mid.gz
+run27039.mid.gz
+run27040.mid.gz
+run27045.mid.gz
+run27046.mid.gz
+run27047.mid.gz
+run27049.mid.gz
+run27050.mid.gz
+run27051.mid.gz
+run27054.mid.gz
+run27055.mid.gz
+run27056.mid.gz
+run27058.mid.gz
+run27059.mid.gz
+

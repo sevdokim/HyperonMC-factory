@@ -1,0 +1,21 @@
+##########################################
+# U-70, 2015, march
+##########################################
+# Cu, 3mm
+#/Distance mm: 3672; 3.  9583
+#/Distance mm: 3688; 3.  9583   -->  Enorm best
+/ Distance mm: 3674; 3. 10133
+/data/HYPERON_data/2015-03/
+#----------------------------------
+#run26364.mid.gz # p
+#run26365.mid.gz # p
+run26366.mid.gz
+#run26367.mid.gz # p
+#run26368.mid.gz # p
+run26369.mid.gz
+run26372.mid.gz
+#run26373.mid.gz # p
+run26374.mid.gz
+#run26375.mid.gz # p
+run26376.mid.gz
+#run26378.mid.gz # bad

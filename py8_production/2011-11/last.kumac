@@ -1,0 +1,225 @@
+*** Begin of history file: Thu Jan  9 21:29:15 2020
+opt stat
+zone 1 2
+hi/file 1 nov11_sn5mm.hbook
+hi/pl 30240
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30240
+hi/pl 30120
+hi/del 0
+close 0
+hi/file 1 nov11_sn5mm.hbook
+hi/pl 30120
+hi/pl 104155
+hi/del 0
+ close 0
+hi/file 1 calibr.hbook
+hi/pl 104155
+zone
+hi/pl 104155
+hi/del 0
+close 0
+hi/file 1 nov11_sn5mm.hbook
+hi/pl 104155 s
+zone 1 2
+shell
+hi/del 0
+close 0
+hi/file 1 cali_mar15_pb3mm.hbook
+shell pwd
+hi/file 1 ../2015-03/cali_mar15_pb3mm.hbook
+hi/pl 30120
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 30120
+hi/pl -75100
+hi/pl -75100 box
+hi/pl -75100 box
+hi/pl -75200 box
+hi/pl -75300 box
+hi/pl 5031
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl -75200 box
+zone 2 2
+hi/pl -75100 box
+hi/pl -75200 box
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl -75100 box
+ hi/pl -75200 box
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl -75100 box
+ hi/pl -75200 box
+zone  1 2
+hi/pl 30120
+hi/pl -75100 box
+hi/pl -75200 box
+opt nstat
+hi/pl -75200 box
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl -75100 box
+hi/pl -75200 box
+hi/pl 30120
+opt stat
+zone
+hi/pl 30120
+hi/pl 30120(:1000.)
+hi/del 0 close 0
+hi/file 1 ../2015-03/calibr-1.hbook
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr-1.hbook
+hi/pl 30120(:1000.)
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 30120(:1000.) s
+hi/pl 30120(:1000.)
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 30120(:1000.) s
+hi/pl -75100 box
+hi/del 0
+close 0
+hi/file 1 ../2015-03/cali_mar15_pb3mm.hbook
+zone 1 2
+hi/pl 30120(:1000.)
+hi/del 0
+ close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 30120(:1000.)
+zone
+hi/pl 30120(:1000.)
+hi/del 0
+close 0
+hi/file 1 ../2015-03/cali_mar15_pb3mm.hbook
+hi/pl 30120(:1000.) s
+hi/pl 30121(:1000.) s
+hi/pl 30125(:1000.) s
+hi/pl 30125(:1000.)
+hi/pl 30127(:1000.)
+zone 1 2
+hi/pl 30125(:1000.)
+hi/del 0
+ close 0
+ hi/file 1 ../2015-03/calibr.hbook
+hi/pl 30125(:1000.)
+hi/pl 30126(:1000.)
+hi/pl 104155
+hi/pl 104155
+hi/del 0
+close 0
+hi/file 1 ../2015-03/cali_mar15_pb3mm.hbook
+hi/pl 104155
+zone
+hi/pl 30126(:1000.)
+hi/del 0
+close 0
+ hi/file 1 ../2015-03/calibr.hbook
+hi/pl 30126(:1000.) s
+hi/pl 104155
+hi/del 0
+close 0
+hi/file 1 ../2015-03/cali_mar15_pb3mm.hbook
+hi/pl 104155  s
+hi/pl 104155
+zoo
+hi/pl 104155
+zoom
+zone 1 2
+hi/pl 104155
+hi/del 0
+close 0
+  hi/file 1 ../2015-03/calibr.hbook
+hi/pl 104155
+hi/pl 5003 box
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 104155
+ hi/pl 5003 box
+hi/pl 104155
+shell ls -ltr *.hbook
+shell pwd
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr_250.hbook
+hi/pl 104155
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 104155
+hi/pl 30121
+hi/del 0
+close 0
+ hi/file 1 ../2015-03/calibr_200.hbook
+hi/pl 30121
+zone
+hi/pl 30121
+hi/pl 30121(:800.)
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 30121(:800.) s
+hi/pl 104155
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr_250.hbook
+hi/pl 104155 s
+hi/pl 104155
+ hi/del 0
+close 0
+ hi/file 1 ../2015-03/calibr_200.hbook
+hi/pl 104155 s
+hi/pl 104155
+ hi/del 0
+close 0
+ hi/file 1 ../2015-03/mar15_pb3mm.hbook
+hi/pl 104155
+zone 1 2
+hi/pl 104155
+ hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr_200.hbook
+hi/pl 104155
+zoom
+hi/pl 104155
+hi/del 0
+close 0
+ hi/file 1 ../2015-03/calibr_250.hbook
+hi/pl 104155
+hi/pl 104155
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr.hbook
+hi/pl 104155
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2015-03/calibr_250.hbook
+hi/pl 30121
+zoom
+shell
+shell pwd
+hi/del 0
+close 0
+hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/2011-04/cali_apr11_be79mm.hbook
+shell pwd
+shell ls ../2011-04/*.hbook -ltr
+shell ls ../
+shell ls ../hsum_23.04.2018_scnd/cali_apr11* -l
+hi/file 1 ../hsum_23.04.2018_scnd/cali_apr11_be79mm.hbook
+hi/pl 30121
+q
+*** End   of history file: Mon Jan 13 13:45:51 2020

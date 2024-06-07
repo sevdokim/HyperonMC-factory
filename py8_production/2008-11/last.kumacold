@@ -1,0 +1,16 @@
+*** Begin of history file: Fri May 29 19:00:35 2020
+opt stat
+zone 1 2
+hi/file 1 calibr_7200.hbook
+hi/pl 304165
+hi/pl 104165
+hi/pl 104165
+hi/pl 104167
+hi/fit 104167 g
+set fcol 2
+hi/fit 104167 g
+hi/fit 104167 g
+hi/fit 104167 g
+hi/fit 104165 g
+q
+*** End   of history file: Fri May 29 19:16:20 2020

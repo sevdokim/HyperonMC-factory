@@ -1,0 +1,69 @@
+*** Begin of history file: Thu May 21 21:05:51 2020
+opt stat
+zone 1 2
+hi/file 1 cal_nov07_be79_nu=0.717.hbook
+hi/pl 30121
+hi/pl 30121
+hi/pl 30121
+hi/pl 30121
+hi/pl 30121
+shell pwd
+hi/pl 103155
+hi/pl 103155
+hi/pl 104155
+hi/pl 114155
+hi/pl 114157
+hi/pl 114157
+hi/pl 114158
+hi/pl 114158
+hi/pl 114159
+hi/pl 114158
+hi/pl 30121
+hi/pl 30121
+hi/pl 5215
+hi/pl 5215
+hi/pl 5217
+hi/pl 5217
+hi/pl 5217
+sub 5217 5218 -5217
+hi/pl -5217
+hi/pl 30321
+hi/pl 30321
+hi/pl 30331
+hi/pl 30341
+hi/pl 30351
+hi/pl 30361
+hi/pl 30371
+hi/pl 30381
+hi/pl 30383
+hi/pl 30381
+hi/pl 104155
+hi/del 0
+close 0
+hi/file 1 cal_nov07_c78_nu=0.717.hboo
+shell ls -ltr *.hbook
+hi/file 1 cal_nov07_c78_nu=0.717.hbook
+hi/pl 30381
+hi/pl 30381
+sub 5217 5218 -5217
+ hi/pl -5217
+hi/pl 104155
+hi/pl 104155
+shell pwd
+hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/2008-11_MC_sdv/calibr_be_omg_v2.hbook
+hi/del 0
+close 0
+hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/2008-11_MC_sdv/calibr_be_omg_v2.hbook
+hi.pl 103165
+hi/pl 103165
+hi/pl 103165
+hi/pl 103167
+hi/pl 103155
+ hi/del 0
+close 0
+hi/file 1 /data3/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/2008-11_MC_sdv/calibr_c_omg_v2.hbook
+hi/pl 103155
+hi/pl 103165
+hi/pl 103167
+q
+*** End   of history file: Fri May 22 01:08:22 2020

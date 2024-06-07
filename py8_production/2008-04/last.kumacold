@@ -1,0 +1,1383 @@
+*** Begin of history file: Wed Jan 29 21:25:56 2020
+hi/file 1 calibr.hbook
+opt stat
+opt fit
+set f col 2
+set fcol 2
+zone 1 2
+hi/pl 30121
+hi/fit 30121(90.:180.) g
+vec/crea par(9) r 32084. 134.74 14.250 2000.
+hi/fit 30121(90.:180.) g+p0 ! 4 par
+hi/fit 30121(90.:180.) g+p1 ! 5 par
+hi/fit 30121(90.:280.) g+p1 ! 5 par
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/fit 30121(85.:280.) g+p2 ! 6 par
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/del 0
+close 0
+shell pwd
+hi/file 1 calibr.hbook
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/fit 30121(85.:280.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(90.:280.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_be_for_e_cor.hbook
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/del 0
+cclose 0
+close 0
+hi/file 1 calibr_c_for_e_cor.hbook
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_be_for_e_cor.hbook
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(85.:300.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_c_for_e_cor.hbook
+hi/fit 30121(85.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_be_for_e_cor.hbook
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/del 0
+close 0
+shell pwd
+hi/file 1 ../2008-11/calibr_be_for_e_cor.hbook
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_c_for_e_cor.hbook
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+vec/crea par(9) r 11071. 135.01 12.888 1980.6 -5.8839 0.40637E-02
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+vec/crea par(9) r 1000. 550. 28. 500.
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+vec/crea par(9) r 1000. 550. 28. 200.
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p1 ! 5 par
+hi/fit 30121(500.:600.) g+p1 ! 5 par
+hi/fit 30121(500.:600.) g+p1 ! 5 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p0 ! 4 par
+vec/crea par(9) r 463.20 538.79 55.291 37.253
+hi/fit 30121(450.:650.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p1 ! 5 par
+hi/fit 30121(450.:650.) g+p1 ! 5 par
+hi/fit 30121(450.:700.) g+p1 ! 5 par
+hi/fit 30121(450.:700.) g+p1 ! 5 par
+shell pwd
+vec/crea par(9) r 32084. 134.74 14.250 2000.
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+shell pwd
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+356.72 553.2833.440692.37-0.91344
+vec/crea par(9) r 356.72 553.28 33.440 692.37 -0.91344
+hi/fit 30121(450.:700.) g+p1 ! 5 par
+hi/fit 30121(450.:700.) g+p1 ! 5 par
+hi/fit 30121(450.:700.) g+p2 ! 6 par
+hi/fit 30121(450.:700.) g+p2 ! 6 par
+hi/fit 30121(490.:700.) g+p2 ! 6 par
+hi/fit 30121(450.:700.) g+p2 ! 6 par
+hi/fit 30121(420.:700.) g+p2 ! 6 par
+vec/crea par(9) r 32084. 134.74 14.250 2000.
+hi/fit 30121(90.:300.) g+p2 ! 6 par
+hi/fit 30121(85.:300.) g+p2 ! 6 par
+hi/fit 30121(80.:300.) g+p2 ! 6 par
+hi/fit 30121(75.:300.) g+p2 ! 6 par
+hi/fit 30121(75.:320.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(75.:320.) g+p2 ! 6 par
+hi/fit 30121(75.:320.) g+p2 ! 6 par
+vec/crea par(9) r 1421.8 543.98 28.181 3684.7 -8.5025 0.50067E-02
+hi/fit 30121(450.:650.) g+p2 ! 6 par
+hi/pl 7001
+hi/pl 6002
+hi/fit 30121(450.:650.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(450.:650.) g+p2 ! 6 par
+hi/fit 30121(450.:650.) g+p2 ! 6 par
+vec/crea par(9) r 32084. 134.74 14.250 2000.
+hi/fit 30121(75.:320.) g+p2 ! 6 par
+hi/fit 30121(75.:320.) g+p2 ! 6 par
+hi/fit 30121(75.:320.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 apr08_cu7mm.hbook
+hi/fit 30121(75.:320.) g+p2 ! 6 par
+vec/crea par(9) r 1421.8 543.98 28.181 3684.7 -8.5025 0.50067E-02
+hi/fit 30121(450.:650.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_new_be_nu=0.45.hbook
+ve/cre en(10) r 1000. 1500. 2000. 2500. 3000. 3500. 4000. 4500. 5000. 5500.
+ve/cre er(10) r 10*0.1
+ve/cre em(10) r 10*0.025
+ve/cre ms(10)
+*
+v/cre par(8) r 1813.6 138.27 35.492 7.1998 -0.0036 -0.001 0. 0.
+hi/fit 30120(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(1)
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(2)
+hi/fit 30122(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(3)
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(4)
+hi/fit 30124(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(5)
+hi/fit 30125(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(6)
+hi/fit 30126(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(7)
+hi/fit 30127(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(8)
+hi/fit 30128(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(9)
+hi/fit 30129(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(10)
+*
+fo/file 55 pi0_en.eps
+meta 55 -111
+zone 2 2
+opt fit
+hi/pl 30121(:300.)
+null 0. 6500. 132. 150.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+meta 0
+close 55
+vec/print m2
+vec/print ms
+null 0. 6500. 132. 150.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+opt grig
+opt grid
+null 0. 6500. 134. 136.
+atitle  'E, MeV' 'Mass pi0 MeV'
+fun/plot 134.977 0. 6500. s
+hplot/error en ms er em 10 20
+opt nbox
+*
+**> pi0
+*
+ve/cre en(10) r 1000. 1500. 2000. 2500. 3000. 3500. 4000. 4500. 5000. 5500.
+ve/cre er(10) r 10*0.1
+ve/cre em(10) r 10*0.25
+ve/cre ms(10)
+*
+v/cre par(8) r 1813.6 138.27 35.492 7.1998 -0.0036 -0.001 0. 0.
+hi/fit 30120(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(1)
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(2)
+hi/fit 30122(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(3)
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(4)
+hi/fit 30124(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(5)
+hi/fit 30125(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(6)
+hi/fit 30126(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(7)
+hi/fit 30127(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(8)
+hi/fit 30128(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(9)
+hi/fit 30129(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(10)
+*
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+*
+**> eta
+*
+ve/cre e2(10) r 10*0.025
+ve/cre m2(10)
+*
+v/cre par(7) r 2813.6 548.27 35.492 7.1998 -0.0036 -0.001 0.
+*
+ve/cre e2(10) r 10*0.025
+ve/cre m2(10)
+*
+v/cre par(7) r 2813.6 548.27 35.492 7.1998 -0.0036 -0.001 0.
+*
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+*
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(1)
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(2)
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(3)
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(4)
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(5)
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(6)
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(7)
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(8)
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(9)
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(10)
+*
+zone 1 3
+fo/file 55 eta_pi0_en.eps
+meta 55 -111
+*
+ve/cre em(10) r 10*0.025
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+**> eta/pi0 => eta
+*
+ve/crea rat(10)
+ve/operation/VDIVIDE m2 ms rat
+ve/operation/VSCALE  rat 134.977 rat
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+vec/fit en rat e2 p0 's' 1 par
+meta 0
+close 55
+vec/print rat
+vec/print ms
+hi/pl 30121
+zone 1 2
+hi/pl 30121
+atitle  'E, MeV' 'Mass eta MeV'
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+hi/pl 30121
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+vec/crea par(10) r 1000. 550. 28. 699.
+hi/fit 30121(300.:850.) g+p0 ! 4 par
+hi/fit 30121(300.:850.) g+p0 ! 4 par
+vec/crea par(10) r 700. 550. 28. 699.
+hi/fit 30121(300.:850.) g+p0 ! 4 par
+vec/crea par(10) r 700. 550. 28. 699.
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p1 ! 5 par
+hi/fit 30121(450.:650.) g+p1 ! 5 par
+hi/fit 30121(400.:650.) g+p1 ! 5 par
+hi/fit 30121(400.:700.) g+p1 ! 5 par
+hi/fit 30121(400.:700.) g+p1 ! 5 par
+hi/fit 30121(400.:680.) g+p1 ! 5 par
+hi/fit 30121(400.:680.) g+p1 ! 5 par
+hi/pl 30121(:800.)
+hi/pl 30121(300:800.)
+hi/fit 30121(400.:650.) g+p1 ! 5 par
+hi/pl 30121(300:800.)
+hi/fit 30121(420.:650.) g+p1 ! 5 par
+hi/pl 30121(300:800.)
+vec/crea par(9) r 28094. 134.95 10.849 -8870.4 226.76 -1.4095 0.26700E-02
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_c_for_e_cor.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_c_for_be_cor.hbook
+hi/file 1 ../2008-11/calibr_be_for_e_cor.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+hi/pl 30121
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+vec/crea par(9) r 685.00 534.74 26.301 1580.2
+hi/fit 30121(420.:650.) g+p1 ! 5 par
+hi/fit 30121(420.:650.) g+p1 ! 5 par
+hi/fit 30121(420.:680.) g+p1 ! 5 par
+hi/fit 30121(420.:650.) g+p1 ! 5 par
+hi/fit 30121(420.:680.) g+p1 ! 5 par
+hi/fit 30121(420.:650.) g+p1 ! 5 par
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_be_nu=0.45.hbook
+hi/file 1 ../2008-11/calibr_be_nu=0.45.hbook
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_c_nu=0.45.hbook
+hi/file 1 ../2008-11/calibr_c_for_e_cor.hbook
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_new_be_nu=0.45.hbook
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr_new_c_nu=0.45.hbook
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+hi/file 1 calibr.hbook
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+12426.134.8711.141-4405.8112.87-0.691820.12961E-02  hi/fit 30123(85.:250.) g+p3 ! 7 par
+vec/crea par(9) r 12426. 134.87 11.141 -4405.8 112.87 -0.69182 0.12961E-02
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+vec/crea par(9) r 30426. 134.87 11.141 2005.8 112.87 -0.69182 0.12961E-02
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+hi/fit 30123(85.:250.) g+p2 ! 6 par
+hi/fit 30123(85.:270.) g+p2 ! 6 par
+hi/fit 30123(85.:270.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(85.:270.) g+p2 ! 6 par
+hi/fit 30121(85.:270.) g+p2 ! 6 par
+hi/fit 30123(85.:270.) g+p2 ! 6 par
+hi/fit 30123(85.:270.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+hi/del 0
+close 0
+ hi/file 1 calibr.hbook
+hi/pl 30121
+shell pwd
+close 0
+hi/del 0
+ hi/file 1 calibr.hbook
+hi/fit 30123(85.:270.) g+p2 ! 6 par
+hi/fit 30121(85.:270.) g+p2 ! 6 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/fit 30121(85.:270.) g+p2 ! 6 par
+hi/fit 30121(90.:270.) g+p2 ! 6 par
+1218.6553.6928.8622256.1-3.34860.46678E-03hi/fit 30121(420.:680.) g+p2 ! 6 par
+vec/crea par(9) r 1218.6 553.69 28.862 2256.1 -3.3486 0.46678E-03
+hi/fit 30121(420.:680.) g+p2 ! 6 par
+v/cre par(8) r 1813.6 138.27 35.492 7.1998 -0.0036 -0.001 0. 0.
+hi/fit 30120(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(1)
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(2)
+hi/fit 30122(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(3)
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(4)
+hi/fit 30124(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(5)
+hi/fit 30125(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(6)
+hi/fit 30126(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(7)
+hi/fit 30127(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(8)
+hi/fit 30128(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(9)
+hi/fit 30129(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(10)
+*
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+ve/cre e2(10) r 10*0.025
+ve/cre m2(10)
+*
+v/cre par(7) r 2813.6 548.27 35.492 7.1998 -0.0036 -0.001 0.
+*
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+*
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(1)
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(2)
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(3)
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(4)
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(5)
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(6)
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(7)
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(8)
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(9)
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(10)
+zone 1 3
+ve/cre em(10) r 10*0.025
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+**> eta/pi0 => eta
+*
+ve/crea rat(10)
+ve/operation/VDIVIDE m2 ms rat
+ve/operation/VSCALE  rat 134.977 rat
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+vec/fit en rat e2 p0 's' 1 par
+meta 0
+vec/print rat
+hi/del 0
+close 0
+hi/file 1 calibr_new_be_nu=0.45.hbook
+ve/cre en(10) r 1000. 1500. 2000. 2500. 3000. 3500. 4000. 4500. 5000. 5500.
+ve/cre er(10) r 10*0.1
+ve/cre em(10) r 10*0.25
+ve/cre ms(10)
+*
+v/cre par(8) r 1813.6 138.27 35.492 7.1998 -0.0036 -0.001 0. 0.
+hi/fit 30120(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(1)
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(2)
+hi/fit 30122(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(3)
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(4)
+hi/fit 30124(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(5)
+hi/fit 30125(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(6)
+hi/fit 30126(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(7)
+hi/fit 30127(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(8)
+hi/fit 30128(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(9)
+hi/fit 30129(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(10)
+*
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+*
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(1)
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(2)
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(3)
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(4)
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(5)
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(6)
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(7)
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(8)
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(9)
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(10)
+*
+ve/cre em(10) r 10*0.025
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+**> eta/pi0 => eta
+*
+ve/crea rat(10)
+ve/operation/VDIVIDE m2 ms rat
+ve/operation/VSCALE  rat 134.977 rat
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+zone 1 3
+ve/cre em(10) r 10*0.025
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/print m2
+v/cre par(7) r 2813.6 548.27 35.492 7.1998 -0.0036 -0.001 0.
+*
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+*
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(1)
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(2)
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(3)
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(4)
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(5)
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(6)
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(7)
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(8)
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(9)
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(10)
+zone 1 3
+ve/cre em(10) r 10*0.025
+null 0. 6500. 132. 140.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+ve/crea rat(10)
+ve/operation/VDIVIDE m2 ms rat
+ve/operation/VSCALE  rat 134.977 rat
+*
+null 0. 6500. 530. 570.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/fit en rat e2 p0 's' 1 par
+vec.print rat
+vec/print rat
+zone 1 2
+null 0. 6500. 544. 547.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+ hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr_for_e_cor.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print rat
+vec/print m2
+null 0. 6500. 530. 570.
+null 0. 6500. 543. 546.
+zone 1 2
+null 0. 6500. 543. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+vec/fit en rat e2 p0 's' 1 par
+null 0. 6500. 543. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+vec/fit en rat e2 p0 's' 1 par
+null 0. 6500. 542. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+vec/fit en rat e2 p0 's' 1 par
+null 0. 6500. 542. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/fit en m2 e2 p0 's' 1 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+shell ls *.kumac
+exe eta_pi0_be.kumac
+vec/print m2
+hi/del 0
+close 0
+hi/file 1 cor10_c+nu=0.45.hbook
+shell pwd
+shell ls -ltr *.hbook
+hi/file 1 calibr_cor10_c+nu=0.45.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print m2
+vec/print rat
+v/cre par(8) r 1813.6 138.27 35.492 7.1998 -0.0036 -0.001 0. 0.
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+zone 1 2
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+hi/del 0
+close 0
+hi/file 1 calibr_cor10_c+nu=0.15.hbook
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+hi/del 0
+close 0
+shell ls *.hbook -ltr
+hi/del 0
+close 0
+hi/file 1 calibr_cor10_c+nu=0.45.hbook
+hi/pl 30121
+shell ls *.kumac
+exe eta_pi0_be.kumac
+zone 1 2
+null 0. 6500. 542. 550.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+null 0. 6500. 542. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+null 0. 6500. 542. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/print ms
+null 0. 6500. 132. 140.
+null 0. 6500. 134. 136.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+null 0. 6500. 542. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+null 0. 6500. 542. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+ null 0. 6500. 542. 546.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+hi/del 0
+close 0
+hi/file 1 calibr,hbook
+hi/file 1 calibr.hbook
+eta_pi0_be.kumac
+exe eta_pi0_be.kumac
+vec/print m2
+null 0. 6500. 548. 550.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/fit en m2 e2 p0 's' 1 par
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+zone 1 2
+hi/pl 30121
+exe eta_pi0_be.kumac
+vec/print m2
+vec/print rat
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_org+nu=0.45.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_org+nu=0.62.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_cor10_c+nu=0.45.hbook
+exe eta_pi0_be.kumac
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_org+nu=0.62.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_org+nu=0.62.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_org+nu=0.45.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+exe eta_pi0_be.kumac
+exe eta_pi0_be.kumac
+calibr_cor10_c+nu=0.45.hbook
+hi/del 0
+close 0
+hi/file 1 calibr_cor10_c+nu=0.45.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_cor10_c+nu=0.15.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_cor10_c+nu=0.45.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_org+nu=0.45.hbook
+exe eta_pi0_be.kumac
+fun/plot x 0. 10000.
+zone 1 2
+fun/plot x 0. 10000.
+fun/plot aloh(x) 0. 10000.
+fun/plot alog(x) 0. 10000.
+zone
+fun/plot alog(x) 0. 10000.
+fun/plot alog(x) 0. 10000. 1000
+fun/plot alog(x) 0. 10000.
+fun/plot alog(x)**2 0. 10000.
+fun/plot alog(x)**3 0. 10000.
+fun/plot alog(x)**10 0. 10000.
+fun/plot alog(x)**9 0. 10000. s
+fun/plot alog(x)**0.5 0. 10000. s
+fun/plot alog(x)**0.5 0. 10000.
+fun/plot alog(x) 0. 10000. s
+fun/plot alog(x) 0. 10000.
+fun/plot alog(x)**0.5 0. 10000. s
+fun/plot alog(x)**5 0. 10000. s
+fun/plot alog(x)**5 0. 10000.
+fun/plot alog(x)**4.5 0. 10000. s
+fun/plot alog(x) 0. 10000. s
+fun/plot alog(x)**4.5 0. 10000.
+fun/plot alog(x) 0. 10000. s
+opy logy
+opt logy
+fun/plot alog(x) 0. 10000. s
+fun/plot alog(x) 0. 10000.
+fun/plot alog(x)**0.5 0. 10000. s
+fun/plot alog(x)**1.5 0. 10000. s
+fun/plot alog(x)**1.5 0. 10000.
+fun/plot alog(x)**0.5 0. 10000. s
+fun/plot alog(x)**0.5 0. 10000.
+fun/plot alog(x)**1.5 0. 10000. s
+fun/plot alog(x)**1.5 0. 10000.
+fun/plot alog(x)**0.5 0. 10000. s
+zone 1 2
+fun/plot alog(x)**0.5 0. 10000.
+fun/plot alog(x)**1.5 0. 10000.
+fun/plot alog(x) 0. 10.
+opt liny
+fun/plot alog(x) 0. 10.
+fun/plot alog(x) 0. 10.
+fun/plot alog(x)**2 0. 10.
+fun/plot alog(x)**2 0. 10.
+fun/plot alog(x)**3 0. 10.
+fun/plot alog(x)**10 0. 10.
+opt logy
+fun/plot alog(x)**10 0. 10.
+fun/plot alog(x)**9 0. 10.
+fun/plot alog(x)**8 0. 10.
+fun/plot alog(x)**9 0. 10.
+opt liny
+fun/plot alog(x)**9 0. 10.
+fun/plot alog(x)**9 0. 10.
+fun/plot alog10(x)**9 0. 10.
+fun/plot alog(x)**9 0. 10000.
+fun/plot alog10(x)**9 0. 10000.
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+shell ls *.kumac
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_org+nu=0.45.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/prit m2
+vec/print m2
+exe eta_pi0_be.kumac
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+ve/print ms
+ve/print rat
+hi/del 0
+close 0
+hi/del 0
+close 0
+hi/file 1 calibr_apr08_c.hbook
+zone 1 2
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr_apr08_be.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr_apr08.hbook
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 calibr_orig_for_ecor.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print rat
+vec/print ms
+vec/print ms
+vec/print m2
+shell ls -ltr ../2008-11/*.hbook
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_c_for_e_cor.hbook
+hi/pl 30121
+hi/del 0
+close 0
+ hi/file 1 ../2008-11/calibr_be_nu=0.45.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print m2
+vec/print rat
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+hi/pl 30121
+hi/del 0
+close 0
+ hi/file 1 calibr.hbook
+hi/pl 30121
+exe eta_pi0_be.kumac
+vec/print ms
+vec/print m2
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print rat
+vec/print m2
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 calibr_for_ecor=0.45.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+vec/print m2
+vec/print rat
+zone 1 2
+hi/del 0
+close 0
+hi/file 1 calibr_orig_c.hbook
+exe eta_pi0_be.kumac
+zone 1 2
+null 0. 6500. 530. 570.
+null 0. 6500. 544. 547.
+null 0. 6500. 544. 547.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+null 0. 6500. 544. 547.
+ve/crea rat(10)
+ve/operation/VDIVIDE m2 ms rat
+ve/operation/VSCALE  rat 134.977 rat
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/fit en rat e2 p0 's' 1 par
+null 0. 6500. 544. 547.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+vec/fit en rat e2 p0 's' 1 par
+null 0. 6500. 544. 547.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/fit en n2 e2 p0 's' 1 par
+vec/fit en m2 e2 p0 's' 1 par
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+zone 1 2
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_be_for_ecor.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+vec/print m2
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+zone 1 2
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_be_for_ecor.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-04/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_orig_c.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_orig_c.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+zone 1 2
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr_orig_for_ecor.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print rat
+zoom
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_be_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2008-11/cali_be97mm_nov08_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file ../2008-11/calibr.hbook
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print ms
+zone 1 2
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2008-11/cali_be97mm_nov08_nu=0.717.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr_be_nu=0.717.hbook
+hi/file 1 ../2008-11/calibr_be_nu=0.717.hbook
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 ../2008-11/be_for_ecor_nu=0.717.hbook
+hi/file 1 ../2008-11/cali_be_for_ecor_nu=0.717.hbook
+hi/pl 30121
+hi/del 0
+close 0
+ hi/file 1 ../2008-11/calibr_be_nu=0.717.hbook
+hi/pl 30121
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr_c_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print rat
+vec/print m2
+hi/pl 30121
+shell ls -ltr *.hbook
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+vec/print m2
+vec/print rat
+hi/del 0
+close 0
+hi/file 1 calibr-1.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+zon 1 2
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr_c_nu=0.717.hbook
+hi/pl 30121
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr_new_be_nu=0.45.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+hi/file 1 calibr_new_be_nu=0.45.hbook
+hi/del 0
+close 0
+hi/file 1 calibr_new_cu_nu=0.45.hbook
+hi/pl 30121
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/cal_nov08_al35_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print ms
+hi/del 0
+cloe 0
+close 0
+hi/file 1 ../2008-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+vec/print m2
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+vec/print m2
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 cal_apr08_c78_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print m2
+hi/del 0
+close 0
+hi/file 1 cal_apr08_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 cal_apr08_be79_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print m2
+hi/del 0
+close 0
+hi/file 1 2008-11/calibr.hbook
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/filr 1 2009-11/calibr.hbook
+hi/filr 1 ../2009-11/calibr.hbook
+hi/file 1 ../2009-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print ms
+\hi/del 0
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+vec/print m2
+hi/del 0
+close 0
+hi/file 1 ../2008-04/calibr.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2008-11/cal_nov08_al35_nu=0.717.hbook
+exe eta_pi0_be.kumac
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2009-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2011-04/calibr.hbook
+exe eta_pi0_be.kumac
+hi/pl 30121
+vec/print ms
+hi/del 0
+close 0
+hi/file 1 ../2012-04/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/pri ms
+hi/del 0
+close 0
+hi/file 1 ../2007-11/calibr.hbook
+exe eta_pi0_be.kumac
+vec/print rat
+vec/print m2
+*** End   of history file: Sat Feb  8 13:26:37 2020

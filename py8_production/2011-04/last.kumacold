@@ -1,0 +1,16 @@
+*** Begin of history file: Sat Jun 15 02:38:35 2019
+hi/file 1 calibr_apr11_be79mm_8500.hbook
+opt stat
+hi/pl 30121
+hi/pl 114155
+hi/pl 30300
+sub 30300 30400 -30300
+zone 1 2
+hi/pl 30300
+hi/pl -30300
+hi/pl 30121
+hi/pl 5012
+hi/pl 5012
+hi/pl 5013
+q
+*** End   of history file: Sat Jun 15 02:45:02 2019

@@ -233,6 +233,7 @@ private:
 
   Double_t fS4EnergyDep, fSaEnergyDep, fTargetEnergyDep;
   Double_t fSaEnergyCut = 0.0023;
+  double fSaEfficiency = 1.;
   Bool_t fFinishTracking;
 
   TTree *fSavingTree;

@@ -1,0 +1,16 @@
+*** Begin of history file: Tue Sep 25 18:17:02 2018
+opt stat
+hi/file 1 calibr_nov12_be79mm.hbook
+hi/pl 30121(:1000.)
+hi/del 0
+close 0
+hi/file 1 calibr_nov12_c78mm.hbook
+hi/pl 30121(:1000.) s
+hi/pl 30121(:1000.)
+hi/del 0
+close 0
+hi/file 1 calibr_nov12_be79mm.hbook
+hi/pl 30121(:1000.) s
+hi/pl 30121(:1000.)
+q
+*** End   of history file: Tue Sep 25 18:19:06 2018

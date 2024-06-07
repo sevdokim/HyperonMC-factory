@@ -1,0 +1,105 @@
+*** Begin of history file: Sat Nov 30 19:31:22 2019
+hi/file 1 cali_nov09_be79mm.hbook
+opt stat
+hi/pl 30121
+zone 1 2
+hi/pl 30121
+hi/pl 104155
+hi/pl 104147
+hi/pl 104137
+hi/pl 104127
+hi/pl 104157
+hi/pl 104159
+hi/pl 104120
+hi/pl 104121
+hi/pl 104122
+hi/pl 104123
+hi/pl 104124
+hi/pl 104125
+hi/pl 104126
+hi/pl 104127
+hi/pl 104128
+hi/pl 104129
+hi/pl 104130
+hi/pl 104131
+hi/pl 104132
+hi/pl 104133
+hi/pl 104134
+hi/pl 104135
+hi/pl 104136
+hi/pl 104137
+hi/pl 104138
+hi/pl 104139
+hi/pl 104140
+hi/pl 104141
+hi/pl 104142
+hi/pl 104143
+hi/pl 104144
+hi/pl 104145
+hi/pl 104146
+hi/pl 104147
+hi/pl 104148
+hi/pl 104149
+hi/pl 104150
+hi/pl 104151
+hi/pl 104152
+hi/pl 104153
+hi/pl 104154
+hi/pl 104155
+hi/pl 104156
+hi/pl 104157
+hi/pl 104158
+hi/pl 104159
+hi/pl 104251
+hi/pl 104255
+hi/pl 104255
+hi/pl 1042557
+hi/pl 104257
+hi/pl 104259
+hi/pl 104355
+hi/pl 104357
+hi/pl 104359
+hi/pl 114155
+hi/pl 114157
+hi/pl 114159
+hi/pl 214259
+hi/pl 314359
+shell pwd
+hi/del 0
+close 0
+ls -l  ../2008-04/cali_*.hbook
+shell ls -l  ../2008-04/cali_*.hbook
+hi/file 1 ../2008-04/cali_apr08_be79mm.hbook
+hi/pl 30121
+vec/crea par(9) r 42000. 135. 12. 4500.
+hi/fit 30121(100.:170.) g+p0 ! 3 par
+set fcol 2
+hi/fit 30121(100.:170.) g+p0 ! 3 par
+hi/fit 30121(100.:170.) g+p0 ! 4 par
+hi/fit 30121(90.:180.) g+p1 ! 5 par
+hi/fit 30121(90.:180.) g+p1 e 5 par
+hi/fit 30121(90.:180.) g+p1 e 5 par
+hi/fit 30121(90.:180.) g+p1 e 5 par
+hi/fit 30129(90.:180.) g+p1 e 5 par
+hi/fit 30129(90.:180.) g+p1 e 5 par
+vec/crea par(9) r 1000. 550. 32. 200.
+hi/fit 30129(500.:600.) g+p0 ! 4 par
+hi/fit 30129(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(500.:600.) g+p0 ! 4 par
+hi/fit 30121(450.:650.) g+p1 ! 4 par
+hi/fit 30121(450.:650.) g+p1 ! 4 par
+hi/fit 30129(450.:650.) g+p1 ! 4 par
+hi/fit 30129(450.:650.) g+p1 ! 4 par
+vec/crea par(9) r 1000. 550. 32. 200.
+hi/fit 30129(450.:650.) g+p1 ! 4 par
+hi/fit 30129(450.:650.) g+p1 ! 4 par
+hi/fit 30129(450.:650.) g+p1 ! 4 par
+hi/fit 30125(450.:650.) g+p1 ! 4 par
+hi/fit 30125(450.:650.) g+p1 ! 4 par
+hi/fit 30125(450.:650.) g+p1 e 4 par
+hi/fit 30129(450.:650.) g+p1 e 4 par
+hi/fit 30129(450.:650.) g+p1 e 4 par
+hi/fit 30129(450.:650.) g+p1 e 4 par
+q
+*** End   of history file: Sat Nov 30 23:16:53 2019

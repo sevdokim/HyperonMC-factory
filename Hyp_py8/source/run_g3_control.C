@@ -22,7 +22,7 @@ void run_g3_control(Int_t targMaterial = 0, Int_t nev = 1000000,
   appl->SetExTarget(ExTarget);
   appl->SetExReson(ExReson);
   appl->SetExChanel(ExChanel);
-  appl->SetDebug(2);
+  appl->SetDebug(0);
 
   TString MCres = "MC_res.dat";
   TString Hist = "Histos.root";

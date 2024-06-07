@@ -1,0 +1,22 @@
+##########################################
+# U-70, 2015, march
+##########################################
+# Sn, 5mm
+#/Distance mm: 3670; 5.  9583
+#/Distance mm: 3723; 5.  9849
+#/Distance mm: 3689; 5.  9849
+#/Distance mm: 3866; 5.  9849   Enorm best
+#/Distance mm: 3673; 5. 10135   from _c1 nov14 e_cor_matrix
+#/Distance mm: 3673; 5. 10108
+#/Distance mm: 3673; 5. 10079
+#/Distance mm: 3673; 5. 10000
+/ Distance mm: 3673; 5.  9976
+/data/HYPERON_data/2015-03/
+#--------------------------------
+run26316.mid.gz
+run26317.mid.gz
+#run26319.mid.gz # p
+run26320.mid.gz
+run26323.mid.gz
+run26327.mid.gz
+

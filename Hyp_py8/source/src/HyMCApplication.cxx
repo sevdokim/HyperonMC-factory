@@ -3,7 +3,7 @@
 
 ClassImp(HyMCApplication)
 
-    using namespace std;
+using namespace std;
 using Momentum4D = ROOT::Math::PxPyPzEVector;
 //_____________________________________________________________________________
 HyMCApplication::HyMCApplication(const char *name, const char *title)
@@ -114,31 +114,40 @@ bool HyMCApplication::InitMC(const char *setup) {
                          -10., 10.);
 
   // Hyperon MC event container (up to 20 primary particles)
-  fHyMCEvent = new HyMCEvent(20);
+  // fHyMCEvent = new HyMCEvent(20);
   // fSavingTree->Branch("HyMCEvents", fHyMCEvent);
+
+  // Sa efficiency from environment variable
+  char *env_val;
+  env_val = getenv("EFFICIENCY_SA");
+  if (env_val != NULL) {
+    Double_t val;
+    sscanf(env_val, "%lf", &val);
+    cout << "EFFICIENCY_SA =  " << val << endl;
+    if (val >= 0. && val <= 1.) {
+      fSaEfficiency = val;
+    } else {
+      cout << "Sa efficiency must be within [0., 1.] interval. No changing anything (i.e. fSaEfficiency = 1.)" << endl;
+    }
+  }
 
   // config pythia
   fPythia = new Pythia8::Pythia();
+  fPythia->readFile("py8Config.cfg");
   int pySeed = gRandom->TRandom::GetSeed();
   if (pySeed <= 0) {
     pySeed = gRandom->Integer(900000000);
   }
-  fPythia->readString("LowEnergyQCD:all = on");
   fPythia->readString("Random:setSeed = on");
   fPythia->readString(Form("Random:seed = %d", pySeed));
   fPythia->readString(Form("Beams:idA = %d", fBeamPdg)); // beam particle
-  fPythia->readString("Beams:idB = %d", fTargetPdg);     // target particle
+  fPythia->readString(Form("Beams:idB = %d", fTargetPdg));     // target particle
   double beamMass = TDatabasePDG::Instance()->GetParticle(fBeamPdg)->Mass();
   double beamEnergy = TMath::Sqrt(fMomentum * fMomentum + beamMass * beamMass);
   fPythia->readString(Form("Beams:eA = %lf", beamEnergy));
   fPythia->readString("Beams:eB = 0.");
   fPythia->readString("Beams:frameType = 2");
-  fPythia->readString("StringFlav:etaSup = 1.");
-  fPythia->readString("StringFlav:mesonUDvector = 1.");
-  fPythia->readString("StringFlav:mesonUDL1S1J2 = 5.");
-
-  // fPythia->readString("2214:onMode = off");
-  // fPythia->readString("2214:onIfAny = 2212 111");
+  
   if (!fPythia->init()) {
     cerr << " Pythia failed to initialize." << endl;
     return false;
@@ -222,7 +231,7 @@ void HyMCApplication::GeneratePrimaries() {
     }
     nPrimaries++;
   }
-  fHyMCEvent->NewEvent(nPrimaries);
+  /*fHyMCEvent->NewEvent(nPrimaries);
   fHyMCEvent->pdgA = fPythia->event[1].id();
   fHyMCEvent->eA = fPythia->event[1].e();
   fHyMCEvent->pxA = fPythia->event[1].px();
@@ -237,7 +246,7 @@ void HyMCApplication::GeneratePrimaries() {
 
   for (int i = 0; i < 3; i++) {
     fHyMCEvent->vertex[i] = vertex[i];
-  }
+    }*/
   for (int i = 0; i < fPythia->event.size(); i++) {
     if (!fPythia->event[i].isFinal()) {
       continue;
@@ -260,11 +269,11 @@ void HyMCApplication::GeneratePrimaries() {
     fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
                       poly, polz, kPPrimary, ntr, 1., 0);
     initial_photon_energy[nFinal] = e;
-    fHyMCEvent->pdgCode[nFinal] = pdg;
+    /*fHyMCEvent->pdgCode[nFinal] = pdg;
     fHyMCEvent->pxP[nFinal] = px;
     fHyMCEvent->pyP[nFinal] = py;
     fHyMCEvent->pzP[nFinal] = pz;
-    fHyMCEvent->eP[nFinal] = e;
+    fHyMCEvent->eP[nFinal] = e;*/
     nFinal++;
   }
   if (fDebug > 1) {
@@ -523,18 +532,18 @@ void HyMCApplication::FinishEvent() {
 
   // prepair collected energy
   // otbor po schetchiku Sa
-  fHyMCEvent->signalSa = fSaEnergyDep;
-  fHyMCEvent->signalS4 = fS4EnergyDep;
-  fHyMCEvent->targetEnDep = fTargetEnergyDep;
-  if (fSaEnergyDep < fSaEnergyCut) { // begin Sa-discrimination
+  // fHyMCEvent->signalSa = fSaEnergyDep;
+  // fHyMCEvent->signalS4 = fS4EnergyDep;
+  // fHyMCEvent->targetEnDep = fTargetEnergyDep;
+  if (fSaEnergyDep < fSaEnergyCut && gRandom->Rndm() < fSaEfficiency) { // begin Sa-discrimination
     fprintf(fMC_results, "%d ", EvntNumb);
     for (i = 0; i < max_gamma; i++) {
       fprintf(fMC_results, "%lf ", initial_photon_energy[i]);
       for (Int_t j = 0; j < 640; j++) {
         if (energy_dep[i][j] > 0) {
           fprintf(fMC_results, "%d %lf ", j, energy_dep[i][j]);
-          fHyMCEvent->cellNumber[i].push_back(j);
-          fHyMCEvent->enDep[i].push_back(energy_dep[i][j]);
+          // fHyMCEvent->cellNumber[i].push_back(j);
+          // fHyMCEvent->enDep[i].push_back(energy_dep[i][j]);
         }
       }
       if ((i + 1) != max_gamma) {
@@ -568,7 +577,7 @@ void HyMCApplication::FinishEvent() {
   //  cout<<"chislo chastic v steke="<<fStack->GetNtrack()<<endl;
   // cout<<"chislo pervichnih chastic="<<fStack->GetNprimary()<<endl;
   fStack->Reset();
-  fHyMCEvent->ResetEvent();
+  // fHyMCEvent->ResetEvent();
   // gObjectTable->Print();
 
   cout << " \nFinished event " << EvntNumb << endl;

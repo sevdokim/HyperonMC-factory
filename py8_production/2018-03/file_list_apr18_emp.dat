@@ -1,0 +1,22 @@
+##########################################
+# U-70, 2018, March
+##########################################
+# Empty as Pb target, real 2.5 = 3 mm
+/ Distance mm: 3685; 3. 10000
+/data/HYPERON_data/2018-03/
+#--------------------------------
+# K1,2,3 = +/- 20, 20, 35
+#    
+#  Pb target, 2.5 mm 
+#
+run29514.mid.gz
+run29515.mid.gz
+run29517.mid.gz
+run29518.mid.gz
+run29519.mid.gz
+run29520.mid.gz
+run29522.mid.gz
+run29524.mid.gz
+run29526.mid.gz
+run29528.mid.gz
+run29529.mid.gz

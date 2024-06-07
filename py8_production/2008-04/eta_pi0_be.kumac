@@ -1,0 +1,112 @@
+macro s
+opt nbox
+*
+**> pi0
+* 
+ve/cre en(10) r 1000. 1500. 2000. 2500. 3000. 3500. 4000. 4500. 5000. 5500.
+ve/cre er(10) r 10*0.1
+ve/cre em(10) r 10*0.25
+ve/cre ms(10)
+*
+v/cre par(8) r 1813.6 138.27 35.492 7.1998 -0.0036 -0.001 0. 0.
+hi/fit 30120(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(1)
+hi/fit 30121(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(2)
+hi/fit 30122(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(3)
+hi/fit 30123(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(4)
+hi/fit 30124(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(5)
+hi/fit 30125(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(6)
+hi/fit 30126(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(7)
+hi/fit 30127(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(8)
+hi/fit 30128(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(9)
+hi/fit 30129(85.:250.) g+p3 ! 7 par
+ve/copy par(2) ms(10)
+*
+null 0. 6500. 134. 136.
+atitle  'E, MeV' 'Mass MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+vec/fit en ms em p0 's' 1 par
+*
+**> eta
+*
+ve/cre e2(10) r 10*0.025
+ve/cre m2(10)
+*
+v/cre par(7) r 2813.6 548.27 35.492 7.1998 -0.0036 -0.001 0.
+*
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+*
+hi/fit 30120(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(1)
+hi/fit 30121(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(2)
+hi/fit 30122(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(3)
+hi/fit 30123(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(4)
+hi/fit 30124(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(5)
+hi/fit 30125(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(6)
+hi/fit 30126(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(7)
+hi/fit 30127(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(8)
+hi/fit 30128(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(9)
+hi/fit 30129(300.:850.) g+p3 ! 7 par
+ve/copy par(2) m2(10)
+*
+zone 1 3
+*
+fo/file 55 eta_pi0_en.eps
+meta 55 -111
+*
+ve/cre em(10) r 10*0.025
+null 0. 6500. 134. 136.
+atitle  'E, MeV' 'Mass pi0 MeV'
+hplot/error en ms er em 10 20
+fun/plot 134.977 0. 6500. s
+vec/fit en ms em p0 's' 1 par
+*
+null 0. 6500. 547. 552.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en m2 er e2 10 20
+fun/plot 547.85 0. 6500. s
+vec/fit en m2 e2 p0 's' 1 par
+*
+**> eta/pi0 => eta
+*
+ve/crea rat(10)
+ve/operation/VDIVIDE m2 ms rat
+ve/operation/VSCALE  rat 134.977 rat
+*
+null 0. 6500. 547. 552.
+atitle  'E, MeV' 'Mass eta MeV'
+hplot/error en rat er e2 10 20
+fun/plot 547.85 0. 6500. s
+*
+vec/fit en rat e2 p0 's' 1 par
+meta 0
+close 55
+*
+return

@@ -1,0 +1,23 @@
+*** Begin of history file: Tue Nov 19 20:12:03 2019
+opt stat
+hi/file 1 nov09_be79mm.hbook
+hi/pl 30121
+zone 1 2
+hi/pl 30121
+hi/pl 30129
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 nov09_c78mm.hbook
+hi/pl 30121
+hi/pl 5037
+shell
+hi/pl 30121
+hi/pl 30121
+hi/del 0
+close 0
+hi/file 1 nov09_be79mm.hbook
+hi/pl 30121
+shell
+q
+*** End   of history file: Tue Nov 19 20:16:18 2019

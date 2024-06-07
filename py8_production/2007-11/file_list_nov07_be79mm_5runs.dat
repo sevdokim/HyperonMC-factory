@@ -1,0 +1,25 @@
+##########################################
+# U-70, 2007, november
+##########################################
+# Be, 79mm
+#/Distance mm: 3700; 79. 10510     06.09.2018
+#/Distance mm: 3710; 79. 10583     # Z=3700+10
+#/Distance mm: 3720; 79. 10612     # Z=3700+20
+#/Distance mm: 3700; 79. 10554     # Basic parameters 24.09.2018
+#/Distance mm: 3663; 79. 10449     # Z & E change  
+#/Distance mm: 3700; 79. 10554 
+#/Distance mm: 3499; 79.  9981
+#/Distance mm: 3603; 79. 10051     ! the new for 11jun2019
+#/Distance mm: 3659; 79. 10051
+#/Distance mm: 3581; 79.  9837
+#/Distance mm: 3581; 79.  9823    
+#/Distance mm: 3571; 79.  9823     -->  Enorm best
+/ Distance mm: 3698; 79. 10808
+/data/HYPERON_data/2007-11/data/
+#----------------------------------------------------------------
+run04140.mid.gz
+run04141.mid.gz
+run04142.mid.gz
+run04143.mid.gz
+run04144.mid.gz
+

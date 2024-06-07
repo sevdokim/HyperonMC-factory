@@ -1,0 +1,66 @@
+##########################################
+# U-70, 2017, december
+##########################################
+# Al target, 35 mm = 2 blina
+# K1,2,3 = +/- 20, 20, 35
+#/Distance mm: 3665; 35. 10000
+#/Distance mm: 3616; 35. 10128
+#/Distance mm: 3642; 35. 10200
+#/Distance mm: 3398; 35.  9525
+#/Distance mm: 3547; 35.  9525     !   New-old
+#/Distance mm: 3772; 35. 10128    -->  Enorm best
+/ Distance mm: 3658; 35. 10461
+/data/HYPERON_data/2017-12/
+#--------------------------------
+run28062.mid.gz
+run28063.mid.gz
+run28064.mid.gz
+run28065.mid.gz
+run28072.mid.gz
+run28076.mid.gz
+run28112.mid.gz
+run28113.mid.gz
+run28114.mid.gz
+run28115.mid.gz
+run28116.mid.gz
+run28117.mid.gz
+run28118.mid.gz
+run28121.mid.gz
+run28122.mid.gz
+run28123.mid.gz
+run28124.mid.gz
+run28127.mid.gz
+run28128.mid.gz
+run28129.mid.gz
+run28130.mid.gz
+run28131.mid.gz
+run28132.mid.gz
+run28133.mid.gz
+run28134.mid.gz
+run28138.mid.gz
+run28139.mid.gz
+run28140.mid.gz
+run28141.mid.gz
+run28146.mid.gz
+run28147.mid.gz
+run28149.mid.gz
+run28150.mid.gz
+run28151.mid.gz
+run28152.mid.gz
+run28153.mid.gz
+run28162.mid.gz
+run28164.mid.gz
+run28165.mid.gz
+run28166.mid.gz
+run28167.mid.gz
+run28168.mid.gz
+run28169.mid.gz
+run28170.mid.gz
+run28171.mid.gz
+run28172.mid.gz
+run28175.mid.gz
+run28176.mid.gz
+run28177.mid.gz
+run28178.mid.gz
+run28179.mid.gz
+run28180.mid.gz
