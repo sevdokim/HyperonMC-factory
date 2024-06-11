@@ -20,7 +20,10 @@ void Config() {
 
   // RunConfiguration for Geant4
   TG4RunConfiguration *runConfiguration =
-          new TG4RunConfiguration("geomRoot", "FTFP_BERT_EMZ");
+    new TG4RunConfiguration("geomRoot", "FTFP_BERT_EMZ",
+                            /*const TString& specialProcess = */ "stepLimiter",
+                            /*Bool_t specialStacking =*/ false,
+                            /*Bool_t mtApplication =*/ false);
     // new TG4RunConfiguration("geomRoot", "Shielding");
   //new TG4RunConfiguration("geomRoot", "ShieldingLEND");
 
