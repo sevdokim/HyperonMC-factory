@@ -11,7 +11,7 @@
 /// \file E01/run_g4.C
 /// \brief Macro for running Example01 with Geant4.
 
-void run_g4(int nEvents = 100000, int seed = 0,
+void run_g4(int nEvents = 100000, int seed = 0, double initEn = 0.005/*GeV*/,
             const TString &configMacro = "g4tgeoConfig.C") {
   /// Macro function for running Example01 with Geant4 from
   /// Root interactive session.
@@ -42,7 +42,7 @@ void run_g4(int nEvents = 100000, int seed = 0,
 
   appl->SetTargetRadius(3 /*cm*/);
   // photon energy
-  appl->SetInitialEnergy(6. /*GeV*/);
+  appl->SetInitialEnergy(initEn /*GeV*/);
 
   // Initialize MC
   appl->InitMC(configMacro);

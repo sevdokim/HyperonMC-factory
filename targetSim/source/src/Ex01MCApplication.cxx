@@ -33,6 +33,7 @@
 #include <TVirtualGeoTrack.h>
 #include <TVirtualMC.h>
 #include <TDatabasePDG.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -471,6 +472,16 @@ void Ex01MCApplication::InitMC(const char *setup) {
   // trigger thresholds
   fCPVThreshold = 0.0008;
   fSFThreashold = 0.0007;
+
+  // read PDG code from environment
+  fPdgCode = 22; // default (photon)
+  if (char* pdg_code = getenv("particle_code")) {
+    sscanf(pdg_code, "%d", &fPdgCode);
+    cout << "PDG code of chosen particle is" << fPdgCode << endl;
+    TParticlePDG *p = TDatabasePDG::Instance()->GetParticle(fPdgCode);
+    cout << "The code corresponds to " << p->GetName() << endl;
+  }
+
 }
 
 //__________________________________________________________________________
@@ -540,6 +551,8 @@ void Ex01MCApplication::InitGeometry() {
 void Ex01MCApplication::GeneratePrimaries() {
   /// Fill the user stack (derived from TVirtualMCStack) with primary particles.
 
+  static bool firstCall = true;
+  
   // Track ID (filled by stack)
   Int_t ntr;
 
@@ -547,7 +560,7 @@ void Ex01MCApplication::GeneratePrimaries() {
   Int_t toBeDone = 1;
 
   // photon
-  Int_t pdg = 22;
+  Int_t pdg = fPdgCode;
   //pdg = 13; //muon
 
   // Polarization
@@ -568,14 +581,19 @@ void Ex01MCApplication::GeneratePrimaries() {
   Double_t tof = 0.;
 
   // Momentum
-  // spherical photons
-  Double_t px, py, pz, e = fInitialEnergy;
+  Double_t px, py, pz, e = fInitialEnergy, p;
+  /*static double mass = 0.;
+  if (firstCall) {
+    TParticlePDG *partPdg = TDatabasePDG::Instance()->GetParticle(fPdgCode);
+    mass = partPdg->Mass();
+  }
   double phi = 2. * TMath::Pi() * gRandom->Rndm();
   double cosTheta = TMath::Sqrt(3.) * (gRandom->Rndm() - 0.5);
   double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
-  px = e * sinTheta * TMath::Sin(phi);
-  py = e * sinTheta * TMath::Cos(phi);
-  pz = e * cosTheta;
+  p = TMath::Sqrt(fInitialEnergy * fInitialEnergy - mass * mass);
+  px = p * sinTheta * TMath::Sin(phi);
+  py = p * sinTheta * TMath::Cos(phi);
+  pz = p * cosTheta;
   fInitialMomentum.SetXYZT(px, py, pz, e);
   */
   // beam muons
@@ -607,9 +625,9 @@ void Ex01MCApplication::GeneratePrimaries() {
   */
   fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
                       poly, polz, kPPrimary, ntr, 1., 0);
-  
+  */
   // generate one pythia event
-  /*while (!fPythia->next()) {
+  while (!fPythia->next()) {
     continue;
   }
 
@@ -623,9 +641,12 @@ void Ex01MCApplication::GeneratePrimaries() {
     py = fPythia->event[i].py();
     pz = fPythia->event[i].pz();
     e = fPythia->event[i].e();
-    fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
-                      poly, polz, kPPrimary, ntr, 1., 0);
-		      }*/
+    //if (pdg == 22) { // photons from pythia 
+      fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
+			poly, polz, kPPrimary, ntr, 1., 0);
+      //}
+  }
+  firstCall = false;
 }
 
 //_____________________________________________________________________________
