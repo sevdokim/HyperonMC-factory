@@ -3,7 +3,7 @@
 
 ClassImp(HyMCApplication)
 
-using namespace std;
+    using namespace std;
 using Momentum4D = ROOT::Math::PxPyPzEVector;
 //_____________________________________________________________________________
 HyMCApplication::HyMCApplication(const char *name, const char *title)
@@ -107,7 +107,7 @@ bool HyMCApplication::InitMC(const char *setup) {
   fTargetEnergyHisto =
       new TH1F("TargetEnergyHisto", "target energy in event", 10000, 0., 1);
 
-  fPhotonVertexZPosition =
+  fEventVertexZPosition =
       new TH1F("PhotonVertexZPositionHisto", "vertex Z pos", 10000, -100., 100);
   fPtHisto = new TH1F("hPt", "Pt of photon system", 5000, 0., 5.);
   fCoordHisto = new TH2F("hCoordHisto", "Coordinates Hist", 100, -10., 10., 100,
@@ -127,7 +127,9 @@ bool HyMCApplication::InitMC(const char *setup) {
     if (val >= 0. && val <= 1.) {
       fSaEfficiency = val;
     } else {
-      cout << "Sa efficiency must be within [0., 1.] interval. No changing anything (i.e. fSaEfficiency = 1.)" << endl;
+      cout << "Sa efficiency must be within [0., 1.] interval. No changing "
+              "anything (i.e. fSaEfficiency = 1.)"
+           << endl;
     }
   }
 
@@ -140,14 +142,14 @@ bool HyMCApplication::InitMC(const char *setup) {
   }
   fPythia->readString("Random:setSeed = on");
   fPythia->readString(Form("Random:seed = %d", pySeed));
-  fPythia->readString(Form("Beams:idA = %d", fBeamPdg)); // beam particle
-  fPythia->readString(Form("Beams:idB = %d", fTargetPdg));     // target particle
+  fPythia->readString(Form("Beams:idA = %d", fBeamPdg));   // beam particle
+  fPythia->readString(Form("Beams:idB = %d", fTargetPdg)); // target particle
   double beamMass = TDatabasePDG::Instance()->GetParticle(fBeamPdg)->Mass();
   double beamEnergy = TMath::Sqrt(fMomentum * fMomentum + beamMass * beamMass);
   fPythia->readString(Form("Beams:eA = %lf", beamEnergy));
   fPythia->readString("Beams:eB = 0.");
   fPythia->readString("Beams:frameType = 2");
-  
+
   if (!fPythia->init()) {
     cerr << " Pythia failed to initialize." << endl;
     return false;
@@ -259,9 +261,13 @@ void HyMCApplication::GeneratePrimaries() {
     pLab += Momentum4D(px, py, pz, e);
 
     vx = vertex[0] + fPythia->event[i].xProd() / 10.; // mm -> cm
-    vx = vertex[1] + fPythia->event[i].yProd() / 10.; // mm -> cm
-    vx = vertex[2] + fPythia->event[i].zProd() / 10.; // mm -> cm
+    vy = vertex[1] + fPythia->event[i].yProd() / 10.; // mm -> cm
+    vz = vertex[2] + fPythia->event[i].zProd() / 10.; // mm -> cm
     tof = fPythia->event[i].tProd();
+    // fEventVertexZPosition->Fill(vertex[2]);
+    // fCoordHisto->Fill(vertex[0], vertex[1]);
+    fEventVertexZPosition->Fill(vz);
+    fCoordHisto->Fill(vx, vy);
     if (fDebug > 1) {
       cout << " pdg = " << pdg << " with (px, py, pz, e) = (" << px << ", "
            << py << ", " << pz << ", " << e << ")" << endl;
@@ -535,7 +541,8 @@ void HyMCApplication::FinishEvent() {
   // fHyMCEvent->signalSa = fSaEnergyDep;
   // fHyMCEvent->signalS4 = fS4EnergyDep;
   // fHyMCEvent->targetEnDep = fTargetEnergyDep;
-  if (fSaEnergyDep < fSaEnergyCut && gRandom->Rndm() < fSaEfficiency) { // begin Sa-discrimination
+  if (fSaEnergyDep < fSaEnergyCut &&
+      gRandom->Rndm() < fSaEfficiency) { // begin Sa-discrimination
     fprintf(fMC_results, "%d ", EvntNumb);
     for (i = 0; i < max_gamma; i++) {
       fprintf(fMC_results, "%lf ", initial_photon_energy[i]);

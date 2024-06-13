@@ -201,14 +201,14 @@ private:
 
   TFile *fFile; ///< file to save root histos
 
-  TH1F *fLGD2EnergyHisto;       ///< histos
-  TH1F *fSaEnergyHisto;         ///< histos
-  TH1F *fS4EnergyHisto;         ///< histos
-  TH1F *fEffMassHisto;          ///< histos
-  TH1F *fTargetEnergyHisto;     ///< histos
-  TH1F *fPhotonVertexZPosition; ///< histos
-  TH1F *fPtHisto;               // Pt in event  ///< histos
-  TH2F *fCoordHisto;            // (X,Y) of event vertex
+  TH1F *fLGD2EnergyHisto;      ///< histos
+  TH1F *fSaEnergyHisto;        ///< histos
+  TH1F *fS4EnergyHisto;        ///< histos
+  TH1F *fEffMassHisto;         ///< histos
+  TH1F *fTargetEnergyHisto;    ///< histos
+  TH1F *fEventVertexZPosition; ///< histos
+  TH1F *fPtHisto;              // Pt in event  ///< histos
+  TH2F *fCoordHisto;           // (X,Y) of event vertex
 
   HyMCStack *fStack; ///< VMC particle stack
   HyDetectorConstruction

@@ -1,2 +1,4 @@
 *.dat
 *.root
+gphysi.dat
+*.d

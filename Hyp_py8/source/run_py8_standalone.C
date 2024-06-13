@@ -38,6 +38,11 @@ void run_py8_standalone(int nEvents = 100) {
   fPythia->init();
 
   TFile *fOut = new TFile("py8_standalone.root", "RECREATE");
+  TH1F *hPsumX = new TH1F("hPsumX", "sum P_{X}", 1000, -1., 1.);
+  TH1F *hPsumY = new TH1F("hPsumY", "sum P_{Y}", 1000, -1., 1.);
+  TH1F *hPsumZ = new TH1F("hPsumZ", "sum P_{Z}", 1000, 0., 10.);
+  TH1F *hEsum = new TH1F("hEsum", "sum E", 1000, 0., 10.);
+
   TH1F *hF2Mass = new TH1F("hF2Mass", "f2(1270) mass spectrum", 100, 0., 2.);
   TH1F *hF2Energy =
       new TH1F("hF2Energy", "f2(1270) energy spectrum", 700, 0., 7.);
@@ -50,26 +55,30 @@ void run_py8_standalone(int nEvents = 100) {
   TH1F *hMass2G = new TH1F("hMass2G", "Mass 2#gamma", 200, 0., 2.);
   TH1F *hMass3G = new TH1F("hMass3G", "Mass 3#gamma", 200, 0., 2.);
   TH1F *hMass4G = new TH1F("hMass4G", "Mass 4#gamma", 200, 0., 2.);
+  TH1F *hMass4G_F2 =
+      new TH1F("hMass4G_F2", "Mass 4#gamma (f2(1270)-event)", 200, 0., 2.);
   TH1F *hMultG = new TH1F("hMultG", "Multiplicity of #gamma", 10, 0., 10.);
-  double eCut = 5.;       // GeV
-  double eGammaMin = 0.1; // GeV
-  double caloDist = 3.7;  // m
-  double caloSize = 1.;   // m
+  double eCut = 0.;        // GeV
+  double eGammaMin = 0.01; // GeV
+  double caloDist = 3.7;   // m
+  double caloSize = 1.;    // m
   double cosTCut =
       caloDist / TMath::Sqrt(caloDist * caloDist + caloSize * caloSize);
 
   int nF2 = 0;
-  LVec pCalo, pPart;
+  LVec pCalo, pSum;
   int nGamma = 0;
   for (int iEv = 0; iEv < nEvents; iEv++) {
     if (!fPythia->next()) {
       continue;
     }
     pCalo.SetPxPyPzE(0., 0., 0., 0.);
+    pSum.SetPxPyPzE(0., 0., 0., 0.);
     nGamma = 0;
     bool isSaTriggered = false;
     hProcessCode->Fill(fPythia->info.code());
     // fPythia->info.list();
+    bool hasF2 = false;
     for (int i = 0; i < fPythia->event.size(); i++) {
       int f2Index = -1;
       const Pythia8::Particle &p = fPythia->event[i];
@@ -92,6 +101,7 @@ void run_py8_standalone(int nEvents = 100) {
 
             if (gam1.id() == 22 && gam2.id() == 22 && gam3.id() == 22 &&
                 gam4.id() == 22) {
+              hasF2 = true;
               double maxGamT = gam1.theta();
               int maxGamId = gam1.id();
               if (maxGamT < gam2.theta()) {
@@ -115,11 +125,12 @@ void run_py8_standalone(int nEvents = 100) {
       if (!p.isFinal()) {
         continue;
       }
+      pSum += LVec(p.px(), p.py(), p.pz(), p.e());
       double xCalo = TMath::Tan(p.theta()) * caloDist * TMath::Cos(p.phi());
       double yCalo = TMath::Tan(p.theta()) * caloDist * TMath::Sin(p.phi());
       // if (TMath::Cos(p.theta()) > cosTCut) { // calo acceptance
       if (TMath::Abs(xCalo) < caloSize && TMath::Abs(yCalo) < caloSize) {
-        if (p.charge() != 0. && gRandom->Rndm() < 0.5) {
+        if (p.charge() != 0. && gRandom->Rndm() < 1.) {
           isSaTriggered = true;
         }
         if (p.id() == 22 && p.e() > eGammaMin) {
@@ -128,6 +139,10 @@ void run_py8_standalone(int nEvents = 100) {
         }
       }
     }
+    hPsumX->Fill(pSum.X());
+    hPsumY->Fill(pSum.Y());
+    hPsumZ->Fill(pSum.Z());
+    hEsum->Fill(pSum.T());
     if (!isSaTriggered && pCalo.e() > eCut) {
       hMultG->Fill(nGamma);
       if (nGamma == 2) {
@@ -136,6 +151,9 @@ void run_py8_standalone(int nEvents = 100) {
         hMass3G->Fill(pCalo.M());
       } else if (nGamma == 4) {
         hMass4G->Fill(pCalo.M());
+        if (hasF2) {
+          hMass4G_F2->Fill(pCalo.M());
+        }
       }
     }
   }
