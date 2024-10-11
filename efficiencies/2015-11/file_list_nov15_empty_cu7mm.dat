@@ -1,0 +1,34 @@
+##########################################
+# U-70, 2015, November
+##########################################
+# Cu target, 6.5 mm
+#/Distance mm: 3685; 7. 10067
+#/Distance mm: 3670; 7. 9912
+/ Distance mm: 3626; 7. 9912
+/data/HYPERON_data/2015-11/
+#--------------------------------
+# K1,2,3 = +/- 21, 21, 21
+#
+#                     Cu target 
+run26540.mid.gz
+run26507.mid.gz
+run26505.mid.gz
+run26502.mid.gz
+run26500.mid.gz
+run26542.mid.gz
+# run26548.mid.gz     Empty target with HVS2 = 2.30 kV, i.e. bad run
+run26551.mid.gz
+run26554.mid.gz
+#
+run26669.mid.gz
+run26671.mid.gz
+run26674.mid.gz
+run26677.mid.gz
+run26679.mid.gz
+run26681.mid.gz
+run26684.mid.gz
+run26685.mid.gz
+
+
+
+

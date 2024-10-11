@@ -1,0 +1,98 @@
+##########################################
+# U-70, 2018, March
+##########################################
+# Be target, 79 mm
+#/Distance mm: 3700; 79. 10000
+#/Distance mm: 3700; 79. 10113
+#/Distance mm: 3700; 79. 10128
+#/Distance mm: 3856; 79. 10128   --> Enorm best
+/ Distance mm: 3698; 79. 10298
+/data/HYPERON_data/2018-03/
+#--------------------------------
+# K1,2,3 = +/- 20, 20, 35
+#    
+#  Be target, 79mm 15-17 Mar
+#
+run29007.mid.gz
+run29008.mid.gz
+run29009.mid.gz
+run29011.mid.gz
+run29012.mid.gz
+run29013.mid.gz
+run29014.mid.gz
+run29015.mid.gz
+run29016.mid.gz
+run29019.mid.gz
+run29020.mid.gz
+run29021.mid.gz
+run29022.mid.gz
+run29026.mid.gz
+run29028.mid.gz
+run29030.mid.gz
+run29031.mid.gz
+run29032.mid.gz
+run29035.mid.gz
+run29036.mid.gz
+run29037.mid.gz
+run29038.mid.gz
+run29039.mid.gz
+run29041.mid.gz
+run29042.mid.gz
+run29043.mid.gz
+run29044.mid.gz
+run29045.mid.gz
+run29046.mid.gz
+run29048.mid.gz
+run29050.mid.gz
+run29053.mid.gz
+run29054.mid.gz
+run29055.mid.gz
+#run29056.mid.gz !bad
+run29057.mid.gz
+run29059.mid.gz
+run29060.mid.gz
+#run29066.mid.gz
+run29070.mid.gz
+run29072.mid.gz
+run29073.mid.gz
+run29074.mid.gz
+run29077.mid.gz
+run29078.mid.gz
+run29079.mid.gz
+run29080.mid.gz
+run29081.mid.gz
+run29082.mid.gz
+run29083.mid.gz
+run29084.mid.gz
+run29085.mid.gz
+run29086.mid.gz
+run29089.mid.gz
+run29089.mid.gz
+run29090.mid.gz
+run29091.mid.gz
+run29093.mid.gz
+run29094.mid.gz
+run29096.mid.gz
+run29097.mid.gz
+run29098.mid.gz
+run29099.mid.gz
+run29100.mid.gz
+run29101.mid.gz
+run29102.mid.gz
+run29103.mid.gz
+run29105.mid.gz
+run29108.mid.gz
+run29109.mid.gz
+run29110.mid.gz
+run29111.mid.gz
+run29112.mid.gz
+run29113.mid.gz
+run29114.mid.gz
+run29116.mid.gz
+run29118.mid.gz
+run29119.mid.gz
+run29134.mid.gz
+run29135.mid.gz
+run29136.mid.gz
+
+

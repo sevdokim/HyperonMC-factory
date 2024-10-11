@@ -489,8 +489,8 @@ void HyMCApplication::Stepping() {
   if (strcmp(gMC->CurrentVolName(), "TARG") == 0) {
     fTargetEnergyDep += gMC->Edep();
   }
-  if (fSaEnergyDep > fSaEnergyCut)
-    fFinishTracking = true;
+  // if (fSaEnergyDep > fSaEnergyCut)
+  //  fFinishTracking = true;
 }
 
 //_____________________________________________________________________________
@@ -541,8 +541,8 @@ void HyMCApplication::FinishEvent() {
   // fHyMCEvent->signalSa = fSaEnergyDep;
   // fHyMCEvent->signalS4 = fS4EnergyDep;
   // fHyMCEvent->targetEnDep = fTargetEnergyDep;
-  if (fSaEnergyDep < fSaEnergyCut &&
-      gRandom->Rndm() < fSaEfficiency) { // begin Sa-discrimination
+  if (fSaEnergyDep < fSaEnergyCut || // begin Sa-discrimination
+      gRandom->Rndm() < (1. - fSaEfficiency)) { // take into account counter inefficiency
     fprintf(fMC_results, "%d ", EvntNumb);
     for (i = 0; i < max_gamma; i++) {
       fprintf(fMC_results, "%lf ", initial_photon_energy[i]);

@@ -1,0 +1,36 @@
+##########################################
+# U-70, 2016, November
+##########################################
+# Be target, 79 mm
+#/Distance mm: 3705; 79  my by case
+#/Distance mm: 3700; 79. 10067 by sdv
+#/Distance mm: 3700; 79.  9912
+#/Distance mm: 3700; 79. 10017
+#/Distance mm: 3827; 79. 10017   -->  Enorm best
+/ Distance mm: 3698; 79. 10270
+/data/HYPERON_data/2016-11/
+#-----------------------------------
+run27002.mid.gz
+run27003.mid.gz
+run27004.mid.gz
+run27005.mid.gz
+run27006.mid.gz
+run27007.mid.gz
+run27008.mid.gz
+run27009.mid.gz
+run27010.mid.gz
+run27013.mid.gz 
+run27015.mid.gz
+run27017.mid.gz
+run27019.mid.gz
+run27020.mid.gz
+run27022.mid.gz
+run27023.mid.gz
+run27024.mid.gz
+run27026.mid.gz
+run27027.mid.gz
+run27030.mid.gz
+run27033.mid.gz
+run27034.mid.gz
+run27035.mid.gz
+run27036.mid.gz

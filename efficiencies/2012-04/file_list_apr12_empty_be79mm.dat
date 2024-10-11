@@ -1,0 +1,18 @@
+###########################################
+# 2012-04 session
+# S1*S2*S4*not.Sa trigger
+# C 31/5 target
+# empty target in HYPERON area
+#############################################################
+/ Distance mm: 3700; 79. 10036
+/data/HYPERON_data/2012-04/
+run21464.mid.gz
+run21465.mid.gz
+run21466.mid.gz
+run21472.mid.gz
+run21473.mid.gz
+run21475.mid.gz
+run21476.mid.gz
+run21477.mid.gz
+run21478.mid.gz
+run21479.mid.gz

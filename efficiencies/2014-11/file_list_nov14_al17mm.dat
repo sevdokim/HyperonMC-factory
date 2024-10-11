@@ -1,0 +1,24 @@
+##########################################
+# U-70, 2014, november
+##########################################
+# Al target, 17.5 mm
+#/Distance mm: 3665; 17. 10184
+#/Distance mm: 3699; 17. 10184
+#/Distance mm: 3623; 17.  9966
+#/Distance mm: 3576; 17.  9966
+#/Distance mm: 3750; 17.  9966
+#/Distance mm: 3667; 17. 10317    --> from nov11 _c1 e_cor_matrix
+/ Distance mm: 3667; 17. 10351
+/data/HYPERON_data/2014-11/
+#--------------------------------
+run25127.mid.gz
+run25128.mid.gz
+run25129.mid.gz
+run25130.mid.gz
+run25131.mid.gz
+run25135.mid.gz
+run25136.mid.gz
+run25137.mid.gz
+run25141.mid.gz
+run25142.mid.gz
+

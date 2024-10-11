@@ -61,7 +61,8 @@ do
 #	for TGTPRFX in al35mm cu7mm sn5mm pb3mm c78mm be79mm ch80mm # al35mm cu7mm sn5mm pb3mm
 	for TGTPRFX in pb3mm al35mm cu7mm sn5mm c78mm be79mm
 	do
-	    for per in 2012-04 2012-11 2015-03 2014-11 2013-03
+	    #for per in 2012-04 2012-11 2015-03 2014-11 2013-03
+	    for per in 2015-03
 	    do
 		unset DELTA_SA
 		if [ $per = 2015-03 ] ; then 
@@ -71,7 +72,9 @@ do
 		MESON=${MES}
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 ]
 		export TGT_PRFX=$TGTPRFX
-		export PRODUCTION_NAME=${TGT_PRFX}_${MES}_${HYCONDITION}
+		export EFFICIENCY_SA=0.9
+		#export PRODUCTION_NAME=${TGT_PRFX}_${MES}_${HYCONDITION}
+		export PRODUCTION_NAME=${TGT_PRFX}_${MES}_${HYCONDITION}_effSa0.9
 		export HYMC_CONFIG_DEFINED=yes
 		echo " "
 		echo  MESON =                $MESON

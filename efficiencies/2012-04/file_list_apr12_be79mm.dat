@@ -1,0 +1,64 @@
+###########################################
+# 2012-04 session
+# S1*S2*S4*not.Sa trigger
+# C 31/5 target
+# Be target in HYPERON area
+# New geometry (h_s_new_new.dat)
+#############################################################
+#/Distance mm: 3700; 79.  9756
+#/Distance mm: 3700; 79.  9803
+#/Distance mm: 3829; 79.  9803    --> Enorm best
+/ Distance mm: 3698; 79. 10035
+/data/HYPERON_data/2012-04/
+run21155.mid.gz
+run21160.mid.gz
+run21164.mid.gz
+run21173.mid.gz
+run21174.mid.gz
+run21175.mid.gz
+run21176.mid.gz
+run21177.mid.gz
+run21178.mid.gz
+run21179.mid.gz
+run21180.mid.gz
+run21181.mid.gz
+run21182.mid.gz
+run21184.mid.gz
+run21185.mid.gz
+run21186.mid.gz
+run21187.mid.gz
+run21188.mid.gz
+run21189.mid.gz
+run21190.mid.gz
+run21191.mid.gz
+run21192.mid.gz
+run21193.mid.gz
+run21194.mid.gz
+run21195.mid.gz
+run21196.mid.gz
+run21197.mid.gz
+run21198.mid.gz
+run21199.mid.gz
+run21200.mid.gz
+run21201.mid.gz
+run21202.mid.gz
+run21208.mid.gz
+run21209.mid.gz
+run21210.mid.gz
+run21211.mid.gz
+run21212.mid.gz
+run21213.mid.gz
+run21214.mid.gz
+run21215.mid.gz
+run21216.mid.gz
+run21217.mid.gz
+run21218.mid.gz
+run21219.mid.gz
+run21222.mid.gz
+run21225.mid.gz
+run21226.mid.gz
+run21227.mid.gz
+run21230.mid.gz
+run21232.mid.gz
+run21233.mid.gz
+run21234.mid.gz

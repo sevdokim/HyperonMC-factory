@@ -1,0 +1,14 @@
+*** Begin of history file: Sat Feb 29 15:05:49 2020
+hi/file 1 calibr.hbook
+opt stat
+hi/pl 30121
+zoom
+zone 1 2
+hi/pl 30121
+shell ls *.hbook -ltr
+hi/del 0
+close 0
+hi/file 1 cal_mar15_sn5_nu=0.717.hbook
+hi/pl 30121
+q
+*** End   of history file: Sat Feb 29 15:08:45 2020

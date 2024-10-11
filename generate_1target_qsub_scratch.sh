@@ -9,13 +9,15 @@
 # It requires some environment variables to be setted up.
 # However  
 
+echo "Job started at " $(date)
+
 # Read config of the simulation
 THIS_THREAD_PATH=$PBS_O_WORKDIR
 if [ ! -z $THIS_THREAD_PATH ] ; then
     THIS_THREAD_PATH=.
 fi
 if ls $THIS_THREAD_PATH/shell_env.sh >& /dev/null ; then
-    for var in WD MCDIR ANCHORS SUFFIX CONTROL PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH FILELIST CONVERT_ONLY SEED EXTARGET PERIOD HYCONDITION NTHREADS PATH MESON PERIOD_PRFX PWD EVENTNUMBER TGT_PRFX MACRODIR PROBABILITY_SA TARGET MCRUNSDIR THICKNESS_S4 REGGEN_CARDS PROBABILITY_S4 PROBABILITY_TARG PROBABILITY_SA DELTA_S4 DELTA_SA THICKNESS_S4 DELTA_TARGET H2S_TABLE
+    for var in WD MCDIR ANCHORS SUFFIX CONTROL PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH FILELIST CONVERT_ONLY SEED EXTARGET PERIOD NTHREADS PATH MESON PERIOD_PRFX PWD EVENTNUMBER TGT_PRFX MACRODIR PROBABILITY_SA TARGET MCRUNSDIR THICKNESS_S4 REGGEN_CARDS PROBABILITY_S4 PROBABILITY_TARG PROBABILITY_SA DELTA_S4 DELTA_SA THICKNESS_S4 DELTA_TARGET H2S_TABLE EFFICIENCY_SA
     do
 	for val in $(grep "$var=" $THIS_THREAD_PATH/shell_env.sh) ; do
 	    if [ ! -z $val ] ; then 
@@ -115,7 +117,7 @@ ln -s $ANCHORS/calibr.cards     ./calibr.cards
 ln -s $ANCHORS/h_s_new.dat	./h_s_new.dat
 ln -s $ANCHORS/coeff_old.dat    ./coeff_old.dat
 ln -s $ANCHORS/e_cor_matrix.dat	./e_cor_matrix.dat
-ln -s $ANCHORS/bad_channels.dat ./bad_channels.dat
+ln -s $ANCHORS/badmap.dat ./bad_channels.dat
 ln -s $ANCHORS/mass_shifts.dat ./mass_shifts.dat
 ln -s $ANCHORS/mass_shifts_MC.dat ./mass_shifts_MC.dat
 
@@ -152,6 +154,9 @@ if [ $did_production = yes ] ; then
 else
     "I didnt produced new files."
 fi
+
+echo "Starting to conver MC_res.dat to Hyperon format at " $(date)
+
 ln -s $MACRODIR/converter/exe ./converter  
 if [ -f MC_res.dat ] ; then 
     echo 'I start converting MC_res.dat to' Run${SEED}.gz
@@ -196,5 +201,5 @@ if [ ! $CONVERT_ONLY = yes ] ; then
     mkdir -p $WD/$SUFFIX
     cp -a * $WD/$SUFFIX
     chown -R :hyperon $WD/$SUFFIX
-    # rm -vf $WD/$SUFFIX/log_production
+    rm -vf $WD/$SUFFIX/log_production
 fi
