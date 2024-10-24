@@ -41,7 +41,9 @@ mkdir -p $MCRUNSDIR
 #
 case "$TGT_PRFX" in 
     "be79mm")	export TARGET=2	;;
+    "be60mm")   export TARGET=2 ;;
     "c78mm")	export TARGET=10;;
+    "c60mm")    export TARGET=10;;
     "al35mm")	export TARGET=3	;;
     "al17mm")	export TARGET=3	;;
     "cu3mm")	export TARGET=9	;;
@@ -49,6 +51,7 @@ case "$TGT_PRFX" in
     "sn5mm")	export TARGET=8	;;
     "pb3mm")    export TARGET=7 ;;
     "ch80mm")   export TARGET=11;;
+    "s60mm")    export TARGET=12;;
     *)          echo "$TGT_PRFX is incorrect. Stopping"; return ;; 
 esac
 #

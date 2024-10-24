@@ -1,0 +1,47 @@
+##########################################
+# U-70, 2015, march
+##########################################
+# Be, 79mm
+#/Distance mm: 3700; 79. 9583
+#/Distance mm: 3700; 79. 9637
+#/Distance mm: 3821; 79. 9637
+/ Distance mm: 3698; 60. 9916
+/data/HYPERON_data/2015-03/
+#--------------------------------
+#                  Sample_1: mpi = 131.62 and some bump in left tail
+# run26105.mid.gz
+# run26107.mid.gz
+# run26109.mid.gz
+# run26111.mid.gz
+# run26113.mid.gz
+# run26115.mid.gz
+# run26117.mid.gz
+# run26119.mid.gz
+# run26121.mid.gz
+# run26123.mid.gz
+# run26125.mid.gz
+# run26127.mid.gz
+# run26129.mid.gz
+# run26131.mid.gz
+# run26133.mid.gz
+# run26135.mid.gz
+# run26137.mid.gz
+# run26139.mid.gz
+# run26140.mid.gz
+# run26142.mid.gz
+# run26145.mid.gz
+# run26148.mid.gz
+# run26153.mid.gz
+# run26155.mid.gz
+#                  Sample_2:  mpi= 130.6 8and some bump in left tail
+# run26165.mid.gz
+# run26166.mid.gz
+# run26170.mid.gz
+# run26175.mid.gz
+# 
+#                  Sample_3:  Before Denisov run, these runs are used now
+#                             mpi= 134.84
+run26302.mid.gz
+run26304.mid.gz
+run26305.mid.gz
+run26315.mid.gz

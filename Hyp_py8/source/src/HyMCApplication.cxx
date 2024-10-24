@@ -321,6 +321,10 @@ void HyMCApplication::GeneratePrimaries() {
 void HyMCApplication::BeginEvent() {
   /// User actions at beginning of event.
 
+  if (EvntNumb % 1000 == 0) {
+    cerr << "Beginning event " << EvntNumb << endl;
+  } 
+
   for (Int_t i = 0; i < fLaNx; i++) {
     for (Int_t j = 0; j < fLaNy; j++)
       LaEnDep[i][j] = 0;

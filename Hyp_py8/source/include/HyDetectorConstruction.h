@@ -40,6 +40,7 @@ private:
   Int_t fImedCu;
   Int_t fImedPb;
   Int_t fImedC;
+  int fImedS;
   TString fTrgtType = "Be";
   Int_t fTargetMaterial = 2; // default
   Int_t fSettedTargetMaterial;

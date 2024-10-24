@@ -182,13 +182,16 @@ if [ -f MC_res.dat ] ; then
     fi
 else
     echo 'No MC_res.dat. Nothing to convert. Probably something went wrong. Please check.'
+    REMOVE_LOG_PRODUCTION=yes
 fi
 #copy results to $WD/$SUFFIX if convert_only != yes
 if [ ! $CONVERT_ONLY = yes ] ; then
     mkdir -p $WD/$SUFFIX
     cp -a * $WD/$SUFFIX
     chown -R :hyperon $WD/$SUFFIX
-    rm -vf $WD/$SUFFIX/log_production
+    if [ $REMOVE_LOG_PRODUCTION = yes ] ; then
+	rm -vf $WD/$SUFFIX/log_production
+    fi
 fi
 
 echo "job ended " $(date)

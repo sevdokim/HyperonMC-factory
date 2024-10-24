@@ -1,5 +1,4 @@
 
-
 #include "HyDetectorConstruction.h"
 #include <TGeoManager.h>
 #include <TMath.h>
@@ -92,6 +91,9 @@ void HyDetectorConstruction::ConstructMaterials() {
   //____Pb____
   TGeoMaterial *matPb =
       new TGeoMaterial("Pb", a = 207.19, z = 82., density = 11.35);
+  //___S____
+  TGeoMaterial *matS =
+    new TGeoMaterial("S", a = 32.076, z = 16., density = 2.07);
   // Tracking media
 
   Double_t param[20];
@@ -141,6 +143,9 @@ void HyDetectorConstruction::ConstructMaterials() {
 
   fImedPoly = 11;
   new TGeoMedium("Poly", fImedPoly, matPoly, param);
+
+  fImedS =12;
+  new TGeoMedium("S", fImedS, matS, param);
 }
 
 //_____________________________________________________________________________
@@ -206,6 +211,9 @@ void HyDetectorConstruction::ConstructVolumes() {
       break;
     case 11:
       fTrgtType = "Poly";
+      break;
+    case 12:
+      fTrgtType = "S";
       break;
     default:
       fTrgtType = "Be";
@@ -467,6 +475,7 @@ bool HyDetectorConstruction::CalcInteractProbabilities() {
   float PolystDens = 1.03;
   float PolyDens = 0.89;
   float MylarDens = 1.4;
+  float SDens = 2.07;
   float CDensNuclIntrLngth = 85.8;
   float BeDensNuclIntrLngth = 77.8;
   float AlDensNuclIntrLngth = 107.2;
@@ -476,6 +485,7 @@ bool HyDetectorConstruction::CalcInteractProbabilities() {
   float PolystDensNuclIntrLngth = 81.3;
   float PolyDensNuclIntrLngth = 78.5;
   float MylarDensNuclIntrLngth = 84.9;
+  float SDensNuclIntrLngth = 125.;
   fProbArray[0] = float(1 - TMath::Exp(-fGeom.GetS4Thickness() * PolystDens /
                                        PolystDensNuclIntrLngth));
   if (fDebug)
@@ -510,6 +520,10 @@ bool HyDetectorConstruction::CalcInteractProbabilities() {
   if (fTrgtType == "Poly")
     fProbArray[1] = float(1 - TMath::Exp(-fGeom.GetTargetThickness() *
                                          PolyDens / PolyDensNuclIntrLngth));
+
+  if (fTrgtType == "S")
+    fProbArray[1] = float(1 - TMath::Exp(-fGeom.GetTargetThickness() *
+                                         SDens / SDensNuclIntrLngth));
 
   if (fDebug)
     cout << "Interaction probability of target = " << fProbArray[1] << endl;
