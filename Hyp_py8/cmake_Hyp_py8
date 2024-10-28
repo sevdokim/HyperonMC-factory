@@ -1,4 +1,4 @@
+
 mkdir build
 cd build
-#cmake -DVMC_DIR=$MYSW/INSTALL/vmc/lib/VMC-2.0.0 -DCMAKE_INSTALL_PREFIX=../install -DGeant4VMC_DIR=$MYSW/INSTALL/geant4_vmc/lib/Geant4VMC-6.5.0 -DPYTHIA8=$MYSW/INSTALL/pythia8 -DGeant3_DIR=$MYSW/INSTALL/geant3/lib/Geant3-4.1.0/Modules/ ../source/
-cmake -DCMAKE_INSTALL_PREFIX=../install -DPYTHIA8=$INSTALL_DIR/pythia8 -DVMC_DIR=$INSTALL_DIR/vmc/lib/VMC-2.0.0 -DGeant4VMC_DIR=$INSTALL_DIR/geant4_vmc/lib/Geant4VMC-6.5.0 -DGeant3_DIR=$INSTALL_DIR/geant3/lib/Geant3-4.1.0/Modules/ ../source/
+cmake -DCMAKE_INSTALL_PREFIX=../install -DPYTHIA8=$MYSW/INSTALL/pythia8 -DVMC_DIR=$MYSW/INSTALL/vmc/lib/$VMC_PACKAGE_NAME -DGeant4VMC_DIR=$MYSW/INSTALL/geant4_vmc/lib/$GEANT4VMC_PACKAGE_NAME -DGeant3_DIR=$MYSW/INSTALL/geant3/lib/Geant3-4.1.0/Modules/ ../source/

@@ -90,8 +90,8 @@ if [ $CONVERT_ONLY = yes ] ; then
     mkdir -p $WD/$SUFFIX
     cd $WD/$SUFFIX
 else
-    mkdir -p /scratch/$WD/$SUFFIX
-    cd /scratch/$WD/$SUFFIX
+    mkdir -p $scratch/$WD/$SUFFIX
+    cd $scratch/$WD/$SUFFIX
 fi
 echo "I cd'ed into " $(pwd)
 # copy everything we need

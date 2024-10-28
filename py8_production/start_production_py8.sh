@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-    export EVENTNUMBER=100000            # Total event number to be generated per 1 production thread
-    export NTHREADS=20                   # total number of production threads   
+    export EVENTNUMBER=10000            # Total event number to be generated per 1 production thread
+    export NTHREADS=1                   # total number of production threads   
     #export IHEP_QUEUE=ihep-medium
     export IHEP_QUEUE=ihep-short         # cluster queue name
     export PERIOD=2008-11                # U70 runs (2007-11, 2008-04, ... -- 15 runs in total) 
@@ -61,7 +61,7 @@ do
 	export MESON=$MES
 #	for TGTPRFX in al35mm cu7mm sn5mm pb3mm c78mm be79mm ch80mm # al35mm cu7mm sn5mm pb3mm
 #	for TGTPRFX in pb3mm al35mm cu7mm sn5mm c78mm be79mm
-	for TGTPRFX in be60mm c60mm s60mm
+	for TGTPRFX in be60mm # c60mm s60mm
 	do
 	    #for per in 2012-04 2012-11 2015-03 2014-11 2013-03
 	    for per in 2015-03

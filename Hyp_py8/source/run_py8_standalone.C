@@ -1,5 +1,5 @@
-#include "/data/mysw/INSTALL/pythia8/include/Pythia8/HeavyIons.h"
-#include "/data/mysw/INSTALL/pythia8/include/Pythia8/Pythia.h"
+#include "/home/evdokimov/mysw/INSTALL/pythia8/include/Pythia8/HeavyIons.h"
+#include "/home/evdokimov/mysw/INSTALL/pythia8/include/Pythia8/Pythia.h"
 using LVec = ROOT::Math::PxPyPzEVector;
 void run_py8_standalone(int nEvents = 100) {
   gSystem->Load("libpythia8");
@@ -43,9 +43,27 @@ void run_py8_standalone(int nEvents = 100) {
   TH1F *hPsumZ = new TH1F("hPsumZ", "sum P_{Z}", 1000, 0., 10.);
   TH1F *hEsum = new TH1F("hEsum", "sum E", 1000, 0., 10.);
 
+  TH1F *hPi0Mass = new TH1F("hPi0Mass", "#pi^{0} mass spectrum", 100, 0., 2.);
+  TH1F *hEtaEnergy =
+      new TH1F("hEtaEnergy", "#eta energy spectrum", 700, 0., 7.);
+
   TH1F *hF2Mass = new TH1F("hF2Mass", "f2(1270) mass spectrum", 100, 0., 2.);
   TH1F *hF2Energy =
       new TH1F("hF2Energy", "f2(1270) energy spectrum", 700, 0., 7.);
+  TH1F *hOmegaMass = new TH1F("hOmegaMass", "#omega mass spectrum", 100, 0., 2.);
+  TH1F *hOmegaEnergy =
+      new TH1F("hOmegaEnergy", "#omega energy spectrum", 700, 0., 7.);
+
+  /*TH1F *hEtaMass = new TH1F("hEtaMass", "#eta mass spectrum", 100, 0., 2.);
+  TH1F *hEtaEnergy =
+      new TH1F("hOmegaEnergy", "#eta energy spectrum", 700, 0., 7.);
+  TH1F *hEtaMass = new TH1F("hEtaMass", "#eta mass spectrum", 100, 0., 2.);
+  TH1F *hEtaEnergy =
+      new TH1F("hOmegaEnergy", "#eta energy spectrum", 700, 0., 7.);
+  TH1F *hEtaMass = new TH1F("hEtaMass", "#eta mass spectrum", 100, 0., 2.);
+  TH1F *hEtaEnergy =
+      new TH1F("hOmegaEnergy", "#eta energy spectrum", 700, 0., 7.);
+  */
   TH1F *hF2CosT = new TH1F("hF2CosT", "f2(1270) cos #Theta", 1000, 0., 1.);
   TH1F *hF2GamMinCosT = new TH1F(
       "hF2GamMinCosT", "f2(1270) min cos #Theta of gamma", 1000, 0., 1.);

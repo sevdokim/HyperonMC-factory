@@ -13,12 +13,19 @@ else
     export EXTARGET=0          #exclusive target (1=S4, 2=target, 3=Sa, 0=all of them)
     export PRODUCTION_NAME=${TGT_PRFX}_${MESON}
 fi
-#
+#cluster environment
 export MCDIR=/afs/ihep.su/user/s/sevdokim/HyperonMC-factory/  #name of top MC directory
-export MACRODIR=$MCDIR/Hyp_py8/source                         #name of MC tool directory
 export WD=/lustre/ihep.su/data/hyperon/HYPERON_MC/evdokimov/py8_production/$PERIOD/$PRODUCTION_NAME/
-export MCRUNSDIR=$WD/MCruns/
+export scratch=/scratch
+if [ $(uname -n) = "evdokimov03" ] ; then
+    MCDIR=/home/evdokimov/hyperon/HyperonMC-factory/
+    WD=/home/evdokimov/hyperon/mc/py8_production/$PERIOD/$PRODUCTION_NAME/
+    scratch=""
+    IHEP_QUEUE=thislaptop
+fi
+export MACRODIR=$MCDIR/Hyp_py8/source                         #name of MC tool directory
 export ANCHORS=$MCDIR/py8_production/${PERIOD}/
+export MCRUNSDIR=$WD/MCruns/
 export FILELIST=$ANCHORS/file_list_$(prefix_by_period $PERIOD)_$TGT_PRFX.dat
 #
 if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=ihep-short ; fi
