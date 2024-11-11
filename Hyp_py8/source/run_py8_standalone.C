@@ -1,22 +1,15 @@
 #include "/home/evdokimov/mysw/INSTALL/pythia8/include/Pythia8/HeavyIons.h"
 #include "/home/evdokimov/mysw/INSTALL/pythia8/include/Pythia8/Pythia.h"
 using LVec = ROOT::Math::PxPyPzEVector;
-void run_py8_standalone(int nEvents = 100) {
+void run_py8_standalone(int nEvents = 1000) {
   gSystem->Load("libpythia8");
   Pythia8::Pythia *fPythia;
   fPythia = new Pythia8::Pythia();
   int pySeed = gRandom->TRandom::GetSeed();
-  // fPythia->readString("SoftQCD:all = on");
-  // fPythia->readString("LowEnergyQCD:all = on");
   fPythia->readString("Random:setSeed = on");
   fPythia->readString(Form("Random:seed = %d", pySeed));
-  fPythia->readString("Beams:idA = 211"); // pi+
-  // fPythia->readString("Beams:idA = 2212"); // proton
-  fPythia->readString("Beams:idB = 2112"); // neutron
-  // fPythia->readString("Beams:idB = 1000060120");
-  fPythia->readString("Beams:eA = 7.001");
-  fPythia->readString("Beams:eB = 0.");
-  fPythia->readString("Beams:frameType = 2");
+  // fPythia->readString("Diffraction:sigmaRefPomP = 2.0");
+  // fPythia->readString("HeavyIon:bWidth = 1.0");
   // fPythia->readString("StringFlav:etaSup = 1.");
   // fPythia->readString("StringFlav:mesonUDvector = 3.");
   // fPythia->readString("StringFlav:mesonUDL1S1J2 = 5.");
@@ -33,7 +26,7 @@ void run_py8_standalone(int nEvents = 100) {
   */
   // fPythia->readString(
   //    "PartonLevel:MPI = off"); // switch off multiparton interactions
-  fPythia->readFile("py8Config.cfg");
+  fPythia->readFile("py8Config_pi120Sn.cfg");
 
   fPythia->init();
 
@@ -50,7 +43,8 @@ void run_py8_standalone(int nEvents = 100) {
   TH1F *hF2Mass = new TH1F("hF2Mass", "f2(1270) mass spectrum", 100, 0., 2.);
   TH1F *hF2Energy =
       new TH1F("hF2Energy", "f2(1270) energy spectrum", 700, 0., 7.);
-  TH1F *hOmegaMass = new TH1F("hOmegaMass", "#omega mass spectrum", 100, 0., 2.);
+  TH1F *hOmegaMass =
+      new TH1F("hOmegaMass", "#omega mass spectrum", 100, 0., 2.);
   TH1F *hOmegaEnergy =
       new TH1F("hOmegaEnergy", "#omega energy spectrum", 700, 0., 7.);
 
@@ -90,12 +84,14 @@ void run_py8_standalone(int nEvents = 100) {
     if (!fPythia->next()) {
       continue;
     }
+    cout << "Event " << iEv << endl;
     pCalo.SetPxPyPzE(0., 0., 0., 0.);
     pSum.SetPxPyPzE(0., 0., 0., 0.);
     nGamma = 0;
     bool isSaTriggered = false;
     hProcessCode->Fill(fPythia->info.code());
     // fPythia->info.list();
+    // fPythia->event.list();
     bool hasF2 = false;
     for (int i = 0; i < fPythia->event.size(); i++) {
       int f2Index = -1;
@@ -147,7 +143,8 @@ void run_py8_standalone(int nEvents = 100) {
       double xCalo = TMath::Tan(p.theta()) * caloDist * TMath::Cos(p.phi());
       double yCalo = TMath::Tan(p.theta()) * caloDist * TMath::Sin(p.phi());
       // if (TMath::Cos(p.theta()) > cosTCut) { // calo acceptance
-      if (TMath::Abs(xCalo) < caloSize && TMath::Abs(yCalo) < caloSize) {
+      if (TMath::Abs(xCalo) < caloSize && TMath::Abs(yCalo) < caloSize &&
+          (p.e() - p.m()) > 2.5e-3) {
         if (p.charge() != 0. && gRandom->Rndm() < 1.) {
           isSaTriggered = true;
         }
@@ -161,6 +158,8 @@ void run_py8_standalone(int nEvents = 100) {
     hPsumY->Fill(pSum.Y());
     hPsumZ->Fill(pSum.Z());
     hEsum->Fill(pSum.T());
+    cout << "Sa trigger is " << (isSaTriggered ? "" : "not ") << "fired"
+         << endl;
     if (!isSaTriggered && pCalo.e() > eCut) {
       hMultG->Fill(nGamma);
       if (nGamma == 2) {

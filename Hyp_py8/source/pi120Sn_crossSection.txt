@@ -1,0 +1,18 @@
+ *-----  HeavyIon Event and Cross Section Statistics  -------------------------------------------------------------*
+ |                                                                                                                 |
+ | Subprocess                                    Code |            Number of events       |      sigma +- delta    |
+ |                                                    |       Tried   Selected   Accepted |     (estimated) (mb)   |
+ |                                                    |                                   |                        |
+ |-----------------------------------------------------------------------------------------------------------------|
+ |                                                    |                                   |                        |
+ | non-diffractive                                101 |       74655      74655      74655 |   2.954e+02  3.024e-02 |
+ | A B -> A B elastic                             102 |          71         71         71 |   2.150e-01  3.917e-01 |
+ | A B -> X B single diffractive                  103 |       10014      10014      10014 |   2.937e+01  3.208e-02 |
+ | A B -> A X single diffractive                  104 |       14868      14868      14868 |   4.255e+01  2.553e-02 |
+ | A B -> X X double diffractive                  105 |         392        392        392 |   1.110e+00  1.544e-01 |
+ |                                                    |                                   |                        |
+ | sum                                                |     1148295     100000     100000 |   3.687e+02  2.313e-02 |
+ | (Estimated total cross section)                    |     1148295          0          0 |   4.011e+02  1.472e+00 |
+ | (Estimated non-diffractive cross section)          |     1148295          0          0 |   2.955e+02  1.033e-01 |
+ |                                                                                                                 |
+ *-----  End HeavyIon Event and Cross Section Statistics ----------------------------------------------------------*

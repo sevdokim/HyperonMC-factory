@@ -2,3 +2,4 @@
 *.root
 gphysi.dat
 *.d
+dumpConfig.cfg
