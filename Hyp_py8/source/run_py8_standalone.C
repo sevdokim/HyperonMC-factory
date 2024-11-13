@@ -1,7 +1,7 @@
 #include "/home/evdokimov/mysw/INSTALL/pythia8/include/Pythia8/HeavyIons.h"
 #include "/home/evdokimov/mysw/INSTALL/pythia8/include/Pythia8/Pythia.h"
 using LVec = ROOT::Math::PxPyPzEVector;
-void run_py8_standalone(int nEvents = 1000) {
+void run_py8_standalone(int nEvents = 100000) {
   gSystem->Load("libpythia8");
   Pythia8::Pythia *fPythia;
   fPythia = new Pythia8::Pythia();
@@ -26,8 +26,8 @@ void run_py8_standalone(int nEvents = 1000) {
   */
   // fPythia->readString(
   //    "PartonLevel:MPI = off"); // switch off multiparton interactions
-  fPythia->readFile("py8Config_pi120Sn.cfg");
-
+  fPythia->readFile("py8Config.cfg");
+  fPythia->readString("HeavyIon:SigFitReuseInit=3");
   fPythia->init();
 
   TFile *fOut = new TFile("py8_standalone.root", "RECREATE");
