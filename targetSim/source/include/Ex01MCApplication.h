@@ -49,6 +49,7 @@ public:
   void SetTargetRadius(double rad) { fTargetRadius = rad; }
   void SetTargetThickness(double thic) { fTargetThickness = thic; }
   void SetInitialEnergy(double initEn) { fInitialEnergy = initEn; }
+  void SetUsePythia(bool usePythia) { fUsePythia = usePythia; }
 
   virtual TVirtualMCApplication *CloneForWorker() const;
   virtual void InitOnWorker();
@@ -130,6 +131,7 @@ private:
   TH1F *hSumEnDepInBGOTriggered;
 
   Pythia8::Pythia *fPythia;
+  bool fUsePythia = true;
 
   ClassDef(Ex01MCApplication, 1) // Interface to MonteCarlo application
 };

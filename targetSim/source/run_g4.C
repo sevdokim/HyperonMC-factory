@@ -11,7 +11,9 @@
 /// \file E01/run_g4.C
 /// \brief Macro for running Example01 with Geant4.
 
-void run_g4(int nEvents = 100000, int seed = 0, double initEn = 0.005/*GeV*/,
+void run_g4(int nEvents = 100000, int seed = 0, double initEn = 0.005 /*GeV*/,
+            int targetMaterial = 1, double targetRadius = 2. /*cm*/,
+            double targetThickness = 6. /*cm*/, bool usePythia = true,
             const TString &configMacro = "g4tgeoConfig.C") {
   /// Macro function for running Example01 with Geant4 from
   /// Root interactive session.
@@ -33,23 +35,29 @@ void run_g4(int nEvents = 100000, int seed = 0, double initEn = 0.005/*GeV*/,
   // appl->SetTargetMaterial(2);
 
   // == cu ==
-  appl->SetTargetThickness(6 /*cm*/);
-  appl->SetTargetMaterial(2);
+  // appl->SetTargetThickness(6 /*cm*/);
+  // appl->SetTargetMaterial(2);
 
   // == pb ==
   // appl->SetTargetThickness(0.3 /*cm*/);
   // appl->SetTargetMaterial(6);
 
-  appl->SetTargetRadius(3 /*cm*/);
+  appl->SetTargetMaterial(targetMaterial);
+  appl->SetTargetThickness(targetThickness);
+  appl->SetTargetRadius(targetRadius /*cm*/);
+
   // photon energy
   appl->SetInitialEnergy(initEn /*GeV*/);
+
+  // use pythia8 generator
+  appl->SetUsePythia(usePythia);
 
   // Initialize MC
   appl->InitMC(configMacro);
   gROOT->ProcessLine("gMC->SetCollectTracks(0)");
   //     Run MC
   appl->RunMC(nEvents);
-  //gGeoManager->GetTopVolume()->Draw();
-  //gGeoManager->DrawTracks("/*");
-  // delete appl;
+  // gGeoManager->GetTopVolume()->Draw();
+  // gGeoManager->DrawTracks("/*");
+  //  delete appl;
 }

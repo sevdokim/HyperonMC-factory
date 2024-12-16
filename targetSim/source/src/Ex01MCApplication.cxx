@@ -21,6 +21,7 @@
 
 #include <Riostream.h>
 #include <TArrayD.h>
+#include <TDatabasePDG.h>
 #include <TFile.h>
 #include <TGeoManager.h>
 #include <TGeoMaterial.h>
@@ -32,7 +33,6 @@
 #include <TThread.h>
 #include <TVirtualGeoTrack.h>
 #include <TVirtualMC.h>
-#include <TDatabasePDG.h>
 #include <cstdlib>
 
 using namespace std;
@@ -155,8 +155,9 @@ void Ex01MCApplication::ConstructMaterials() {
   matPlastic->AddElement(elO, 1);
 
   //____Vacuum_____
-  TGeoMaterial *matVac = new TGeoMaterial("Vacuum", a = 1., z = 1., density = 10e-20);
-  
+  TGeoMaterial *matVac =
+      new TGeoMaterial("Vacuum", a = 1., z = 1., density = 10e-20);
+
   /*
     // Set material IDs
     // This step is needed, only if user wants to use the material Ids
@@ -229,8 +230,7 @@ void Ex01MCApplication::ConstructMaterials() {
 
   fImedVac = 16;
   new TGeoMedium("Vacuum", fImedVac, matVac, param);
-  
- }
+}
 
 //_____________________________________________________________________________
 void Ex01MCApplication::ConstructVolumes() {
@@ -253,7 +253,7 @@ void Ex01MCApplication::ConstructVolumes() {
   targetSize[0] = 0.;
   targetSize[1] = fTargetRadius;
   targetSize[2] = fTargetThickness / 2.;
-  //gGeoManager->Volume("TARGET", "TUBE", fImedVac, targetSize, 3);
+  // gGeoManager->Volume("TARGET", "TUBE", fImedVac, targetSize, 3);
   gGeoManager->Volume("TARGET", "TUBE", fImedTarget, targetSize, 3);
 
   Double_t posX = 0.;
@@ -261,13 +261,12 @@ void Ex01MCApplication::ConstructVolumes() {
   Double_t posZ = 0.;
   gGeoManager->Node("TARGET", 1, "EXPH", posX, posY, posZ, 0, kTRUE, ubuf);
 
-  int iMedPOM =	fImedPlastic;
-  //int iMedPOM = fImedVac;
-  
+  int iMedPOM = fImedPlastic;
+  // int iMedPOM = fImedVac;
+
   //----------------------------- GaNT detector (NaI)
   TGeoVolume *singleGantNaI = gGeoManager->MakeTube(
-      "SingleGantNaI", gGeoManager->GetMedium(iMedPOM), 0., 4.6,
-      24.5 / 2.);
+      "SingleGantNaI", gGeoManager->GetMedium(iMedPOM), 0., 4.6, 24.5 / 2.);
   singleGantNaI->SetVisibility(kTRUE);
   TGeoVolume *insideSingleGantNaI = gGeoManager->MakeTube(
       "InsideSingleGantNaI", gGeoManager->GetMedium(fImedAir), 0., 4.1,
@@ -311,8 +310,7 @@ void Ex01MCApplication::ConstructVolumes() {
 
   //---------------------------- GaNT detector (BGO)
   TGeoVolume *singleGantBGO = gGeoManager->MakeTube(
-      "SingleGantBGO", gGeoManager->GetMedium(iMedPOM), 0., 4.6,
-      24.5 / 2.);
+      "SingleGantBGO", gGeoManager->GetMedium(iMedPOM), 0., 4.6, 24.5 / 2.);
   singleGantBGO->SetVisibility(kTRUE);
   TGeoVolume *crystallBGO = gGeoManager->MakeTube(
       "crystallBGO", gGeoManager->GetMedium(fImedBGO), 0., 6.9 / 2., 6.9 / 2.);
@@ -404,53 +402,67 @@ void Ex01MCApplication::InitMC(const char *setup) {
   hDeltaTheta = new TH1F("hDeltaTheta", "#Delta #Theta", 1000, -1., 1.);
 
   for (int i = 0; i < 6; i++) {
-    hEnDepInCPV[i] = new TH1F(Form("hEnDepInCPV_%d", i), Form("Deposed energy in CPV M%d; E, GeV; counts", i),
-			      10000, 0., 1.);
+    hEnDepInCPV[i] = new TH1F(
+        Form("hEnDepInCPV_%d", i),
+        Form("Deposed energy in CPV M%d; E, GeV; counts", i), 10000, 0., 1.);
   }
-  hSumEnDepInCPV = new TH1F("hSumEnDepInCPV", "Sum of deposed energy in CPV; E, GeV; counts",
-			       10000, 0., 1.);
+  hSumEnDepInCPV =
+      new TH1F("hSumEnDepInCPV", "Sum of deposed energy in CPV; E, GeV; counts",
+               10000, 0., 1.);
   hEnDepInSF = new TH1F("hEnDepInSF", "Deposed energy in S_{F}; E, GeV; counts",
                         10000, 0., 1.);
 
   for (int i = 0; i < 9; i++) {
-    hEnDepInBGO[i] = new TH1F(Form("hEnDepInBGO%d", i), Form("Deposed energy in BGO M%d; E, GeV; counts", i),
-			      10000, 0., 1.);
-    
-    hEnDepInNaI[i] = new TH1F(Form("hEnDepInNaI%d", i), Form("Deposed energy in NaI M%d; E, GeV; counts", i),
-			      10000, 0., 1.);
-    hEnDepInBGOTriggered[i] = new TH1F(
-				       Form("hEnDepInBGOTriggered%d", i),
-				       Form("Deposed energy in BGO M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
-    
-    hEnDepInNaITriggered[i] = new TH1F(
-				       Form("hEnDepInNaITriggered%d", i),
-				       Form("Deposed energy in NaI M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
-    hMesEnInBGO[i] = new TH1F(Form("hMesEnInBGO%d", i), Form("Measured energy in BGO M%d; E, GeV; counts", i),
-                              10000, 0., 1.);
+    hEnDepInBGO[i] = new TH1F(
+        Form("hEnDepInBGO%d", i),
+        Form("Deposed energy in BGO M%d; E, GeV; counts", i), 10000, 0., 1.);
 
-    hMesEnInNaI[i] = new TH1F(Form("hMesEnInNaI%d", i), Form("Measured energy in NaI M%d; E, GeV; counts", i),
-                              10000, 0., 1.);
+    hEnDepInNaI[i] = new TH1F(
+        Form("hEnDepInNaI%d", i),
+        Form("Deposed energy in NaI M%d; E, GeV; counts", i), 10000, 0., 1.);
+    hEnDepInBGOTriggered[i] = new TH1F(
+        Form("hEnDepInBGOTriggered%d", i),
+        Form("Deposed energy in BGO M%d (trigger passed); E, GeV; counts", i),
+        10000, 0., 1.);
+
+    hEnDepInNaITriggered[i] = new TH1F(
+        Form("hEnDepInNaITriggered%d", i),
+        Form("Deposed energy in NaI M%d (trigger passed); E, GeV; counts", i),
+        10000, 0., 1.);
+    hMesEnInBGO[i] = new TH1F(
+        Form("hMesEnInBGO%d", i),
+        Form("Measured energy in BGO M%d; E, GeV; counts", i), 10000, 0., 1.);
+
+    hMesEnInNaI[i] = new TH1F(
+        Form("hMesEnInNaI%d", i),
+        Form("Measured energy in NaI M%d; E, GeV; counts", i), 10000, 0., 1.);
     hMesEnInBGOTriggered[i] = new TH1F(
-                                       Form("hMesEnInBGOTriggered%d", i),
-                                       Form("Measured energy in BGO M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
+        Form("hMesEnInBGOTriggered%d", i),
+        Form("Measured energy in BGO M%d (trigger passed); E, GeV; counts", i),
+        10000, 0., 1.);
 
     hMesEnInNaITriggered[i] = new TH1F(
-                                       Form("hMesEnInNaITriggered%d", i),
-                                       Form("Measured energy in NaI M%d (trigger passed); E, GeV; counts", i), 10000, 0., 1.);
+        Form("hMesEnInNaITriggered%d", i),
+        Form("Measured energy in NaI M%d (trigger passed); E, GeV; counts", i),
+        10000, 0., 1.);
   }
-  hSumEnDepInBGO = new TH1F("hSumEnDepInBGO", "Sum of deposed energy in BGO; E, GeV; counts",
-                              10000, 0., 1.);
+  hSumEnDepInBGO =
+      new TH1F("hSumEnDepInBGO", "Sum of deposed energy in BGO; E, GeV; counts",
+               10000, 0., 1.);
 
-  hSumEnDepInNaI = new TH1F("hSumEnDepInNaI", "Sum of deposed energy in NaI; E, GeV; counts",
-                              10000, 0., 1.);
-  hSumEnDepInBGOTriggered = new TH1F(
-					"hSumEnDepInBGOTriggered",
-					"Sum of deposed energy in BGO (trigger passed); E, GeV; counts", 10000, 0., 1.);
-  
-  hSumEnDepInNaITriggered = new TH1F(
-					"hSumEnDepInNaItriggered",
-					"Sum of deposed energy in NaI (trigger passed); E, GeV; counts", 10000, 0., 1.);
-  
+  hSumEnDepInNaI =
+      new TH1F("hSumEnDepInNaI", "Sum of deposed energy in NaI; E, GeV; counts",
+               10000, 0., 1.);
+  hSumEnDepInBGOTriggered =
+      new TH1F("hSumEnDepInBGOTriggered",
+               "Sum of deposed energy in BGO (trigger passed); E, GeV; counts",
+               10000, 0., 1.);
+
+  hSumEnDepInNaITriggered =
+      new TH1F("hSumEnDepInNaItriggered",
+               "Sum of deposed energy in NaI (trigger passed); E, GeV; counts",
+               10000, 0., 1.);
+
   // init pythia8
   fPythia = new Pythia8::Pythia();
   int pySeed = gRandom->GetSeed();
@@ -475,13 +487,12 @@ void Ex01MCApplication::InitMC(const char *setup) {
 
   // read PDG code from environment
   fPdgCode = 22; // default (photon)
-  if (char* pdg_code = getenv("particle_code")) {
+  if (char *pdg_code = getenv("particle_code")) {
     sscanf(pdg_code, "%d", &fPdgCode);
     cout << "PDG code of chosen particle is" << fPdgCode << endl;
     TParticlePDG *p = TDatabasePDG::Instance()->GetParticle(fPdgCode);
     cout << "The code corresponds to " << p->GetName() << endl;
   }
-
 }
 
 //__________________________________________________________________________
@@ -552,7 +563,7 @@ void Ex01MCApplication::GeneratePrimaries() {
   /// Fill the user stack (derived from TVirtualMCStack) with primary particles.
 
   static bool firstCall = true;
-  
+
   // Track ID (filled by stack)
   Int_t ntr;
 
@@ -561,7 +572,7 @@ void Ex01MCApplication::GeneratePrimaries() {
 
   // photon
   Int_t pdg = fPdgCode;
-  //pdg = 13; //muon
+  // pdg = 13; //muon
 
   // Polarization
   Double_t polx = 0.;
@@ -569,7 +580,6 @@ void Ex01MCApplication::GeneratePrimaries() {
   Double_t polz = 0.;
 
   // spherical photons from target
-  /*
   // Position
   Double_t vx = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
   Double_t vy = 2. * fTargetRadius * (gRandom->Rndm() - 0.5);
@@ -582,22 +592,28 @@ void Ex01MCApplication::GeneratePrimaries() {
 
   // Momentum
   Double_t px, py, pz, e = fInitialEnergy, p;
-  /*static double mass = 0.;
+  static double mass = 0.;
   if (firstCall) {
     TParticlePDG *partPdg = TDatabasePDG::Instance()->GetParticle(fPdgCode);
     mass = partPdg->Mass();
   }
-  double phi = 2. * TMath::Pi() * gRandom->Rndm();
-  double cosTheta = TMath::Sqrt(3.) * (gRandom->Rndm() - 0.5);
-  double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
-  p = TMath::Sqrt(fInitialEnergy * fInitialEnergy - mass * mass);
-  px = p * sinTheta * TMath::Sin(phi);
-  py = p * sinTheta * TMath::Cos(phi);
-  pz = p * cosTheta;
-  fInitialMomentum.SetXYZT(px, py, pz, e);
-  */
+  if (fInitialEnergy > mass) {
+    double phi = 2. * TMath::Pi() * gRandom->Rndm();
+    double cosTheta = TMath::Sqrt(3.) * (gRandom->Rndm() - 0.5);
+    double sinTheta = TMath::Sqrt(1. - cosTheta * cosTheta);
+    p = TMath::Sqrt(fInitialEnergy * fInitialEnergy - mass * mass);
+    px = p * sinTheta * TMath::Sin(phi);
+    py = p * sinTheta * TMath::Cos(phi);
+    pz = p * cosTheta;
+    fInitialMomentum.SetXYZT(px, py, pz, e);
+    fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
+                      poly, polz, kPPrimary, ntr, 1., 0);
+  } else {
+    fInitialMomentum.SetXYZT(0, 0, 1, 1);
+  }
+
   // beam muons
-  pdg = 13;
+  /*pdg = 13;
   // Position
   Double_t vx = 2. * 15. * (gRandom->Rndm() - 0.5);
   Double_t vy = 2. * 15. * (gRandom->Rndm() - 0.5);
@@ -612,8 +628,8 @@ void Ex01MCApplication::GeneratePrimaries() {
   py = 0.;
   pz = TMath::Sqrt(e * e - m * m);
   fInitialMomentum.SetXYZT(px, py, pz, e);
+  */
 
-  
   /*
   cout << "Generated primary:" << endl;
   cout << "pdg = " << pdg
@@ -623,28 +639,27 @@ void Ex01MCApplication::GeneratePrimaries() {
        << "; e  = " << e
        << endl;
   */
-  fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
-                      poly, polz, kPPrimary, ntr, 1., 0);
-  */
   // generate one pythia event
-  while (!fPythia->next()) {
-    continue;
-  }
-
-  // Add particles to stack
-  for (int i = 1; i < fPythia->event.size(); i++) {
-    if (!fPythia->event[i].isFinal()) {
+  if (fUsePythia) {
+    while (!fPythia->next()) {
       continue;
     }
-    pdg = fPythia->event[i].id();
-    px = fPythia->event[i].px();
-    py = fPythia->event[i].py();
-    pz = fPythia->event[i].pz();
-    e = fPythia->event[i].e();
-    //if (pdg == 22) { // photons from pythia 
+
+    // Add particles to stack
+    for (int i = 1; i < fPythia->event.size(); i++) {
+      if (!fPythia->event[i].isFinal()) {
+        continue;
+      }
+      pdg = fPythia->event[i].id();
+      px = fPythia->event[i].px();
+      py = fPythia->event[i].py();
+      pz = fPythia->event[i].pz();
+      e = fPythia->event[i].e();
+      // if (pdg == 22) { // photons from pythia
       fStack->PushTrack(toBeDone, -1, pdg, px, py, pz, e, vx, vy, vz, tof, polx,
-			poly, polz, kPPrimary, ntr, 1., 0);
+                        poly, polz, kPPrimary, ntr, 1., 0);
       //}
+    }
   }
   firstCall = false;
 }
@@ -711,20 +726,23 @@ void Ex01MCApplication::Stepping() {
   if (strcmp(gMC->CurrentVolName(), "crystallNaI") == 0) {
     int copyNo;
     gMC->CurrentVolOffID(2, copyNo);
-    //cout << "Path: " << gMC->CurrentVolPath() << "; volId = " << gMC->CurrentVolOffID(2, copyNo) << "; copy number = " << copyNo << endl;
+    // cout << "Path: " << gMC->CurrentVolPath() << "; volId = " <<
+    // gMC->CurrentVolOffID(2, copyNo) << "; copy number = " << copyNo << endl;
     fEnDepInNaI[copyNo - 1] += gMC->Edep();
   }
   // deposed energy in BGO crystall
   if (strcmp(gMC->CurrentVolName(), "crystallBGO") == 0) {
     int copyNo;
     gMC->CurrentVolOffID(2, copyNo);
-    //cout << "Path: " << gMC->CurrentVolPath() << "; volId = " << gMC->CurrentVolOffID(2, copyNo) << "; copy number = " << copyNo << endl;
+    // cout << "Path: " << gMC->CurrentVolPath() << "; volId = " <<
+    // gMC->CurrentVolOffID(2, copyNo) << "; copy number = " << copyNo << endl;
     fEnDepInBGO[copyNo - 10] += gMC->Edep();
   }
   // deposed energy in CPV
   if (strcmp(gMC->CurrentVolName(), "plastCPV") == 0) {
     int copyNo;
-    //cout << "Path: " << gMC->CurrentVolPath() << "; volId = " << gMC->CurrentVolID(copyNo) << "; copy number = " << copyNo << endl;
+    // cout << "Path: " << gMC->CurrentVolPath() << "; volId = " <<
+    // gMC->CurrentVolID(copyNo) << "; copy number = " << copyNo << endl;
     gMC->CurrentVolID(copyNo);
     fEnDepInCPV[copyNo] += gMC->Edep();
   }
@@ -797,13 +815,13 @@ void Ex01MCApplication::FinishEvent() {
   }
   hSumEnDepInBGO->Fill(sumEnBGO);
   hSumEnDepInNaI->Fill(sumEnNaI);
-  
+
   for (int i = 0; i < 6; i++) {
     sumEnCPV += fEnDepInCPV[i];
     hEnDepInCPV[i]->Fill(fEnDepInCPV[i]);
   }
   hSumEnDepInCPV->Fill(sumEnCPV);
-  
+
   hEnDepInSF->Fill(fEnDepInSF);
 
   // trigger condition
