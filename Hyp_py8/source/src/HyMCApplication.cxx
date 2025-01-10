@@ -135,20 +135,22 @@ bool HyMCApplication::InitMC(const char *setup) {
 
   // config pythia
   fPythia = new Pythia8::Pythia();
-  fPythia->readFile("py8Config.cfg");
+  // fPythia->readFile("py8Config.cfg");
   int pySeed = gRandom->TRandom::GetSeed();
   if (pySeed <= 0) {
     pySeed = gRandom->Integer(900000000);
   }
   fPythia->readString("Random:setSeed = on");
   fPythia->readString(Form("Random:seed = %d", pySeed));
-  fPythia->readString(Form("Beams:idA = %d", fBeamPdg));   // beam particle
-  fPythia->readString(Form("Beams:idB = %d", fTargetPdg)); // target particle
-  double beamMass = TDatabasePDG::Instance()->GetParticle(fBeamPdg)->Mass();
-  double beamEnergy = TMath::Sqrt(fMomentum * fMomentum + beamMass * beamMass);
-  fPythia->readString(Form("Beams:eA = %lf", beamEnergy));
-  fPythia->readString("Beams:eB = 0.");
-  fPythia->readString("Beams:frameType = 2");
+  // fPythia->readString(Form("Beams:idA = %d", fBeamPdg));   // beam particle
+  // fPythia->readString(Form("Beams:idB = %d", fTargetPdg)); // target particle
+  // double beamMass = TDatabasePDG::Instance()->GetParticle(fBeamPdg)->Mass();
+  // double beamEnergy = TMath::Sqrt(fMomentum * fMomentum + beamMass * beamMass);
+  // fPythia->readString(Form("Beams:eA = %lf", beamEnergy));
+  // fPythia->readString("Beams:eB = 0.");
+  // fPythia->readString("Beams:frameType = 2");
+
+  fPythia->readFile("py8Config.cfg");
 
   if (!fPythia->init()) {
     cerr << " Pythia failed to initialize." << endl;

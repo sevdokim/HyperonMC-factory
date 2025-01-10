@@ -597,7 +597,8 @@ C-    write(*,*) Ievent,R0
 C
       if(Jrec.le.Mcarlo) then
 C-                       write(*,*) 'Jrec,Nchanel=>',Ievent,Nchanel 
-                         call hyp_event(Pbeam,Jrec,Nchanel,Ngamma,Pout)
+c                         call hyp_event(Pbeam,Jrec,Nchanel,Ngamma,Pout)
+                         call hyp_event(Pbeam,Jrec,IstOut,Ngamma,Pout)
 			 IstOut = Ngamma 
                          return
 		  endif
@@ -1704,19 +1705,19 @@ C     +                         0.74576, 0.00423, 0.057, 3*0./        !  Resonan
      +                           0., 0.032, 0.057, 0.00, 2*0./        !  Resonans probability
 C
 C-    data Mchanel  /     1,   2,   1,   1,   1,  1,  1, 1, 1, 0 /    !  Decay cahannels
-      data Mchanel  /     1,   3,   1,   1,   1,  1,  1, 2, 1, 1 /    !  Decay cahannels
-      data Pchanel  /  1.00, 9*0.0,                              !  pi0 /pi0->2Y/
-     2                39.41, 32.68, 0.0256, 7*0.0,               !  eta /eta->2Y, eta->3pi0->6Y, eta->2Ypi0->4Y/
-     3                1.0, 0.0, 0.0, 0.0,   6*0.0, !  omg /omg->pi0Y->3Y, omg->3pi0, omg->2pi0, omg->etapi0/
-     4                1.000, 9*0.0, !  K0 /K0s->2pi0->4Y/
-     5                1.000, 9*0.0,                              !  f2 /f2->2pi0->4Y/
-     6                1.000, 9*0.0,                              !  2pi0 /2pi0->4Y/
-     7                1.000, 9*0.0,                              !  f0 /f0->2pi0->4Y/
+      data Mchanel  /     1,   3,   1,   2,   1,  1,  1, 2, 1, 1 /    !  Decay cahannels
+      data Pchanel  /  1.00, 9*0.0, !  pi0 /pi0->2Y/
+     2     39.41, 32.68, 0.0256, 7*0.0, !  eta /eta->2Y, eta->3pi0->6Y, eta->2Ypi0->4Y/
+     3     1.0, 0.0, 0.0, 0.0,   6*0.0, !  omg /omg->pi0Y->3Y, omg->3pi0, omg->2pi0, omg->etapi0/
+     4     1.000, 1.000, 8*0.0, !  K0 /K0s->2pi0->4Y, K0s->pi+pi-/
+     5     1.000, 9*0.0,        !  f2 /f2->2pi0->4Y/
+     6     1.000, 9*0.0,        !  2pi0 /2pi0->4Y/
+     7     1.000, 9*0.0,        !  f0 /f0->2pi0->4Y/
 c     8                1.000, 9*0.0,                              !  pi0 /pi0->2Y/ for MC Z-scale calibration
 C     9                1.000, 9*0.0,                              !  eta /eta->2Y/ for MC Z-scale calibration
-     8                2.307, 8.96,  8*0.0,                        !  eta' /eta'->2Y, eta'->pi0pi0eta(2Y)/                                                                                                       
-     9                1.000, 9*0.0,                              !  a0(980) /a0->etapi0/                 
-     +                1.000,                 9*0.0  /            !  a2(1320)->etapi0
+     8     2.307, 8.96,  8*0.0, !  eta' /eta'->2Y, eta'->pi0pi0eta(2Y)/                                                                                                       
+     9     1.000, 9*0.0,        !  a0(980) /a0->etapi0/                 
+     +     1.000, 9*0.0  / !  a2(1320)->etapi0
       data CtauK0     / 2.6844  /                                 !  C*lifetime(K0s)
 C ..............................................................................
       Logical Lstart
@@ -1910,6 +1911,7 @@ C
 C- 30 if (ExChanel.le.0) then
    30 n30calls=n30calls+1
 C
+      if (nchanel.gt.0) go to 40
       R1 = REGRNDM(0)
       do j=1,Mchanel(Nreson)
       if (R1.lt.PchanSm(j,Nreson)) then
@@ -1939,7 +1941,10 @@ C
 C C-system:  
 C             
 C-    write(*,*) 'Hyp_Carlo: Nreson=',Nreson 
-      
+C-----make photon masses to be zeroes
+      do j=1,Mgamma
+         Pgamma(5,j) = 0.
+      enddo
       if (Nreson.eq.1) then                        !  Resonans 1 - pi0        
          Pc(5) = Ampi0
          cntrl_prmtr=Pgamma(1,0)
@@ -2111,34 +2116,42 @@ C
          enddo
       endif
 C
-      if (Nreson.eq.4) then                         !  Resonance 4 - K0s
+      if (Nreson.eq.4) then     !  Resonance 4 - K0s
          Pc(5) = AmK0
          call reaction(Nreson, T, Pd(5))                 
          call abtocds(Pa,Pb(5),Pc,Pd,T)
          if (T.gt.0) go to 1000
-C
-C         
-         if (Nchanel.eq.1) then                     !  Excl. channel = K0s -> 2pi0->4Y
-          P1(5) = Ampi0
-          P2(5) = Ampi0
-          call decays(Pc, P1, P2)
-          call decays(P1, Pgamma(1,1), Pgamma(1,2))
-          call decays(P2, Pgamma(1,3), Pgamma(1,4))
-          Ngamma = 4
+C     
+C     
+         if (Nchanel.eq.1) then !  Excl. channel = K0s -> 2pi0->4Y
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
          endif
-C
-C
-          Random = REGRNDM(0)
-          PPc = dsqrt((Pc(1)**2+Pc(2)**2 + Pc(3)**2))
-          Xvertex = - (Pc(1)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
-          Yvertex = - (Pc(2)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
-          Zvertex = - (Pc(3)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
-          do j=1,Ngamma
-          Pgamma(6,j) = Xvertex
-	  Pgamma(7,j) = Yvertex
-	  Pgamma(8,j) = Zvertex
-	  Pgamma(9,j) = 22.
-	  enddo
+         if (Nchanel.eq.2) then !  Excl. channel = K0s -> pi+pi-
+            Pgamma(5,1) = Ampi
+            Pgamma(5,2) = Ampi
+            call decays(Pc, Pgamma(1,1), Pgamma(1,2))
+            Ngamma = 2
+            Pgamma(9,1) = 211
+            Pgamma(9,2) = -211
+         endif
+C     
+C     
+         Random = REGRNDM(0)
+         PPc = dsqrt((Pc(1)**2+Pc(2)**2 + Pc(3)**2))
+         Xvertex = - (Pc(1)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
+         Yvertex = - (Pc(2)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
+         Zvertex = - (Pc(3)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
+         do j=1,Ngamma
+            Pgamma(6,j) = Xvertex
+            Pgamma(7,j) = Yvertex
+            Pgamma(8,j) = Zvertex
+            if (Nchanel.ne.2) Pgamma(9,j) = 22.
+         enddo
       endif
 C     
       if (Nreson.eq.5) then                         !  Resonance 5 - f2
