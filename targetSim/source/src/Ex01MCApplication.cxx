@@ -404,64 +404,64 @@ void Ex01MCApplication::InitMC(const char *setup) {
   for (int i = 0; i < 6; i++) {
     hEnDepInCPV[i] = new TH1F(
         Form("hEnDepInCPV_%d", i),
-        Form("Deposed energy in CPV M%d; E, GeV; counts", i), 10000, 0., 1.);
+        Form("Deposed energy in CPV M%d; E, GeV; counts", i), 50000, 0., 1.);
   }
   hSumEnDepInCPV =
       new TH1F("hSumEnDepInCPV", "Sum of deposed energy in CPV; E, GeV; counts",
-               10000, 0., 1.);
+               50000, 0., 1.);
   hEnDepInSF = new TH1F("hEnDepInSF", "Deposed energy in S_{F}; E, GeV; counts",
-                        10000, 0., 1.);
+                        50000, 0., 1.);
 
   for (int i = 0; i < 9; i++) {
     hEnDepInBGO[i] = new TH1F(
         Form("hEnDepInBGO%d", i),
-        Form("Deposed energy in BGO M%d; E, GeV; counts", i), 10000, 0., 1.);
+        Form("Deposed energy in BGO M%d; E, GeV; counts", i), 50000, 0., 1.);
 
     hEnDepInNaI[i] = new TH1F(
         Form("hEnDepInNaI%d", i),
-        Form("Deposed energy in NaI M%d; E, GeV; counts", i), 10000, 0., 1.);
+        Form("Deposed energy in NaI M%d; E, GeV; counts", i), 50000, 0., 1.);
     hEnDepInBGOTriggered[i] = new TH1F(
         Form("hEnDepInBGOTriggered%d", i),
         Form("Deposed energy in BGO M%d (trigger passed); E, GeV; counts", i),
-        10000, 0., 1.);
+        50000, 0., 1.);
 
     hEnDepInNaITriggered[i] = new TH1F(
         Form("hEnDepInNaITriggered%d", i),
         Form("Deposed energy in NaI M%d (trigger passed); E, GeV; counts", i),
-        10000, 0., 1.);
+        50000, 0., 1.);
     hMesEnInBGO[i] = new TH1F(
         Form("hMesEnInBGO%d", i),
-        Form("Measured energy in BGO M%d; E, GeV; counts", i), 10000, 0., 1.);
+        Form("Measured energy in BGO M%d; E, GeV; counts", i), 50000, 0., 1.);
 
     hMesEnInNaI[i] = new TH1F(
         Form("hMesEnInNaI%d", i),
-        Form("Measured energy in NaI M%d; E, GeV; counts", i), 10000, 0., 1.);
+        Form("Measured energy in NaI M%d; E, GeV; counts", i), 50000, 0., 1.);
     hMesEnInBGOTriggered[i] = new TH1F(
         Form("hMesEnInBGOTriggered%d", i),
         Form("Measured energy in BGO M%d (trigger passed); E, GeV; counts", i),
-        10000, 0., 1.);
+        50000, 0., 1.);
 
     hMesEnInNaITriggered[i] = new TH1F(
         Form("hMesEnInNaITriggered%d", i),
         Form("Measured energy in NaI M%d (trigger passed); E, GeV; counts", i),
-        10000, 0., 1.);
+        50000, 0., 1.);
   }
   hSumEnDepInBGO =
       new TH1F("hSumEnDepInBGO", "Sum of deposed energy in BGO; E, GeV; counts",
-               10000, 0., 1.);
+               50000, 0., 1.);
 
   hSumEnDepInNaI =
       new TH1F("hSumEnDepInNaI", "Sum of deposed energy in NaI; E, GeV; counts",
-               10000, 0., 1.);
+               50000, 0., 1.);
   hSumEnDepInBGOTriggered =
       new TH1F("hSumEnDepInBGOTriggered",
                "Sum of deposed energy in BGO (trigger passed); E, GeV; counts",
-               10000, 0., 1.);
+               50000, 0., 1.);
 
   hSumEnDepInNaITriggered =
       new TH1F("hSumEnDepInNaItriggered",
                "Sum of deposed energy in NaI (trigger passed); E, GeV; counts",
-               10000, 0., 1.);
+               50000, 0., 1.);
 
   // init pythia8
   fPythia = new Pythia8::Pythia();

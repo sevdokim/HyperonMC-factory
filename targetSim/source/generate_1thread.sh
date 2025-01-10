@@ -16,7 +16,7 @@ if [ ! -z $THIS_THREAD_PATH ] ; then
     THIS_THREAD_PATH=.
 fi
 if ls $THIS_THREAD_PATH/shell_env.sh >& /dev/null ; then
-    for var in WD MCDIR SUFFIX PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH SEED NTHREADS PATH PWD EVENTNUMBER MACRODIR TARGET PHOTON_ENERGY SEED TTHICKNESS TRADIUS
+    for var in WD MCDIR SUFFIX PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH SEED NTHREADS PATH PWD EVENTNUMBER MACRODIR TARGET PHOTON_ENERGY SEED TTHICKNESS TRADIUS USEPYTHIA
     do
 	for val in $(grep "$var=" $THIS_THREAD_PATH/shell_env.sh) ; do
 	    if [ ! -z $val ] ; then 
@@ -82,7 +82,7 @@ ln -s $MACRODIR/g4tgeoConfig.C ./g4tgeoConfig.C
 ln -s $MACRODIR/macro/ ./macro  
 
 # run MC production
-root -b -q load_g4.C run_g4.C\($EVENTNUMBER,$SEED,$PHOTON_ENERGY,$TARGET,$TRADIUS,$TTHICKNESS\) >& log_production; #do a full simulation
+root -b -q load_g4.C run_g4.C\($EVENTNUMBER,$SEED,$PHOTON_ENERGY,$TARGET,$TRADIUS,$TTHICKNESS,$USEPYTHIA\) >& log_production; #do a full simulation
 echo 'First 700 strings and last 700 strings of log_production. For full file look MC_res.dat.bz2 ' > log_production_part
 head -n 700 log_production >> log_production_part
 echo '.................................................................' >> log_production_part
