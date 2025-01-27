@@ -11,16 +11,13 @@
 
 /// \ingroup E01
 /// \file E01/g3tgeoConfig.C
-/// \brief Configuration macro for Geant3+TGeo VMC for Example01 
+/// \brief Configuration macro for Geant3+TGeo VMC for Example01
 
-void Config()
-{
-/// The configuration function for Geant3+TGeo VMC for Example01
-/// called during MC application initialization. 
+void Config() {
+  /// The configuration function for Geant3+TGeo VMC for Example01
+  /// called during MC application initialization.
 
-  new  TGeant3TGeo("C++ Interface to Geant3 with TGeo geometry");
+  new TGeant3TGeo("C++ Interface to Geant3 with TGeo geometry");
 
   cout << "Geant3 has been created." << endl;
 }
-
-

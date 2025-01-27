@@ -20,7 +20,7 @@ HyGeoParameters::HyGeoParameters()
 
       SaDist(39.95), // OK 09.07.2011
                      //	SaDist(50.45),                       // new Sa position
-                     //from 1.04.2015
+                     // from 1.04.2015
       SaWidth(20.), SaThickness(1.5),
 
       LGD2Dist(339.2), // OK 09.07.2011

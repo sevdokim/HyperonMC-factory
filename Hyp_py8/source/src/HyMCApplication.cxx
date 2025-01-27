@@ -145,8 +145,8 @@ bool HyMCApplication::InitMC(const char *setup) {
   // fPythia->readString(Form("Beams:idA = %d", fBeamPdg));   // beam particle
   // fPythia->readString(Form("Beams:idB = %d", fTargetPdg)); // target particle
   // double beamMass = TDatabasePDG::Instance()->GetParticle(fBeamPdg)->Mass();
-  // double beamEnergy = TMath::Sqrt(fMomentum * fMomentum + beamMass * beamMass);
-  // fPythia->readString(Form("Beams:eA = %lf", beamEnergy));
+  // double beamEnergy = TMath::Sqrt(fMomentum * fMomentum + beamMass *
+  // beamMass); fPythia->readString(Form("Beams:eA = %lf", beamEnergy));
   // fPythia->readString("Beams:eB = 0.");
   // fPythia->readString("Beams:frameType = 2");
 
@@ -325,7 +325,7 @@ void HyMCApplication::BeginEvent() {
 
   if (EvntNumb % 1000 == 0) {
     cerr << "Beginning event " << EvntNumb << endl;
-  } 
+  }
 
   for (Int_t i = 0; i < fLaNx; i++) {
     for (Int_t j = 0; j < fLaNy; j++)
@@ -362,8 +362,7 @@ void HyMCApplication::BeginPrimary() {
     if (particle)
       std::cout << particle->GetName() << "  ";
     else
-      std::cout << "unknown"
-                << "  ";
+      std::cout << "unknown" << "  ";
     std::cout << "   Track ID = " << gMC->GetStack()->GetCurrentTrackNumber()
               << "  ";
     std::cout << "   Parent ID = "
@@ -548,7 +547,8 @@ void HyMCApplication::FinishEvent() {
   // fHyMCEvent->signalS4 = fS4EnergyDep;
   // fHyMCEvent->targetEnDep = fTargetEnergyDep;
   if (fSaEnergyDep < fSaEnergyCut || // begin Sa-discrimination
-      gRandom->Rndm() < (1. - fSaEfficiency)) { // take into account counter inefficiency
+      gRandom->Rndm() <
+          (1. - fSaEfficiency)) { // take into account counter inefficiency
     fprintf(fMC_results, "%d ", EvntNumb);
     for (i = 0; i < max_gamma; i++) {
       fprintf(fMC_results, "%lf ", initial_photon_energy[i]);

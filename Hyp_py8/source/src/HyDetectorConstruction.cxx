@@ -93,7 +93,7 @@ void HyDetectorConstruction::ConstructMaterials() {
       new TGeoMaterial("Pb", a = 207.19, z = 82., density = 11.35);
   //___S____
   TGeoMaterial *matS =
-    new TGeoMaterial("S", a = 32.076, z = 16., density = 2.07);
+      new TGeoMaterial("S", a = 32.076, z = 16., density = 2.07);
   // Tracking media
 
   Double_t param[20];
@@ -144,7 +144,7 @@ void HyDetectorConstruction::ConstructMaterials() {
   fImedPoly = 11;
   new TGeoMedium("Poly", fImedPoly, matPoly, param);
 
-  fImedS =12;
+  fImedS = 12;
   new TGeoMedium("S", fImedS, matS, param);
 }
 
@@ -522,8 +522,8 @@ bool HyDetectorConstruction::CalcInteractProbabilities() {
                                          PolyDens / PolyDensNuclIntrLngth));
 
   if (fTrgtType == "S")
-    fProbArray[1] = float(1 - TMath::Exp(-fGeom.GetTargetThickness() *
-                                         SDens / SDensNuclIntrLngth));
+    fProbArray[1] = float(1 - TMath::Exp(-fGeom.GetTargetThickness() * SDens /
+                                         SDensNuclIntrLngth));
 
   if (fDebug)
     cout << "Interaction probability of target = " << fProbArray[1] << endl;
