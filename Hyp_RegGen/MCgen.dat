@@ -1,9 +1,0 @@
-/# means comment )
-/# This is generator output 
-/# 1st string: 'begin event' word 
-/# 2nd string: Nevent Ngamma Xvertex Yvertex Zvertex 
-/# 3rd string: PbeamX PbeamY PbeamZ PbeamE 
-/# 4th string: PgammaX PgammaY PgammaZ PgammaE of 1st photon
-/# ...........
-/# (3+Ngamma)th string: PgammaX PgammaY PgammaZ PgammaE of (Ngamma)th photon
-/# means comment )

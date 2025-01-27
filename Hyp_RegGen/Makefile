@@ -6,7 +6,7 @@ endif
 
 TOPDIR  = $(shell pwd)/..
 BINDIR  = $(TOPDIR)/tmp/tgt_$(PLATFORM)/$(PACKAGE)
-LIBDIR  = $(TOPDIR)/lib/tgt_$(PLATFORM)
+LIBDIR  = $(TOPDIR)/lib
 
 ifeq ($(ROOTSYS),)
 ROOT_INCDIR = $(shell root-config --incdir)

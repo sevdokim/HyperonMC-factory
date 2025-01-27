@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-    export EVENTNUMBER=100000                     # Total event number to be generated per 1 production thread  
-    export NTHREADS=200                             # total number of production threads   
+    export EVENTNUMBER=10000                     # Total event number to be generated per 1 production thread  
+    export NTHREADS=10                             # total number of production threads   
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #    export CONVERT_ONLY=yes                        # yes or no 
@@ -75,27 +75,23 @@ do
 		*)          export THICKNESS_S4=6.000  ;; #default value (6mm) 
 	    esac
 
-	    for mass in 0 #c is control parameter for omg width 
-	    do
-		#MESON=${MES}_${HYCONDITION}_width${width}MeV
-		MESON=${MES}
-		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
-		export TGT_PRFX=$TGTPRFX
-		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_pipiCh_excl_${HYCONDITION}
-		export EXCHANEL=2
-		export HYMC_CONFIG_DEFINED=yes
-		export CONTROL=$mass
-		echo " "
-		echo  MESON =                $MESON
-		echo  TGT_PRFX =             $TGT_PRFX
-		echo 'PERIOD_PRFX =' $PERIOD_PRFX
-		echo  PRODUCTION_NAME =      $PRODUCTION_NAME
-		echo  HYMC_CONFIG_DEFINED =  $HYMC_CONFIG_DEFINED
-		echo 'CONTROL             =' $CONTROL
-		echo 'unic code           =' $UNIC_CODE
-		source generate_nov08_be79mm_pi0.sh
-	    done
+	    MESON=${MES}
+	    UNIC_CODE=$[ $cond*1000000+ $n*100000 ]
+	    export TGT_PRFX=$TGTPRFX
+	    export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
+	    export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_pipiCh_excl_${HYCONDITION}
+	    export EXCHANEL=2 # K0 -> pi+pi- decay
+	    export HYMC_CONFIG_DEFINED=yes
+	    export CONTROL=0
+	    echo " "
+	    echo  MESON =                $MESON
+	    echo  TGT_PRFX =             $TGT_PRFX
+	    echo 'PERIOD_PRFX =' $PERIOD_PRFX
+	    echo  PRODUCTION_NAME =      $PRODUCTION_NAME
+	    echo  HYMC_CONFIG_DEFINED =  $HYMC_CONFIG_DEFINED
+	    echo 'CONTROL             =' $CONTROL
+	    echo 'unic code           =' $UNIC_CODE
+	    source generate_production.sh
 	done
     done
 done

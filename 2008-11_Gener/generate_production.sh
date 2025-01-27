@@ -34,26 +34,27 @@ else
     export CONVERT_ONLY=yes                       # yes or no
     export EXTARGET=0                             #exclusive target (1=S4, 2=target, 3=Sa, 0=all of them)
 fi
-#
+# IHEP cluster environment
 export MCDIR=/afs/ihep.su/user/s/sevdokim/HyperonMC-factory/  #name of top MC directory
 export WD=/lustre/ihep.su/data/hyperon/HYPERON_MC/evdokimov/2008-11_Gener/$PRODUCTION_NAME/
+if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=ihep-short ; fi
+export SCRATCH="/scratch"
+
+# evdokimov03 environment (local testing)
 if [ $(uname -n) = "evdokimov03" ]; then
     MCDIR=~/hyperon/HyperonMC-factory/
-    WD=~/hyperon/mc
+    WD=~/hyperon/mc/RegGen/$PRODUCTION_NAME/
+    IHEP_QUEUE=thislaptop
+    SCRATCH=""
 fi
+
 export REGGEN_CARDS=$MCDIR/${PERIOD}_Gener/RegGen_$MESON.cards                  #name of RegGen.cards
 export MACRODIR=$MCDIR/Hyp_RegGen/                                              #name of MC tool directory
-#export ANDIR=/data1/users/sadovsky/hyperon/Hyperon_2007_2018_Rev/               #name of top analysis directory
-#export WD=$MCDIR/${PERIOD}_Gener/$PRODUCTION_NAME/
-export WD=/lustre/ihep.su/data/hyperon/HYPERON_MC/evdokimov/2008-11_Gener/$PRODUCTION_NAME/
 export MCRUNSDIR=$WD/MCruns/
-#export WD=/lustre/ihep.su/data/hyperon/HYPERON_MC/evdokimov/${PERIOD}_Gener/$PRODUCTION_NAME
-#export MCRUNSDIR=$WD/MCruns
 export ANCHORS=$MCDIR/${PERIOD}_Gener/
 export FILELIST=$MCDIR/${PERIOD}_Gener/file_list_$PERIOD_PRFX$TGT_PRFX.dat
-#export FILELIST=$MCDIR/${PERIOD}_Gener/file_lists/file_list_$PERIOD_PRFX$TGT_PRFX.dat
 #
-if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=ihep-short ; fi
+
 echo 'queue         =' $IHEP_QUEUE
 echo
 echo 'MCDIR         =' $MCDIR
@@ -88,8 +89,7 @@ echo '(2=Be, 10=C, 3=Al, 9=Cu, 8=Sn, 7=Pb, 11=polyethylen)'
 echo
 #
 
-#i=$UNIC_CODE
-i=200
+i=0
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do

@@ -1,6 +1,7 @@
 #!/bin/bash
 #PBS -l ncpus=1
-#PBS -l vmem=4000mb
+#PBS -l vmem=1500mb
+#PBS -l mem=1024mb
 #PBS -V
 
 # ^^^ qbatch system requirements.
@@ -17,7 +18,7 @@ if [ ! -z $THIS_THREAD_PATH ] ; then
     THIS_THREAD_PATH=.
 fi
 if ls $THIS_THREAD_PATH/shell_env.sh >& /dev/null ; then
-    for var in WD MCDIR ANCHORS SUFFIX CONTROL PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH FILELIST CONVERT_ONLY SEED EXTARGET EXRESON EXCHANEL PERIOD NTHREADS PATH MESON PERIOD_PRFX PWD EVENTNUMBER TGT_PRFX MACRODIR PROBABILITY_SA TARGET MCRUNSDIR THICKNESS_S4 REGGEN_CARDS PROBABILITY_S4 PROBABILITY_TARG PROBABILITY_SA DELTA_S4 DELTA_SA THICKNESS_S4 DELTA_TARGET H2S_TABLE EFFICIENCY_SA
+    for var in WD MCDIR ANCHORS SUFFIX CONTROL PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH FILELIST CONVERT_ONLY SEED EXTARGET EXRESON EXCHANEL PERIOD NTHREADS PATH MESON PERIOD_PRFX PWD EVENTNUMBER TGT_PRFX MACRODIR PROBABILITY_SA TARGET MCRUNSDIR THICKNESS_S4 REGGEN_CARDS PROBABILITY_S4 PROBABILITY_TARG PROBABILITY_SA DELTA_S4 DELTA_SA THICKNESS_S4 DELTA_TARGET H2S_TABLE EFFICIENCY_SA SCRATCH
     do
 	for val in $(grep "$var=" $THIS_THREAD_PATH/shell_env.sh) ; do
 	    if [ ! -z $val ] ; then 
@@ -89,27 +90,32 @@ echo 'generator control parameter is ' $CONTROL
 echo 'seed = ' $SEED
 echo 'starting simulation...'
 
-# VMC environment
-source $MACRODIR/vmc_env.sh
-LD_LIBRARY_PATH=$MCDIR/lib/tgt_linuxx8664gcc/:$LD_LIBRARY_PATH
+# environment
+source $MACRODIR/env.sh
+LD_LIBRARY_PATH=$MCDIR/lib/:$LD_LIBRARY_PATH
+
+if [ -z ${SCRATCH+x} ] ; then
+    SCRATCH="/scratch"
+fi
 
 if [ $CONVERT_ONLY = yes ] ; then
     mkdir -p $WD/$SUFFIX
     cd $WD/$SUFFIX
 else
-    mkdir -p /scratch/$WD/$SUFFIX
-    cd /scratch/$WD/$SUFFIX
+    mkdir -p $SCRATCH/$WD/$SUFFIX
+    cd $SCRATCH/$WD/$SUFFIX
 fi
 echo "I cd'ed into " $(pwd)
 # copy everything we need
 echo "I remove links: "
-rm -fv RegGen.cards macro file_list.dat calibr.cards h_s_new.dat coeff_old.dat e_cor_matrix.dat run_g3_control.C g3tgeoConfig.C converter bad_channels.dat mass_shifts.dat mass_shifts_MC.dat
+rm -fv RegGen.cards macro file_list.dat calibr.cards h_s_new.dat coeff_old.dat e_cor_matrix.dat run_g3_control.C g3tgeoConfig.C converter bad_channels.dat mass_shifts.dat mass_shifts_MC.dat load_g3.C
 if [ ! $CONVERT_ONLY = yes ] ; then
     echo "You didn't ask only to convert MC_res.dat so I remove previous production files (if any):"
     rm -fv MC_res.dat log_converter log_production MCgen.dat Run${SEED}.gz gphysi.dat Histos.root generated.tar *.bz2
 fi
 ln -s $REGGEN_CARDS ./RegGen.cards 
 ln -s $MACRODIR/run_g3_control.C ./run_g3_control.C
+ln -s $MACRODIR/load_g3.C ./load_g3.C
 ln -s $MACRODIR/g3tgeoConfig.C ./g3tgeoConfig.C
 ln -s $MACRODIR/macro/ ./macro  
 ln -s $FILELIST ./file_list.dat
@@ -128,6 +134,7 @@ ln -s $ANCHORS/mass_shifts_MC.dat ./mass_shifts_MC.dat
 #cp -u $ANCHORS/e_cor_matrix.dat ./
 # run MC priduction
 did_production=no
+REMOVE_LOG_PRODUCTION=no
 if [ $CONVERT_ONLY = yes ] #if this flag is setted then we don't need to perform full simulation, only convert results to Hyperon data format
 then
     #check if we have archived simulation and if so then unpack it
@@ -140,11 +147,11 @@ then
 	echo 'you asked to skip full simulation and MC_res.dat exists... So skipping...'
     else
 	echo 'you asked to skip full simulation. Hovewer MC_res.dat does not exist. So I start full simulation.'
-	root -b -q run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
+	root -b -q load_g3.C run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
 	did_production=yes
     fi
 else
-    root -b -q run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
+    root -b -q load_g3.C run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
     did_production=yes
 fi
 if [ $did_production = yes ] ; then
@@ -165,41 +172,45 @@ if [ -f MC_res.dat ] ; then
     # we keep only part of log_production
 # We put MC_res.dat, Histos.root, MCgen.dat, log_converter into archive
     if [ -f Run${SEED}.gz ] ; then #!!! success
-	echo 'File exists:' Run${SEED}.gz
-	#relpath=$(realpath --relative-to=$MCRUNSDIR $(pwd))
-	#ln -s $relpath/Run${SEED}.gz $MCRUNSDIR/Run${SEED}.gz
-	echo 'Moving it to ' $MCRUNSDIR
-	mv Run${SEED}.gz $MCRUNSDIR/
-	echo 'First 700 strings and last 700 strings of log_production. For full file look MC_res.dat.bz2 ' > log_production_part
-	head -n 700 log_production >> log_production_part
-	echo '.................................................................' >> log_production_part
-	echo '.............cutted here.........................................' >> log_production_part
-	echo '.................................................................' >> log_production_part
-	tail -n 700 log_production >> log_production_part
-	echo 'Now I shall archive production files to generated.tar'
-	if bzip2 -z9 log_production MC_res.dat MCgen.dat
-	then
-	    echo 'I made bz2 archives.'
-	else
-	    echo 'Problem to make bz2 archives.'
-	fi
-	if tar -cf generated.tar log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root 
-	then
-	    echo "Archive generated.tar is created. I remove files:"
-	    rm -vf log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root
-	fi
-	chmod a+r $MCRUNSDIR/Run${SEED}.gz
+	    echo 'File exists:' Run${SEED}.gz
+	    #relpath=$(realpath --relative-to=$MCRUNSDIR $(pwd))
+	    #ln -s $relpath/Run${SEED}.gz $MCRUNSDIR/Run${SEED}.gz
+	    echo 'Moving it to ' $MCRUNSDIR
+	    mv Run${SEED}.gz $MCRUNSDIR/
+	    echo 'First 700 strings and last 700 strings of log_production. For full file look MC_res.dat.bz2 ' > log_production_part
+	    head -n 700 log_production >> log_production_part
+	    echo '.................................................................' >> log_production_part
+	    echo '.............cutted here.........................................' >> log_production_part
+	    echo '.................................................................' >> log_production_part
+	    tail -n 700 log_production >> log_production_part
+	    echo 'Now I shall archive production files to generated.tar'
+	    if bzip2 -z9 log_production MC_res.dat MCgen.dat
+	    then
+	        echo 'I made bz2 archives.'
+	    else
+	        echo 'Problem to make bz2 archives.'
+	    fi
+	    if tar -cf generated.tar log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root 
+	    then
+	        echo "Archive generated.tar is created. I remove files:"
+	        rm -vf log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root
+	    fi
+	    chmod a+r $MCRUNSDIR/Run${SEED}.gz
         chown -R :hyperon $MCRUNSDIR/
-	chmod -R a+r .
-	chown -R :hyperon .
+	    chmod -R a+r .
+	    chown -R :hyperon .
+        REMOVE_LOG_PRODUCTION=yes
     fi
 else
     echo 'No MC_res.dat. Nothing to convert. Probably something went wrong. Please check.'
+    REMOVE_LOG_PRODUCTION=no
 fi
 #copy results to $WD/$SUFFIX if convert_only != yes
 if [ ! $CONVERT_ONLY = yes ] ; then
     mkdir -p $WD/$SUFFIX
     cp -a * $WD/$SUFFIX
     chown -R :hyperon $WD/$SUFFIX
-    rm -vf $WD/$SUFFIX/log_production
+    if [ $REMOVE_LOG_PRODUCTION = yes ] ; then
+	    rm -vf $WD/$SUFFIX/log_production
+    fi
 fi

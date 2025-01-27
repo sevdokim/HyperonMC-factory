@@ -16,38 +16,41 @@
 
 #include <iostream>
 
-#include <TSystem.h>
 #include <TString.h>
+#include <TSystem.h>
 
 #endif
-
-Bool_t isLibrary(const char* libName)
-{
-/// Helper function which testes the existence of the given library
-/// \param libName  The library name
+namespace g3libUtilities {
+Bool_t isLibrary(const char *libName) {
+  /// Helper function which testes the existence of the given library
+  /// \param libName  The library name
 
   if (TString(gSystem->DynamicPathName(libName, kTRUE)) != TString(""))
     return kTRUE;
-  else  
+  else
     return kFALSE;
-}    
-
-void g3libs()
-{
-/// Macro function for loading Geant3 libraries
+}
+} // namespace g3libUtilities
+void g3libs() {
+  /// Macro function for loading Geant3 libraries
 
   cout << "Loading Geant3 libraries ..." << endl;
 
   gSystem->Load("libEG");
-//  gSystem->Load("libEGPythia6");
-//   gSystem->Load("libPythia6");  
+  gSystem->Load("libEGPythia6");
+  //   gSystem->Load("libPythia6");
+
+  // VMC library (optional)
+  if (g3libUtilities::isLibrary("libVMCLibrary")) {
+    cout << "Loading VMC library ..." << endl;
+    gSystem->Load("libVMCLibrary");
+  }
 
   if (isLibrary("libdummies.so"))
-     gSystem->Load("libdummies.so");
-                   // libdummies.so needed from geant3_+vmc version 0.5
+    gSystem->Load("libdummies.so");
+  // libdummies.so needed from geant3_+vmc version 0.5
 
   gSystem->Load("libgeant321.so");
 
   cout << "Loading Geant3 libraries ... finished" << endl;
 }
-
