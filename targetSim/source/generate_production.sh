@@ -23,6 +23,13 @@ if [ $(uname -n) = "evdokimov03" ] ; then
     scratch=""
     IHEP_QUEUE=thislaptop
 fi
+if [ $(uname -n) = "alice21" ] ; then
+    MCDIR=/home/evdokimov/hyperon/HyperonMC-factory/targetSim/source
+    WD=/home/evdokimov/hyperon/mc/targetSim/$PRODUCTION_NAME/
+    scratch=""
+    IHEP_QUEUE=debug
+fi
+
 export MACRODIR=$MCDIR                         #name of MC tool directory
 #
 if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=debug ; fi

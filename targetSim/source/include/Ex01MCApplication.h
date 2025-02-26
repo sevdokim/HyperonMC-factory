@@ -50,7 +50,8 @@ public:
   void SetTargetThickness(double thic) { fTargetThickness = thic; }
   void SetInitialEnergy(double initEn) { fInitialEnergy = initEn; }
   void SetUsePythia(bool usePythia) { fUsePythia = usePythia; }
-
+  void SetPreshowerThickness(double thic) { fPreshowerThickness = thic; }
+  
   virtual TVirtualMCApplication *CloneForWorker() const;
   virtual void InitOnWorker();
   virtual void ConstructGeometry();
@@ -66,7 +67,6 @@ public:
 
   // methods for tests
   void SetOldGeometry(Bool_t oldGeometry = kTRUE);
-  void TestVMCGeometryGetters();
 
 private:
   // methods
@@ -91,9 +91,11 @@ private:
   int fImedBGO;
   int fImedNaI;
   int fImedVac;
+  int fImedCsI;
   int fPdgCode;
   double fTargetRadius;
   double fTargetThickness;
+  double fPreshowerThickness = 0.;
   double fEnDepTarget;
   double fEnDepOutTarget;
   double fEnergyWhenExitingTarget;

@@ -37,7 +37,7 @@ if [ -z $TARGET ];       then  export TARGET=1;             fi;
 if [ -z $TTHICKNESS ];   then  export TTHICKNESS=6;         fi;
 if [ -z $TRADIUS ];      then  export TRADIUS=2;            fi;
 if [ -z $USEPYTHIA ];    then  export USEPYTHIA=1;          fi;
-
+if [ -z $PSTHICKNESS ];  then  export PSTHICKNESS=0.18;     fi;
 
 
 #
@@ -82,7 +82,7 @@ ln -s $MACRODIR/g4tgeoConfig.C ./g4tgeoConfig.C
 ln -s $MACRODIR/macro/ ./macro  
 
 # run MC production
-root -b -q load_g4.C run_g4.C\($EVENTNUMBER,$SEED,$PHOTON_ENERGY,$TARGET,$TRADIUS,$TTHICKNESS,$USEPYTHIA\) >& log_production; #do a full simulation
+root -b -q load_g4.C run_g4.C\($EVENTNUMBER,$SEED,$PHOTON_ENERGY,$TARGET,$TRADIUS,$TTHICKNESS,$USEPYTHIA,$PSTHICKNESS\) >& log_production; #do a full simulation
 echo 'First 700 strings and last 700 strings of log_production. For full file look MC_res.dat.bz2 ' > log_production_part
 head -n 700 log_production >> log_production_part
 echo '.................................................................' >> log_production_part

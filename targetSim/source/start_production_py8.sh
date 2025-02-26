@@ -13,9 +13,9 @@ echo 'NTHREADS    =' $NTHREADS
 echo
 echo
 export START_PRODUCTION_DIR=$(pwd)
-for TGTPRFX in be60mm c60mm # s60mm
+for TGTPRFX in c60mm # s60mm be60mm
 do
-    for en in 0.000
+    for en in 0.004
     do
 	export PHOTON_ENERGY=$en
 	export TGT_PRFX=$TGTPRFX

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 export EVENTNUMBER=100000            # Total event number to be generated per 1 production thread
-export NTHREADS=10                   # total number of production threads   
+export NTHREADS=1                   # total number of production threads   
 #export IHEP_QUEUE=ihep-medium
 export IHEP_QUEUE=ihep-short         # cluster queue name
 export UNIC_CODE=0
@@ -13,9 +13,10 @@ echo 'NTHREADS    =' $NTHREADS
 echo
 echo
 export START_PRODUCTION_DIR=$(pwd)
-for TGTPRFX in be60mm c60mm # s60mm
+for TGTPRFX in be60mm #c60mm # s60mm
 do
-    for en in 0.000 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009 0.010 0.015 0.020 0.025 0.035
+    #for en in 0.000 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009 0.010 0.015 0.020 0.025 0.035
+    for en in 0.002 0.0043 0.0063
     do
 	export PHOTON_ENERGY=$en
 	export TGT_PRFX=$TGTPRFX

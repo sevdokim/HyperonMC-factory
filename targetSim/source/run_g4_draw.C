@@ -11,7 +11,7 @@
 /// \file E01/run_g4.C
 /// \brief Macro for running Example01 with Geant4.
 
-void run_g4(int nEvents = 100000, int seed = 0, double initEn = 0.005 /*GeV*/,
+void run_g4_draw(int nEvents = 1, int seed = 9, double initEn = 0.005 /*GeV*/,
             int targetMaterial = 1, double targetRadius = 2. /*cm*/,
             double targetThickness = 6. /*cm*/, bool usePythia = true,
 	    double preshowerThickness = 0. /*cm*/,
@@ -58,10 +58,10 @@ void run_g4(int nEvents = 100000, int seed = 0, double initEn = 0.005 /*GeV*/,
   
   // Initialize MC
   appl->InitMC(configMacro);
-  gROOT->ProcessLine("gMC->SetCollectTracks(0)");
+  gROOT->ProcessLine("gMC->SetCollectTracks(1)");
   //     Run MC
   appl->RunMC(nEvents);
-  // gGeoManager->GetTopVolume()->Draw();
-  // gGeoManager->DrawTracks("/*");
+  gGeoManager->GetTopVolume()->Draw();
+  gGeoManager->DrawTracks("/*");
   //  delete appl;
 }

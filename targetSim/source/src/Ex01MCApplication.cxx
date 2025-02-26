@@ -97,7 +97,8 @@ void Ex01MCApplication::ConstructMaterials() {
   TGeoElement *elI = new TGeoElement("Iodine", "I", z = 53., a = 126.90447);
   TGeoElement *elBi = new TGeoElement("Bismut", "Bi", z = 83., a = 208.98);
   TGeoElement *elGe = new TGeoElement("Germanium", "Ge", z = 32., a = 72.63);
-
+  TGeoElement *elCs = new TGeoElement("Caesium", "Cs", z = 55., a = 133.);
+  
   //____Ar____
   a = 39.95;
   z = 18.;
@@ -137,6 +138,11 @@ void Ex01MCApplication::ConstructMaterials() {
   matNaI->AddElement(elNa, int(1));
   matNaI->AddElement(elI, int(1));
 
+  //____CsI____
+  TGeoMixture *matCsI = new TGeoMixture("CsI", 2, density = 4.51);
+  matCsI->AddElement(elCs, int(1));
+  matCsI->AddElement(elI, int(1));
+  
   //____BGO____
   TGeoMixture *matBGO = new TGeoMixture("BGO", 3, density = 7.13);
   matBGO->AddElement(elBi, int(4));
@@ -230,6 +236,9 @@ void Ex01MCApplication::ConstructMaterials() {
 
   fImedVac = 16;
   new TGeoMedium("Vacuum", fImedVac, matVac, param);
+
+  fImedCsI = 17;
+  new TGeoMedium("CsI", fImedCsI, matCsI, param);
 }
 
 //_____________________________________________________________________________
@@ -264,6 +273,13 @@ void Ex01MCApplication::ConstructVolumes() {
   int iMedPOM = fImedPlastic;
   // int iMedPOM = fImedVac;
 
+  
+  TGeoVolume *preshower = 0x0;
+  if (fPreshowerThickness > 0.) {
+    preshower = gGeoManager->MakeTube(
+      "preshower", gGeoManager->GetMedium(fImedPb), 0., 6.9 / 2., fPreshowerThickness / 2.);
+  }
+  
   //----------------------------- GaNT detector (NaI)
   TGeoVolume *singleGantNaI = gGeoManager->MakeTube(
       "SingleGantNaI", gGeoManager->GetMedium(iMedPOM), 0., 4.6, 24.5 / 2.);
@@ -273,25 +289,31 @@ void Ex01MCApplication::ConstructVolumes() {
       24. / 2.);
   insideSingleGantNaI->SetVisibility(kFALSE);
   TGeoVolume *crystallNaI = gGeoManager->MakeTube(
-      "crystallNaI", gGeoManager->GetMedium(fImedNaI), 0., 6.9 / 2., 6.9 / 2.);
+      "crystallNaI", gGeoManager->GetMedium(fImedCsI), 0., 6.9 / 2., 6.9 / 2.);
   crystallNaI->SetVisibility(kTRUE);
+  
   insideSingleGantNaI->AddNode(
-      crystallNaI, 1, new TGeoTranslation(0., 0., -(24. / 2. - 6.9 / 2.)));
+      crystallNaI, 1, new TGeoTranslation(0., 0., -(24. / 2. - 6.9 / 2. - fPreshowerThickness)));
+  if (fPreshowerThickness > 0.) {
+    insideSingleGantNaI->AddNode(
+      preshower, 1, new TGeoTranslation(0., 0., -(24. / 2. - fPreshowerThickness / 2.)));
+  }
   singleGantNaI->AddNode(insideSingleGantNaI, 1,
                          new TGeoTranslation(0., 0., 0.));
 
   TGeoVolume *plastCPV = gGeoManager->MakeBox(
-      "plastCPV", gGeoManager->GetMedium(fImedSci), 4.4, 0.2, 16.);
-
+					          "plastCPV", gGeoManager->GetMedium(fImedSci), 4.4, 0.2, 16.);
+					      //"plastCPV", gGeoManager->GetMedium(fImedSci), 4.4, 0.2, 4.4);
+					      
   double distGant = 14.6 / 2. + 0.4 + 0.5 + 24.5 / 2.;
   double distCPV = 14.6 / 2. + 0.2;
   distCPV = TMath::Sqrt(distCPV * distCPV + 0.7 * 0.7);
   double dphiCPV = TMath::ATan(0.7 / 14.6) * 180. / TMath::Pi();
 
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 1; i++) {
     TGeoRotation *rot =
         new TGeoRotation(Form("rot%d", i + 1), i * 240., -90., i * 240.);
-    // 3 GsNT modules
+    // 3 GNT modules
     for (int iz = 0; iz < 3; iz++) {
       top->AddNode(singleGantNaI, i * 3 + 1 + iz,
                    new TGeoCombiTrans(
@@ -320,11 +342,16 @@ void Ex01MCApplication::ConstructVolumes() {
       24. / 2.);
 
   insideSingleGantBGO->AddNode(
-      crystallBGO, 1, new TGeoTranslation(0., 0., -(24. / 2. - 6.9 / 2.)));
+      crystallBGO, 1, new TGeoTranslation(0., 0., -(24. / 2. - 6.9 / 2. - fPreshowerThickness)));
+  if (fPreshowerThickness > 0.) {
+    insideSingleGantBGO->AddNode(
+        preshower, 1, new TGeoTranslation(0., 0., -(24. / 2. - fPreshowerThickness / 2.)));
+  }
+
   singleGantBGO->AddNode(insideSingleGantBGO, 1,
                          new TGeoTranslation(0., 0., 0.));
 
-  for (int i = 3; i < 6; i++) {
+  for (int i = 3; i < 0; i++) {
     TGeoRotation *rot =
         new TGeoRotation(Form("rot%d", i + 1), 120. + (i - 3) * 240., 90.,
                          120. + (i - 3) * 240.);
@@ -482,7 +509,7 @@ void Ex01MCApplication::InitMC(const char *setup) {
   fPythia->init();
 
   // trigger thresholds
-  fCPVThreshold = 0.0008;
+  fCPVThreshold = 0.0006;
   fSFThreashold = 0.0007;
 
   // read PDG code from environment
@@ -825,186 +852,23 @@ void Ex01MCApplication::FinishEvent() {
   hEnDepInSF->Fill(fEnDepInSF);
 
   // trigger condition
-  bool isCPVTriggered = false;
+  bool isCPVTriggered[6];
   for (int i = 0; i < 6; i++) {
+    isCPVTriggered[i] = false;
     if (fEnDepInCPV[i] >= fCPVThreshold)
-      isCPVTriggered = true;
+      isCPVTriggered[i] = true;
   }
-  if (!isCPVTriggered && fEnDepInSF < fSFThreashold) {
-    for (int i = 0; i < 9; i++) {
+  for (int i = 0; i < 9; i++) {
+    if (!isCPVTriggered[i / 3]) {
       hMesEnInNaITriggered[i]->Fill(measuredE(fEnDepInNaI[i], kNaI));
       hEnDepInNaITriggered[i]->Fill(fEnDepInNaI[i]);
+    }
+    if (!isCPVTriggered[i / 3 + 3]) {
       hMesEnInBGOTriggered[i]->Fill(measuredE(fEnDepInBGO[i], kBGO));
       hEnDepInBGOTriggered[i]->Fill(fEnDepInBGO[i]);
     }
-    hSumEnDepInBGOTriggered->Fill(sumEnBGO);
-    hSumEnDepInNaITriggered->Fill(sumEnNaI);
   }
 }
 
 //_____________________________________________________________________________
-void Ex01MCApplication::TestVMCGeometryGetters() {
-  /// Test (new) TVirtualMC functions:
-  /// GetTransform(), GetShape(), GetMaterial(), GetMedium()
 
-  // Get transformation of 10th layer
-  //
-  TString volPath = "/EXPH_1/CALB_1/LAYB_9";
-  TGeoHMatrix matrix;
-  Bool_t result = gMC->GetTransformation(volPath, matrix);
-  if (result) {
-    cout << "Transformation for " << volPath.Data() << ": " << endl;
-    matrix.Print();
-  } else {
-    cerr << "Volume path " << volPath.Data() << " not found" << endl;
-  }
-  cout << endl;
-
-  volPath = "/EXPH_1/CALB_1/LAYB_100";
-  result = gMC->GetTransformation(volPath, matrix);
-  if (result) {
-    cout << "Transformation for " << volPath.Data() << ": " << endl;
-    matrix.Print();
-  } else {
-    cerr << "Volume path " << volPath.Data() << " not found" << endl;
-  }
-  cout << endl;
-
-  volPath = "/EXPH_1/CALB_1/LAYB_9";
-  result = gMC->GetTransformation(volPath, matrix);
-  if (result) {
-    cout << "Transformation for " << volPath.Data() << ": " << endl;
-    matrix.Print();
-  } else {
-    cerr << "Volume path " << volPath.Data() << " not found" << endl;
-  }
-  cout << endl;
-
-  // Get shape
-  //
-  volPath = "/EXPH_1/CALB_1/LAYB_9";
-  TString shapeType;
-  TArrayD par;
-  result = gMC->GetShape(volPath, shapeType, par);
-  if (result) {
-    cout << "Shape for " << volPath.Data() << ": " << endl;
-    cout << shapeType.Data() << "  parameters: ";
-    for (Int_t ipar = 0; ipar < par.GetSize(); ipar++)
-      cout << par.At(ipar) << ",  ";
-    cout << endl;
-  } else {
-    cerr << "Volume path " << volPath.Data() << " not found" << endl;
-  }
-  cout << endl;
-
-  // Get material by material ID
-  //
-  TString matName;
-  Int_t imat = 2;
-  Double_t a, z, density, radl, inter;
-  TArrayD mpar;
-#if ROOT_VERSION_CODE >= ROOT_VERSION(5, 30, 0)
-  result = gMC->GetMaterial(imat, matName, a, z, density, radl, inter, mpar);
-  if (result) {
-    cout << "Material with ID " << imat << ": " << endl;
-    cout << matName.Data() << "  Aeff = " << a << "  Zeff = " << z
-         << "  density = " << density << "  radl = " << radl
-         << "  inter = " << inter << endl;
-    if (mpar.GetSize() > 0) {
-      cout << " User defined parameters: ";
-      for (Int_t ipar = 0; ipar < par.GetSize(); ipar++)
-        cout << mpar.At(ipar) << ",  ";
-      cout << endl;
-    }
-  } else {
-    cerr << "Material with ID " << imat << " not found" << endl;
-  }
-  cout << endl;
-#endif
-
-  // Get material by volume name
-  //
-  TString volName = "LAYB";
-  mpar.Set(0);
-  result = gMC->GetMaterial(volName, matName, imat, a, z, density, radl, inter,
-                            mpar);
-  if (result) {
-    cout << "Material for " << volName.Data() << " volume: " << endl;
-    cout << matName.Data() << "  " << imat << "  Aeff = " << a
-         << "  Zeff = " << z << "  density = " << density << "  radl = " << radl
-         << "  inter = " << inter << endl;
-    if (mpar.GetSize() > 0) {
-      cout << " User defined parameters: ";
-      for (Int_t ipar = 0; ipar < par.GetSize(); ipar++)
-        cout << mpar.At(ipar) << ",  ";
-      cout << endl;
-    }
-  } else {
-    cerr << "Volume " << volName.Data() << " not found" << endl;
-  }
-  cout << endl;
-
-  // Get medium
-  //
-  TString medName;
-  Int_t imed, nmat, isvol, ifield;
-  Double_t fieldm, tmaxfd, stemax, deemax, epsil, stmin;
-  result = gMC->GetMedium(volName, medName, imed, nmat, isvol, ifield, fieldm,
-                          tmaxfd, stemax, deemax, epsil, stmin, mpar);
-  if (result) {
-    cout << "Medium for " << volName.Data() << " volume: " << endl;
-    cout << medName.Data() << "  " << imed << "  nmat = " << nmat
-         << "  isvol = " << isvol << "  ifield = " << ifield
-         << "  fieldm = " << fieldm << "  tmaxfd = " << tmaxfd
-         << "  stemax = " << stemax << "  deemax = " << deemax
-         << "  epsil = " << epsil << "  stmin = " << stmin << endl;
-    if (mpar.GetSize() > 0) {
-      cout << " User defined parameters: ";
-      for (Int_t ipar = 0; ipar < par.GetSize(); ipar++)
-        cout << mpar.At(ipar) << ",  ";
-      cout << endl;
-    }
-  } else {
-    cerr << "Volume " << volName.Data() << " not found" << endl;
-  }
-  cout << endl;
-
-  // Test getters non-existing position/volume
-  //
-
-  // Transformation
-  volPath = "/EXPH_1/CALB_1/LAYB_100";
-  result = gMC->GetTransformation(volPath, matrix);
-  cout << "GetTransformation: Volume path " << volPath.Data();
-  if (!result)
-    cout << " not found" << endl;
-  else
-    cout << " found" << endl;
-
-  // Shape
-  result = gMC->GetShape(volPath, shapeType, par);
-  cout << "GetShape: Volume path " << volPath.Data();
-  if (!result)
-    cout << " not found" << endl;
-  else
-    cout << " found" << endl;
-
-  // Material
-  volName = "XYZ";
-  result = gMC->GetMaterial(volName, matName, imat, a, z, density, radl, inter,
-                            mpar);
-  cout << "GetMaterial: Volume name " << volName.Data();
-  if (!result)
-    cout << " not found" << endl;
-  else
-    cout << " found" << endl;
-
-  // Medium
-  result = gMC->GetMedium(volName, medName, imed, nmat, isvol, ifield, fieldm,
-                          tmaxfd, stemax, deemax, epsil, stmin, mpar);
-  cout << "GetMedium: Volume name " << volName.Data();
-  if (!result)
-    cout << " not found" << endl;
-  else
-    cout << " found" << endl;
-}
