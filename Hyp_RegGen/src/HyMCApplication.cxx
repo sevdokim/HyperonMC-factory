@@ -485,6 +485,7 @@ void HyMCApplication::GeneratePrimaries() {
   }
   if (fDebug == 2)
     cout << "generating 1 interaction" << endl;
+  // pass exchannel to RegGen (used for hyp_carlo simulation)
   istOut = fExChanel;
   reggen_event_(&FlBeam, &nTries, &iError, &fortran_seed, &jRec, &istOut,
                 &pout[0][0]);       // generate 1 event

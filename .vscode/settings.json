@@ -1,5 +1,5 @@
 {
-  "cmake.sourceDirectory": "/home/evdokimov/hyperon/HyperonMC-factory/HypMC/hyperoot",
+  "cmake.sourceDirectory": "/home/evdokimov/hyperon/HyperonMC-factory/Hyp_RegGen",
   "cmake.configureArgs": [
     "-DPYTHIA8=/home/evdokimov/mysw/INSTALL/pythia8"
   ],

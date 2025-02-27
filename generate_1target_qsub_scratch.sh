@@ -147,11 +147,11 @@ then
 	echo 'you asked to skip full simulation and MC_res.dat exists... So skipping...'
     else
 	echo 'you asked to skip full simulation. Hovewer MC_res.dat does not exist. So I start full simulation.'
-	root -b -q load_g3.C run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
+	root -b -q load_g3.C run_g3_control.C\($TARGET,$EVENTNUMBER,$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
 	did_production=yes
     fi
 else
-    root -b -q load_g3.C run_g3_control.C\($TARGET,$EVENTNUMBER,\"\",$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
+    root -b -q load_g3.C run_g3_control.C\($TARGET,$EVENTNUMBER,$EXTARGET,$EXRESON,$EXCHANEL,$CONTROL,$SEED\) >& log_production; #do a full simulation
     did_production=yes
 fi
 if [ $did_production = yes ] ; then
