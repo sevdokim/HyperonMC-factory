@@ -14,7 +14,7 @@ echo "Job started at " $(date)
 
 # Read config of the simulation
 THIS_THREAD_PATH=$PBS_O_WORKDIR
-if [ ! -z $THIS_THREAD_PATH ] ; then
+if [ -z $THIS_THREAD_PATH ] ; then
     THIS_THREAD_PATH=.
 fi
 if ls $THIS_THREAD_PATH/shell_env.sh >& /dev/null ; then
@@ -93,6 +93,7 @@ echo 'starting simulation...'
 # environment
 source $MACRODIR/env.sh
 LD_LIBRARY_PATH=$MCDIR/lib/:$LD_LIBRARY_PATH
+LD_LIBRARY_PATH=~/lib/:$LD_LIBRARY_PATH
 
 if [ -z ${SCRATCH+x} ] ; then
     SCRATCH="/scratch"

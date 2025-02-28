@@ -1,7 +1,8 @@
 *.[oa]
 *~
 *#*
-lib/
-tmp/
+lib
+lib64
+tmp
 build_Hyp_RegGen
 build
