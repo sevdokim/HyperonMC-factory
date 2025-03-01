@@ -13,6 +13,8 @@ OBJFPE  = trapfpe.o
 #F77LIBS = `cernlib packlib`
 #F77LIBS = -L/usr/local/lib -lcrypt -lnsl -L/usr/lib/x86_64-linux-gnu/libkernlib.so -L/usr/lib/x86_64-linux-gnu/libmathlib.so
 F77LIBS = -L/usr/local/lib -lcrypt -L/usr/lib/x86_64-linux-gnu/libkernlib.so -L/usr/lib/x86_64-linux-gnu/libmathlib.so
+#F77LIBS = -L/usr/local/lib -lcrypt -static -lmathlib -lpacklib -lkernlib
+#F77LIBS = -L/usr/local/lib -static -lmathlib -lpacklib -lkernlib
 EXE     = ../../lib/libRegGen.so
 
 
@@ -31,7 +33,7 @@ all:	$(EXE)
 #	$(F77) -o $(SOLIB) -shared $(OBJGEN)
 
 $(EXE): $(OBJMAIN) $(OBJGEN)
-	$(F77) -o $(EXE) -shared $(OBJGEN) $(OBJFPE) $(F77LIBS)
+	$(F77) -no-pie -o $(EXE) -shared $(OBJGEN) $(OBJFPE)
 
 clean:	
 	rm -f $(EXEC) $(OBJGEN) $(OBJMAIN) $(SOLIB) 

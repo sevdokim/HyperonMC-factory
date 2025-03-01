@@ -32,7 +32,8 @@ void run_g3_control(Int_t targMaterial = 0, Int_t nev = 1000000,
 
   // Initialize MC
   appl->InitMC(configMacro);
-
+  return;
+  
   gMC->SetCollectTracks(kFALSE);
   // Run MC  appl->SetHistosRoot("histos_0.root");
   appl->SetMCResults("MC_res.dat");

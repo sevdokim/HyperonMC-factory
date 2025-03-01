@@ -94,7 +94,7 @@ do
 		echo  HYMC_CONFIG_DEFINED =  $HYMC_CONFIG_DEFINED
 		echo 'CONTROL             =' $CONTROL
 		echo 'unic code           =' $UNIC_CODE
-		source generate_nov08_be79mm_pi0.sh
+		source generate_production.sh
 	    done
 	done
     done

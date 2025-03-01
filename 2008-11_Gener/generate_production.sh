@@ -47,6 +47,14 @@ if [ $(uname -n) = "evdokimov03" ]; then
     IHEP_QUEUE=thislaptop
     SCRATCH=""
 fi
+# evdokimov03 environment (local testing) 
+if [ $(uname -n) = "alice21" ]; then
+    MCDIR=~/hyperon/HyperonMC-factory/
+    WD=~/hyperon/mc/RegGen/$PRODUCTION_NAME/
+    IHEP_QUEUE=debug
+    SCRATCH="/data1/evdokimov/scratch/"
+fi
+
 
 export REGGEN_CARDS=$MCDIR/${PERIOD}_Gener/RegGen_$MESON.cards                  #name of RegGen.cards
 export MACRODIR=$MCDIR/Hyp_RegGen/                                              #name of MC tool directory
