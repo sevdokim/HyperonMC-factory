@@ -34,11 +34,12 @@ else
     export CONVERT_ONLY=yes                       # yes or no
     export EXTARGET=0                             #exclusive target (1=S4, 2=target, 3=Sa, 0=all of them)
 fi
-# IHEP cluster environment
+# IHEP cluster environment (default)
 export MCDIR=/afs/ihep.su/user/s/sevdokim/HyperonMC-factory/  #name of top MC directory
 export WD=/lustre/ihep.su/data/hyperon/HYPERON_MC/evdokimov/2008-11_Gener/$PRODUCTION_NAME/
 if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=ihep-short ; fi
 export SCRATCH="/scratch"
+export USER_GROUP=":hyperon"
 
 # evdokimov03 environment (local testing)
 if [ $(uname -n) = "evdokimov03" ]; then
@@ -46,6 +47,7 @@ if [ $(uname -n) = "evdokimov03" ]; then
     WD=~/hyperon/mc/RegGen/$PRODUCTION_NAME/
     IHEP_QUEUE=thislaptop
     SCRATCH=""
+    export USER_GROUP=":evdokimov"
 fi
 # evdokimov03 environment (local testing) 
 if [ $(uname -n) = "alice21" ]; then
@@ -53,6 +55,7 @@ if [ $(uname -n) = "alice21" ]; then
     WD=~/hyperon/mc/RegGen/$PRODUCTION_NAME/
     IHEP_QUEUE=debug
     SCRATCH="/data1/evdokimov/scratch/"
+    export USER_GROUP=":evdokimov"
 fi
 
 

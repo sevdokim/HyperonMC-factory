@@ -18,7 +18,7 @@ if [ -z $THIS_THREAD_PATH ] ; then
     THIS_THREAD_PATH=.
 fi
 if ls $THIS_THREAD_PATH/shell_env.sh >& /dev/null ; then
-    for var in WD MCDIR ANCHORS SUFFIX CONTROL PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH FILELIST CONVERT_ONLY SEED EXTARGET EXRESON EXCHANEL PERIOD NTHREADS PATH MESON PERIOD_PRFX PWD EVENTNUMBER TGT_PRFX MACRODIR PROBABILITY_SA TARGET MCRUNSDIR THICKNESS_S4 REGGEN_CARDS PROBABILITY_S4 PROBABILITY_TARG PROBABILITY_SA DELTA_S4 DELTA_SA THICKNESS_S4 DELTA_TARGET H2S_TABLE EFFICIENCY_SA SCRATCH
+    for var in WD MCDIR ANCHORS SUFFIX CONTROL PRODUCTION_NAME UNIC_CODE LD_LIBRARY_PATH FILELIST CONVERT_ONLY SEED EXTARGET EXRESON EXCHANEL PERIOD NTHREADS PATH MESON PERIOD_PRFX PWD EVENTNUMBER TGT_PRFX MACRODIR PROBABILITY_SA TARGET MCRUNSDIR THICKNESS_S4 REGGEN_CARDS PROBABILITY_S4 PROBABILITY_TARG PROBABILITY_SA DELTA_S4 DELTA_SA THICKNESS_S4 DELTA_TARGET H2S_TABLE EFFICIENCY_SA SCRATCH USER_GROUP
     do
 	for val in $(grep "$var=" $THIS_THREAD_PATH/shell_env.sh) ; do
 	    if [ ! -z $val ] ; then 
@@ -40,6 +40,7 @@ if [ -z $SEED ];        then  export SEED=0;          fi;
 #$(cat /dev/urandom | tr -dc '0-9' | head --bytes 8) ;  fi; # true random 
 if [ -z $TARGET ];      then  export TARGET=2;        fi;
 if [ -z $EVENTNUMBER ]; then  export EVENTNUMBER=100; fi;
+if [ -z $USER_GROUP ]; then export USER_GROUP=":hyperon"; fi;
 #
 # without those variables simulation is not possible
 if [ -z $WD ];          then  
@@ -197,9 +198,9 @@ if [ -f MC_res.dat ] ; then
 	        rm -vf log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root
 	    fi
 	    chmod a+r $MCRUNSDIR/Run${SEED}.gz
-        chown -R :hyperon $MCRUNSDIR/
-	    chmod -R a+r .
-	    chown -R :hyperon .
+        chown -R $USER_GROUP $MCRUNSDIR/
+	chmod -R a+r .
+	chown -R $USER_GROUP .
         REMOVE_LOG_PRODUCTION=yes
     fi
 else
@@ -210,7 +211,7 @@ fi
 if [ ! $CONVERT_ONLY = yes ] ; then
     mkdir -p $WD/$SUFFIX
     cp -a * $WD/$SUFFIX
-    chown -R :hyperon $WD/$SUFFIX
+    chown -R $USER_GROUP $WD/$SUFFIX
     if [ $REMOVE_LOG_PRODUCTION = yes ] ; then
 	    rm -vf $WD/$SUFFIX/log_production
     fi

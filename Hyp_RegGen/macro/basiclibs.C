@@ -35,8 +35,8 @@ void basiclibs() {
   gSystem->Load("libGeom");
   gSystem->Load("libPhysics");
   gSystem->Load("libTree");
-  if (isLibrary("libVMCLibrary")) {
+  if (isLibrary("libVMC")) {
     // VMC library in ROOT (optional)
-    gSystem->Load("libVMCLibrary");
+    gSystem->Load("libVMC");
   }
 }

@@ -23,6 +23,12 @@ if [ $(uname -n) = "evdokimov03" ] ; then
     scratch=""
     IHEP_QUEUE=thislaptop
 fi
+if [ $(uname -n) = "alice21" ] ; then
+    MCDIR=/home/evdokimov/hyperon/HyperonMC-factory/
+    WD=/home/evdokimov/hyperon/mc/py8_production/$PERIOD/$PRODUCTION_NAME/
+    scratch=""
+    IHEP_QUEUE=debug
+fi
 export MACRODIR=$MCDIR/Hyp_py8/source                         #name of MC tool directory
 export ANCHORS=$MCDIR/py8_production/${PERIOD}/
 export MCRUNSDIR=$WD/MCruns/

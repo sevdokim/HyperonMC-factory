@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l ncpus=1
-#PBS -l vmem=4000mb
+#PBS -l vmem=2000mb
 #PBS -V
 
 # ^^^ qbatch system requirements.

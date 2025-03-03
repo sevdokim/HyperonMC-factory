@@ -1,7 +1,7 @@
 #!/bin/bash
 #
     export EVENTNUMBER=100000                     # Total event number to be generated per 1 production thread  
-    export NTHREADS=20                             # total number of production threads   
+    export NTHREADS=10                             # total number of production threads   
     export PERIOD=2008-11                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
     export PERIOD_PRFX=nov08_                      # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #    export CONVERT_ONLY=yes                        # yes or no 
