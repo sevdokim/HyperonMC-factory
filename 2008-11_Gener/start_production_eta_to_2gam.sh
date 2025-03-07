@@ -44,7 +44,7 @@ do
         *)          EXTARGET=0 ; cond=0 ;;
     esac
     # for MES in pi0 eta omg f2 2pi0 K0   f0
-    for MES in 2pi0 #f2 #omg #eta f2 2pi0 K0 # f0
+    for MES in eta #f2 #omg #eta f2 2pi0 K0 # f0
     do 	
 	case "$MES" in
             "pi0")     n=1 ;;
@@ -54,9 +54,7 @@ do
             "f2")      n=5 ;;
             "2pi0")    n=6 ;;
             "f0")      n=7 ;;
-            "etap")    n=8 ;;
-	    "a0980")   n=9 ;;
-	    "a21320")  n=10;;
+            "rho0")    n=8 ;;
             *)         n=0 ;;
 	esac
 	export MESON=$MES
@@ -77,15 +75,15 @@ do
 		*)          export THICKNESS_S4=6.000  ;; #default value (6mm) 
 	    esac
 
-	    for mass in 0 #c is control parameter 
+	    for mass in 0 #c is control parameter for omg width 
 	    do
 		#MESON=${MES}_${HYCONDITION}_width${width}MeV
 		MESON=${MES}
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
 		export TGT_PRFX=$TGTPRFX
 		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export EXCHANEL=1 # 2pi0
-		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_${HYCONDITION}
+		export EXCHANEL=1 # eta -> 2gam
+		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_to_2gam_${HYCONDITION}
 		export HYMC_CONFIG_DEFINED=yes
 		export CONTROL=$mass
 		echo " "

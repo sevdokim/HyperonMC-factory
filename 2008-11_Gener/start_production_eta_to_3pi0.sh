@@ -82,7 +82,7 @@ do
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
 		export TGT_PRFX=$TGTPRFX
 		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export EXCHANEL=2 # eta -> 2pi0
+		export EXCHANEL=2 # eta -> 3pi0
 		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_to_3pi0_${HYCONDITION}
 		export HYMC_CONFIG_DEFINED=yes
 		export CONTROL=$mass

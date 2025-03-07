@@ -44,7 +44,7 @@ do
         *)          EXTARGET=0 ; cond=0 ;;
     esac
     # for MES in pi0 eta omg f2 2pi0 K0   f0
-    for MES in 2pi0 #f2 #omg #eta f2 2pi0 K0 # f0
+    for MES in etap #f2 #omg #eta f2 2pi0 K0 # f0
     do 	
 	case "$MES" in
             "pi0")     n=1 ;;
@@ -84,8 +84,8 @@ do
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
 		export TGT_PRFX=$TGTPRFX
 		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export EXCHANEL=1 # 2pi0
-		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_${HYCONDITION}
+		export EXCHANEL=2 # etap -> eta2pi0
+		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_to_eta2pi0_${HYCONDITION}
 		export HYMC_CONFIG_DEFINED=yes
 		export CONTROL=$mass
 		echo " "

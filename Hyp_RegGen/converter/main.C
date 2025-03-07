@@ -22,53 +22,62 @@ double Ecorr(double x) {
 int main(int Npar, char *par[]) {
   FILE *input;
   char string[40000];
+  char inputFileName[300];
   int RunNumber, Nev_to_proceed = -1;
   if (Npar == 1 || Npar > 4) {
     cerr << "This is MC format to Hyperon format data converter." << endl;
     cerr << "Type 'h' for help, any else char to continue." << endl;
     cin >> string;
-    if (string[0] == 'h')
-      cout << "try ./exe -help\n";
+    if (string[0] == 'h') {
+      cout << "try " << par[0] << " -h\n";
+      cerr << "========Usage========" << endl
+	   << "1st argument - MC data file to convert" << endl
+	   << "2nd argument - run number" << endl
+	   << "3rd argument - N of events to proceed (optional)" << endl;
+      return 0;
+    }
     cerr << "Type input file name" << endl;
-    cin >> string;
+    cin >> inputFileName;
     cerr << "Type run number" << endl;
     cin >> RunNumber;
   }
   if (Npar == 2) {
-    cerr << "\n========Usage========\n1st argument - MC data file to convert"
-         << endl;
-    cerr << "2nd argument - run number\n" << endl;
-    cerr << "3rd argument - N of events to proceed\n" << endl;
-    return 0;
+    cerr << "========Usage========" << endl
+	 << "1st argument - MC data file to convert" << endl
+	 << "2nd argument - run number" << endl
+	 << "3rd argument - N of events to proceed (optional)" << endl;
+    return 1;
   }
   if (Npar == 3) {
-    sprintf(string, par[1]);
+    sprintf(inputFileName, par[1]);
     RunNumber = atoi(par[2]);
   }
   if (Npar == 4) {
-    sprintf(string, par[1]);
+    sprintf(inputFileName, par[1]);
     RunNumber = atoi(par[2]);
     Nev_to_proceed = atoi(par[3]);
   }
-  input = fopen(string, "r");
+  input = fopen(inputFileName, "r");
   if (!input) {
-    cerr << "Can't open file " << string << endl;
-    return 0;
+    cerr << "Can't open file " << inputFileName << endl;
+    return 2;
   }
   // printf(string);
   float e[640];
   bool old_version = false, first_time = true;
   double energy_dep[100][640];
   double initial_photon_energy[100];
-  int i, j, PhotonNumber = 0, fin;
+  int i, j, PhotonNumber = 0, fin = -1;
   int ieve = 0; // event number (will be written as time)
   while (fscanf(input, "%c", &string[0]) != EOF) {
+    // guess format from data
     if (first_time) {
       if (string[0] == '#')
         old_version = true;
       first_time = false;
     }
-    if (old_version) { // old format version
+    if (old_version) {
+      // ========= old format version =============
       if (string[0] == '#') {
 
         for (i = 0; i < PhotonNumber; i++)
@@ -94,12 +103,19 @@ int main(int Npar, char *par[]) {
       }
       PhotonNumber++;
 
-    } else { // new format version
+    } else {
+      // ========== new format version ==============
       // printf("%c",string[0]);
       if (string[0] == 'b') {
-        fscanf(input, " %d", &ieve); /*printf("%d\n",ieve);*/
+        int retVal = fscanf(input, " %d", &ieve);
+	if (retVal == EOF) {
+	  cerr << "Format error in file " << inputFileName << endl;
+	  return 3;
+	}
+	// printf("%d\n",ieve);
       }
-      if (string[0] == '#') {
+      if (string[0] == '#') { // beginning of new event
+	// write previous event to gz file
         for (i = 0; i < PhotonNumber; i++)
           for (j = 0; j < 640; j++) {
             e[j] += energy_dep[i][j] * 1.159;
@@ -112,13 +128,16 @@ int main(int Npar, char *par[]) {
         for (j = 0; j < 640; j++)
           e[j] = 0;
         PhotonNumber = 0;
-        fscanf(input, " %d", &ieve);
+	// read event number of new event
+        int retVal = fscanf(input, " %d", &ieve);
         // printf("\# %d\n", ieve );
         continue;
       }
       j = fin;
-      fscanf(input, " %lf %d ", &initial_photon_energy[PhotonNumber], &fin);
-
+      int retVal = fscanf(input, " %lf %d ", &initial_photon_energy[PhotonNumber], &fin);
+      if (retVal == EOF) {
+	continue;
+      }
       // printf("%lf %d\n", initial_photon_energy[PhotonNumber],fin);
       while (fin >= 0) {
         // if(initial_photon_energy[PhotonNumber]<0.000001) {
