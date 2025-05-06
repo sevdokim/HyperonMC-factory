@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 export EVENTNUMBER=100000 # Total event number to be generated per 1 production thread
-export NTHREADS=200        # total number of production threads   
-export HYMC_ISTART=100     # starting value of production index (e.g. 20,21,22,...,20+$NTHREADS)
+export NTHREADS=100        # total number of production threads   
+export HYMC_ISTART=0     # starting value of production index (e.g. 20,21,22,...,20+$NTHREADS)
 export PERIOD=2008-11     # Hyperon Runs (2007-11, ... -- 15 runs in total) 
 export PERIOD_PRFX=nov08_ # Period prefix for files:  file_list.dat ==> file_list_nov08.dat  
 #export CONVERT_ONLY=yes   # yes or no 
@@ -45,7 +45,7 @@ do
         *)          EXTARGET=0 ; cond=0 ;;
     esac
     # for MES in pi0 eta omg f2 2pi0 K0   f0
-    for MES in 2pi0 #f2 #omg #eta f2 2pi0 K0 # f0
+    for MES in etapi0 #f2 #omg #eta f2 2pi0 K0 # f0
     do 	
 	case "$MES" in
             "pi0")     n=1 ;;
@@ -53,7 +53,8 @@ do
             "omg")     n=3 ;;
             "K0")      n=4 ;;
             "f2")      n=5 ;;
-            "2pi0")    n=6 ;;
+            "2pi0")    n=6 ;; #nreson = 6 exchanel = 1
+	    "etapi0")  n=6 ;; #nreson = 6 exchanel = 2
             "f0")      n=7 ;;
             "etap")    n=8 ;;
 	    "a0980")   n=9 ;;
@@ -85,7 +86,7 @@ do
 		UNIC_CODE=$[ $cond*1000000+ $n*100000 + $mass*10 ]
 		export TGT_PRFX=$TGTPRFX
 		export PRODUCTION_NAME=$PERIOD_PRFX$TGT_PRFX  # production name
-		export EXCHANEL=1 # 2pi0
+		export EXCHANEL=2 # etapi0 to 4gam
 		export PRODUCTION_NAME=${PRODUCTION_NAME}_${MES}_${HYCONDITION}
 		export HYMC_CONFIG_DEFINED=yes
 		export CONTROL=$mass

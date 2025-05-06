@@ -99,8 +99,10 @@ echo 'Medium of the main target               = ' $TARGET
 echo '(2=Be, 10=C, 3=Al, 9=Cu, 8=Sn, 7=Pb, 11=polyethylen)' 
 echo
 #
-
-i=0
+if [ -z $HYMC_ISTART ] ; then
+    HYMC_ISTART=0
+fi
+i=$HYMC_ISTART
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do

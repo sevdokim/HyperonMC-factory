@@ -1754,7 +1754,7 @@ C
       Integer ExTarget, ExReson, ExChanel
 C-    data    ExTarget, ExReson, ExChanel  / 3, 4, 1/ !  The main parameters for f2 exclusive channel 
       data    ExTarget, ExReson, ExChanel  / 3, 6, 1/ !  The main parameters for omg exclusive channel
-      data Mtarget,Mgamma,Mreson  / 3, 9, 10 /        !  3 targets, 9 photons maximum, 9 resonanses (yet) 
+      data Mtarget,Mgamma,Mreson  / 3, 9, 10 /        !  3 targets, 9 photons maximum, 10 resonanses (yet) 
 C     data Ptarget  /  1. 0, 1.0, 1.0, 0.0, 6*0. /    !  Target probability
 C     data Preson   /  0.14124, 0.02401, 0.03107, 0.05367, 
 C     +                         0.74576, 0.00423, 0.057, 3*0./        !  Resonans probability
@@ -1768,11 +1768,12 @@ C-    data Mchanel  /     1,   2,   1,   1,   1,  1,  1, 1, 1, 0 /    !  Decay c
      3     1.0, 0.0, 0.0, 0.0,   6*0.0, !  omg /omg->pi0Y->3Y, omg->3pi0, omg->2pi0, omg->etapi0/
      4     1.000, 1.000, 8*0.0, !  K0 /K0s->2pi0->4Y, K0s->pi+pi-/
      5     1.000, 9*0.0,        !  f2 /f2->2pi0->4Y/
-     6     1.000, 9*0.0,        !  2pi0 /2pi0->4Y/
-     7     1.000, 9*0.0,        !  f0 /f0->2pi0->4Y/
+     6     1.000, 9*0.0,        !  2pi0 /2pi0->4Y/ or etapi0 -> 2gam
+c     7     1.000, 9*0.0,        !  f0 /f0->2pi0->4Y/
+     7     1.000, 9*0.0,        !  eta(1295) -> eta(2Y)pi0pip0
 c     8                1.000, 9*0.0,                              !  pi0 /pi0->2Y/ for MC Z-scale calibration
 C     9                1.000, 9*0.0,                              !  eta /eta->2Y/ for MC Z-scale calibration
-     8     2.307, 8.96,  8*0.0, !  eta' /eta'->2Y, eta'->pi0pi0eta(2Y)/                                                                                                       
+     8     2.307, 8.96,  8*0.0, !  eta' /eta'->2Y, eta'->pi0pi0eta(2Y), eta'->3pi0->6Y, eta'->2pi0->4Y/
      9     1.000, 9*0.0,        !  a0(980) /a0->etapi0/                 
      +     1.000, 9*0.0  / !  a2(1320)->etapi0
       data CtauK0     / 2.6844  /                                 !  C*lifetime(K0s)
@@ -1788,10 +1789,10 @@ C
 C      
       data  WidOmg, 	Widf0,	  Widf2,    WidRho0    !  Widths of resonances in MeV 
      +/      8.490,     350.0,	  186.7,    151.7 /  
-      data AmEtaP,  AmA0980, AmA21320  ! Mass in GeV
-     +/    0.95778, 1.0,     1.318 /
-      data WidEtaP,  WidA0980, WidA21320  ! Width in GeV
-     +/    0.000198, 0.1,      0.107 /
+      data AmEtaP,  AmA0980, AmA21320, AmEta1295  ! Mass in GeV
+     +/    0.95778, 1.0,     1.318,    1.294 /
+      data WidEtaP,  WidA0980, WidA21320, WidEta1295  ! Width in GeV
+     +/    0.000198, 0.1,      0.107,     0.055 /
 C---------------------------------------------------------------------------------   
 C
       if(Nreson.gt.Mreson) then
@@ -2281,30 +2282,49 @@ c        write(*,*) 'gamma ',j,': (px py pz e) = (',Pgamma(1,j),Pgamma(2,j), Pga
       endif
                                                                                               
 C                                                                                             
-      if (Nreson.eq.6) then                         !  Resonance 6 - 2pi0 
+      if (Nreson.eq.6) then                         !  Resonance 6 - 2pi0 or etapi0 
          Pc(5) = Pgamma(1,0)*0.001                        ! read mass from control parameter
          if (Pc(5).le.0.) then
-c 854        R1=REGRNDM(0)                                                                        
+ 854        R1=REGRNDM(0)                                                                        
 c            R2=REGRNDM(0)       !                                           
-c     FF=Double_Mass_distr_2pi0(R1*2100.) !  M.Stolpovsky mass distribution   
-c            FF=Double_Mass_distr_2pi0(R1*2750.) !  M.Stolpovsky mass distribution                                                                                               
+c     FF=Double_Mass_distr_2pi0(R1*2100.) !  M.Stolpovsky mass distribution
+c            FF=Double_Mass_distr_2pi0(R1*2750.) !  M.Stolpovsky mass distribution
 c            if((R2*800.).gt.FF) go to 854 
 c     Pc(5) =  R1 * 2.750                 !
 c     if (Pc(5).le.(2.*Ampi0)) goto 854
-C                                                               
-C         Pc(5) = 0.270 + 2.480*R1                   !  ===> Uniform distribution up 2.5
-            call S_pi0pi0(pi02_m)
-            Pc(5) = pi02_m
+C
+            if (Nchanel.eq.1) then
+               Pc(5) = 0.270 + 2.23*R1 !  ===> Uniform distribution up 2.5
+            endif
+            if (Nchanel.eq.2) then
+            Pc(5) = AmPi0 + AmEta + R1 * (2.5 - AmPi0 - AmEta) !  ===> Uniform from thrh up 2.5 GeV)
+            endif
+c     call S_pi0pi0(pi02_m)   ====> S-wave from GAMS4000, beam momentum = 100GeV/c
+c            Pc(5) = pi02_m
          endif
-         P1(5) = Ampi0                              !       but actually due to t & MisMs                                          
-         P2(5) = Ampi0                              !       this is not unifomdistribution                                          
- 855     call reaction(Nreson, T, Pd(5))
-C-	                          Pd(5) = 0.938272  !  proton mass                                               
-         call abtocds(Pa,Pb(5),Pc,Pd,T)  	 
+         if (Nchanel.eq.1) then
+            P1(5) = Ampi0       !       but actually due to t & MisMs
+            P2(5) = Ampi0       !       this is not unifomdistribution
+         endif
+         if (Nchanel.eq.2) then
+            P1(5) = AmEta
+            P2(5) = Ampi0
+         endif
+c     try to generate t & missing mass for current mass of 2pi0 system
+         ntries=0
+ 855     ntries=ntries+1
+         if (ntries.gt.100000) then
+            write(*,*) 'RegGen: cannot generate suitable T & mis mass'
+            write(*,*) 'for M(2pi0) = ', Pc(5), ' GeV. Giving up.'
+            goto 854
+         endif
+         call reaction(Nreson, T, Pd(5))
+C-	                          Pd(5) = 0.938272  !  proton mass
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
 	 if (T.gt.0) go to 855                                                     
          call decays(Pc, P1, P2)                                                                
 C                                                                                             
-         if (Nchanel.eq.1) then                     !  Excl. channel 2pi0                     
+         if (Nchanel.eq.1.or.NChanel.eq.2) then                     !  Excl. channel 2pi0 -> 4gam or etapi0->4gam                     
            call decays(P1, Pgamma(1,1), Pgamma(1,2))                                          
            call decays(P2, Pgamma(1,3), Pgamma(1,4))                                          
            Ngamma = 4                                                                         
@@ -2320,24 +2340,47 @@ C
       endif                                                                                   
 C                                         
 C
-      if (Nreson.eq.7) then                         !  Resonance 7 - f0(500) -> 2pi0	 
-	 call BW_rand_f0(Amf0,Widf0,rnd_BW)         !  GAMS BW for f0(500)
-	 Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
+      if (Nreson.eq.7) then     !  Resonance 7 - f0(500) -> 2pi0 or eta(1295)->etapi0pi0 (see below)
+C     Resonance 7 - f0(500) -> 2pi0
+c	 call BW_rand_f0(Amf0,Widf0,rnd_BW)         !  GAMS BW for f0(500)
+c	 Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
 C-	 
-         Kreson= 5                                  !  i.e. t and mismas from f2 meson
-	 call reaction(Kreson, T, Pd(5))
+c         Kreson= 5                                  !  i.e. t and mismas from f2 meson
+c	 call reaction(Kreson, T, Pd(5))
+c         call abtocds(Pa,Pb(5),Pc,Pd,T)
+c         if (T.gt.0) go to 1000
+C
+c         if (Nchanel.eq.1) then                     !  Excl. channel = f0 -> 2Pi0 -> 4Y
+c          P1(5) = Ampi0
+c          P2(5) = Ampi0
+c          call decays(Pc, P1, P2)
+c          call decays(P1, Pgamma(1,1), Pgamma(1,2))
+c          call decays(P2, Pgamma(1,3), Pgamma(1,4))
+c          Ngamma = 4
+c         endif
+C
+C     Resonance 7 - eta(1295)->etapi0pi0
+         L=0
+         th = Ampi0 + 2. * AmEta
+ 1077    call BW_rand_L(1000.*AmEta1295, 1000.*WidEta1295,L,1000.*th,rnd_BW) !  GAMS BW for spin-0 particle
+         Pc(5) = 0.001*rnd_BW   !  MeV => GeV
+         if (Pc(5).le.(2.* Ampi0 + AmEta)) goto 1077
+C
+         call reaction(5, T, Pd(5))                 !  Just like f2(1270)
          call abtocds(Pa,Pb(5),Pc,Pd,T)
          if (T.gt.0) go to 1000
-C
-         if (Nchanel.eq.1) then                     !  Excl. channel = f0 -> 2Pi0 -> 4Y
-          P1(5) = Ampi0
-          P2(5) = Ampi0
-          call decays(Pc, P1, P2)
-          call decays(P1, Pgamma(1,1), Pgamma(1,2))
-          call decays(P2, Pgamma(1,3), Pgamma(1,4))
-          Ngamma = 4
+         if (Nchanel.eq.1) then ! excl channel eta(1295) -> pi0pi0eta(2Y) 
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = AmEta
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
          endif
-C
+
+
          do j=1,Ngamma
          Pgamma(6,j) = 0.
 	 Pgamma(7,j) = 0.
@@ -2377,6 +2420,27 @@ C
             call decays(P3, Pgamma(1,5), Pgamma(1,6))
             Ngamma = 6
          endif
+C
+         if (Nchanel.eq.3) then ! excl channel etaP -> pi0pi0pi0
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = Ampi0
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
+         endif
+C
+         if (Nchanel.eq.4) then ! excl channel etaP -> pi0pi0
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+
 C
          do j=1,Ngamma
 	 Pgamma(6,j) = 0.
