@@ -11,8 +11,8 @@ F77LIBS = -L/usr/local/lib -lcrypt -lnsl
 	$(F77) -c $(F77FLAGS) $(FILES)
 all:    hyp_RegGen
 hyp_RegGen: $(OBJS)
-	$(F77) -o hyp_RegGen_main $(OBJS) $(F77LIBS) \
+	$(F77) -o hyp_RegGen_main $(OBJS) $(F77LIBS) -no-pie \
         -lz \
         `cernlib packlib,mathlib,kernlib`
 clean:  
-	rm -f $(OBJS) hyp_RegGen
+	rm -f $(OBJS) hyp_RegGen_main

@@ -1430,8 +1430,13 @@ C
 C
  10   call BW_rand(Rmas, Rwid, X_mas)
       if (X_mas.le.th) goto 10
+      if (X_mas.gt.2500.) goto 10
+      if(L.eq.1)   BWnorGAMS = 0.0005
       BW_class =   BWnorC   *BW_fun(Rmas, Rwid, X_mas)
       BW_gams  =   BWnorGAMS*BW_L_gams(Rmas, Rwid, L, th, X_mas)
+      if(BW_class.lt.BW_gams) then
+         write(*,*) 'BW_class=',BW_class,'; BW_gams=',BW_gams,'X_mas=',X_mas
+      endif
       if (BW_class*regrndm(0).gt.BW_gams) go to 10  
       rnd_BW   =   X_mas
       return
@@ -1770,7 +1775,7 @@ C-    data Mchanel  /     1,   2,   1,   1,   1,  1,  1, 1, 1, 0 /    !  Decay c
      5     1.000, 9*0.0,        !  f2 /f2->2pi0->4Y/
      6     1.000, 9*0.0,        !  2pi0 /2pi0->4Y/ or etapi0 -> 2gam
 c     7     1.000, 9*0.0,        !  f0 /f0->2pi0->4Y/
-     7     1.000, 9*0.0,        !  eta(1295) -> eta(2Y)pi0pip0
+     7     1.000, 9*0.0,        !  eta(1295) -> eta(2Y)pi0pip0 
 c     8                1.000, 9*0.0,                              !  pi0 /pi0->2Y/ for MC Z-scale calibration
 C     9                1.000, 9*0.0,                              !  eta /eta->2Y/ for MC Z-scale calibration
      8     2.307, 8.96,  8*0.0, !  eta' /eta'->2Y, eta'->pi0pi0eta(2Y), eta'->3pi0->6Y, eta'->2pi0->4Y/
@@ -2116,6 +2121,10 @@ C
          cntrl_prmtr=Pgamma(1,0)
          if (cntrl_prmtr.gt.0.) then
             if(cntrl_prmtr.lt.0.1) WidOmg = cntrl_prmtr*1000. !  GeV->MeV; read width from control parameter from 0 to 0.1 GeV
+            if(cntrl_prmtr.eq.0.77) then ! this is rho0 resonance
+               WidOmg = 150.
+               AmOmg = 769.
+            endif
          endif
          L = 1 ! omg spin
          if (Nchanel.eq.1) th = Ampi0
@@ -2123,13 +2132,22 @@ C
          if (Nchanel.eq.3) th = 2.*Ampi0
          if (Nchanel.eq.4) th = AmEta + Ampi0
          if (Nchanel.eq.5) th = AmEta
+c         write(*,*) 'Generating Mres=',AmOmg,'MeV; Gamma=',WidOmg,'MeV'
 c 345     call BW_rand_omg(AmOmg,WidOmg ,rnd_BW) !  GAMS BW for omg(782)  
  345     call BW_rand_L(AmOmg,WidOmg,L,1000.*th,rnd_BW) !  GAMS BW for L=1 decays  
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV   
-C    
-         call reaction(Nreson, T, Pd(5))            !  Just like eta 
-         call abtocds(Pa,Pb(5),Pc,Pd,T)      
-         if (T.gt.0) go to 1000
+C
+         ntries=1
+ 3451    call reaction(Nreson, T, Pd(5)) !  Just like eta 
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+         ntries=ntries+1
+         if(ntries.gt.1000) then
+            write(*,*) 'Giving up generating reaction for'
+            write(*,*) 'Nreson=',Nreson,'; Mass=',Pc(5),'GeV'
+            goto 1000           ! give up trying
+         endif
+         if(T.gt.0) goto 3451   ! try once again 
+            
 C
          if (Nchanel.eq.1) then !  Excl. channel = w -> pi0Y -> 3Y
             P1(5) = Ampi0

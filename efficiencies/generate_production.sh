@@ -36,13 +36,26 @@ else
 fi
 #
 export MCDIR=/afs/ihep.su/user/s/sevdokim/HyperonMC-factory/  #name of top MC directory
+export WD=/lustre/ihep.su/data/hyperon/HYPERON_MC/evdokimov/2008-11_Gener/$PRODUCTION_NAME/
+if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=ihep-short ; fi
+export SCRATCH="/scratch"
+export USER_GROUP=":hyperon"
+
+# evdokimov03 environment (local testing) 
+if [ $(uname -n) = "alice21" ]; then
+    MCDIR=~/hyperon/HyperonMC-factory/
+    WD=~/hyperon/mc/RegGen/efficiencies/$PRODUCTION_NAME/
+    IHEP_QUEUE=debug
+    SCRATCH="/data1/evdokimov/scratch/"
+    export USER_GROUP=":evdokimov"
+fi
+
+
 export REGGEN_CARDS=$MCDIR/efficiencies/RegGen_${MESON}.cards                  #name of RegGen.cards
 export MACRODIR=$MCDIR/Hyp_RegGen/                                              #name of MC tool directory
-export WD=/lustre/ihep.su/data/hyperon/HYPERON_MC/evdokimov/efficiencies/$PRODUCTION_NAME/
 export MCRUNSDIR=$WD/MCruns/
 export ANCHORS=$MCDIR/efficiencies/${PERIOD}/
 export FILELIST=$MCDIR/efficiencies/${PERIOD}/file_list_${PERIOD_PRFX}_$TGT_PRFX.dat
-#export FILELIST=$MCDIR/${PERIOD}_Gener/file_lists/file_list_$PERIOD_PRFX$TGT_PRFX.dat
 #
 if [ -z $IHEP_QUEUE ] ; then export IHEP_QUEUE=ihep-short ; fi
 echo 'queue         =' $IHEP_QUEUE
@@ -80,7 +93,7 @@ echo
 #
 
 #i=$UNIC_CODE
-i=0
+i=1
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do

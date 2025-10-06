@@ -20,7 +20,8 @@ C
       BeamMomentum = 7.2
       iseed     = 777555
 C   
-      do Iev=1,100000
+      do Iev=1,10000000
+         pout(1,1)=0.77
          call RegGen_event(BeamMomentum,Ievent,Ierror,iseed,Jrec,IstOut,Pout) 
 C
 C-       write(*,*) 

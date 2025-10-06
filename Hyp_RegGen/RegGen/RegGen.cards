@@ -1,4 +1,4 @@
-This_file_version 15.12.2019 omg(782) inclusive from hyp_carlo (RegGen v.2.11_evd)
+This_file_version 24.12.2019 omg inclusive from hyp_carlo (RegGen v.2.11_evd)
 Reactions  3 3
 Reaction_probabilities   83
 01. 1.0  02. 1.0  03. 1.0  04. 1.0  05. 1.0
@@ -19,12 +19,12 @@ Reaction_probabilities   83
 76. 1.0  77. 1.0  78. 1.0  79. 1.0  80. 1.0
 81. 1.0  82. 1.0  83. 1.0
 
-Particle_decay_corrections   4  ONLY for inclusive reactions
-C_eta                
-      14. 0.547862 0.0    0. 4. 0.3941  2.   1.   1.	0.   0.    ! eta
-     			        0.3268  3.  13.  13.   13.   0.    ! eta
-     			        0.2292  3.  13.   2.    3.   0.    ! eta   
-     			        0.0422  3.   1.   2.    3.   0.    ! eta      
+Particle_decay_corrections   4 
+C_eta                      
+      14. 0.547862 0.0    0. 4. 0.3931  2.   1.   1.	0.   0.    ! eta
+     			        0.3257  3.  13.  13.   13.   0.    ! eta
+     			        0.2274  3.  13.   2.    3.   0.    ! eta   
+     			        0.0460  3.   1.   2.    3.   0.    ! eta      
 C_f0(500)
       15. 0.475000 0.550  0. 2. 0.333   2.  13.  13.	0.   0.    ! f0(500)
      			        0.667   2.   2.   3.	0.   0.    ! f0(500)	  
