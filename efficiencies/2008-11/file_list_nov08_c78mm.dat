@@ -1,0 +1,107 @@
+##########################################
+## U-70, 2008, November-December
+#  C 78 mm from PS (Dec 18, 2008)
+#
+#  Number of runs     69
+#  Collecting time - Mon Nov 10 22:25:13 2008 -> Wed Nov 12 05:35:20 2008
+#  Number Pi0  292789 +/-  1164
+#  N(Pi0)/MPI  52.25 10^-5
+#  Remarks: Nov 11, 15.00 - C2 was inflated after run 7048 at 2.5 atm (look to logbook)
+#  The cerenkov counters were very unstable here  
+#.......................................................................................
+#/Distance mm: 3697; 78.  9781    --> the first version
+#/Distance mm: 3585; 78.  9781
+#/Distance mm: 3733; 78. 10194
+#/Distance mm: 3733; 78. 10226    --> version of the 2018 activity
+#/Distance mm: 3795; 78.  9962
+/ Distance mm: 3695; 78. 10316
+/data/HYPERON_data/2008-11/data/
+#--------------------------------
+run07008.mid.gz
+run07009.mid.gz
+run07010.mid.gz
+run07012.mid.gz
+run07014.mid.gz
+run07015.mid.gz
+run07016.mid.gz
+run07017.mid.gz
+run07018.mid.gz
+run07019.mid.gz
+run07020.mid.gz
+run07021.mid.gz
+run07022.mid.gz
+run07023.mid.gz
+run07024.mid.gz
+run07025.mid.gz
+run07026.mid.gz
+run07027.mid.gz
+run07028.mid.gz
+run07029.mid.gz
+run07030.mid.gz
+run07031.mid.gz
+run07032.mid.gz
+#run07033.mid.gz - very big monitors (accelerator was stopped)
+run07034.mid.gz
+run07035.mid.gz
+run07036.mid.gz
+run07037.mid.gz
+run07038.mid.gz
+run07039.mid.gz
+run07040.mid.gz
+run07041.mid.gz
+run07042.mid.gz
+run07043.mid.gz
+run07044.mid.gz
+run07045.mid.gz
+run07046.mid.gz
+run07047.mid.gz
+run07048.mid.gz
+run07049.mid.gz
+run07050.mid.gz
+run07051.mid.gz
+run07052.mid.gz
+run07053.mid.gz
+run07057.mid.gz
+run07058.mid.gz
+run07059.mid.gz
+run07060.mid.gz
+run07061.mid.gz
+run07062.mid.gz
+run07063.mid.gz
+run07064.mid.gz
+run07065.mid.gz
+run07066.mid.gz
+run07067.mid.gz
+run07068.mid.gz
+run07069.mid.gz
+run07070.mid.gz
+run07071.mid.gz
+run07072.mid.gz
+run07073.mid.gz
+run07074.mid.gz
+run07075.mid.gz
+run07076.mid.gz
+run07077.mid.gz
+run07080.mid.gz
+run07081.mid.gz
+run07082.mid.gz
+run07084.mid.gz
+run07085.mid.gz
+run07086.mid.gz
+run07087.mid.gz
+run07088.mid.gz
+run07089.mid.gz
+run07091.mid.gz
+# Strannyi, neobychnye amplitudy->
+run07092.mid.gz
+run07094.mid.gz
+run07095.mid.gz
+run07096.mid.gz
+run07097.mid.gz
+run07099.mid.gz
+run07100.mid.gz
+run07101.mid.gz
+run07102.mid.gz
+run07103.mid.gz
+run07104.mid.gz
+run07105.mid.gz

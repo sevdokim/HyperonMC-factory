@@ -1,0 +1,433 @@
+##########################################
+# U-70, 2009, November
+##########################################
+# Be, all stat
+# Distance: 3700mm
+#/Distance mm: 3700; 79.  9788
+#/Distance mm: 3700; 79.  9673
+#/Distance mm: 3700; 79.  9731
+#/Distance mm: 3700; 79.  9828
+#/Distance mm: 3700; 79.  9925
+#/Distance mm: 3824; 79.  9836         --> Enorm best
+/ Distance mm: 3698; 79. 10082 
+/data/HYPERON_data/2009-11/data/
+#
+#run10111.mid.gz !no run header
+#run10112.mid.gz !no run header
+#run10111.mid.gz
+# run10113.mid.gz  \
+# run10115.mid.gz  ! 
+# run10116.mid.gz  ! 
+# run10117.mid.gz  ! 
+# run10118.mid.gz  ! 
+# run10119.mid.gz  ! 
+# run10120.mid.gz  ! 
+# run10121.mid.gz  ! 
+# run10122.mid.gz  ! 
+# run10123.mid.gz  ! 
+# run10124.mid.gz  ! 
+# run10125.mid.gz  !  ==>  all these are generated cell runs --> omitted
+# run10126.mid.gz  ! 
+# run10127.mid.gz  ! 
+# run10128.mid.gz  ! 
+# run10129.mid.gz  ! 
+# run10130.mid.gz  ! 
+# run10132.mid.gz  ! 
+# run10133.mid.gz  ! 
+# run10135.mid.gz  ! 
+# run10136.mid.gz  ! 
+# run10137.mid.gz  ! 
+# run10138.mid.gz  ! 
+# run10139.mid.gz  ! 
+# run10140.mid.gz  ! 
+# run10141.mid.gz  ! 
+# run10142.mid.gz  ! 
+# run10143.mid.gz  ! 
+# run10144.mid.gz  ! 
+# run10145.mid.gz  ! 
+# run10146.mid.gz  ! 
+# run10147.mid.gz  ! 
+# run10148.mid.gz  ! 
+# run10149.mid.gz  ! 
+# run10150.mid.gz  / 
+#
+run10151.mid.gz
+run10152.mid.gz
+run10153.mid.gz
+run10154.mid.gz
+run10155.mid.gz
+run10156.mid.gz
+run10157.mid.gz
+run10158.mid.gz
+run10159.mid.gz
+run10160.mid.gz
+run10161.mid.gz
+run10162.mid.gz
+run10163.mid.gz
+run10164.mid.gz
+run10165.mid.gz
+run10166.mid.gz
+run10167.mid.gz
+run10168.mid.gz
+run10169.mid.gz
+run10170.mid.gz
+run10171.mid.gz
+run10172.mid.gz
+run10173.mid.gz
+run10174.mid.gz
+run10175.mid.gz
+run10176.mid.gz
+run10177.mid.gz
+run10178.mid.gz
+run10179.mid.gz
+run10170.mid.gz
+run10181.mid.gz
+run10182.mid.gz
+run10183.mid.gz
+run10184.mid.gz
+run10185.mid.gz
+run10186.mid.gz
+run10187.mid.gz
+run10188.mid.gz
+run10189.mid.gz
+run10190.mid.gz
+run10191.mid.gz
+run10192.mid.gz
+run10193.mid.gz
+run10194.mid.gz
+run10195.mid.gz
+run10196.mid.gz
+run10197.mid.gz
+run10198.mid.gz
+run10199.mid.gz
+run10200.mid.gz
+run10201.mid.gz
+run10202.mid.gz
+run10203.mid.gz
+run10204.mid.gz
+run10205.mid.gz
+run10206.mid.gz
+run10207.mid.gz
+run10208.mid.gz
+run10209.mid.gz
+run10210.mid.gz
+run10212.mid.gz
+run10213.mid.gz
+run10214.mid.gz
+run10215.mid.gz
+run10216.mid.gz
+run10217.mid.gz
+run10218.mid.gz
+run10219.mid.gz
+run10220.mid.gz
+run10221.mid.gz
+run10222.mid.gz
+run10223.mid.gz
+run10224.mid.gz
+run10225.mid.gz
+run10226.mid.gz
+run10227.mid.gz
+run10228.mid.gz
+run10229.mid.gz
+run10230.mid.gz
+run10231.mid.gz
+run10232.mid.gz
+run10233.mid.gz
+run10234.mid.gz
+run10235.mid.gz
+run10236.mid.gz
+run10237.mid.gz
+run10238.mid.gz
+run10239.mid.gz
+run10240.mid.gz
+run10241.mid.gz
+run10242.mid.gz
+run10243.mid.gz
+run10244.mid.gz
+run10245.mid.gz
+run10246.mid.gz
+run10247.mid.gz
+run10248.mid.gz
+run10249.mid.gz
+run10250.mid.gz
+run10251.mid.gz
+run10252.mid.gz
+run10253.mid.gz
+run10254.mid.gz
+run10255.mid.gz
+run10256.mid.gz
+run10257.mid.gz
+run10258.mid.gz
+run10259.mid.gz
+run10260.mid.gz
+run10261.mid.gz
+run10262.mid.gz
+run10263.mid.gz
+run10264.mid.gz
+run10265.mid.gz
+run10266.mid.gz
+run10267.mid.gz
+run10268.mid.gz
+run10269.mid.gz
+run10270.mid.gz
+run10271.mid.gz
+run10272.mid.gz
+run10273.mid.gz
+run10274.mid.gz
+run10275.mid.gz
+run10276.mid.gz
+run10277.mid.gz
+run10278.mid.gz
+run10279.mid.gz
+run10280.mid.gz
+run10281.mid.gz
+run10282.mid.gz
+run10283.mid.gz
+run10284.mid.gz
+run10285.mid.gz
+run10286.mid.gz
+run10287.mid.gz
+run10288.mid.gz
+run10289.mid.gz
+run10280.mid.gz
+run10291.mid.gz
+run10292.mid.gz
+run10293.mid.gz
+run10294.mid.gz
+run10295.mid.gz
+run10296.mid.gz
+run10297.mid.gz
+run10298.mid.gz
+run10299.mid.gz
+run10290.mid.gz
+run10300.mid.gz
+run10301.mid.gz
+run10302.mid.gz
+run10303.mid.gz
+run10304.mid.gz
+run10305.mid.gz
+run10306.mid.gz
+run10307.mid.gz
+run10308.mid.gz
+run10309.mid.gz
+run10310.mid.gz
+run10311.mid.gz
+run10312.mid.gz
+run10313.mid.gz
+run10314.mid.gz
+run10315.mid.gz
+run10316.mid.gz
+run10317.mid.gz
+run10318.mid.gz
+run10319.mid.gz
+run10320.mid.gz
+run10321.mid.gz
+run10322.mid.gz
+run10323.mid.gz
+run10324.mid.gz
+run10325.mid.gz
+run10326.mid.gz
+run10327.mid.gz
+run10330.mid.gz
+run10331.mid.gz
+run10332.mid.gz
+run10333.mid.gz
+run10334.mid.gz
+run10335.mid.gz
+run10336.mid.gz
+run10337.mid.gz
+run10338.mid.gz
+run10339.mid.gz
+run10340.mid.gz
+run10341.mid.gz
+run10342.mid.gz
+run10343.mid.gz
+run10344.mid.gz
+run10345.mid.gz
+run10346.mid.gz
+run10347.mid.gz
+run10348.mid.gz
+run10349.mid.gz
+run10350.mid.gz
+run10351.mid.gz
+run10352.mid.gz
+run10353.mid.gz
+run10354.mid.gz
+run10355.mid.gz
+run10356.mid.gz
+run10357.mid.gz
+run10358.mid.gz
+run10359.mid.gz
+run10360.mid.gz
+run10361.mid.gz
+run10362.mid.gz
+run10363.mid.gz
+run10366.mid.gz
+run10367.mid.gz
+run10368.mid.gz
+run10369.mid.gz
+run10370.mid.gz
+run10371.mid.gz
+run10372.mid.gz
+run10373.mid.gz
+run10374.mid.gz
+run10375.mid.gz
+run10376.mid.gz
+run10377.mid.gz
+run10378.mid.gz
+run10379.mid.gz
+run10380.mid.gz
+run10381.mid.gz
+run10382.mid.gz
+run10383.mid.gz
+run10384.mid.gz
+run10385.mid.gz
+run10386.mid.gz
+run10387.mid.gz
+run10388.mid.gz
+run10389.mid.gz
+run10390.mid.gz
+run10391.mid.gz
+run10392.mid.gz
+run10393.mid.gz
+run10394.mid.gz
+run10395.mid.gz
+run10396.mid.gz
+run10397.mid.gz
+run10398.mid.gz
+run10399.mid.gz
+run10401.mid.gz
+run10402.mid.gz
+run10403.mid.gz
+run10404.mid.gz
+run10405.mid.gz
+run10406.mid.gz
+run10407.mid.gz
+run10408.mid.gz
+run10409.mid.gz
+run10410.mid.gz
+run10411.mid.gz
+run10412.mid.gz
+run10413.mid.gz
+run10414.mid.gz
+run10415.mid.gz
+run10416.mid.gz
+run10417.mid.gz
+run10418.mid.gz
+run10419.mid.gz
+run10420.mid.gz
+run10421.mid.gz
+run10422.mid.gz
+run10423.mid.gz
+run10424.mid.gz
+run10425.mid.gz
+run10426.mid.gz
+run10427.mid.gz
+run10428.mid.gz
+run10429.mid.gz
+run10430.mid.gz
+run10431.mid.gz
+run10432.mid.gz
+run10433.mid.gz
+run10434.mid.gz
+run10435.mid.gz
+run10436.mid.gz
+run10437.mid.gz
+run10438.mid.gz
+run10439.mid.gz
+run10440.mid.gz
+run10441.mid.gz
+run10442.mid.gz
+run10443.mid.gz
+run10444.mid.gz
+run10445.mid.gz
+run10446.mid.gz
+run10447.mid.gz
+run10448.mid.gz
+run10449.mid.gz
+run10450.mid.gz
+run10451.mid.gz
+run10452.mid.gz
+run10453.mid.gz
+run10454.mid.gz
+run10455.mid.gz
+run10456.mid.gz
+run10457.mid.gz
+run10458.mid.gz
+run10459.mid.gz
+run10460.mid.gz
+run10461.mid.gz
+run10462.mid.gz
+run10463.mid.gz
+run10464.mid.gz
+run10465.mid.gz
+run10466.mid.gz
+run10467.mid.gz
+run10468.mid.gz
+run10469.mid.gz
+run10470.mid.gz
+run10471.mid.gz
+run10472.mid.gz
+run10473.mid.gz
+run10474.mid.gz
+run10475.mid.gz
+run10476.mid.gz
+run10477.mid.gz
+run10478.mid.gz
+run10479.mid.gz
+run10480.mid.gz
+run10481.mid.gz
+run10482.mid.gz
+run10483.mid.gz
+run10484.mid.gz
+run10485.mid.gz
+run10486.mid.gz
+run10487.mid.gz
+run10488.mid.gz
+run10489.mid.gz
+run10490.mid.gz
+run10491.mid.gz
+run10492.mid.gz
+run10493.mid.gz
+run10494.mid.gz
+run10495.mid.gz
+run10496.mid.gz
+run10497.mid.gz
+run10498.mid.gz
+run10499.mid.gz
+run10500.mid.gz
+run10501.mid.gz
+run10502.mid.gz
+run10503.mid.gz
+run10504.mid.gz
+run10505.mid.gz
+run10506.mid.gz
+run10507.mid.gz
+run10508.mid.gz
+run10509.mid.gz
+run10510.mid.gz
+run10511.mid.gz
+run10512.mid.gz
+run10513.mid.gz
+run10514.mid.gz
+run10515.mid.gz
+run10516.mid.gz
+run10517.mid.gz
+run10518.mid.gz
+run10519.mid.gz
+run10520.mid.gz
+run10521.mid.gz
+run10522.mid.gz
+run10523.mid.gz
+run10524.mid.gz
+run10525.mid.gz
+run10526.mid.gz
+run10527.mid.gz
+run10528.mid.gz
+run10529.mid.gz
+run10530.mid.gz
+run10531.mid.gz
+run10532.mid.gz
+run10533.mid.gz
+run10534.mid.gz
+run10535.mid.gz

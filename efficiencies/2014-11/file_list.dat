@@ -1,186 +1,96 @@
 ##########################################
 # U-70, 2014, november
 ##########################################
-# Cu target, 7 mm
-#/Distance mm: 3670; 7. 10124
-#/Distance mm: 3593; 7.  9910
-#/Distance mm: 3623; 7.  9910
-#/Distance mm: 3769; 7.  9910    -->  Enorm best
-/ Distance mm: 3672; 7. 10303
+# Be, 79mm
+#/Distance mm: 3700; 79. 10124
+#/Distance mm: 3700; 79. 10184
+#/Distance mm: 3832; 79. 10184
+/ Distance mm: 3698; 79. 10411
 /data/HYPERON_data/2014-11/
 #--------------------------------
-run25274.mid.gz
-run25275.mid.gz
-run25276.mid.gz
-run25277.mid.gz
-run25278.mid.gz
-run25279.mid.gz
-run25280.mid.gz
-run25281.mid.gz
-run25282.mid.gz
-run25283.mid.gz
-run25284.mid.gz
-run25285.mid.gz
-run25290.mid.gz
-run25291.mid.gz
-run25292.mid.gz
-run25293.mid.gz
-run25294.mid.gz
-run25295.mid.gz
-run25296.mid.gz
-run25297.mid.gz
-run25298.mid.gz
-run25299.mid.gz
-run25300.mid.gz
-run25301.mid.gz
-run25302.mid.gz
-run25303.mid.gz
-run25306.mid.gz
-run25307.mid.gz
-run25308.mid.gz
-run25309.mid.gz
-run25310.mid.gz
-run25311.mid.gz
-run25312.mid.gz
-run25313.mid.gz
-run25314.mid.gz
-run25315.mid.gz
-run25316.mid.gz
-run25317.mid.gz
-run25318.mid.gz
-run25319.mid.gz
-run25320.mid.gz
-run25321.mid.gz
-run25322.mid.gz
-run25323.mid.gz
-run25326.mid.gz
-run25327.mid.gz
-run25329.mid.gz
-run25330.mid.gz
-run25331.mid.gz
-run25332.mid.gz
-run25334.mid.gz
-run25336.mid.gz
-run25337.mid.gz
-run25338.mid.gz
-run25339.mid.gz
-run25340.mid.gz
-run25343.mid.gz
-run25344.mid.gz
-run25345.mid.gz
-run25346.mid.gz
-run25347.mid.gz
-run25348.mid.gz
-run25350.mid.gz
-run25351.mid.gz
-run25352.mid.gz
-run25353.mid.gz
-run25354.mid.gz
-run25360.mid.gz
-run25361.mid.gz
-run25363.mid.gz
-run25364.mid.gz
-run25365.mid.gz
-run25366.mid.gz
-run25367.mid.gz
-run25368.mid.gz
-run25369.mid.gz
-run25370.mid.gz
-run25373.mid.gz
-run25374.mid.gz
-run25377.mid.gz
-run25378.mid.gz
-run25379.mid.gz
-run25380.mid.gz
-run25381.mid.gz
-run25382.mid.gz
-run25383.mid.gz
-run25384.mid.gz
-run25385.mid.gz
-run25386.mid.gz
-run25390.mid.gz
-run25391.mid.gz
-run25392.mid.gz
-run25393.mid.gz
-run25394.mid.gz
-run25395.mid.gz
-run25396.mid.gz
-run25397.mid.gz
-run25398.mid.gz
-run25399.mid.gz
-run25400.mid.gz
-run25401.mid.gz
-run25402.mid.gz
-run25403.mid.gz
-run25404.mid.gz
-run25405.mid.gz
-run25408.mid.gz
-run25409.mid.gz
-run25410.mid.gz
-run25411.mid.gz
-run25412.mid.gz
-run25413.mid.gz
-run25414.mid.gz
-run25416.mid.gz
-run25417.mid.gz
-run25418.mid.gz
-run25419.mid.gz
-run25421.mid.gz
-run25422.mid.gz
-run25426.mid.gz
-run25427.mid.gz
-run25428.mid.gz
-run25429.mid.gz
-run25430.mid.gz
-run25431.mid.gz
-run25432.mid.gz
-run25433.mid.gz
-run25434.mid.gz
-#no more good synchro-impulse
-run25461.mid.gz
-run25462.mid.gz
-run25463.mid.gz
-run25464.mid.gz
-run25465.mid.gz
-run25466.mid.gz
-run25467.mid.gz
-run25469.mid.gz
-run25470.mid.gz
-run25471.mid.gz
-run25472.mid.gz
-run25473.mid.gz
-run25474.mid.gz
-run25475.mid.gz
-run25476.mid.gz
-run25477.mid.gz
-run25478.mid.gz
-run25479.mid.gz
-run25480.mid.gz
-run25481.mid.gz
-run25482.mid.gz
-run25483.mid.gz
-run25484.mid.gz
-run25485.mid.gz
-run25488.mid.gz
-run25489.mid.gz
-run25490.mid.gz
-run25491.mid.gz
-run25492.mid.gz
-run25493.mid.gz
-run25494.mid.gz
-run25495.mid.gz
-run25496.mid.gz
-run25497.mid.gz
-run25498.mid.gz
-#new trig
-run25500.mid.gz
-run25501.mid.gz
-run25502.mid.gz
-run25503.mid.gz
-run25505.mid.gz
-run25506.mid.gz
-run25507.mid.gz
-run25508.mid.gz
-run25509.mid.gz
-run25510.mid.gz
-
+#run25054.mid.gz #small for tests
+run25032.mid.gz
+run25033.mid.gz
+run25034.mid.gz
+run25035.mid.gz
+run25036.mid.gz
+run25037.mid.gz
+run25040.mid.gz
+run25041.mid.gz
+run25044.mid.gz
+run25045.mid.gz
+run25046.mid.gz
+#run 25047 is small but mentioned as phys run (nothing unusual) in logbook.
+run25047.mid.gz
+#run25048.mid.gz ped
+#run25050.mid.gz ped
+run25052.mid.gz
+#runs 25053, 25054 are small but	mentioned as phys runs (nothing unusual) in logbook.
+run25053.mid.gz
+run25054.mid.gz
+#starting from run 25057 we have SA0 in trigger.
+run25057.mid.gz
+#run25058.mid.gz very small (33 bytes)
+#run25059.mid.gz ped
+run25060.mid.gz
+#run25061.mid.gz ped
+run25063.mid.gz
+#run 25064 is small. Stopped to	reset event counter.
+run25064.mid.gz
+run25065.mid.gz
+run25066.mid.gz
+run25067.mid.gz
+run25068.mid.gz
+#run25069.mid.gz ped
+#run25070.mid.gz ped
+run25071.mid.gz
+run25072.mid.gz
+run25073.mid.gz
+run25074.mid.gz
+run25075.mid.gz
+#run25076.mid.gz ped
+run25077.mid.gz
+run25078.mid.gz
+run25079.mid.gz
+run25080.mid.gz
+run25081.mid.gz
+run25082.mid.gz
+run25083.mid.gz
+run25084.mid.gz
+#run25085.mid.gz small
+#run25086.mid.gz ped
+#run25087.mid.gz small
+#run25088.mid.gz ped
+#run25089.mid.gz small
+run25090.mid.gz
+run25091.mid.gz
+run25092.mid.gz
+#run25094.mid.gz small
+run25095.mid.gz
+run25096.mid.gz
+run25097.mid.gz
+#run25099.mid.gz ped
+run25100.mid.gz
+run25101.mid.gz
+run25102.mid.gz
+run25103.mid.gz
+run25104.mid.gz
+run25105.mid.gz
+run25106.mid.gz
+run25107.mid.gz
+run25108.mid.gz
+run25109.mid.gz
+#run25110.mid.gz ped
+run25111.mid.gz
+run25112.mid.gz
+run25113.mid.gz
+run25114.mid.gz
+run25115.mid.gz
+run25116.mid.gz
+run25117.mid.gz
+#run25118.mid.gz mentioned as bad in logbook
+#run25119.mid.gz mentioned as bad in logbook
+run25120.mid.gz
+#run25122.mid.gz ped
+run25124.mid.gz
+run25125.mid.gz

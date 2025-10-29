@@ -27,7 +27,7 @@ ETOT 150. 10
 C* particle masses
 MASS 134.97 
 C* kinematical cuts: shower energy (byla 200.), angles, eff.mass
-KCUT  200. .400 105.00 165.00
+KCUT  260. .400 105.00 165.00
 TARG -100. 0. 0.
 STAT 5 0.
 NTTY 1
@@ -38,7 +38,8 @@ ETA0 547.85 501.26 587.96
 C* Pt cut (bylo 150) for 2g events
 PTCU 150.
 C* Cuts for cherenkov counters signals
-CHCU 25. 10. 40.
+C* CHCU 25. 10. 40.
+CHCU 25. 10. 25.
 C* Skolko pedestalnyh sigm otnimalos' ot amplitudy
 CHAD 1 21 22 23
 PLUP 1 36 37 10 400

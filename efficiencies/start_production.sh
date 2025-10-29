@@ -21,9 +21,12 @@ do
 	"sa")    EXTARGET=3 ; cond=3 ;;
         *)       EXTARGET=0 ; cond=0 ;;
     esac
-    for PERIOD_PRFX in nov15 apr12 apr13 mar15 nov12 #apr18
+    #for PERIOD_PRFX in nov15 apr12 apr13 mar15 nov12 #apr18
+    #for PERIOD in 2018-03 2017-12 2016-11 2014-11 2011-11 2011-04 2009-11 2008-11 2008-04 2007-11 
+    for PERIOD in 2011-11 2011-04 2009-11 2008-11 2008-04 2007-11
     do
-	PERIOD=$(period_by_prefix $PERIOD_PRFX)
+	PERIOD_PRFX=$(prefix_by_period $PERIOD)
+	#PERIOD=$(period_by_prefix $PERIOD_PRFX)
 	case "$PERIOD_PRFX" in 
 	    apr12)  export EFFICIENCY_SA=1.0 ;;
 	    apr13)  export EFFICIENCY_SA=0.986 ;;

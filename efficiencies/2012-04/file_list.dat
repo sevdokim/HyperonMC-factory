@@ -2,97 +2,63 @@
 # 2012-04 session
 # S1*S2*S4*not.Sa trigger
 # C 31/5 target
-# CH2 target in HYPERON area
+# Be target in HYPERON area
+# New geometry (h_s_new_new.dat)
 #############################################################
-#/Distance mm: 3697; 80.  9756
-#/Distance mm: 3743; 80.  9756
-#/Distance mm: 3885; 80.  9756   -->  Enorm best
-/ Distance mm: 3695; 80.  9859
+#/Distance mm: 3700; 79.  9756
+#/Distance mm: 3700; 79.  9803
+#/Distance mm: 3829; 79.  9803    --> Enorm best
+/ Distance mm: 3698; 79. 10035
 /data/HYPERON_data/2012-04/
-run21374.mid.gz
-run21375.mid.gz
-run21376.mid.gz
-run21377.mid.gz
-run21379.mid.gz
-run21380.mid.gz
-run21381.mid.gz
-run21382.mid.gz
-run21383.mid.gz
-run21384.mid.gz
-run21385.mid.gz
-run21386.mid.gz
-run21387.mid.gz
-run21388.mid.gz
-run21389.mid.gz
-run21390.mid.gz
-run21391.mid.gz
-run21392.mid.gz
-run21393.mid.gz
-run21394.mid.gz
-run21395.mid.gz
-run21396.mid.gz
-run21397.mid.gz
-run21398.mid.gz
-run21399.mid.gz
-run21400.mid.gz
-run21401.mid.gz
-run21402.mid.gz
-run21403.mid.gz
-run21404.mid.gz
-run21406.mid.gz
-run21407.mid.gz
-run21408.mid.gz
-run21409.mid.gz
-run21410.mid.gz
-run21411.mid.gz
-run21412.mid.gz
-run21413.mid.gz
-run21414.mid.gz
-run21415.mid.gz
-run21416.mid.gz
-run21417.mid.gz
-run21418.mid.gz
-run21419.mid.gz
-run21420.mid.gz
-run21421.mid.gz
-run21422.mid.gz
-run21423.mid.gz
-run21424.mid.gz
-run21425.mid.gz
-run21426.mid.gz
-run21427.mid.gz
-run21428.mid.gz
-run21429.mid.gz
-run21430.mid.gz
-run21431.mid.gz
-run21433.mid.gz
-run21434.mid.gz
-run21435.mid.gz
-run21436.mid.gz
-run21437.mid.gz
-run21438.mid.gz
-run21439.mid.gz
-run21440.mid.gz
-run21441.mid.gz
-run21442.mid.gz
-run21443.mid.gz
-run21444.mid.gz
-run21445.mid.gz
-run21446.mid.gz
-run21447.mid.gz
-run21448.mid.gz
-run21449.mid.gz
-run21450.mid.gz
-run21451.mid.gz
-run21452.mid.gz
-run21453.mid.gz
-run21454.mid.gz
-run21455.mid.gz
-run21456.mid.gz
-run21457.mid.gz
-run21458.mid.gz
-run21459.mid.gz
-run21460.mid.gz
-run21461.mid.gz
-run21462.mid.gz
-run21463.mid.gz
+run21155.mid.gz
+run21160.mid.gz
+run21164.mid.gz
+run21173.mid.gz
+run21174.mid.gz
+run21175.mid.gz
+run21176.mid.gz
+run21177.mid.gz
+run21178.mid.gz
+run21179.mid.gz
+run21180.mid.gz
+run21181.mid.gz
+run21182.mid.gz
+run21184.mid.gz
+run21185.mid.gz
+run21186.mid.gz
+run21187.mid.gz
+run21188.mid.gz
+run21189.mid.gz
+run21190.mid.gz
+run21191.mid.gz
+run21192.mid.gz
+run21193.mid.gz
+run21194.mid.gz
+run21195.mid.gz
+run21196.mid.gz
+run21197.mid.gz
+run21198.mid.gz
+run21199.mid.gz
+run21200.mid.gz
+run21201.mid.gz
+run21202.mid.gz
+run21208.mid.gz
+run21209.mid.gz
+run21210.mid.gz
+run21211.mid.gz
+run21212.mid.gz
+run21213.mid.gz
+run21214.mid.gz
+run21215.mid.gz
+run21216.mid.gz
+run21217.mid.gz
+run21218.mid.gz
+run21219.mid.gz
+run21222.mid.gz
+run21225.mid.gz
+run21226.mid.gz
+run21227.mid.gz
+run21230.mid.gz
+run21232.mid.gz
+run21233.mid.gz
+run21234.mid.gz

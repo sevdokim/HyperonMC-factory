@@ -27,7 +27,7 @@ ETOT 150. 10
 C* particle masses
 MASS 134.97 
 C* kinematical cuts: shower energy (byla 200.), angles, eff.mass
-KCUT  200. .400 105.00 165.00
+KCUT  260. .400 105.00 165.00
 TARG -100. 0. 0.
 STAT 5 0.
 NTTY 1
