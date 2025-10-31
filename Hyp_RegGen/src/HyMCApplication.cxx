@@ -1,9 +1,11 @@
 #include "HyMCApplication.h"
+#include <Math/GenVector/Boost.h>
+#include <Math/Vector4D.h>
 
 ClassImp(HyMCApplication)
 
     using namespace std;
-
+using LorenzVector = ROOT::Math::PxPyPzEVector;
 //_____________________________________________________________________________
 HyMCApplication::HyMCApplication(const char *name, const char *title)
     : TVirtualMCApplication(name, title), fStack(0), fDetConstruction() {
@@ -231,36 +233,43 @@ void HyMCApplication::RunMC(Int_t nofEvents) {
   fMC_results = fopen(fMCResults, "wr");
   fprintf(fMC_results, "b ");
   fFile = new TFile(fHistosRoot, "RECREATE");
-  fMCgen_dat = fopen(fMCgendat, "w");
-  fprintf(fMCgen_dat, "/# means comment )\n");
-  fprintf(fMCgen_dat, "/# This is generator output \n");
-  fprintf(fMCgen_dat, "/# 1st string: 'begin event' word \n");
-  fprintf(fMCgen_dat,
-          "/# 2nd string: Nevent Ngamma Xvertex Yvertex Zvertex \n");
-  fprintf(fMCgen_dat, "/# 3rd string: PbeamX PbeamY PbeamZ PbeamE \n");
-  fprintf(fMCgen_dat,
-          "/# 4th string: PgammaX PgammaY PgammaZ PgammaE of 1st photon\n");
-  fprintf(fMCgen_dat, "/# ...........\n");
-  fprintf(fMCgen_dat, "/# (3+Ngamma)th string: PgammaX PgammaY PgammaZ PgammaE "
-                      "of (Ngamma)th photon\n");
-  fprintf(fMCgen_dat, "/# means comment )\n");
+  // fMCgen_dat = fopen(fMCgendat, "w");
+  // fprintf(fMCgen_dat, "/# means comment )\n");
+  // fprintf(fMCgen_dat, "/# This is generator output \n");
+  // fprintf(fMCgen_dat, "/# 1st string: 'begin event' word \n");
+  // fprintf(fMCgen_dat,
+  //         "/# 2nd string: Nevent Ngamma Xvertex Yvertex Zvertex \n");
+  // fprintf(fMCgen_dat, "/# 3rd string: PbeamX PbeamY PbeamZ PbeamE \n");
+  // fprintf(fMCgen_dat,
+  //         "/# 4th string: PgammaX PgammaY PgammaZ PgammaE of 1st photon\n");
+  // fprintf(fMCgen_dat, "/# ...........\n");
+  // fprintf(fMCgen_dat, "/# (3+Ngamma)th string: PgammaX PgammaY PgammaZ
+  // PgammaE "
+  //                     "of (Ngamma)th photon\n");
+  // fprintf(fMCgen_dat, "/# means comment )\n");
 
   fLGD2EnergyHisto =
-      new TH1F("LGD2EnergyHisto", "Registered LGD2 energy in event", 1000, 0.,
+      new TH1F("hLGD2Energy", "Registered LGD2 energy in event", 1000, 0.,
                10.); // Total energy dep. in LGD2
-  fSaEnergyHisto = new TH1F("SaEnergyHisto", "Registered Sa energy in event",
-                            10000, 0, 1); // Total energy dep. in Sa
-  fS4EnergyHisto = new TH1F("S4EnergyHisto", "Registered S4 energy in event",
-                            10000, 0., 1); // Total energy dep. in S4
+  fSaEnergyHisto = new TH1F("hSaEnergy", "Registered Sa energy in event", 10000,
+                            0, 1); // Total energy dep. in Sa
+  fS4EnergyHisto = new TH1F("hS4Energy", "Registered S4 energy in event", 10000,
+                            0., 1); // Total energy dep. in S4
   fEffMassHisto = new TH1F("hMass", "Mass of photon system", 2000, 0., 2.);
   fTargetEnergyHisto =
-      new TH1F("TargetEnergyHisto", "target energy in event", 10000, 0., 1);
+      new TH1F("hTargetEnergy", "target energy in event", 10000, 0., 1);
 
   fPhotonVertexZPosition =
-      new TH1F("PhotonVertexZPositionHisto", "vertex Z pos", 10000, -100., 100);
+      new TH1F("hPhotonVertexZPosition", "vertex Z pos", 10000, -100., 100);
   fPtHisto = new TH1F("hPt", "Pt of photon system", 5000, 0., 5.);
   fCoordHisto =
-      new TH2F("hCoordHisto", "CoordHisto", 100, -10., 10., 100, -10., 10.);
+      new TH2F("hVertexXY", "XY of vertex", 100, -10., 10., 100, -10., 10.);
+  fhBeamEnergy = new TH1F("hBeamEnergy", "Beam energy", 10000, 0., 10.);
+  fhMisMass = new TH1F("hMisMass", "Missing mass (pD)", 1000, 0., 5.);
+  fhPt = new TH1F("hPt", "Pt of photon system (pC)", 1000, 0., 2.);
+  fhT = new TH1F("hT", "Mandelstam t of photon system (pC)", 1000, -2., 2.);
+  fhXf = new TH1F("hXf", "x_{F} of photon system (pC)", 1000, -2., 2.);
+
   cout << "now " << nofEvents << " events will be processed. seed = " << iseed
        << endl;
   gMC->ProcessRun(nofEvents);
@@ -507,6 +516,12 @@ void HyMCApplication::GeneratePrimaries() {
   int nFinal = istOut;
   double angles[500]; // angles between primary particles direction and beamline
   int indices[500];   // indices of primary particles
+
+  // 4-vectors to calculate generated t, mismas, xf, pt, ...
+  LorenzVector pSum; // total momentum = pa + pb = pc + pd
+  LorenzVector pA, pC, pD, pCurrent;
+  LorenzVector pB(0., 0., 0., 0.939565); // target neutron resting in lab frame
+
   // Loop over particles in one event
   for (int i = 0; i < nFinal; ++i) {
     // particle properties
@@ -515,6 +530,7 @@ void HyMCApplication::GeneratePrimaries() {
     pz = pout[i][2];
     p = TMath::Sqrt(px * px + py * py + pz * pz);
     e = pout[i][3];
+    pdg = pout[i][8];
     angles[i] = TMath::ACos(pz / p);
     indices[i] = i;
     if (fDebug == 2) { // print generated event
@@ -522,7 +538,31 @@ void HyMCApplication::GeneratePrimaries() {
            << " has (px,py,pz,e) = ( " << px << " , " << py << " , " << pz
            << ", " << e << " )" << endl;
     }
+    pCurrent.SetPxPyPzE(px, py, pz, e);
+    // pSum += pCurrent; // calculate it as pC + pD later
+    // calculate pC and pD (only true in case of hyp_event call in generator)
+    if (pdg == 22) { // photons
+      pC += pCurrent;
+    } else if (pdg == 100) { // missing mass
+      pD = pCurrent;
+    }
   }
+  // fill generator level histograms
+  pSum = pC + pD;
+  double sMandel = pSum.M2();
+  pA = pSum - pB;
+  fhBeamEnergy->Fill(pA.e());
+  fhMisMass->Fill(TMath::Sqrt(TMath::Abs(pD.M2())));
+  LorenzVector pTrans = pA - pC;
+  fhT->Fill(pTrans.M2());
+  fhPt->Fill(pC.Pt());
+  // Feinman xf calculation: xf = pz* / (sqrt(s)/2)
+  auto boostVec = pSum.BoostToCM(); // boost vector to CMS of reaction
+  ROOT::Math::Boost boost(boostVec);
+  LorenzVector pCinCMS = boost(pC);
+  double xf = pCinCMS.pz() / (TMath::Sqrt(sMandel) / 2.);
+  fhXf->Fill(xf);
+
   // we want to re-order generated particles as follows:
   // The closest to the beam line particle goes first as it will interact with
   // Sa most likely (i.e. last in the stack) sort angles from pi to 0
@@ -557,7 +597,7 @@ void HyMCApplication::GeneratePrimaries() {
   TParticlePDG *particle;
 
   // add neutral particles to stack first
-  TLorentzVector pPhotons(0., 0., 0., 0.);
+  TLorentzVector pPhotons(0., 0., 0., 0.); // = pc
   int primariesCounter = 0;
   for (int i = 0; i < nFinal; ++i) {
     isPushed[i] = 0;
@@ -570,9 +610,10 @@ void HyMCApplication::GeneratePrimaries() {
     y = pout[indices[i]][6];
     z = pout[indices[i]][7];
     pdg = pout[indices[i]][8];
-    if (pdg == 22) { // photon
+    if (pdg == 22) { // photon from decay c -> gammas
       pPhotons.SetXYZT(pPhotons.X() + px, pPhotons.Y() + py, pPhotons.Z() + pz,
                        pPhotons.T() + e);
+      pC += pCurrent;
     }
     particle = TDatabasePDG::Instance()->GetParticle(pdg);
     // check if particle is neutral
@@ -593,7 +634,7 @@ void HyMCApplication::GeneratePrimaries() {
     TVector3 PgVertex(x, y, z);
 
     Pg.Rotate(theta, n);
-    PgVertex.Rotate(theta, n);
+    // PgVertex.Rotate(theta, n);
     px = Pg.X();
     py = Pg.Y();
     pz = Pg.Z();
@@ -863,7 +904,8 @@ void HyMCApplication::BeginPrimary() {
     if (particle)
       std::cout << particle->GetName() << "  ";
     else
-      std::cout << "unknown" << "  ";
+      std::cout << "unknown"
+                << "  ";
     std::cout << "   Track ID = " << gMC->GetStack()->GetCurrentTrackNumber()
               << "  ";
     std::cout << "   Parent ID = "

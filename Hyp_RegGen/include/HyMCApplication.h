@@ -154,6 +154,11 @@ private:
   TH1F *fPhotonVertexZPosition; ///< histos
   TH1F *fPtHisto;               // Pt in event  ///< histos
   TH2F *fCoordHisto;
+  TH1F *fhT;
+  TH1F *fhPt;
+  TH1F *fhXf;
+  TH1F *fhMisMass;
+  TH1F *fhBeamEnergy;
   HyMCStack *fStack; ///< VMC particle stack
   HyDetectorConstruction
       fDetConstruction;   ///< Dector geometry and physical volumes construction
