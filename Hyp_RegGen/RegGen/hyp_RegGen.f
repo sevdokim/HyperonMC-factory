@@ -27,14 +27,14 @@ C
 C     This routine generates 1 event at the beam momentun 7 GeV/c 
 C      
 C     Input: Ireac1,Ireac2 - range of the genarated reactions according to
-C            the reaction list in the common/rections/Ireac1,Ireac2,React(10,100) 
+C            the reaction list in the common/reactions/Ireac1,Ireac2,React(10,100) 
 C
 C     Output data are placed in the common/MC_event/, where:
 C 
 C     Ievent - genarator internal event number
 C     Ierror - event error flag: for normal event Ierror=0, otherwise Ierror > 0
 C     iseed  - random seed to be used in generator
-C     Jrec   - exclusive reaction number listed in the common/rections/
+C     Jrec   - exclusive reaction number listed in the common/reactions/
 C     IstOut - number of stable particles in the final state of event, including barion  
 C     Pout(10,500) - 10-vector of the final particles (Ip = 1,500):
 C                    Pout(1-5,Ip) -- 5-vector of particle Ip
@@ -76,8 +76,8 @@ C
 C        Reaction table, reaction Index = 1,83 
 C     -------------------------------------------     
 C
-      common/rections/ Ireac1, Ireac2, Mcarlo, React(10,100)
-      data Ireac1,Ireac2, Mcarlo, React /  16, 71, 10,                      
+      common/reactions/ Ireac1, Ireac2, Mreac1, Mreac2, Mcarlo, React(10,100)
+      data Mreac1, Mreac2, Mcarlo, React /  16, 80, 10,                      
 C
 C     Index_R - reaction index
 C     Prob    - reaction probabilityPout(10,500)
@@ -170,15 +170,32 @@ C Phase Space:
      + 74.,  1.,  2.,  8.,   66.,   7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(etapi0) + p 
      + 75.,  1.,  2.,  8.,   67.,   8.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(etapi+) + n   
      + 76.,  1.,  2.,  8.,   68.,   7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(omgpi0) + p
-     + 77.,  1.,  2.,  8.,   69.,   8.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(omhpi+) + n 
+     + 77.,  1.,  2.,  8.,   69.,   8.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(omgpi+) + n 
      + 78.,  1.,  2.,  8.,   70.,   7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(3pi0)   + p
      + 79.,  1.,  2.,  8.,   71.,   7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(pi0pi+pi-) + p
-     + 80.,  1.,  2.,  8.,   72.,   8.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(2pi0pi+)	+ n
-     + 81.,  1.,  2.,  8.,   73.,   7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(eta2pi0)	+ p
-     + 82.,  1.,  2.,  8.,   74.,   7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(etapi+pi-) + p
-     + 83.,  1.,  2.,  8.,   75.,   8.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(etapi0pi+) + n
-C       
-     + 170*0. / 
+     + 80.,  1.,  2.,  8.,   73.,   7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(eta2pi0)	+ p
+C     
+     + 81.,  1.,  2.,  8.,   13.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> pi0 + X     incl Carlo with Xf
+     + 82.,  1.,  2.,  8.,   14.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> eta + X     incl Carlo with Xf
+     + 83.,  1.,  2.,  8.,   19.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> omg + X     incl Carlo with Xf   
+     + 84.,  1.,  4.,  8.,   45.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> K0s + X     incl Carlo with Xf
+     + 85.,  1.,  2.,  8.,   27.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> f2(1270)+ X incl Carlo with Xf
+     + 86.,  1.,  2.,  8.,   64.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(2pi0)+ X incl Carlo with Xf	    
+     + 87.,  1.,  2.,  8.,   15.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> f0(500) + X incl Carlo with Xf 
+     + 88.,  1.,  2.,  8.,   13.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> pi0 + X     Z-MC calibration
+     + 89.,  1.,  2.,  8.,   14.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> eta + X     Z-MC calibration
+     + 90.,  1.,  2.,  8.,   15.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> Empty   + X incl Carlo with Xf 
+C     
+     + 91.,  1.,  2.,  8.,   13.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> pi0 + X     incl Carlo with Xf 
+     + 92.,  1.,  2.,  8.,   14.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> eta + X     incl Carlo with Xf 
+     + 93.,  1.,  2.,  8.,   19.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> omg + X     incl Carlo with Xf    
+     + 94.,  1.,  4.,  8.,   45.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> K0s + X     incl Carlo with Xf 
+     + 95.,  1.,  2.,  8.,   27.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> f2(1270)+ X incl Carlo with Xf 
+     + 96.,  1.,  2.,  8.,   64.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> PS(2pi0)+ X incl Carlo with Xf 	    
+     + 97.,  1.,  2.,  8.,   15.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> f0(500) + X incl Carlo with Xf 
+     + 98.,  1.,  2.,  8.,   13.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> pi0 + X     Z-MC calibration
+     + 99.,  1.,  2.,  8.,   14.,  -7.,    1.,    1.,     2.,     3.,  !  pi+n -> eta + X     Z-MC calibration
+     +100.,  1.,  2.,  8.,   15.,  -7.,    1.,    1.,     2.,     3. / !  pi+n -> Empty   + X incl Carlo with Xf     
 C ......................................................................................................
 C
 C     Secondary particle table
@@ -559,8 +576,6 @@ C
       if (start) then
          start  =.false.
          Pbeam  = BeamMomentum  !  Beam momentum GeV/c
-         Ireac1=i1
-         Ireac2=i2
          Ievent= 0
 C
          call Init_RegGen       ! Reading RegGen.cards 
@@ -590,18 +605,31 @@ C-    write(*,*) AmsSt
 C-    write(*,*)
 C 
       R0 = regrndm(0)
-C-    write(*,*) Ievent,R0
-      do Jr = Ireac1,Ireac2      ! the main reaction cycle with probability
+      do Jr = Ireac1,Ireac2           ! the main reaction cycle with probability
+      
+C-    write(*,*) 'R0,Jr,React(2,jr)',R0,Jr,React(2,jr)
+      
       if(R0.le.React(2,jr)) then 
                             Jrec = Jr
-C
+C>                                     ! the first 10 hyp_carlo reactions
       if(Jrec.le.Mcarlo) then
 C-                       write(*,*) 'Jrec,Nchanel=>',Ievent,Nchanel 
-c                         call hyp_event(Pbeam,Jrec,Nchanel,Ngamma,Pout)
+C-                       call hyp_event(Pbeam,Jrec,Nchanel,Ngamma,Pout)
                          call hyp_event(Pbeam,Jrec,IstOut,Ngamma,Pout)
 			 IstOut = Ngamma 
                          return
 		  endif
+C>                                    ! the last 29 hyp_carlo reactions
+C
+      if(Jrec.gt.Mreac2) then
+      	                 call hyp_event_XF(Pbeam,Jrec,IstOut,Ngamma,Pout)
+			 IstOut = Ngamma 
+                         return
+		  endif
+C
+C-    do j=1,Ngamma
+C-    write(*,*) 'Pout==',Ngamma,j,(Pout(k,j),k=1,5)		
+C-    enddo
 C
       Ireac = int(React(1,Jrec))
       Ibeam = int(React(3,Jrec))
@@ -610,8 +638,8 @@ C
       IparD = int(React(6,Jrec))
       N_Reg = int(React(7,Jrec))
 C
-C-    write(*,*) 'Reaction:', Jrec, Ireac, Itarg, IparC, IparD
-C-    write(*,*)
+      write(*,*) 'Reaction:', Jrec, Ireac, Itarg, IparC, IparD
+      write(*,*)
 C      
 C Beam:
 C
@@ -967,7 +995,7 @@ C
       end
 C
       subroutine Init_RegGen
-      common/rections/ Ireac1, Ireac2, Mcarlo, React(10,100)
+      common/reactions/ Ireac1, Ireac2, Mreac1, Mreac2, Mcarlo, React(10,100)
       common/secondaris/Npart, Nreson, Part(65,100)
       integer      Mreac(2,100,5) 
       character*26 head
@@ -976,7 +1004,8 @@ C
       dimension Prob(2,100),PartCor(65)
 C      
       data mes / 'pi0', 'eta', 'omg', 'K0s', 'f2 '/  
-      data LunCards / 77 /
+      data LunCards  / 77 /
+      data Nreaction / 99 /
 C
       write(*,*)
       write(*,*) '---=== RegGen Generator initialisation ===---'
@@ -989,7 +1018,11 @@ C
       read(LunCards,*) head,reac1,reac2
       Ireac1 = reac1
       Ireac2 = reac2
-      write(*,*) 'Reactions to generate:    ',Ireac1,Ireac2     
+      write(*,*) 'Reactions to generate:    ',Ireac1,Ireac2
+      if (Ireac2.ge.Nreaction) then
+          write(*,*) 'Reaction number error !!!'
+          stop
+      endif  
 C
       read(LunCards,*) head,Nreact
       write(*,*)       head,Nreact
@@ -1022,7 +1055,7 @@ C
                        enddo
       endif
 C
-C     --- Apply particle decay corrections ---
+C     --- Apply particle decay correactions ---
 C
           Ipart = PartCor(1)
           do k=1,5+6*Ndecay
@@ -1105,7 +1138,7 @@ C
       end
 C       
       subroutine init_reactns
-      common/rections/ Ireac1, Ireac2, Mcarlo, React(10,100)
+      common/reactions/ Ireac1, Ireac2, Mreac1, Mreac2, Mcarlo, React(10,100)
 C
       write(*,*) 'Reaction numbers:', Ireac1, Ireac2
 
@@ -1974,6 +2007,8 @@ C
 C- 30 if (ExChanel.le.0) then
    30 n30calls=n30calls+1
 C
+C-    write(*,*) 'Xf-:',Momentum,Nreson,Nchanel,Mchanel(Nreson)
+C
       if (nchanel.gt.0) go to 40
       R1 = REGRNDM(0)
       do j=1,Mchanel(Nreson)
@@ -1992,11 +2027,13 @@ C Beam momentun correction, there is another corr_1 above
 C	    
 C-    sigP = 0.070      ! Momentum distortion there is another corr_1 above 
 C-    sigP = 0.140      ! Momentum distortion there is another corr_1 above 
-      sigP = 0.210      ! Momentum distortion there is another corr_1 above 
+      sigP = 0.210      ! Momentum distortion there is another corr_1 above
+C 
    45 rndG  = rnd_gauss(1.) 
       if(abs(rndG).gt.3.0) go to 45
       Pa(3) = Pbeam + sigP*rndG         ! Momentum distortion there is another corr_1 above 
       Pa(4) = Dsqrt(Pa(5)**2 + Pa(3)**2 + Pa(2)**2 + Pa(1)**2)
+C
 C Spectator:
 C
       Pd(5) = Amp     
@@ -2004,25 +2041,28 @@ C
 C C-system:  
 C             
 C-    write(*,*) 'Hyp_Carlo: Nreson=',Nreson 
-C-----make photon masses to be zeroes
+C  ---make photon masses to be zeroes
+C
       do j=1,Mgamma
          Pgamma(5,j) = 0.
       enddo
-      if (Nreson.eq.1) then                        !  Resonans 1 - pi0        
-        Pc(5) = Ampi0
-        cntrl_prmtr=Pgamma(1,0)
-        if (cntrl_prmtr.gt.0.) then
-          Pc(5) = cntrl_prmtr/1000. ! MeV -> GeV
-        endif
-        if (cntrl_prmtr.eq.(-0.01)) then
-          Pc(5) = 0.001 + regrndm(0)
-        endif
- 1331    call reaction(Nreson, T, Pd(5))
-	   call abtocds(Pa,Pb(5),Pc,Pd,T)
-         if (T.gt.0.) go to 1331
-	   if (T.gt.0.) go to 1000
-      if (Nchanel.eq.1) then                     !  Excl. channel = pi0 -> 2Y
-C        write(*,*) 'Pi0->2Y'
+C      
+C  --- Resonances 1-10 --- 
+C      
+      if (Nreson.eq.1) then                       !  Resonans 1 - pi0        
+          Pc(5) = Ampi0
+          cntrl_prmtr=Pgamma(1,0)
+          if (cntrl_prmtr.gt.0.) then
+             Pc(5) = cntrl_prmtr/1000. ! MeV -> GeV
+          endif
+          if (cntrl_prmtr.eq.(-0.01)) then
+             Pc(5) = 0.001 + regrndm(0)
+          endif
+ 1331     call reaction(Nreson, T, Pd(5))
+          call abtocds(Pa,Pb(5),Pc,Pd,T)
+          if (T.gt.0.) go to 1331
+	 	 
+         if (Nchanel.eq.1) then                     !  Excl. channel = pi0 -> 2Y
          call decays(Pc,Pgamma(1,1),Pgamma(1,2))
          Ngamma = 2	 
          endif
@@ -2038,13 +2078,13 @@ C
 C
       if (Nreson.eq.2) then     !  Resonans 2 - eta
          Pc(5) = AmEta
-         cntrl_prmtr=Pgamma(1,0)
-         if (cntrl_prmtr.gt.0.) then
-            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
-     c           Nchanel=1
-            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
-     c           Nchanel=2
-         endif
+C         cntrl_prmtr=Pgamma(1,0)
+C         if (cntrl_prmtr.gt.0.) then
+C            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
+C     +           Nchanel=1
+C            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
+C     +           Nchanel=2
+C         endif
 c     write (*,*) 'control  = ', cntrl_prmtr
 c     write (*,*) 'nChannel = ', Nchanel
          call reaction(Nreson, T, Pd(5))  
@@ -2065,30 +2105,7 @@ C
             call decays(P2,Pgamma(1,3),Pgamma(1,4))
             call decays(P3,Pgamma(1,5),Pgamma(1,6))
             Ngamma = 6
-C     -
-C            write(*,*)
-C	     write(*,*)
 C
-C	     do l=1,4
-C	     P4(l) = 0.
-C	     enddo
-C
-C	     do l=1,6
-C	     P4(1) = P4(1)+Pgamma(1,l)
-C	     P4(2) = P4(2)+Pgamma(2,l)
-C	     P4(3) = P4(3)+Pgamma(3,l)
-C	     P4(4) = P4(4)+Pgamma(4,l)
-
-C	     enddo
-C
-C	     Esm = P4(4)
-C	     call hf1(105,Esm,1.)
-C-
-     
-C  77	     format(5E20.10)
-C             do k=1,4
-C	     Pc(k)= P1(k)+P2(k)+P3(k)
-C             enddo
          endif
 C
          if (Nchanel.eq.3) then !  Excl. channel = eta -> 2Ypi0 ->4Y
@@ -2105,7 +2122,7 @@ C
             call decays(P2,Pgamma(1,3),Pgamma(1,4))
             Ngamma = 4
          endif
-C     
+C
          do j=1,Ngamma
             Pgamma(6,j) = 0.
             Pgamma(7,j) = 0.
@@ -2379,7 +2396,7 @@ c         endif
 C
 C     Resonance 7 - eta(1295)->etapi0pi0
          L=0
-         th = Ampi0 + 2. * AmEta
+         th = 2.*Ampi0 + AmEta
  1077    call BW_rand_L(1000.*AmEta1295, 1000.*WidEta1295,L,1000.*th,rnd_BW) !  GAMS BW for spin-0 particle
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV
          if (Pc(5).le.(2.* Ampi0 + AmEta)) goto 1077
@@ -2520,7 +2537,7 @@ c$$$         endif
 C     a2(1320)
          L=2
          th = Ampi0 + AmEta
-c 1066    call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW) !  GAMS BW for omg(782)  
+c1066    call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW) !  GAMS BW for omg(782)  
  1066    call BW_rand_L(1000.*AmA21320, 1000.*WidA21320,L,1000.*th,rnd_BW) !  GAMS BW for spin-2 particle   
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV
          if (Pc(5).le.(Ampi0 + AmEta)) goto 1066
@@ -2557,6 +2574,702 @@ C-    write(*,*) 'Ngamma,Pd=',Ngamma,Pd
 	 Pgamma(8,0) = 0.   
          Pgamma(9,0) =100.       ! Dummy index means no GEANT interaction 
          Pgamma(10,0)=100*Nreson+10*Nchanel+j
+      return
+C       
+ 1000 CONTINUE
+C  
+C!!!- Ngamma = 0
+      go to 30
+      RETURN
+      END       
+C
+      subroutine hyp_event_XF(Momentum,Nreson,Nchanel,Ngamma,Pgamma)    !    Sdv
+C                                                                         21.10.2025    
+C     Omitted parameters:  Ptarget,Ntarget 
+C 
+C     Real input parameters:                   Output parameters:
+C                Momentum -- beam mom GeV/c    Nchanel -- decay channel of resonance
+C                Nreson   -- reaction index    Ngamma  -- number of photons in final stage
+C                                              Pgamma  -- array of 10-vectors of the photons 
+C
+C     MC for the inclusive reaction:           But t and MisMas is calculated throut Xf and Pt
+C            a  +  bZN --> c0 + X           ==================================================== 
+C            c0 --> c1 + c2 + ...
+C........................................................................................... 
+C-    IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+C
+      common/reactions/ Ireac1, Ireac2, Mreac1, Mreac2, Mcarlo, React(10,100)
+      SAVE
+      Real Momentum, regrndm, pi02_m
+      Double precision Pbeam
+      Dimension Ptarget(10)
+      Dimension Pchanel(10,100)       ! Number of resonans, Number of chanel
+      Dimension Preson(100)           ! Resonan probability
+
+      Dimension PtrgtSm(10), PchanSm(10,100), PresSm(100)
+C-    Double precision T,Pa(5),Pb(5),Pc(5),Pd(5),Pgamma(10,10)
+      Double precision T,Pa(5),Pb(5),Pc(5),Pd(5),Pgamma(10,0:9)
+      Double precision Tf2
+      Double precision P1(5), P2(5), P3(5), P4(5), PPc, CtauK0
+      Double precision Xvertex, Yvertex, Zvertex, Random, R1, R2, FF
+      Double precision Double_Mass_distr_2pi0
+      Integer Mchanel(100)
+      integer n30calls
+C       
+      Integer ExTarget, ExReson, ExChanel
+C-    data    ExTarget, ExReson, ExChanel  / 3, 4, 1/ !  The main parameters for f2 exclusive channel 
+      data    ExTarget, ExReson, ExChanel  / 3, 6, 1/ !  The main parameters for omg exclusive channel
+      data Mtarget,Mgamma,Mreson  / 3, 9, 10 /        !  3 targets, 9 photons maximum, 10 resonanses (yet) 
+C     data Ptarget  /  1. 0, 1.0, 1.0, 0.0, 6*0. /    !  Target probability
+      data Preson   /  0.041, 0.024, 0.031, 0.054,
+     +                           0., 0.032, 0.057, 0.00, 2*0., 90*1./ !  Resonans probability
+C
+C-    data Mchanel  /     1,   4,   1,   2,   1,  1,  1, 2, 1, 1 /    !  Decay cahannels
+      data Mchanel  /     1,   4,   1,   2,   1,  1,  1, 2, 1, 1, 90*1/!,                                    !
+c     +                    1,   4,   1,   2,   1,  1,  1, 2, 1, 1, 10*1/                                    !  
+      data Pchanel  /  1.00,          9*0.0,  !   pi0 /pi0->2Y/                                            !
+     2     39.41, 32.68, 0.0256, 0.0, 6*0.0,  !   eta /eta->2Y, eta->3pi0->6Y, eta->2Ypi0->4Y, eta->2pi0/  !                    
+     3     1.000,   0.0,    0.0, 0.0, 6*0.0,  !   omg /omg->pi0Y->3Y, omg->3pi0, omg->2pi0, omg->etapi0/   !
+     4     1.000,  1.00,  8*0.0, !  K0 /K0s->2pi0->4Y, K0s->pi+pi-/                                        !    N
+     5     1.000, 9*0.0,         !  f2 /f2->2pi0->4Y/                                                      !    O
+     6     1.000, 9*0.0,         !  2pi0 /2pi0->4Y/ or etapi0 -> 2gam                                      !    T
+c    7     1.000, 9*0.0,         !  f0 /f0->2pi0->4Y/                                                      !
+     7     1.000, 9*0.0,         !  eta(1295) -> eta(2Y)pi0pip0                                            !    U
+c    8     1.000, 9*0.0,         !  pi0 /pi0->2Y/ for MC Z-scale calibration                               !    S
+C    9     1.000, 9*0.0,         !  eta /eta->2Y/ for MC Z-scale calibration                               !    E
+     8     2.307, 8.96,   8*0.0, !  eta' /eta'->2Y, eta'->pi0pi0eta(2Y), eta'->3pi0->6Y, eta'->2pi0->4Y/   !    D
+     9     1.000, 9*0.0,         !  a0(980) /a0->etapi0/                                                   !
+     +     1.000, 9*0.0,        !  a2(1320)->etapi0                                                       !    s
+     +     900*0.0/
+c$$$     1     700*0.0,              !                                                                         !    e
+c$$$C       ==============           !  reactions 81, 82, 83, ...                                              !    e
+c$$$     1     1.00,          9*0.0, !  pi0 /pi0->2Y/                                                          !
+c$$$     2     39.41, 32.68, 0.0256, 0.0, 6*0.0,   !  eta /eta->2Y, eta->3pi0->6Y, eta->2Ypi0->4Y, eta->2pi0/  !    h
+c$$$     3     1.000,   0.0,    0.0, 0.0, 6*0.0,   !  omg /omg->pi0Y->3Y, omg->3pi0, omg->2pi0, omg->etapi0/   !    y
+c$$$     4     1.000,  1.00,  8*0.0, !  K0 /K0s->2pi0->4Y, K0s->pi+pi-/                                        !    p
+c$$$     5     1.000, 9*0.0,         !  f2 /f2->2pi0->4Y/                                                      !    _
+c$$$     6     1.000, 9*0.0,         !  2pi0 /2pi0->4Y/ or etapi0 -> 2gam                                      !    e
+c$$$c    7     1.000, 9*0.0,         !  f0 /f0->2pi0->4Y/                                                      !    v
+c$$$     7     1.000, 9*0.0,         !  eta(1295) -> eta(2Y)pi0pip0                                            !    e
+c$$$c    8     1.000, 9*0.0,         !  pi0 /pi0->2Y/ for MC Z-scale calibration                               !    n
+c$$$C    9     1.000, 9*0.0,         !  eta /eta->2Y/ for MC Z-scale calibration                               !    t
+c$$$     8     2.307, 8.960,  8*0.0, !  eta' /eta'->2Y, eta'->pi0pi0eta(2Y), eta'->3pi0->6Y, eta'->2pi0->4Y/   !
+c$$$     9     1.000, 9*0.0,         !  a0(980) /a0->etapi0/                                                   !
+c$$$     +     1.000, 9*0.0,         !  a2(1320)->etapi0                                                       !
+c$$$     +     1.000,99*0.0          /                                                                         !
+C
+      data CtauK0     / 2.6844  /                                 !  C*lifetime(K0s)
+C ..............................................................................
+      Logical Lstart
+      data Lstart   /.false./  
+C    
+      data    Ampi,    Ampi0,    AmEta,     AmK0,      Amp,      Amn    
+     +/   0.139570, 0.134977, 0.547862, 0.497611, 0.938272, 0.939565 /  ! Mass in GeV
+C
+      data   AmOmg,	 Amf0,     Amf2,    AmRho0     !  Masses of resonances in MeV 
+     +/     782.65,	446.0,   1275.5,    769.0 /
+C      
+      data  WidOmg, 	Widf0,	  Widf2,    WidRho0    !  Widths of resonances in MeV 
+     +/      8.490,     350.0,	  186.7,    151.7 /  
+      data AmEtaP,  AmA0980, AmA21320,  AmEta1295      ! Mass in GeV
+     +/    0.95778,     0.990,    1.318,    1.294 /
+C     
+      data WidEtaP,  WidA0980, WidA21320, WidEta1295   ! Width in GeV
+     +/    0.000198,   0.1,      0.107,     0.055 /
+C---------------------------------------------------------------------------------   
+C
+      if(Lstart) go to 30           !  Operator for call from Hyp_RegGen routine
+C....................................................................................
+C
+C Exclusive channel decay probabilities 
+C
+       
+       do n=1,Mreson
+        CrSec = 0.
+        do j=1,Mchanel(n)
+        if(Pchanel(j,n).gt.0.) CrSec = CrSec + Pchanel(j,n)
+C-      write(*,*) 'CrSec,Pchanel(j,n)',Mreson,j,CrSec,Pchanel(j,n)
+        enddo	
+C
+        PchanSm(1,n) = 0.
+        if(Pchanel(1,n).ge.0.) PchanSm(1,n)= Pchanel(1,n)/CrSec      
+			       
+        do j=1,Mchanel(n)-1
+        if(Pchanel(j+1,n).ge.0.) PchanSm(j+1,n) = 
+     +                           PchanSm(j,n)+Pchanel(j+1,n)/CrSec
+        enddo      
+ 
+        if (PchanSm(Mchanel(n),n).lt.0.99999) then
+             stop 'Channel prob. error'   
+	  else  		 
+	   do j=1,Mchanel(n)
+	    Prob=Pchanel(j,n)
+	    if (Prob.ge.0.) 
+     +      write(*,*)'Res. Nb, Channel Nb, Problt:',n,j,Prob/CrSec
+	   enddo
+        endif
+       enddo     
+C 
+C Beam:
+C
+      Pbeam = Momentum
+      Pa(5) = Ampi      
+      Pa(1) = 0.
+      Pa(2) = 0.
+      Pa(3) = Pbeam                     ! will be redefined later with beam distortion
+      Pa(4) = Dsqrt(Pa(5)**2 + Pa(3)**2 + Pa(2)**2 + Pa(1)**2)
+      write(*,*) 'Pbeam (px, py, pz, e, m) =',Pa(1), ',',  Pa(2), ',',Pa(3), ',',Pa(4), ',',Pa(5)
+C
+C Target:
+C
+      Pb(5) = Amn     
+      Pb(1) = 0.
+      Pb(2) = 0.
+      Pb(3) = 0.
+      Pb(4) = Dsqrt(Pb(5)**2 + Pb(3)**2 + Pb(2)**2 + Pb(1)**2) 	
+C
+CCC Some reading of control patameters
+C
+      if (Pgamma(1, 0).eq.11101.) then
+         AmF2  = Pgamma(2, 0)
+         WidF2 = Pgamma(3, 0)
+         write(*,*) 'RegGen: I use m(f2) = ', amf2, 'width(f2) = ', widf2
+      endif
+C
+C Photon masses:       
+C
+      do j=1,Mgamma
+         Pgamma(5,j) = 0.
+      enddo
+C      
+      n30calls=0     
+      Lstart=.true.   
+C
+   30 n30calls=n30calls+1
+C   
+      Ireson = Nreson-Mreac2 
+C   
+      write(*,*) 'Xf:',Momentum,Nreson,Ireson,Nchanel,Mchanel(Nreson)
+C
+      if (nchanel.gt.0) go to 40
+      R1 = REGRNDM(0)
+      do j=1,Mchanel(Ireson)
+      if (R1.lt.PchanSm(j,Ireson)) then
+		     Nchanel = j     
+		     go to 40
+	       endif 
+	   enddo
+
+      Nchanel = Mchanel(Ireson)
+C-    endif    
+
+   40 continue
+C
+C Beam momentun correction, there is another corr_1 above      
+C	    
+C-    sigP = 0.070      ! Momentum distortion there is another corr_1 above 
+C-    sigP = 0.140      ! Momentum distortion there is another corr_1 above 
+      sigP = 0.210      ! Momentum distortion there is another corr_1 above 
+   45 rndG  = rnd_gauss(1.) 
+      if(abs(rndG).gt.3.0) go to 45
+      Pa(3) = Pbeam + sigP*rndG         ! Momentum distortion there is another corr_1 above 
+      Pa(4) = Dsqrt(Pa(5)**2 + Pa(3)**2 + Pa(2)**2 + Pa(1)**2)
+C
+C Spectator:
+C
+      Pd(5) = Amp      ! BEAM MASS
+C
+C C-system:  
+C             
+C-    write(*,*) 'Hyp_Carlo: Ireson=',Ireson
+C 
+C  ---make photon masses to be zeroes
+C
+      do j=1,Mgamma
+         Pgamma(5,j) = 0.
+      enddo
+      if (Ireson.eq.1) then                        !  Resonans 1 - pi0        
+        Pc(5) = Ampi0
+        cntrl_prmtr=Pgamma(1,0)
+        if (cntrl_prmtr.gt.0.) then
+          Pc(5) = cntrl_prmtr/1000. ! MeV -> GeV
+        endif
+        if (cntrl_prmtr.eq.(-0.01)) then
+          Pc(5) = 0.001 + regrndm(0)
+        endif
+ 1331    call reaction_XF(Ireson,Pa,Pb,Pc,T,Pd(5))
+	   call abtocds(Pa,Pb(5),Pc,Pd,T)
+           if (T.gt.0.) go to 1331
+C
+      if (Nchanel.eq.1) then                       !  Excl. channel = pi0 -> 2Y
+C        write(*,*) 'Pi0->2Y'
+         call decays(Pc,Pgamma(1,1),Pgamma(1,2))
+         Ngamma = 2	 
+      endif 
+C
+         do j=1,Ngamma
+	 
+C!-	 write(*,*) '81=',NGAMMA,j,(Pgamma(k,j),k=1,5)
+	 	 
+	 Pgamma(6,j) = 0.
+	 Pgamma(7,j) = 0.
+	 Pgamma(8,j) = 0.
+	 Pgamma(9,j) =22.                          !  PDG code of photon
+	 Pgamma(10,j)=100*Ireson+10*Nchanel+j      !  Photon hystory code
+         enddo
+      endif
+C
+      if (Ireson.eq.2) then                        !  Resonans 2 - eta
+         Pc(5) = AmEta
+         cntrl_prmtr=Pgamma(1,0)
+         if (cntrl_prmtr.gt.0.) then
+            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
+     c           Nchanel=1
+            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
+     c           Nchanel=2
+         endif
+c     write (*,*) 'control  = ', cntrl_prmtr
+c     write (*,*) 'nChannel = ', Nchanel
+c         call reaction(Ireson, T, Pd(5))  
+         call reaction_XF(Ireson,Pa,Pb,Pc,T,Pd(5))
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.0.) go to 1000
+C	  
+         if (Nchanel.eq.1) then !  Excl. channel = eta -> 2Y
+            call decays(Pc,Pgamma(1,1),Pgamma(1,2))
+            Ngamma = 2
+         endif
+C
+         if (Nchanel.eq.2) then !  Excl. channel = eta -> 3pi0 ->6Y
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = Ampi0
+            call STAR3T(Pc,P1,P2,P3)
+            call decays(P1,Pgamma(1,1),Pgamma(1,2))
+            call decays(P2,Pgamma(1,3),Pgamma(1,4))
+            call decays(P3,Pgamma(1,5),Pgamma(1,6))
+            Ngamma = 6
+C
+         endif
+C
+         if (Nchanel.eq.3) then !  Excl. channel = eta -> 2Ypi0 ->4Y
+            P1(5) = Ampi0
+            call STAR3T(Pc,P1,Pgamma(1,1),Pgamma(1,2))
+            call decays(P1,Pgamma(1,3),Pgamma(1,4))
+            Ngamma = 4
+         endif
+         if (Nchanel.eq.4) then !  Excl. channel = eta -> 2pi0 ->4Y
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            call decays(Pc,P1,P2)
+            call decays(P1,Pgamma(1,1),Pgamma(1,2))
+            call decays(P2,Pgamma(1,3),Pgamma(1,4))
+            Ngamma = 4
+         endif
+C     
+         do j=1,Ngamma
+            Pgamma(6,j) = 0.
+            Pgamma(7,j) = 0.
+            Pgamma(8,j) = 0.
+            Pgamma(9,j) =22.    !  PDG code of photon
+            Pgamma(10,j)=100*Ireson+10*Nchanel+j !  Photon history code
+         enddo
+      endif
+C
+      if (Ireson.eq.3) then                         !  Resonance 3 - omega
+C-       Pc(5) = Amw + (s2w/2.36)*rnd_gauss(1.)     !  Simple Gauss distribution
+C
+         cntrl_prmtr=Pgamma(1,0)
+         if (cntrl_prmtr.gt.0.) then
+            if(cntrl_prmtr.lt.0.1) WidOmg = cntrl_prmtr*1000. !  GeV->MeV; read width from control parameter from 0 to 0.1 GeV
+            if(cntrl_prmtr.eq.0.77) then ! this is rho0 resonance
+               WidOmg = 150.
+               AmOmg  = 769.
+            endif
+         endif
+         L = 1 ! omg spin
+         if (Nchanel.eq.1) th = Ampi0
+         if (Nchanel.eq.2) th = 3.*Ampi0
+         if (Nchanel.eq.3) th = 2.*Ampi0
+         if (Nchanel.eq.4) th = AmEta + Ampi0
+         if (Nchanel.eq.5) th = AmEta
+c        write(*,*) 'Generating Mres=',AmOmg,'MeV; Gamma=',WidOmg,'MeV'
+C
+c 345    call BW_rand_omg(AmOmg,WidOmg ,rnd_BW) !  GAMS BW for omg(782)  
+  345    call BW_rand_L(AmOmg,WidOmg,L,1000.*th,rnd_BW) !  GAMS BW for L=1 decays  
+         Pc(5) = 0.001*rnd_BW   !  MeV => GeV   
+C
+         ntries=1
+ 3451    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) !  Just like eta 
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+         ntries=ntries+1
+         if(ntries.gt.1000) then
+            write(*,*) 'Giving up generating reaction for'
+            write(*,*) 'Ireson=',Ireson,'; Mass=',Pc(5),'GeV'
+            goto 1000           ! give up trying
+         endif
+         if(T.gt.0) goto 3451   ! try once again 
+            
+C
+         if (Nchanel.eq.1) then !  Excl. channel = w -> pi0Y -> 3Y
+            P1(5) = Ampi0
+            if(Pc(5).le.Ampi0) goto 345
+            call decays(Pc, P1, Pgamma(1,1))
+            call decays(P1, Pgamma(1,2), Pgamma(1,3))
+            Ngamma = 3
+         endif
+C     
+         if (Nchanel.eq.2) then !  Excl. channel = omg->3pi0                                                                                                        
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = Ampi0
+            if(Pc(5).le.(3.*Ampi0)) goto 345
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
+         endif
+C
+         if (Nchanel.eq.3) then !  Excl. channel = omg->2pi0
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            if(Pc(5).le.(2.*Ampi0)) goto 345
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+C
+         if (Nchanel.eq.4) then !  Excl. channel = omg->etapi0
+            P1(5) = AmEta
+            P2(5) = Ampi0
+            if(Pc(5).le.(AmEta+Ampi0)) goto 345
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+C
+         if (Nchanel.eq.5) then !  Excl. channel = omg -> eta gam -> 3gam
+            P1(5) = AmEta
+            if(Pc(5).le.AmEta) goto 345
+            call decays(Pc, P1, Pgamma(1,1))
+            call decays(P1, Pgamma(1,2), Pgamma(1,3))
+            Ngamma = 3
+         endif
+
+         do j=1,Ngamma
+         Pgamma(6,j) = 0.
+	 Pgamma(7,j) = 0.
+	 Pgamma(8,j) = 0.
+	 Pgamma(9,j) =22.                           !  PDG code of photon
+	 Pgamma(10,j)=100*Ireson+10*Nchanel+j       !  Photon hystory code
+         enddo
+      endif
+C
+      if (Ireson.eq.4) then     !  Resonance 4 - K0s
+         Pc(5) = AmK0
+         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.0) go to 1000
+C     
+C     
+         if (Nchanel.eq.1) then !  Excl. channel = K0s -> 2pi0->4Y
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+         if (Nchanel.eq.2) then !  Excl. channel = K0s -> pi+pi-
+            Pgamma(5,1) = Ampi
+            Pgamma(5,2) = Ampi
+            call decays(Pc, Pgamma(1,1), Pgamma(1,2))
+            Ngamma = 2
+            Pgamma(9,1) = 211
+            Pgamma(9,2) = -211
+         endif    
+C     
+         Random = REGRNDM(0)
+         PPc = dsqrt((Pc(1)**2+Pc(2)**2 + Pc(3)**2))
+         Xvertex = - (Pc(1)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
+         Yvertex = - (Pc(2)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
+         Zvertex = - (Pc(3)/PPc)*(Pc(4)/Pc(5))*CtauK0*dlog(Random)
+         do j=1,Ngamma
+            Pgamma(6,j) = Xvertex
+            Pgamma(7,j) = Yvertex
+            Pgamma(8,j) = Zvertex
+            if (Nchanel.ne.2) Pgamma(9,j) = 22.
+         enddo
+      endif
+C     
+      if (Ireson.eq.5) then                         !  Resonance 5 - f2)
+C-
+         call BW_rand_f2(Amf2,Widf2,rnd_BW)         !  GAMS BW for f2(1275)
+	 Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
+	 
+ 5696    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+         Tf2=T ! save first generated T in order not to destroy its distribution
+c
+c  30    write(*,*) 'f2 generator: I generated T = ', Tf2
+c        T=Pgamma(1,0) ! read T from control variable (see run_g3_control.C). used to examine T resolution 
+c        write(*,*) 'RegGen: I generated following kinematics for f2 decay:'
+c        write(*,*) 'Mass	  = ', Pc(5)
+c        write(*,*) 'T  	  = ', T
+c        write(*,*) 'Missing mass = ', Pd(5)
+c
+         ncalls_reaction = 1
+ 5697    call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.0) then 
+            call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+            T=Tf2
+            ncalls_reaction=ncalls_reaction+1
+            if(ncalls_reaction.gt.4) then
+C!!!-          write(*,*)'cannot generate Missing mass for mass = ', Pc(5)
+               goto 5696
+            endif
+            go to 5697
+         endif
+C
+         if (Nchanel.eq.1) then                     !  Excl. channel = f2 -> 2Pi0 -> 4Y
+          P1(5) = Ampi0
+          P2(5) = Ampi0
+          call decays(Pc, P1, P2)
+          call decays(P1, Pgamma(1,1), Pgamma(1,2))
+          call decays(P2, Pgamma(1,3), Pgamma(1,4))
+          Ngamma = 4
+         endif
+C
+C
+c         write(*,*) 'RegGen: I generated following gammas for f2 decay:'
+         do j=1,Ngamma         
+         Pgamma(6,j) = 0.    
+         Pgamma(7,j) = 0. 
+         Pgamma(8,j) = 0.    
+         Pgamma(9,j) =22.                           !  PDG code of photon 
+         Pgamma(10,j)=100*Ireson+10*Nchanel+j       !  Photon hystory code
+c        write(*,*) 'gamma ',j,': (px py pz e) = (',Pgamma(1,j),Pgamma(2,j), Pgamma(3,j), Pgamma(4,j),')'
+         enddo
+      endif                                                                                             
+C                                                                                             
+      if (Ireson.eq.6) then                         !  Resonance 6 - 2pi0 or etapi0 
+         Pc(5) = Pgamma(1,0)*0.001                        ! read mass from control parameter
+         if (Pc(5).le.0.) then
+ 854        R1=REGRNDM(0)                                                                        
+C
+            if (Nchanel.eq.1) then
+               Pc(5) = 0.270 + 2.23*R1 !  ===> Uniform distribution up 2.5
+            endif
+            if (Nchanel.eq.2) then
+            Pc(5) = AmPi0 + AmEta + R1 * (2.5 - AmPi0 - AmEta) !  ===> Uniform from thrh up 2.5 GeV)
+            endif
+c     call S_pi0pi0(pi02_m)   ====> S-wave from GAMS4000, beam momentum = 100GeV/c
+c            Pc(5) = pi02_m
+         endif
+         if (Nchanel.eq.1) then
+            P1(5) = Ampi0       !       but actually due to t & MisMs
+            P2(5) = Ampi0       !       this is not unifomdistribution
+         endif
+         if (Nchanel.eq.2) then
+            P1(5) = AmEta
+            P2(5) = Ampi0
+         endif
+c     try to generate t & missing mass for current mass of 2pi0 system
+         ntries=0
+ 855     ntries=ntries+1
+         if (ntries.gt.100000) then
+            write(*,*) 'RegGen: cannot generate suitable T & mis mass'
+            write(*,*) 'for M(2pi0) = ', Pc(5), ' GeV. Giving up.'
+            goto 854
+         endif
+         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+C-	                          Pd(5) = 0.938272  !  proton mass
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+	 if (T.gt.0) go to 855                                                     
+         call decays(Pc, P1, P2)                                                                
+C                                                                                             
+         if (Nchanel.eq.1.or.NChanel.eq.2) then                     !  Excl. channel 2pi0 -> 4gam or etapi0->4gam                     
+           call decays(P1, Pgamma(1,1), Pgamma(1,2))                                          
+           call decays(P2, Pgamma(1,3), Pgamma(1,4))                                          
+           Ngamma = 4                                                                         
+         endif                                                                                
+C                                                                                             
+         do j=1,Ngamma                                                                        
+         Pgamma(6,j) = 0.                                                                     
+         Pgamma(7,j) = 0.                                                                     
+         Pgamma(8,j) = 0.                                                                     
+         Pgamma(9,j) =22.                           !  PDG code of photon                     
+         Pgamma(10,j)=100*Ireson+10*Nchanel+j       !  Photon hystory code                    
+         enddo                                                                                
+      endif                                                                                   
+C                                         
+C
+      if (Ireson.eq.7) then     !  Resonance 7 - f0(500) -> 2pi0 or eta(1295)->etapi0pi0 (see below)
+         L=0
+         th = 2.*Ampi0 + AmEta
+ 1077    call BW_rand_L(1000.*AmEta1295, 1000.*WidEta1295,L,1000.*th,rnd_BW) !  GAMS BW for spin-0 particle
+         Pc(5) = 0.001*rnd_BW   !  MeV => GeV
+         if (Pc(5).le.(2.* Ampi0 + AmEta)) goto 1077
+C
+         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270)
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.0) go to 1000
+         if (Nchanel.eq.1) then ! excl channel eta(1295) -> pi0pi0eta(2Y) 
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = AmEta
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
+         endif
+
+
+         do j=1,Ngamma
+         Pgamma(6,j) = 0.
+	 Pgamma(7,j) = 0.
+	 Pgamma(8,j) = 0.
+	 Pgamma(9,j) =22.                          !  PDG code of photon
+	 Pgamma(10,j)=100*Ireson+10*Nchanel+j      !  Photon hystory code
+         enddo
+      endif
+C
+      if (Ireson.eq.8) then         !  etaPrime	 
+       
+         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like eta
+         Pc(5) = AmEtaP ! very small width -> let it be 0.
+C	 
+	 call abtocds(Pa,Pb(5),Pc,Pd,T)
+	 if (T.gt.0.) go to 1000
+         cntrl_prmtr = Pgamma(1,0)
+         if (cntrl_prmtr.gt.0.) then
+            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
+     c           Nchanel=1
+            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
+     c           Nchanel=2
+         endif
+         if (Nchanel.eq.1) then !  Excl. channel = etaP -> 2Y
+C     write(*,*) 'Pi0->2Y'
+            call decays(Pc,Pgamma(1,1),Pgamma(1,2))
+            Ngamma = 2	 
+         endif
+C
+         if (Nchanel.eq.2) then ! excl channel etaP -> pi0pi0eta
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = AmEta
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
+         endif
+C
+         if (Nchanel.eq.3) then ! excl channel etaP -> pi0pi0pi0
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            P3(5) = Ampi0
+            call STAR3T(Pc, P1, P2, P3)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            call decays(P3, Pgamma(1,5), Pgamma(1,6))
+            Ngamma = 6
+         endif
+C
+         if (Nchanel.eq.4) then ! excl channel etaP -> pi0pi0
+            P1(5) = Ampi0
+            P2(5) = Ampi0
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+
+C
+         do j=1,Ngamma
+	 Pgamma(6,j) = 0.
+	 Pgamma(7,j) = 0.
+	 Pgamma(8,j) = 0.
+	 Pgamma(9,j) =22.                           !  PDG code of photon
+	 Pgamma(10,j)=100*Ireson+10*Nchanel+j       !  Photon hystory code
+         enddo
+      endif
+C     
+      if (Ireson.eq.9) then     !  a0(980)
+         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like f2(1270)
+c     366     call BW_rand_f0(1000.*AmA0980,1000.*WidA0980,rnd_BW) !  GAMS BW for f0(500)
+         L=0
+         th=Ampi0 + AmEta
+ 366     call BW_rand_L(1000.*AmA0980,1000.*WidA0980,L,1000.*th,rnd_BW) !  GAMS BW for f0(500)
+         Pc(5) = 0.001*rnd_BW   !  MeV => GeV
+         if (Pc(5).le.(Ampi0 + AmEta)) goto 366
+C
+         call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.0.) go to 1000
+C
+         if (Nchanel.eq.1) then ! excl channel a0(980) -> pi0eta
+            P1(5) = Ampi0
+            P2(5) = AmEta
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+C
+         do j=1,Ngamma
+         Pgamma(6,j) = 0.
+         Pgamma(7,j) = 0.
+         Pgamma(8,j) = 0.
+         Pgamma(9,j) =22.                           !  PDG code of photon
+         Pgamma(10,j)=100*Ireson+10*Nchanel+j       !  Photon hystory code
+         enddo
+      endif
+C  
+      if (Ireson.eq.10) then                        !  Resonance 10 - a2(1320) (former rho0(770))
+C     rho0(770)
+C     a2(1320)
+         L=2
+         th = Ampi0 + AmEta
+c1066    call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW) !  GAMS BW for omg(782)  
+ 1066    call BW_rand_L(1000.*AmA21320, 1000.*WidA21320,L,1000.*th,rnd_BW) !  GAMS BW for spin-2 particle   
+         Pc(5) = 0.001*rnd_BW   !  MeV => GeV
+         if (Pc(5).le.(Ampi0 + AmEta)) goto 1066
+C    
+         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270) 
+         call abtocds(Pa,Pb(5),Pc,Pd,T)      
+         if (T.gt.0) go to 1000 
+         if (Nchanel.eq.1) then !  Excl. channel = rho0(770) -> pi0Y -> 3Y
+            P1(5) = Ampi0
+            P2(5) = AmEta
+            call decays(Pc, P1, P2)
+            call decays(P1, Pgamma(1,1), Pgamma(1,2))
+            call decays(P2, Pgamma(1,3), Pgamma(1,4))
+            Ngamma = 4
+         endif
+
+C         
+         do j=1,Ngamma
+         Pgamma(6,j) = 0.
+	 Pgamma(7,j) = 0.
+	 Pgamma(8,j) = 0.
+	 Pgamma(9,j) =22.                           !  PDG code of photon
+	 Pgamma(10,j)=100*Ireson+10*Nchanel+j       !  Photon history code
+         enddo
+      endif	 	 
+
+C-    write(*,*) 'Ngamma,Pd=',Ngamma,Pd
+      Ngamma = Ngamma+1
+      do k=1,5
+         Pgamma(k,0) = Pd(k) 
+      enddo
+         Pgamma(6,0) = 0.
+	 Pgamma(7,0) = 0.
+	 Pgamma(8,0) = 0.   
+         Pgamma(9,0) =100.       ! Dummy index means no GEANT interaction 
+         Pgamma(10,0)=100*Ireson+10*Nchanel
       return
 C       
  1000 CONTINUE
@@ -2866,6 +3579,162 @@ C
       return
       end
 C
+C
+C**************************************************************************
+C
+      subroutine reaction_XF(Nreson, Pa, Pb, Pc, T, MissMass)
+C...............................................................................
+C      for given resonance returns trans. momentum and missing mass
+C      distributions calculated by S.Sadovsky   10.05.2020
+C      f2 calculated 30.06.11 by SA and me
+C
+      integer Nreson
+      real regrndm
+      double precision Pa(5), Pb(5), Pc(5), Pt, Xf,Pcms(5),Pclb(5)
+      double precision R1, R2, b, b2, T, Random, Random2,pi2
+      double precision MissMass, Mean, s2, Double_MM_distr_2pi0,FF
+      double precision Double_T_distr_f2,Double_MM_distr_f2 
+      integer ncalls
+      data ncalls,pi2 /0, 6.283185307D0 /
+      save ncalls,pi2
+C
+      if (Nreson.lt.1.or.Nreson.gt.10) then
+          write(*,*) 'reaction_XF: ERROR resonance number Nreson=',Nreson
+	  stop 'reaction_XF: ERROR'
+          else
+C
+      go to (134,234,334,434,534,634,734) Nreson	  
+	  
+C  -- Pt --
+C
+  134 b  = 0.350                      !  resonance = pi0
+      Random = REGRNDM(0)
+      Pt = b*dsqrt(-dlog(Random))
+C
+C  -- Xf --
+C
+      Xf  = REGRNDM(0)            
+      go to 1000
+C
+C  -- Pt --
+C
+  234 if (Nreson.eq.2) then           !  resonance = eta	 
+      b  = 0.350
+      Random = REGRNDM(0)
+      Pt = b*dsqrt(-dlog(Random))
+C
+C  -- Xf --
+C
+      Xf  = REGRNDM(0)            
+      endif
+      go to 1000
+C 
+C
+  334 if (Nreson.eq.3) then            !  resonance = omg 
+C      
+C  -- Pt --
+C
+      b  = 0.350
+      Random = REGRNDM(0)
+      Pt = b*dsqrt(-dlog(Random))
+C
+C  -- Xf --
+C
+      Xf  = REGRNDM(0)             
+      endif
+      go to 1000
+  
+  434 if (Nreson.eq.4) then             !  resonance = K0s 
+C 
+C  -- Pt --
+C     
+      b  = 0.350
+      Random = REGRNDM(0)
+      Pt = b*dsqrt(-dlog(Random))
+C
+C  -- Xf --
+C
+      Xf  = REGRNDM(0)           
+      endif
+      go to 1000 
+C
+  534 if (Nreson.eq.5) then             !  resonance = f2
+C
+C  -- Pt --
+C      
+      b  = 0.350
+      Random = REGRNDM(0)
+      Pt = b*dsqrt(-dlog(Random))
+C
+C  -- Xf --
+C
+      Xf  = REGRNDM(0)             
+      endif
+      go to 1000
+C
+  634 if (Nreson.eq.6) then               !  resonance = 2pi0
+C
+C  -- Pt --
+C      
+      b  = 0.350
+      Random = REGRNDM(0)
+      Pt = b*dsqrt(-dlog(Random))
+C
+C  -- Xf --
+C
+      Xf  = REGRNDM(0)             
+      endif
+      go to 1000 
+C
+  734 if (Nreson.eq.7) then               !  resonance = f0(500) -> 2pi0
+C      
+C  -- Pt --
+C      
+      b  = 0.350
+      Random = REGRNDM(0)
+      Pt = b*dsqrt(-dlog(Random))
+C
+C  -- Xf --
+C
+      Xf  = REGRNDM(0)              
+      endif
+      go to 1000
+
+C
+C --- T and MisMas calculation on bases of Pt ans Xf --- 
+C
+ 1000 Rpt= Pt
+      RXf= Xf
+      Ssqrt   = Dsqrt(Dabs((Pa(4)+Pb(4))**2-Pa(1)**2-Pa(2)**2-Pa(3)**2))
+      Random2 = pi2*REGRNDM(0)
+      Pc(1)   = pt*Dcos(Random2)
+      Pc(2)   = pt*Dsin(Random2)
+      Pc(3)   = Xf*Ssqrt/2.0
+      Pc(4)   = Dsqrt(Pc(1)**2+Pc(2)**2+Pc(3)**2+Pc(5)**2)
+C
+      do j=1,3
+      Pcms(j) = Pa(j)
+      enddo
+      Pcms(4) = Pa(4)+Pb(4)
+      Pcms(5) = Ssqrt
+      call arturs(Pc,Pcms,Pclb)    
+C
+      T = (Pclb(4)-Pa(4))**2-(Pclb(1)-Pa(1))**2-(Pclb(2)-Pa(2))**2-(Pclb(3)-Pa(3))**2
+      Rt= T
+C
+      MissMass= (Pa(4)+Pb(4)-Pclb(4))**2 - (Pa(1)+Pb(1)-Pclb(1))**2 -
+     +          (Pa(2)+Pb(2)-Pclb(2))**2 - (Pa(3)+Pb(3)-Pclb(3))**2
+      MissMass=  Dsqrt(Dabs(MissMass))
+      RMissMas=  MissMass
+      endif
+      
+c      call hf1(31,Rpt,1.0)
+c      call hf1(32,RXf,1.0)
+c      call hf1(33,RT ,1.0)
+c      call hf1(34,RMissMas,1.0)
+C      
+      return
+      end
 C
       subroutine reaction_Mike(Nreson, T, MissMass)
 C...............................................................................
