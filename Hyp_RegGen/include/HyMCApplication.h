@@ -159,6 +159,7 @@ private:
   TH1F *fhXf;
   TH1F *fhMisMass;
   TH1F *fhBeamEnergy;
+  TH2F *fhPtvsXf;
   HyMCStack *fStack; ///< VMC particle stack
   HyDetectorConstruction
       fDetConstruction;   ///< Dector geometry and physical volumes construction

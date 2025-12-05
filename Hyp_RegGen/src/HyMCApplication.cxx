@@ -267,9 +267,9 @@ void HyMCApplication::RunMC(Int_t nofEvents) {
   fhBeamEnergy = new TH1F("hBeamEnergy", "Beam energy", 10000, 0., 10.);
   fhMisMass = new TH1F("hMisMass", "Missing mass (pD)", 1000, 0., 5.);
   fhPt = new TH1F("hPt", "Pt of photon system (pC)", 1000, 0., 2.);
-  fhT = new TH1F("hT", "Mandelstam t of photon system (pC)", 1000, -2., 2.);
-  fhXf = new TH1F("hXf", "x_{F} of photon system (pC)", 1000, -2., 2.);
-
+  fhT = new TH1F("hT", "Mandelstam t of photon system (pC)", 2000, -2., 2.);
+  fhXf = new TH1F("hXf", "x_{F} of photon system (pC)", 2000, -2., 2.);
+  fhPtvsXf = new TH2F("hPtvsXf", "Pt vs x_{F} of photon system (pC)", 100, 0, 1., 200, 0., 1.);
   cout << "now " << nofEvents << " events will be processed. seed = " << iseed
        << endl;
   gMC->ProcessRun(nofEvents);
@@ -562,6 +562,7 @@ void HyMCApplication::GeneratePrimaries() {
   LorenzVector pCinCMS = boost(pC);
   double xf = pCinCMS.pz() / (TMath::Sqrt(sMandel) / 2.);
   fhXf->Fill(xf);
+  fhPtvsXf->Fill(xf, pC.Pt());
 
   // we want to re-order generated particles as follows:
   // The closest to the beam line particle goes first as it will interact with

@@ -172,30 +172,30 @@ if [ -f MC_res.dat ] ; then
     # we keep only part of log_production
 # We put MC_res.dat, Histos.root, MCgen.dat, log_converter into archive
     if [ -f Run${SEED}.gz ] ; then #!!! success
-	    echo 'File exists:' Run${SEED}.gz
-	    #relpath=$(realpath --relative-to=$MCRUNSDIR $(pwd))
-	    #ln -s $relpath/Run${SEED}.gz $MCRUNSDIR/Run${SEED}.gz
-	    echo 'Moving it to ' $MCRUNSDIR
-	    mv Run${SEED}.gz $MCRUNSDIR/
-	    echo 'First 700 strings and last 700 strings of log_production. For full file look MC_res.dat.bz2 ' > log_production_part
-	    head -n 700 log_production >> log_production_part
-	    echo '.................................................................' >> log_production_part
-	    echo '.............cutted here.........................................' >> log_production_part
-	    echo '.................................................................' >> log_production_part
-	    tail -n 700 log_production >> log_production_part
-	    echo 'Now I shall archive production files to generated.tar'
-	    if bzip2 -z9 log_production MC_res.dat MCgen.dat
-	    then
-	        echo 'I made bz2 archives.'
-	    else
-	        echo 'Problem to make bz2 archives.'
-	    fi
-	    if tar -cf generated.tar log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root 
-	    then
-	        echo "Archive generated.tar is created. I remove files:"
-	        rm -vf log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root
-	    fi
-	    chmod a+r $MCRUNSDIR/Run${SEED}.gz
+	echo 'File exists:' Run${SEED}.gz
+	#relpath=$(realpath --relative-to=$MCRUNSDIR $(pwd))
+	#ln -s $relpath/Run${SEED}.gz $MCRUNSDIR/Run${SEED}.gz
+	echo 'Moving it to ' $MCRUNSDIR
+	mv Run${SEED}.gz $MCRUNSDIR/
+	echo 'First 700 strings and last 700 strings of log_production. For full file look MC_res.dat.bz2 ' > log_production_part
+	head -n 700 log_production >> log_production_part
+	echo '.................................................................' >> log_production_part
+	echo '.............cutted here.........................................' >> log_production_part
+	echo '.................................................................' >> log_production_part
+	tail -n 700 log_production >> log_production_part
+	echo 'Now I shall archive production files to generated.tar'
+	if bzip2 -z9 log_production MC_res.dat MCgen.dat
+	then
+	    echo 'I made bz2 archives.'
+	else
+	    echo 'Problem to make bz2 archives.'
+	fi
+	if tar -cf generated.tar log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root 
+	then
+	    echo "Archive generated.tar is created. I remove files:"
+	    rm -vf log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 #Histos.root
+	fi
+	chmod a+r $MCRUNSDIR/Run${SEED}.gz
         chown -R $USER_GROUP $MCRUNSDIR/
 	chmod -R a+r .
 	chown -R $USER_GROUP .
@@ -211,6 +211,6 @@ if [ ! $CONVERT_ONLY = yes ] ; then
     cp -a * $WD/$SUFFIX
     chown -R $USER_GROUP $WD/$SUFFIX
     if [ $REMOVE_LOG_PRODUCTION = yes ] ; then
-	    rm -vf $WD/$SUFFIX/log_production
+	rm -vf $WD/$SUFFIX/log_production
     fi
 fi

@@ -42,11 +42,11 @@ export SCRATCH="/scratch"
 export USER_GROUP=":hyperon"
 
 # evdokimov03 environment (local testing) 
-if [ $(uname -n) = "alice21" ]; then
+if [ $(uname -n) = "alice21" ] || [ $(uname -n) = "alice22" ]; then
     MCDIR=~/hyperon/HyperonMC-factory/
     WD=~/hyperon/mc/RegGen/efficiencies/$PRODUCTION_NAME/
     IHEP_QUEUE=debug
-    SCRATCH="/data1/evdokimov/scratch/"
+    SCRATCH="/scratch/"
     export USER_GROUP=":evdokimov"
 fi
 
@@ -93,7 +93,8 @@ echo
 #
 
 #i=$UNIC_CODE
-i=1
+if [ -z $first_thread ] ; then first_thread=1; fi
+i=$first_thread
 fin=$[ $NTHREADS+$i ]
 while [ $i -lt $fin ]
 do

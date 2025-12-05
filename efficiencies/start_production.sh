@@ -2,7 +2,8 @@
 #
 export IHEP_QUEUE=ihep-medium                  # cluster queue name
 export EVENTNUMBER=100000                     # Total event number to be generated per 1 production thread  
-export NTHREADS=10                             # total number of production threads   
+export first_thread=1
+export NTHREADS=300                             # total number of production threads   
 export CONVERT_ONLY=no                         # just reconvert generated data to Hyperon format
 
 export PERIOD                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
@@ -37,20 +38,22 @@ do
 	    *)      export EFFICIENCY_SA=1.0 ;;
 	esac
 	export EFFICIENCY_SA=1.0 # 100 percent efficiency
-	for MESON in pi0_xf omg_xf K0_xf f2_xf #eta_xf #2pi0 K0   f0
+	for MESON in 2pi0_xf #K0_xf #pi0_xf eta_xf omg_xf K0_xf f2_xf #2pi0 K0   f0
 	#for MES in eta #f2 #omg #eta f2 2pi0 K0 # f0
-	do 	
-	    case "$MES" in
+	do
+	    case "$MESON" in
 		"pi0")     n=1 ;;
 		"eta")     n=2 ;;
 		"omg")     n=3 ;;
 		"K0")      n=4 ;;
 		"f2")      n=5 ;;
+		"2pi0")    n=6 ;;
 		"pi0_xf")     n=1 ;;
                 "eta_xf")     n=2 ;;
                 "omg_xf")     n=3 ;;
                 "K0_xf")      n=4 ;;
                 "f2_xf")      n=5 ;;
+		"2pi0_xf")    n=6 ;;
 		*)         n=0 ;;
 	    esac
 	    #for TGT_PRFX in al35mm cu7mm sn5mm pb3mm c78mm be79mm #ch80mm # al35mm cu7mm sn5mm pb3mm
@@ -61,8 +64,10 @@ do
 		    export THICKNESS_S4=1.0 # from 2009
 		    # export THICKNESS_S4=6.0 # before 2009
 		    export UNIC_CODE=$[ $cond*1000000+ $n*100000 ]
+		    #export PRODUCTION_NAME=${PERIOD_PRFX}_${TGT_PRFX}_${MESON}_to2gam_xfpt_evd_v1_${HYCONDITION}
 		    export PRODUCTION_NAME=${PERIOD_PRFX}_${TGT_PRFX}_${MESON}_${HYCONDITION}
 		    export HYMC_CONFIG_DEFINED=yes
+		    export EXCHANEL=1
 		    
 		    echo " "
 		    echo 'MESON               =' $MESON

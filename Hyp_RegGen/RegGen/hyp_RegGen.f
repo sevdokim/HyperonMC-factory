@@ -2749,7 +2749,7 @@ C
 C   
       Ireson = Nreson-Mreac2 
 C   
-      write(*,*) 'Xf:',Momentum,Nreson,Ireson,Nchanel,Mchanel(Nreson)
+C-    write(*,*) 'Xf:',Momentum,Nreson,Ireson,Nchanel,Mchanel(Nreson)
 C
       if (nchanel.gt.0) go to 40
       R1 = REGRNDM(0)
@@ -2798,8 +2798,9 @@ C
           Pc(5) = 0.001 + regrndm(0)
         endif
  1331    call reaction_XF(Ireson,Pa,Pb,Pc,T,Pd(5))
+           if (T.gt.5.0) go to 1331
 	   call abtocds(Pa,Pb(5),Pc,Pd,T)
-           if (T.gt.0.) go to 1331
+           if (T.gt.5.0) go to 1331
 C
       if (Nchanel.eq.1) then                       !  Excl. channel = pi0 -> 2Y
 C        write(*,*) 'Pi0->2Y'
@@ -2831,9 +2832,10 @@ C
 c     write (*,*) 'control  = ', cntrl_prmtr
 c     write (*,*) 'nChannel = ', Nchanel
 c         call reaction(Ireson, T, Pd(5))  
-         call reaction_XF(Ireson,Pa,Pb,Pc,T,Pd(5))
-         call abtocds(Pa,Pb(5),Pc,Pd,T)
-         if (T.gt.0.) go to 1000
+ 1332    call reaction_XF(Ireson,Pa,Pb,Pc,T,Pd(5))
+            if (T.gt.5.0) go to 1332
+            call abtocds(Pa,Pb(5),Pc,Pd,T)
+         if (T.gt.5.0) go to 1332
 C	  
          if (Nchanel.eq.1) then !  Excl. channel = eta -> 2Y
             call decays(Pc,Pgamma(1,1),Pgamma(1,2))
@@ -2900,9 +2902,11 @@ c 345    call BW_rand_omg(AmOmg,WidOmg ,rnd_BW) !  GAMS BW for omg(782)
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV   
 C
          ntries=1
- 3451    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) !  Just like eta 
+ 3451    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) !  Just like eta
+         if (T.gt.5.0) go to 3451
          call abtocds(Pa,Pb(5),Pc,Pd,T)
          ntries=ntries+1
+	 if (T.gt.5.0) go to 3451
          if(ntries.gt.1000) then
             write(*,*) 'Giving up generating reaction for'
             write(*,*) 'Ireson=',Ireson,'; Mass=',Pc(5),'GeV'
@@ -2968,11 +2972,12 @@ C
          enddo
       endif
 C
-      if (Ireson.eq.4) then     !  Resonance 4 - K0s
+ 3454   if (Ireson.eq.4) then     !  Resonance 4 - K0s
          Pc(5) = AmK0
-         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                
+         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+	 if (T.gt.5.0) go to 3454            
          call abtocds(Pa,Pb(5),Pc,Pd,T)
-         if (T.gt.0) go to 1000
+         if (T.gt.5.0) go to 3454
 C     
 C     
          if (Nchanel.eq.1) then !  Excl. channel = K0s -> 2pi0->4Y
@@ -3007,11 +3012,13 @@ C
 C     
       if (Ireson.eq.5) then                         !  Resonance 5 - f2)
 C-
-         call BW_rand_f2(Amf2,Widf2,rnd_BW)         !  GAMS BW for f2(1275)
+ 5695    call BW_rand_f2(Amf2,Widf2,rnd_BW)         !  GAMS BW for f2(1275)
 	 Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
 	 
  5696    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
-         Tf2=T ! save first generated T in order not to destroy its distribution
+         if (T.gt.5.0) go to 5696
+ 
+c        Tf2=T ! save first generated T in order not to destroy its distribution
 c
 c  30    write(*,*) 'f2 generator: I generated T = ', Tf2
 c        T=Pgamma(1,0) ! read T from control variable (see run_g3_control.C). used to examine T resolution 
@@ -3022,15 +3029,15 @@ c        write(*,*) 'Missing mass = ', Pd(5)
 c
          ncalls_reaction = 1
  5697    call abtocds(Pa,Pb(5),Pc,Pd,T)
-         if (T.gt.0) then 
-            call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
-            T=Tf2
-            ncalls_reaction=ncalls_reaction+1
-            if(ncalls_reaction.gt.4) then
-C!!!-          write(*,*)'cannot generate Missing mass for mass = ', Pc(5)
-               goto 5696
-            endif
-            go to 5697
+         if (T.gt.5.0) then 
+C!-            call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+C!-            T=Tf2
+C!-            ncalls_reaction=ncalls_reaction+1
+C!-            if(ncalls_reaction.gt.4) then
+C!-            write(*,*)'cannot generate Missing mass for mass = ', Pc(5)
+C!-            go to 5696
+C!-            endif
+            go to 5695
          endif
 C
          if (Nchanel.eq.1) then                     !  Excl. channel = f2 -> 2Pi0 -> 4Y
@@ -3060,7 +3067,7 @@ C
  854        R1=REGRNDM(0)                                                                        
 C
             if (Nchanel.eq.1) then
-               Pc(5) = 0.270 + 2.23*R1 !  ===> Uniform distribution up 2.5
+               Pc(5) = 0.270 + 0.730*R1 !  ===> Uniform distribution up 1 GeV
             endif
             if (Nchanel.eq.2) then
             Pc(5) = AmPi0 + AmEta + R1 * (2.5 - AmPi0 - AmEta) !  ===> Uniform from thrh up 2.5 GeV)
@@ -3085,9 +3092,9 @@ c     try to generate t & missing mass for current mass of 2pi0 system
             goto 854
          endif
          call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
-C-	                          Pd(5) = 0.938272  !  proton mass
+         if (T.gt.5.0) go to 855
          call abtocds(Pa,Pb(5),Pc,Pd,T)
-	 if (T.gt.0) go to 855                                                     
+	 if (T.gt.5.0) go to 855                                                     
          call decays(Pc, P1, P2)                                                                
 C                                                                                             
          if (Nchanel.eq.1.or.NChanel.eq.2) then                     !  Excl. channel 2pi0 -> 4gam or etapi0->4gam                     
@@ -3113,9 +3120,10 @@ C
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV
          if (Pc(5).le.(2.* Ampi0 + AmEta)) goto 1077
 C
-         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270)
+ 1078    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270)
+	 if (T.gt.5.0) go to 1078
          call abtocds(Pa,Pb(5),Pc,Pd,T)
-         if (T.gt.0) go to 1000
+         if (T.gt.5.0) go to 1000
          if (Nchanel.eq.1) then ! excl channel eta(1295) -> pi0pi0eta(2Y) 
             P1(5) = Ampi0
             P2(5) = Ampi0
@@ -3139,11 +3147,12 @@ C
 C
       if (Ireson.eq.8) then         !  etaPrime	 
        
-         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like eta
+ 1088    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like eta
          Pc(5) = AmEtaP ! very small width -> let it be 0.
+	 if (T.gt.5.0) go to 1088
 C	 
 	 call abtocds(Pa,Pb(5),Pc,Pd,T)
-	 if (T.gt.0.) go to 1000
+	 if (T.gt.5.0) go to 1000
          cntrl_prmtr = Pgamma(1,0)
          if (cntrl_prmtr.gt.0.) then
             if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
@@ -3199,16 +3208,17 @@ C
       endif
 C     
       if (Ireson.eq.9) then     !  a0(980)
-         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like f2(1270)
-c     366     call BW_rand_f0(1000.*AmA0980,1000.*WidA0980,rnd_BW) !  GAMS BW for f0(500)
+ 1089    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like f2(1270)
+c 366    call BW_rand_f0(1000.*AmA0980,1000.*WidA0980,rnd_BW) !  GAMS BW for f0(500)
+         if(T.gt.5.) go to 1089 
          L=0
          th=Ampi0 + AmEta
- 366     call BW_rand_L(1000.*AmA0980,1000.*WidA0980,L,1000.*th,rnd_BW) !  GAMS BW for f0(500)
+  366    call BW_rand_L(1000.*AmA0980,1000.*WidA0980,L,1000.*th,rnd_BW) !  GAMS BW for f0(500)
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV
          if (Pc(5).le.(Ampi0 + AmEta)) goto 366
 C
          call abtocds(Pa,Pb(5),Pc,Pd,T)
-         if (T.gt.0.) go to 1000
+         if (T.gt.5.0) go to 1000
 C
          if (Nchanel.eq.1) then ! excl channel a0(980) -> pi0eta
             P1(5) = Ampi0
@@ -3238,9 +3248,10 @@ c1066    call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW) !  GAMS BW for
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV
          if (Pc(5).le.(Ampi0 + AmEta)) goto 1066
 C    
-         call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270) 
+ 1067    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270) 
+         if(T.gt.5.) go to 1067  
          call abtocds(Pa,Pb(5),Pc,Pd,T)      
-         if (T.gt.0) go to 1000 
+         if (T.gt.5.0) go to 1000 
          if (Nchanel.eq.1) then !  Excl. channel = rho0(770) -> pi0Y -> 3Y
             P1(5) = Ampi0
             P2(5) = AmEta
@@ -3590,10 +3601,13 @@ C      f2 calculated 30.06.11 by SA and me
 C
       integer Nreson
       real regrndm
-      double precision Pa(5), Pb(5), Pc(5), Pt, Xf,Pcms(5),Pclb(5)
+      double precision Pa(5), Pb(5), Pc(5),Pt,Xf,Xpt,Pcms(5),Pclb(5)
       double precision R1, R2, b, b2, T, Random, Random2,pi2
       double precision MissMass, Mean, s2, Double_MM_distr_2pi0,FF
-      double precision Double_T_distr_f2,Double_MM_distr_f2 
+      double precision Double_T_distr_f2,Double_MM_distr_f2
+      double precision eta_fgen, eta_fgen_evd,val
+      double precision f2_fgen,pi0_fgen,omg_fgen_evd,k0_fgen_evd
+c      real eta_fgen
       integer ncalls
       data ncalls,pi2 /0, 6.283185307D0 /
       save ncalls,pi2
@@ -3603,103 +3617,135 @@ C
 	  stop 'reaction_XF: ERROR'
           else
 C
-      go to (134,234,334,434,534,634,734) Nreson	  
+  100 go to (134,234,334,434,534,634,734) Nreson	  
 	  
 C  -- Pt --
 C
-  134 b  = 0.350                      !  resonance = pi0
-      Random = REGRNDM(0)
-      Pt = b*dsqrt(-dlog(Random))
+  134 b  = 0.350                     !  resonance = pi0
+ 1134 Random = REGRNDM(0)
+C-    Pt = b*dsqrt(-dlog(Random))    !  Pt in GeV/c
+C!-   Pt = 2.00D0*Random             !  Pt in GeV/c
+C!-   Pt = 1.50D0*Random             !  Pt in GeV/c
+C!-   Pt = 1.00D0*Random             !  Pt in GeV/c
+C!-   Pt = 2.0*dsqrt(Random)         !  Pt in GeV/c
+      Pt = 2.0*Random         !  Pt in GeV/c
 C
 C  -- Xf --
 C
       Xf  = REGRNDM(0)            
+C  -- brakovka --
+      val=pi0_fgen(Xf,Pt)
+      if (1e5.lt.val) then
+         write(*,*) 'pi0_fgen=',val
+      endif
+      if ((1e5 * REGRNDM(0)).gt.val) goto 1134
       go to 1000
 C
 C  -- Pt --
 C
   234 if (Nreson.eq.2) then           !  resonance = eta	 
-      b  = 0.350
-      Random = REGRNDM(0)
-      Pt = b*dsqrt(-dlog(Random))
+ 1234 Random = REGRNDM(0)
+      Pt = 2.0*Random                 !  Pt in GeV/c
 C
 C  -- Xf --
 C
-      Xf  = REGRNDM(0)            
+      Xf  = REGRNDM(0)
+C
+C  -- brakovka --
+c      rpt = pt
+c      rxf = xf
+c     if ((7500. * REGRNDM(0)).gt.eta_fgen(Xf,Pt)) goto 1234
+      val=eta_fgen_evd(Xf,Pt)
+      if (6.e4.lt.val) then
+         write(*,*) 'eta_fgen_evd=',val
       endif
+      if ((6.e4 * REGRNDM(0)).gt.val) goto 1234
       go to 1000
+      endif
 C 
 C
   334 if (Nreson.eq.3) then            !  resonance = omg 
 C      
 C  -- Pt --
 C
-      b  = 0.350
-      Random = REGRNDM(0)
-      Pt = b*dsqrt(-dlog(Random))
+ 1334 Random = REGRNDM(0)
+      Pt = 2.0*Random                  !  Pt in GeV/c
 C
 C  -- Xf --
 C
-      Xf  = REGRNDM(0)             
+      Xf  = REGRNDM(0)
+C  -- brakovka --
+      val=omg_fgen_evd(Xf,Pt)
+      if (2.3e4.lt.val) then
+         write(*,*) 'omg_fgen_evd=',val
       endif
-      go to 1000
+      if ((2.3e4 * REGRNDM(0)).gt.val) goto 1334
+      go to 1000           
+      endif
   
   434 if (Nreson.eq.4) then             !  resonance = K0s 
 C 
 C  -- Pt --
-C     
-      b  = 0.350
-      Random = REGRNDM(0)
-      Pt = b*dsqrt(-dlog(Random))
+C           
+ 1434 Random = REGRNDM(0)
+      Pt = 2.0*Random                   !  Pt in GeV/c
 C
 C  -- Xf --
 C
-      Xf  = REGRNDM(0)           
+      Xf  = REGRNDM(0)
+C  -- brakovka --
+      val=k0_fgen_evd(Xf,Pt)
+      if (2.6e4.lt.val) then
+         write(*,*) 'k0_fgen_evd=',val
       endif
-      go to 1000 
+      if ((2.6e4 * REGRNDM(0)).gt.val) goto 1434
+      go to 1000          
+      endif
 C
   534 if (Nreson.eq.5) then             !  resonance = f2
 C
 C  -- Pt --
 C      
-      b  = 0.350
-      Random = REGRNDM(0)
-      Pt = b*dsqrt(-dlog(Random))
+ 1534 Random = REGRNDM(0)
+      Pt = 2.0*Random                   !  Pt in GeV/c
 C
 C  -- Xf --
 C
-      Xf  = REGRNDM(0)             
+      Xf  = REGRNDM(0)
+C  -- brakovka --
+      val=f2_fgen(Xf,Pt)
+      if (4.35e4.lt.val) then
+         write(*,*) 'f2_fgen=',val
       endif
+      if ((4.35e4 * REGRNDM(0)).gt.val) goto 1534
       go to 1000
+      endif
 C
   634 if (Nreson.eq.6) then               !  resonance = 2pi0
 C
 C  -- Pt --
 C      
-      b  = 0.350
       Random = REGRNDM(0)
-      Pt = b*dsqrt(-dlog(Random))
+      Pt = 2.0*Random                     !  Pt in GeV/c
 C
 C  -- Xf --
 C
       Xf  = REGRNDM(0)             
-      endif
       go to 1000 
+      endif 
 C
   734 if (Nreson.eq.7) then               !  resonance = f0(500) -> 2pi0
 C      
 C  -- Pt --
 C      
-      b  = 0.350
       Random = REGRNDM(0)
-      Pt = b*dsqrt(-dlog(Random))
+      Pt = 2.0*Random                     !  Pt in GeV/c
 C
 C  -- Xf --
 C
       Xf  = REGRNDM(0)              
-      endif
       go to 1000
-
+      endif
 C
 C --- T and MisMas calculation on bases of Pt ans Xf --- 
 C
@@ -3711,6 +3757,13 @@ C
       Pc(2)   = pt*Dsin(Random2)
       Pc(3)   = Xf*Ssqrt/2.0
       Pc(4)   = Dsqrt(Pc(1)**2+Pc(2)**2+Pc(3)**2+Pc(5)**2)
+C
+      Xpt = 2.D0*Pt/Ssqrt
+      if (dsqrt(Xpt*Xpt+Xf*Xf).gt.1.D0) then 
+                                        T=9.
+					return
+				 endif
+      RXp = Xpt	
 C
       do j=1,3
       Pcms(j) = Pa(j)
@@ -3726,15 +3779,644 @@ C
      +          (Pa(2)+Pb(2)-Pclb(2))**2 - (Pa(3)+Pb(3)-Pclb(3))**2
       MissMass=  Dsqrt(Dabs(MissMass))
       RMissMas=  MissMass
+      
+      if (RMissMas.lt.Pb(5)) T=11.      
+      
       endif
       
 c      call hf1(31,Rpt,1.0)
 c      call hf1(32,RXf,1.0)
-c      call hf1(33,RT ,1.0)
+c      call hf1(33,-RT,1.0)
 c      call hf1(34,RMissMas,1.0)
+c      call hf1(35,RXp,1.0)
+c      call hf2(37, RXf,Rpt,1.0)
 C      
       return
       end
+C
+      function eta_fgen_evd(Xf,Pt)
+C      
+C     INPUT variables:
+C     Ires(1:5) = pi0, eta, omg, K0, f2     -- fixed below
+C     Xf in reaction CMS, Xf = 2*Pz/sqrt(s)
+C     Pt in GeV/c 
+C
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      double precision nGenInBin
+      dimension pars(7, 20)
+      data pars /
+     &  0.025000000, 0.0000, 0.60000000, -1.0000000, -0.50000000, 0.50000000, 0.0000000,
+     &  0.075000000, 0.0000, 0.60000000, -1.0000000, -0.50000000, 0.50000000, 0.0000000,
+     &  0.12500000, 38470.042, 0.10573515, -7.4983717, 100.00000, -321.75995, 4101.0539,
+     &  0.17500000, 88112.112, 0.17367717, -6.2925359, 92.968104, -627.44436, 1915.3442,
+     &  0.22500000, 92036.137, 0.21576422, -4.4320390, 58.991493, -278.46513, 537.07563,
+     &  0.27500000, 66630.094, 0.26215436, -3.2022325, 33.834716, -103.15299, 125.36159,
+     &  0.32500000, 46326.816, 0.31141896, -1.8947189, 14.697217, -27.960705, 22.180440,
+     &  0.37500000, 35546.145, 0.38370426, -1.0712845, 4.1128330, -4.8215750, 2.2189839,
+     &  0.42500000, 32637.603, 1.0000000, -1.3230679, 0.53399753, -0.14201004, 0.016924817,
+     &  0.47500000, 30131.685, 0.71860763, -1.1150046, 0.17774187, 0.085271129, -0.027427805,
+     &  0.52500000, 30002.724, 0.69418375, -1.1296806, 0.25500385, -0.032522015, 0.018231440,
+     &  0.57500000, 28965.590, 0.41031725, -0.66940299, 1.5052054, -2.1829325, 1.0692545,
+     &  0.62500000, 28668.953, 0.42261601, -0.55900298, 1.1042284, -1.9893298, 1.0098219,
+     &  0.67500000, 27738.795, 0.43291917, -0.28844505, 0.23587217, -1.1472842, 0.72610538,
+     &  0.72500000, 25989.521, 0.44295389, 0.16228979, -0.93717090, -0.17041397, 0.47312082,
+     &  0.77500000, 25649.461, 0.61918340, 0.17701355, -2.7848030, 2.5011328, -0.68602600,
+     &  0.82500000, 21840.297, 0.36258274, 1.7276099, 5.4252486, -8.7830787, 5.4670077,
+     &  0.87500000, 24485.041, 0.24692214, 0.11869657, 76.788981, -174.31425, 516.79931,
+     &  0.92500000, 23368.682, 0.32606226, 1.2172161, 83.299668, -249.34576, 294.93453,
+     &  0.97500000, 30666.728, 0.36703506, 0.68094055, 99.999987, -446.38325, 1048.0048
+     & /
+C
+      dxf = 1./20.
+      ixf = (xf - 0.025) / dxf
+      deltaxf = xf - 0.025 - ixf * dxf
+      xpt = pt / 1.8994788
+      eta_fgen_evd = 0.
+      if ((xpt**2 + xf**2).gt.1) return
+      if (xf.le.0.1) return
+      if (xf.gt.1) return
+c     write(*,*) 'ixf=',ixf,'pars(1,ixf+1)=',pars(1, ixf+1)
+      if (ixf.lt.0.or.ixf.gt.20) then
+         val1 = 0.
+      else
+         val1 = ptTrue(pt, pars(1, ixf+1))
+      endif
+c
+      if (((ixf+2).lt.1).or.(ixf + 2).gt.20) then
+         val2 = 0.
+      else
+         val2 = ptTrue(pt, pars(1, ixf+2))
+      endif
+c
+      eta_fgen_evd = val1 * (1. - deltaxf / dxf) + val2 * (deltaxf / dxf)
+      return
+      end
+C
+      function omg_fgen_evd(Xf,Pt)
+C      
+C     INPUT variables:
+C     Ires(1:5) = pi0, eta, omg, K0, f2     -- fixed below
+C     Xf in reaction CMS, Xf = 2*Pz/sqrt(s)
+C     Pt in GeV/c 
+C
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      double precision nGenInBin
+      dimension pars(7, 20)
+      data pars /
+     &  0.025000000, 1000.0000, 0.30000000, -1.0000000, 1.0000000, 4.0000000, -3.0000000,
+     &  0.075000000, 1000.0000, 0.30000000, -1.0000000, 1.0000000, 4.0000000, -3.0000000,
+     &  0.12500000, -1747.5744, 0.11197880, -1.0000000, 1.0000000, 4.0000000, -3.0000000,
+     &  0.17500000, 9453.4822, 0.091331078, -12.643279, 587.93498, -15362.946, 160797.68,
+     &  0.22500000, 25416.939, 0.25334260, -5.3367450, 41.299162, -170.00665, 258.66263,
+     &  0.27500000, 52653.950, 0.23639533, -3.8944772, 27.674887, -93.819252, 183.36476,
+     &  0.32500000, 49228.816, 0.32278518, -2.3529765, 12.325774, -22.437204, 20.934604,
+     &  0.37500000, 43518.865, 0.30663194, -1.5378760, 13.188919, -21.535708, 23.904244,
+     &  0.42500000, 38528.934, 0.31442541, -1.2818035, 12.654303, -17.424188, 17.356793,
+     &  0.47500000, 32740.920, 0.92731524, -0.88678311, -0.11147212, 0.17826155, -0.034620312,
+     &  0.52500000, 29921.153, 0.62089346, -0.61170603, -0.22175362, 0.089483095, 0.024377420,
+     &  0.57500000, 27636.335, 0.61638813, -0.46912567, -0.88371566, 0.74865878, -0.15981483,
+     &  0.62500000, 29013.786, 0.62878391, -0.70692892, -0.67573003, 0.71771263, -0.16822749,
+     &  0.67500000, 31480.453, 0.71291576, -1.0750835, -0.18329097, 0.53023052, -0.16483782,
+     &  0.72500000, 31958.544, 0.66743443, -1.1498133, -0.24644977, 0.90203554, -0.36362600,
+     &  0.77500000, 38286.772, 1.0000000, -1.6879452, 1.1711567, -0.48502356, 0.081802272,
+     &  0.82500000, 44569.694, 0.45244945, -1.4602686, 1.9070779, -1.6320910, 0.89350424,
+     &  0.87500000, 52363.957, 0.38203858, -0.98935021, 0.83278233, 3.9477128, -3.3728225,
+     &  0.92500000, 67234.099, 0.99999992, -1.3359869, 0.68613800, -0.40564197, 0.25403561,
+     &  0.97500000, 61597.478, 0.44921858, 3.8642272, -65.635917, 370.55179, -642.08396
+     & /
+C
+      dxf = 1./20.
+      ixf = (xf - 0.025) / dxf
+      deltaxf = xf - 0.025 - ixf * dxf
+      xpt = pt / 1.8994788
+      omg_fgen_evd = 0.
+      if ((xpt**2 + xf**2).gt.1) return
+      if (xf.le.0.1) return
+      if (xf.gt.1) return
+c     write(*,*) 'ixf=',ixf,'pars(1,ixf+1)=',pars(1, ixf+1)
+      if (ixf.lt.0.or.ixf.gt.20) then
+         val1 = 0.
+      else
+         val1 = ptTrue(pt, pars(1, ixf+1))
+      endif
+c
+      if (((ixf+2).lt.1).or.(ixf + 2).gt.20) then
+         val2 = 0.
+      else
+         val2 = ptTrue(pt, pars(1, ixf+2))
+      endif
+c
+      omg_fgen_evd = val1 * (1. - deltaxf / dxf) + val2 * (deltaxf / dxf)
+      return
+      end
+C
+      function k0_fgen_evd(Xf,Pt)
+C      
+C     INPUT variables:
+C     Ires(1:5) = pi0, eta, omg, K0, f2     -- fixed below
+C     Xf in reaction CMS, Xf = 2*Pz/sqrt(s)
+C     Pt in GeV/c 
+C
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      double precision k0_fgen_evd
+      double precision nGenInBin
+      dimension pars(7, 20)
+      data pars /
+     &  0.025000000, 1000.0000, 0.30000000, -1.0000000, 1.0000000, 4.0000000, -3.0000000,
+     &  0.075000000, 1000.0000, 0.30000000, -1.0000000, 1.0000000, 4.0000000, -3.0000000,
+     &  0.12500000, 2.1805277, 0.078101553, 5009.2080, -638277.08, 25865649., 17799018.,
+     &  0.17500000, 4919.4919, 0.10341505, -8.3087768, 285.72184, -3610.7092, 24125.720,
+     &  0.22500000, 15254.111, 0.11922022, -8.3194727, 279.34617, -3337.4293, 18057.053,
+     &  0.27500000, 14056.267, 0.15608624, -5.3095405, 130.51849, -891.88422, 2806.9257,
+     &  0.32500000, 11786.724, 0.18480179, -3.2741925, 73.311115, -358.28650, 824.73903,
+     &  0.37500000, 10638.263, 0.21472417, -2.4201197, 42.593589, -160.47417, 270.57423,
+     &  0.42500000, 9342.0564, 0.23755070, -1.4669487, 24.781256, -78.798894, 116.50995,
+     &  0.47500000, 8406.5959, 0.27522804, -0.89747153, 8.9491916, -19.256918, 21.882250,
+     &  0.52500000, 8150.3470, 0.31797199, -0.85922324, 3.3886510, -5.2653234, 4.5881219,
+     &  0.57500000, 8974.4786, 0.98966504, -1.7358889, 1.1986045, -0.52398113, 0.092563212,
+     &  0.62500000, 9547.1448, 0.99999995, -1.7558990, 1.2577932, -0.57422453, 0.10555240,
+     &  0.67500000, 11182.281, 0.68827454, -1.7308389, 1.3146695, -0.67251491, 0.14276106,
+     &  0.72500000, 14287.347, 0.76019154, -1.8201888, 1.4529420, -0.75583301, 0.16070477,
+     &  0.77500000, 18571.386, 0.32263893, -0.52063980, -1.7932535, 4.2896205, -1.2631188,
+     &  0.82500000, 34314.430, 0.30420028, -0.55920963, -3.0236737, 7.3675417, -3.0437021,
+     &  0.87500000, 79687.453, 0.26693322, -0.70485893, -3.8272412, 11.381417, -4.7903563,
+     &  0.92500000, 214867.72, 0.59448069, -2.9498616, 5.7622378, -6.8568661, 3.1854662,
+     &  0.97500000, 339437.84, 0.60677122, -3.4488555, 9.8827911, -17.916998, 12.807134
+     & /
+C
+      dxf = 1./20.
+      ixf = (xf - 0.025) / dxf
+      deltaxf = xf - 0.025 - ixf * dxf
+      xpt = pt / 1.8994788
+      k0_fgen_evd = 0.
+      if ((xpt**2 + xf**2).gt.1) return
+      if (xf.le.0.1) return
+      if (xf.gt.1) return
+c     write(*,*) 'ixf=',ixf,'pars(1,ixf+1)=',pars(1, ixf+1)
+      if (ixf.lt.0.or.ixf.gt.20) then
+         val1 = 0.
+      else
+         val1 = ptTrue(pt, pars(1, ixf+1))
+      endif
+c
+      if (((ixf+2).lt.1).or.(ixf + 2).gt.20) then
+         val2 = 0.
+      else
+         val2 = ptTrue(pt, pars(1, ixf+2))
+      endif
+c
+      k0_fgen_evd = val1 * (1. - deltaxf / dxf) + val2 * (deltaxf / dxf)
+      return
+      end
+C
+      function ptTrue(pt, pars)
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      dimension pars(7)
+      xf = pars(1)
+      
+      val = pars(2) * dexp(-pt*pt/(2.*pars(3)**2))
+c      val = val* (pt + dabs(pars(4))*pt**2 + dabs(pars(5))*pt**4
+c     +     + dabs(pars(6))*pt**6+dabs(pars(7))*pt**8)
+      val = val* (pt + pars(4)*pt**2 + pars(5)*pt**4 + pars(6)*pt**6+pars(7)*pt**8)
+      if (val.lt.0.) val = 0.
+      ptTrue = val
+      return
+      end
+C
+      function pi0_fgen(Xf,Pt)
+C      
+C     INPUT variables:
+C     Ires(1:5) = pi0, eta, omg, K0, f2     -- fixed below
+C     Xf in reaction CMS, Xf = 2*Pz/sqrt(s)
+C     Pt in GeV/c 
+C
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      dimension Par(10)
+      dimension Pt_Xf(13,20,5)  !     i1=params, i2=Xf, i3=Ires (pi0,eta,omg,k0,f2)
+      dimension pi0(13,20),eta(13,20),omg(13,20),Rk0(13,20),f2(13,20)
+C
+      equivalence (pi0(1,1),Pt_Xf(1,1,1)),(eta(1,1),Pt_Xf(1,1,2)),
+     +            (omg(1,1),Pt_Xf(1,1,3)),(Rk0(1,1),Pt_Xf(1,1,4)),
+     +            (f2 (1,1),Pt_Xf(1,1,5))
+C
+      data MXf, MPt, DlXf, DlPt /   20,  200.,  0.05, 0.01 / 
+C                Ixf  Ptmax        Npar          Par(1)      Par(2)
+      data pi0 / 1.,  0.500,	    0.,	         10*0.0, 
+     +           2.,  0.500,	    0.,	         10*0.0,
+     +           3.,  0.700,	    6.,
+     + 0.715774E+06,0.129349E+00,0.686648E+01,-.131032E+03,0.988229E+03,
+     + -.594347E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.150424E+00,
+     +           4.,  0.900,        6.,
+     + 0.482546E+06,0.197348E+00,-.155005E+01,0.499839E+01,-.188617E+01,
+     + 0.466383E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.202146E+00,
+     +           5.,  1.150,        6.,
+     + 0.273056E+06,0.244264E+00,-.191771E+01,0.991241E+01,-.233742E+02,
+     + 0.335383E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.251858E+00,
+     +     	 6.,  1.400,        6.,
+     + 0.182420E+06,0.281520E+00,-.185229E+01,0.791060E+01,-.141823E+02,
+     + 0.143259E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.300000E+00,
+     +     	 7.,  1.600,        6.,
+     + 0.119932E+06,0.372431E+00,-.140866E+01,0.140595E+01,0.142524E+01,
+     + 0.192673E-01,0.000000E+00,0.000000E+00,0.000000E+00,0.341887E+00,
+     +     	 8.,  1.750,        6.,
+     + 0.111631E+06,0.415275E+00,-.172322E+01,0.266445E+01,-.210563E+01,
+     + 0.645885E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.405316E+00,
+     +     	 9.,  1.700,        6.,
+     + 0.996433E+05,0.427666E+00,-.171457E+01,0.246018E+01,-.170526E+01,
+     + 0.447506E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.458225E+00,
+     +     	10.,  1.700,        6.,
+     + 0.951173E+05,0.379043E+00,-.174837E+01,0.319049E+01,-.226774E+01,
+     + 0.852320E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.500000E+00, 
+     +     	11.,  1.650,        6.,
+     + 0.937951E+05,0.397666E+00,-.185481E+01,0.306923E+01,-.224473E+01,
+     + 0.723332E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.550000E+00,
+     +     	12.,  1.600,        6.,
+     + 0.959503E+05,0.446667E+00,-.201140E+01,0.292971E+01,-.222681E+01,
+     + 0.622353E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.600000E+00,
+     +     	13.,  1.500,        6.,
+     + 0.102785E+06,0.451998E+00,-.211001E+01,0.296811E+01,-.225442E+01,
+     + 0.631408E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.650000E+00,
+     +     	14.,  1.450,        6.,
+     + 0.119063E+06,0.407436E+00,-.221895E+01,0.333764E+01,-.269320E+01,
+     + 0.875773E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.700000E+00,
+     +     	15.,  1.350,        6.,
+     + 0.140332E+06,0.408177E+00,-.232695E+01,0.351259E+01,-.304858E+01,
+     + 0.108936E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.750000E+00,
+     +     	16.,  1.250,        6.,
+     + 0.169463E+06,0.400562E+00,-.236773E+01,0.349213E+01,-.307904E+01,
+     + 0.119393E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.801975E+00,
+     +     	17.,  1.150,        6.,
+     + 0.198806E+06,0.304840E+00,-.201838E+01,0.369535E+01,-.657814E+01,
+     + 0.660345E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.850000E+00,
+     +     	18.,  1.000,        6.,
+     + 0.239371E+06,0.304359E+00,-.181458E+01,0.355777E+01,-.824893E+01,
+     + 0.887334E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.900000E+00,
+     +     	19.,  0.850,        6.,
+     + 0.272844E+06,0.297175E+00,-.726695E+00,-.224028E+01,0.632071E+01,
+     + -.417221E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.950000E+00,
+     +     	20.,  0.600,        6.,
+     + 0.718196E+06,0.145045E+00,-.542014E+01,0.228224E+03,-.218108E+04,
+     + 0.908927E+04,0.000000E+00,0.000000E+00,0.000000E+00,0.100000E+01/
+     + 
+C  ............................................................................
+C
+      Ires = 1   ! Ires = 1,     2,     3,     4,     5   (pi0,eta,omg, K0s, f2)
+C   ============
+      Pi0_fgen= 0.
+C
+      Xt=Pt/1.8994788            ! sqrt(s)/2 = 1.8994788
+      
+      if (sqrt(Xf**2+Xt**2).gt.1.0) return     
+C  
+      Anor = 1.0
+      Ipt  = Pt/DlPt+1
+      if(Ipt.lt.1.or.Ipt.gt.MPt) return
+C      
+      Ixf     = Xf/DlXf+1
+      Dxf     = Xf-DlXf*Ixf
+      if(Ixf.ge.MXf) return     
+C          
+      Ptmax = Pt_Xf(2,Ixf,Ires)
+      Npar  = Pt_Xf(3,Ixf,Ires)+1.E-8
+C!!-> if (Pt  .gt.Ptmax) return
+      if (Npar.le.0) return 
+C
+      do j=1,Npar
+      Par(j) = Pt_Xf(3+j,Ixf,Ires)
+      enddo
+C
+C-    write(*,*) Ixf,Xf,Npar,(par(j),j=1,Npar)
+C
+      X  = Pt
+      Fpt= Par(1)*exp(-X*X/(2.*par(2)**2))     
+      Exf= X
+      do n = 3,Npar
+      Exf  = Exf + Par(n)*X**(2*n-4)
+      enddo      
+      Eta_fgn2=Fpt*Exf/Anor
+      if (Eta_fgn2.lt.0.) Eta_fgn2 = 0.
+      pi0_fgen=Eta_fgn2
+C
+      if (Ixf.eq.1.and.Dxf/DlXf.lt.-0.5) then
+            pi0_fgen=(1.5+Dxf/DlXf)*Eta_fgn2
+                                   return
+                             endif
+      if (Ixf.eq.1) return
+C  .........................
+C
+      Ixf = Ixf-1
+      Ptmax = Pt_Xf(2,Ixf,Ires)
+      Npar  = Pt_Xf(3,Ixf,Ires)+1.E-8
+C!!-> if (Pt  .gt.Ptmax) return
+      if (Npar.le.0) return 
+C
+      do j=1,Npar
+      Par(j) = Pt_Xf(3+j,Ixf,Ires)
+      enddo
+C           
+      X = Pt
+      Fpt= Par(1)*exp(-X*X/(2.*par(2)**2))     
+      Exf= X
+      do n = 3,Npar
+      Exf  = Exf + Par(n)*X**(2*n-4)
+      enddo   
+      pi0_fgen=Fpt*Exf/Anor
+      if (pi0_fgen.lt.0.) pi0_fgen = 0.
+C
+      D = Dxf/DlXf
+      pi0_fgen=-pi0_fgen*D + Eta_fgn2*(1.+D)
+       
+      return
+      end
+C
+      function eta_fgen(Xf,Pt)
+C      
+C     INPUT variables:
+C     Ires(1:5) = pi0, eta, omg, K0, f2     -- fixed below
+C     Xf in reaction CMS, Xf = 2*Pz/sqrt(s)
+C     Pt in GeV/c 
+C
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      dimension Par(10)
+      dimension Pt_Xf(13,20,5)  !     i1=params, i2=Xf, i3=Ires (pi0,eta,omg,k0,f2)
+      dimension pi0(13,20),eta(13,20),omg(13,20),Rk0(13,20),f2(13,20)
+C
+      equivalence (pi0(1,1),Pt_Xf(1,1,1)),(eta(1,1),Pt_Xf(1,1,2)),
+     +            (omg(1,1),Pt_Xf(1,1,3)),(Rk0(1,1),Pt_Xf(1,1,4)),
+     +            (f2 (1,1),Pt_Xf(1,1,5))
+C
+      data MXf, MPt, DlXf, DlPt /   20,  200.,  0.05, 0.01 / 
+C                Ixf  Ptmax        Npar          Par(1)      Par(2)
+      data eta / 1.,  0.500,	    0.,	         10*0.0, 
+     +           2.,  0.500,	    0.,	         10*0.0,
+     +           3.,  0.500,	    6.,
+     + 0.210873E+05,0.110154E+00,-.932035E+01,0.208437E+03,-.238032E+04,
+     + 0.119869E+05,0.000000E+00,0.000000E+00,0.000000E+00,0.150213E+00,
+     +           4.,  0.800,        6.,
+     + 0.420674E+05,0.167451E+00,-.637260E+01,0.966934E+02,-.671396E+03,
+     + 0.220104E+04,0.000000E+00,0.000000E+00,0.000000E+00,0.200000E+00,
+     +           5.,  1.000,        6.,
+     + 0.431617E+05,0.213233E+00,-.483703E+01,0.660684E+02,-.316860E+03,
+     + 0.610235E+03,0.000000E+00,0.000000E+00,0.000000E+00,0.251551E+00,
+     +     	 6.,  1.200,        6.,
+     + 0.268729E+05,0.260247E+00,-.307638E+01,0.338994E+02,-.100376E+03,
+     + 0.126290E+03,0.000000E+00,0.000000E+00,0.000000E+00,0.300000E+00,
+     +     	 7.,  1.300,        6.,
+     + 0.189453E+05,0.307447E+00,-.205310E+01,0.164352E+02,-.299341E+02,
+     + 0.239791E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.353007E+00,
+     +     	 8.,  1.450,        6.,
+     + 0.139984E+05,0.405326E+00,-.112422E+01,0.375473E+01,-.422293E+01,
+     + 0.165276E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.400575E+00,
+     +     	 9.,  1.500,        6.,
+     + 0.124869E+05,0.677989E+03,-.142530E+01,0.642572E+00,-.190559E+00,
+     + 0.253846E-01,0.000000E+00,0.000000E+00,0.000000E+00,0.450071E+00,
+     +     	10.,  1.600,        6.,
+     + 0.120521E+05,0.377598E+02,-.147977E+01,0.716622E+00,-.219733E+00,
+     + 0.279724E-01,0.000000E+00,0.000000E+00,0.000000E+00,0.500800E+00, 
+     +     	11.,  1.600,        6.,
+     + 0.109994E+05,0.341860E+00,-.861946E+00,0.581325E+01,-.813572E+01,
+     + 0.519809E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.552463E+00,
+     +     	12.,  1.500,        6.,
+     + 0.993033E+04,0.605187E+00,-.752312E+00,-.563174E+00,0.614302E+00,
+     + -.145621E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.600000E+00,
+     +     	13.,  1.450,        6.,
+     + 0.979657E+04,0.618903E+00,-.684724E+00,-.792317E+00,0.798693E+00,
+     + -.189756E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.654004E+00,
+     +     	14.,  1.400,        6.,
+     + 0.101847E+05,0.710325E+00,-.790858E+00,-.774251E+00,0.892058E+00,
+     + -.238540E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.710552E+00,
+     +     	15.,  1.300,        6.,
+     + 0.972748E+04,0.310204E+00,-.437775E+00,0.109213E+02,-.166435E+02,
+     + 0.108815E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.719134E+00,
+     +     	16.,  1.200,        6.,
+     + 0.847956E+04,0.467910E+00,0.376007E+00,-.113384E+01,-.294289E+00,
+     + 0.597187E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.800000E+00,
+     +     	17.,  1.150,        6.,
+     + 0.790078E+04,0.131237E+01,0.612288E+00,-.472769E+01,0.486401E+01,
+     + -.161522E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.850000E+00,
+     +     	18.,  1.100,        6.,
+     + 0.635728E+04,0.100711E+01,0.290233E+01,-.764966E+01,0.514714E+01,
+     + -.118252E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.900000E+00,
+     +     	19.,  0.750,        6.,
+     + 0.616335E+04,0.584657E+02,0.536131E+01,-.870455E+01,-.106414E+01,
+     + 0.431193E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.950000E+00,
+     +     	20.,  0.450,        6.,
+     + 0.875286E+04,0.374579E+01,0.389390E+01,0.488409E+01,0.174953E+03,
+     + -.815679E+03,0.000000E+00,0.000000E+00,0.000000E+00,0.100000E+01/
+C  ......................................................................
+C
+      Ires = 2   ! Ires = 1,     2,     3,     4,     5   (pi0,eta,omg, K0s, f2)
+C   ============
+      Eta_fgen= 0.
+C
+      Xt=Pt/1.8994788            ! sqrt(s)/2 = 1.8994788
+      
+      if (sqrt(Xf**2+Xt**2).gt.1.0) return     
+C  
+      Anor = 1.0
+      Ipt  = Pt/DlPt+1
+      if(Ipt.lt.1.or.Ipt.gt.MPt) return
+C      
+      Ixf     = Xf/DlXf
+      Dxf     = Xf-DlXf*Ixf
+      if(Ixf.ge.MXf) return
+      if(Ixf.le.0) return
+C          
+      Ptmax = Pt_Xf(2,Ixf,Ires)
+      Npar  = Pt_Xf(3,Ixf,Ires)+1.E-8
+C!!-> if (Pt  .gt.Ptmax) return
+      if (Pt  .gt.Ptmax) return
+      if (Npar.le.0) return 
+C
+      do j=1,Npar
+      Par(j) = Pt_Xf(3+j,Ixf,Ires)
+      enddo
+C
+C-    write(*,*) Ixf,Xf,Npar,(par(j),j=1,Npar)
+C
+      X  = Pt +1.E-8
+c      write(*,*) 'Npar=',Npar
+      Fpt= Par(1)*exp(-X*X/(2.*par(2)**2))     
+      Exf= X
+c      write(*,*) 'X=',X
+      if (X.lt.1.e-4) return ! floating point exception protection
+      do n = 3,Npar
+c      write(*,*) 'n=',n,'; Par(n)=',Par(n)
+      Exf  = Exf + Par(n)*X**(2*n-4)
+      enddo
+c      write(*,*) 'Anor=',Anor,'; '
+      Eta_fgn2=Fpt*Exf/Anor
+      if (Eta_fgn2.lt.0.) Eta_fgn2 = 0.
+      Eta_fgen=Eta_fgn2
+C
+      if (Ixf.eq.1.and.Dxf/DlXf.lt.-0.5) then
+            Eta_fgen=(1.5+Dxf/DlXf)*Eta_fgn2
+                                   return
+                             endif
+      if (Ixf.eq.1) return
+C  .........................
+C
+      Ixf = Ixf-1
+      if(Ixf.le.0) return
+      Ptmax = Pt_Xf(2,Ixf,Ires)
+      Npar  = Pt_Xf(3,Ixf,Ires)+1.E-8
+C!!-> if (Pt  .gt.Ptmax) return
+      if (Pt  .gt.Ptmax) return
+      if (Npar.le.0) return 
+C
+      do j=1,Npar
+      Par(j) = Pt_Xf(3+j,Ixf,Ires)
+      enddo
+C           
+      X = Pt
+      Fpt= Par(1)*exp(-X*X/(2.*par(2)**2))     
+      Exf= X
+      do n = 3,Npar
+      Exf  = Exf + Par(n)*X**(2*n-4)
+      enddo   
+      Eta_fgen=Fpt*Exf/Anor
+      if (Eta_fgen.lt.0.) Eta_fgen = 0.
+C
+      D = Dxf/DlXf
+c      Eta_fgen=-Eta_fgen*D + Eta_fgn2*(1.+D)      
+      Eta_fgen=Eta_fgen*(1.-D) + Eta_fgn2*(D)  
+      return
+      end
+C
+      function f2_fgen(Xf,Pt)
+C      
+C     INPUT variables:
+C     Ires(1:5) = pi0, eta, omg, K0, f2     -- fixed below
+C     Xf in reaction CMS, Xf = 2*Pz/sqrt(s)
+C     Pt in GeV/c 
+C
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      dimension Par(10)
+      dimension Pt_Xf(13,20,5)  !     i1=params, i2=Xf, i3=Ires (pi0,eta,omg,k0,f2)
+      dimension pi0(13,20),eta(13,20),omg(13,20),Rk0(13,20),f2(13,20)
+C
+      equivalence (pi0(1,1),Pt_Xf(1,1,1)),(eta(1,1),Pt_Xf(1,1,2)),
+     +            (omg(1,1),Pt_Xf(1,1,3)),(Rk0(1,1),Pt_Xf(1,1,4)),
+     +            (f2 (1,1),Pt_Xf(1,1,5))
+C
+      data MXf, MPt, DlXf, DlPt /   20,  200.,  0.05, 0.01 / 
+C                Ixf  Ptmax        Npar          Par(1)      Par(2)
+      data f2  / 1.,  0.500,	    0.,	         10*0.0, 
+     +           2.,  0.500,	    0.,	         10*0.0,
+     +           3.,  0.500,	    0.,	         10*0.0,
+     +           4.,  0.800,        0.,	         10*0.0,
+     +           5.,  1.000,        0.,	         10*0.0,
+     +   	 6.,  1.200,	    0.,	         10*0.0,
+     +  	 7.,  1.300,	    0.,	         10*0.0,
+     +     	 8.,  1.100,        6.,	         
+     + 0.376579E+05,0.150538E+00,-.108450E+02,0.363956E+03,-.404831E+04,
+     + 0.212478E+05,0.000000E+00,0.000000E+00,0.000000E+00,0.402192E+00,
+     +     	 9.,  1.200,        6.,	         
+     + 0.261489E+04,0.696085E+02,0.175228E+02,-.760937E+02,0.112812E+03,
+     + -.567539E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.455239E+00,
+     +     	10.,  1.400,        6.,
+     + 0.105604E+05,0.697801E+00,0.566397E+00,-.177291E+01,0.526771E+00,
+     + 0.137177E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.502759E+00,
+     +     	11.,  1.400,        6.,
+     + 0.160639E+05,0.373889E+00,-.745053E+00,0.732241E+01,-.949919E+01,
+     + 0.461787E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.550940E+00,   
+     +     	12.,  1.350,        6.,
+     + 0.137287E+05,0.751799E+00,-.336489E+00,-.149151E+01,0.169185E+01,
+     + -.540945E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.600000E+00,
+     +     	13.,  1.375,        6.,
+     + 0.174626E+05,0.605877E+00,-.760607E+00,-.372677E+00,0.866708E+00,
+     + -.307843E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.650000E+00,
+     +     	14.,  1.350,        6.,
+     + 0.241747E+05,0.500920E+00,-.928541E+00,-.671298E+00,0.259857E+01,
+     + -.121729E+01,0.000000E+00,0.000000E+00,0.000000E+00,0.700000E+00,
+     +     	15.,  1.300,        6.,
+     + 0.450764E+05,0.636033E+00,-.176116E+01,0.172255E+01,-.942108E+00,
+     + 0.313973E+00,0.000000E+00,0.000000E+00,0.000000E+00,0.750000E+00,
+     +     	16.,  1.200,        6.,
+     + 0.958756E+05,0.269841E+00,-.149053E+01,0.111770E+02,-.417299E+02,
+     + 0.721180E+02,0.000000E+00,0.000000E+00,0.000000E+00,0.801104E+00,
+     +     	17.,  1.100,        6.,
+     + 0.192267E+06,0.234209E+00,-.207204E+01,0.283896E+02,-.129155E+03,
+     + 0.243582E+03,0.000000E+00,0.000000E+00,0.000000E+00,0.850000E+00,
+     +     	18.,  1.000,        6.,
+     + 0.337585E+06,0.191959E+00,-.330963E+01,0.762636E+02,-.454958E+03,
+     + 0.119016E+04,0.000000E+00,0.000000E+00,0.000000E+00,0.900000E+00,
+     +     	19.,  0.800,        6.,
+     + 0.456060E+06,0.139028E+00,-.746659E+01,0.337986E+03,-.423673E+04,
+     + 0.235029E+05,0.000000E+00,0.000000E+00,0.000000E+00,0.950000E+00,
+     +     	20.,  0.450,        0.,         10*0.0                 /
+C  ......................................................................
+C
+      Ires = 5   ! Ires = 1,     2,     3,     4,     5   (pi0,eta,omg, K0s, f2)
+C   ============
+      f2_fgen= 0.
+C
+      Xt=Pt/1.8994788            ! sqrt(s)/2 = 1.8994788
+      
+      if (sqrt(Xf**2+Xt**2).gt.1.0) return     
+C  
+      Anor = 1.0
+      Ipt  = Pt/DlPt+1
+      if(Ipt.lt.1.or.Ipt.gt.MPt) return
+C      
+      Ixf     = Xf/DlXf+1
+      Dxf     = Xf-DlXf*Ixf
+      if(Ixf.ge.MXf) return     
+C          
+      Ptmax = Pt_Xf(2,Ixf,Ires)
+      Npar  = Pt_Xf(3,Ixf,Ires)+1.E-8
+C!!-> if (Pt  .gt.Ptmax) return
+      if (Npar.le.0) return 
+C
+      do j=1,Npar
+      Par(j) = Pt_Xf(3+j,Ixf,Ires)
+      enddo
+C
+C-    write(*,*) Ixf,Xf,Npar,(par(j),j=1,Npar)
+C
+      X  = Pt
+      Fpt= Par(1)*exp(-X*X/(2.*par(2)**2))     
+      Exf= X
+      do n = 3,Npar
+      Exf  = Exf + Par(n)*X**(2*n-4)
+      enddo      
+      Eta_fgn2=Fpt*Exf/Anor
+      if (Eta_fgn2.lt.0.) Eta_fgn2 = 0.
+      f2_fgen=Eta_fgn2
+C
+      if (Ixf.eq.1.and.Dxf/DlXf.lt.-0.5) then
+            f2_fgen=(1.5+Dxf/DlXf)*Eta_fgn2
+                                   return
+                             endif
+      if (Ixf.eq.1) return
+C  .........................
+C
+      Ixf = Ixf-1
+      Ptmax = Pt_Xf(2,Ixf,Ires)
+      Npar  = Pt_Xf(3,Ixf,Ires)+1.E-8
+C!!-> if (Pt  .gt.Ptmax) return
+      if (Npar.le.0) return 
+C
+      do j=1,Npar
+      Par(j) = Pt_Xf(3+j,Ixf,Ires)
+      enddo
+C           
+      X = Pt
+      Fpt= Par(1)*exp(-X*X/(2.*par(2)**2))     
+      Exf= X
+      do n = 3,Npar
+      Exf  = Exf + Par(n)*X**(2*n-4)
+      enddo   
+      f2_fgen=Fpt*Exf/Anor
+      if (f2_fgen.lt.0.) f2_fgen = 0.
+C
+      D = Dxf/DlXf
+      f2_fgen=-f2_fgen*D + Eta_fgn2*(1.+D)
+       
+      return
+      end
+
+
 C
       subroutine reaction_Mike(Nreson, T, MissMass)
 C...............................................................................
