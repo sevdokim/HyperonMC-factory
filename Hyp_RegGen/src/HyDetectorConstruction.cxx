@@ -105,10 +105,12 @@ void HyDetectorConstruction::ConstructMaterials() {
   matPoly->AddElement(elC, 0.8571);
   matPoly->AddElement(elH, 0.1429);
   //____C_____
-  TGeoMaterial *matC = new TGeoMaterial("C", a = 12., z = 6., density = 1.742);
+  // TGeoMaterial *matC = new TGeoMaterial("C", a = 12., z = 6., density = 1.742);
+  TGeoMaterial *matC = new TGeoMaterial("C", a = 12., z = 6., density = 1.687);
   //____Be____
   TGeoMaterial *matBe =
-      new TGeoMaterial("Be", a = 9.01, z = 4., density = 1.848);
+    new TGeoMaterial("Be", a = 9.01, z = 4., density = 1.866);
+    //    new TGeoMaterial("Be", a = 9.01, z = 4., density = 1.848);
   //____Al____
   TGeoMaterial *matAl =
       new TGeoMaterial("Al", a = 26.98, z = 13., density = 2.699);
