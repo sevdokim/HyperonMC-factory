@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 export IHEP_QUEUE=ihep-medium                  # cluster queue name
-export EVENTNUMBER=100000                     # Total event number to be generated per 1 production thread  
+export EVENTNUMBER=10000                     # Total event number to be generated per 1 production thread  
 export first_thread=1
-export NTHREADS=10                             # total number of production threads   
+export NTHREADS=1                             # total number of production threads   
 export CONVERT_ONLY=no                         # just reconvert generated data to Hyperon format
 
 export PERIOD                          # Hyperon Runs (2007-11, 2008-04, 2008-11, 2009-11, 2011-04 ... -- 15 runs in total) 
@@ -26,7 +26,7 @@ do
     #for PERIOD in 2018-03 2017-12 2016-11 2014-11 2011-11 2011-04 2009-11 2008-11 2008-04 2007-11 
     #for PERIOD in 2011-11 2011-04 2009-11 2008-11 2008-04 2007-11
     for PERIOD in 2008-11
-    #for PERIOD in 2018-03 2017-12 2016-11 2015-11 2015-03 2014-11 2013-03 2012-11 2012-04 2011-11 2011-04 2009-11 2008-04 2008-11 2007-11
+    #for PERIOD in 2018-03 2017-12 2016-11 2015-11 2015-03 2014-11 2013-03 2012-11 2012-04 2011-11 2011-04 2009-11 2008-04 2007-11
     do
 	PERIOD_PRFX=$(prefix_by_period $PERIOD)
 	#PERIOD=$(period_by_prefix $PERIOD_PRFX)
@@ -39,8 +39,8 @@ do
 	    *)      export EFFICIENCY_SA=1.0 ;;
 	esac
 	export EFFICIENCY_SA=1.0 # 100 percent efficiency
-	#for MESON in pi0_xf #K0_xf pi0_xf eta_xf omg_xf f2_xf #2pi0 K0   f0
-	for MESON in eta #f2 #omg #eta f2 2pi0 K0 # f0
+	for MESON in K0_xf # pi0_xf eta_xf omg_xf f2_xf #2pi0 K0   f0
+	#for MES in eta #f2 #omg #eta f2 2pi0 K0 # f0
 	do
 	    case "$MESON" in
 		"pi0")     n=1 ;;
@@ -57,8 +57,8 @@ do
 		"2pi0_xf")    n=6 ;;
 		*)         n=0 ;;
 	    esac
-	    for TGT_PRFX in al35mm cu7mm sn5mm pb3mm c78mm be79mm #ch80mm # al35mm cu7mm sn5mm pb3mm
-#	    for TGT_PRFX in be79mm #c78mm
+	    #for TGT_PRFX in al35mm cu7mm sn5mm pb3mm c78mm be79mm #ch80mm # al35mm cu7mm sn5mm pb3mm
+	    for TGT_PRFX in be79mm #c78mm
 	    do
 		cd $INITIAL_DIR
 		if [ -e $PERIOD/file_list_${PERIOD_PRFX}_${TGT_PRFX}.dat ] ; then
@@ -66,21 +66,27 @@ do
 		    # export THICKNESS_S4=6.0 # before 2009
 		    export UNIC_CODE=$[ $cond*1000000+ $n*100000 ]
 		    #export PRODUCTION_NAME=${PERIOD_PRFX}_${TGT_PRFX}_${MESON}_to2gam_xfpt_evd_v1_${HYCONDITION}
-		    export CONTROL='-0.01' #dummy
-		    export PRODUCTION_NAME=${PERIOD_PRFX}_${TGT_PRFX}_${MESON}_PDG_${HYCONDITION}_effSa1.0
-		    export HYMC_CONFIG_DEFINED=yes
-		    export EXCHANEL=1 #2gamma channel
+		    for xf in 60 #20 30 40 50 60 70 80 90
+		    do
+			for pt in 10 #001 10 20 30 40 50
+			do
+			    export CONTROL="11${xf}.${pt}"
+			    export PRODUCTION_NAME=${PERIOD_PRFX}_${TGT_PRFX}_${MESON}_xf0.${xf}_pt0.${pt}_${HYCONDITION}
+			    export HYMC_CONFIG_DEFINED=yes
+			    export EXCHANEL=1
 		    
-		    echo " "
-		    echo 'MESON               =' $MESON
-		    echo 'TGT_PRFX            =' $TGT_PRFX
-		    echo 'PERIOD_PRFX         =' $PERIOD_PRFX
-		    echo 'PRODUCTION_NAME     =' $PRODUCTION_NAME
-		    echo 'HYMC_CONFIG_DEFINED =' $HYMC_CONFIG_DEFINED
-		    echo 'CONTROL             =' $CONTROL
-		    echo 'unic code           =' $UNIC_CODE
-		    source generate_production.sh
-		    cd $INITIAL_DIR
+			    echo " "
+			    echo 'MESON               =' $MESON
+			    echo 'TGT_PRFX            =' $TGT_PRFX
+			    echo 'PERIOD_PRFX         =' $PERIOD_PRFX
+			    echo 'PRODUCTION_NAME     =' $PRODUCTION_NAME
+			    echo 'HYMC_CONFIG_DEFINED =' $HYMC_CONFIG_DEFINED
+			    echo 'CONTROL             =' $CONTROL
+			    echo 'unic code           =' $UNIC_CODE
+			    source generate_production.sh
+			    cd $INITIAL_DIR
+			done
+		    done
 		else
 		    echo "$PERIOD/file_list_${PERIOD_PRFX}_${TGT_PRFX}.dat does not exists. Skipping."
 		fi

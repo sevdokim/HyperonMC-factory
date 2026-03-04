@@ -91,6 +91,7 @@ public:
     fDetConstruction.SetTargetMaterial(MediumID);
   } // set target material, if not setted or
     // setted to nonexisting - will ask user
+  void SetDebug(int debug) { fDebug = debug; }
 #ifndef _DONT_USE_NETWORK_FUNCTIONS_
   int GetSeed();
   void SendMessage(std::string message);

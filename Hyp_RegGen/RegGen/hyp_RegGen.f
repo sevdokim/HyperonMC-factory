@@ -1786,6 +1786,8 @@ C-    Double precision T,Pa(5),Pb(5),Pc(5),Pd(5),Pgamma(10,10)
       Double precision P1(5), P2(5), P3(5), P4(5), PPc, CtauK0
       Double precision Xvertex, Yvertex, Zvertex, Random, R1, R2, FF
       Double precision Double_Mass_distr_2pi0
+      common /control_parameter/ cntrl_prmtr
+      double precision cntrl_prmtr
       Integer Mchanel(10)
       integer n30calls
 C       
@@ -1833,14 +1835,16 @@ C
      +/    0.000198, 0.1,      0.107,     0.055 /
 C---------------------------------------------------------------------------------   
 C
+      cntrl_prmtr=Pgamma(1,0)
       if(Nreson.gt.Mreson) then
                    write(*,*) 'hyp_carlo: Ireact=',Nreson
 		   write(*,*) '************************************************'
                    stop 'hyp_carlo: ERROR reaction Index'
 	       endif
 C
-C-    if(Lstart) go to 10           !  Riginal operator for primary hyp_carlo routine
-      if(Lstart) go to 30           !  Operator for call from Hyp_RegGen routine
+C     -    if(Lstart) go to 10           !  Riginal operator for primary hyp_carlo routine
+      if(Lstart) go to 31
+c      if(Lstart) go to 30           !  Operator for call from Hyp_RegGen routine
 C....................................................................................
 C Target randomizer 
 C
@@ -1968,7 +1972,6 @@ C
       do j=1,Mgamma
          Pgamma(5,j) = 0.
       enddo
-      n30calls=0
 C      
       Lstart=.true.
 C     read(*,*)
@@ -2004,8 +2007,10 @@ C-     endif
 C  
 C Choose excl. decay channel:
 C
-C- 30 if (ExChanel.le.0) then
-   30 n30calls=n30calls+1
+C     - 30 if (ExChanel.le.0) then
+ 31   n30calls=0
+ 30   n30calls=n30calls+1
+      if(n30calls.gt.5000) goto 1030
 C
 C-    write(*,*) 'Xf-:',Momentum,Nreson,Nchanel,Mchanel(Nreson)
 C
@@ -2046,6 +2051,8 @@ C
       do j=1,Mgamma
          Pgamma(5,j) = 0.
       enddo
+C --- Read control parameter ---
+      cntrl_prmtr = Pgamma(1,0)
 C      
 C  --- Resonances 1-10 --- 
 C      
@@ -2078,13 +2085,13 @@ C
 C
       if (Nreson.eq.2) then     !  Resonans 2 - eta
          Pc(5) = AmEta
-C         cntrl_prmtr=Pgamma(1,0)
-C         if (cntrl_prmtr.gt.0.) then
-C            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
-C     +           Nchanel=1
-C            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
-C     +           Nchanel=2
-C         endif
+         cntrl_prmtr=Pgamma(1,0)
+         if (cntrl_prmtr.gt.0.) then
+            if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
+     +           Nchanel=1
+            if(cntrl_prmtr.lt.1.0025.and.cntrl_prmtr.gt.1.0015)
+     +           Nchanel=2
+         endif
 c     write (*,*) 'control  = ', cntrl_prmtr
 c     write (*,*) 'nChannel = ', Nchanel
          call reaction(Nreson, T, Pd(5))  
@@ -2580,6 +2587,7 @@ C
 C  
 C!!!- Ngamma = 0
       go to 30
+ 1030 Ngamma = 0 ! give up to generate anything
       RETURN
       END       
 C
@@ -2613,6 +2621,9 @@ C-    Double precision T,Pa(5),Pb(5),Pc(5),Pd(5),Pgamma(10,10)
       Double precision P1(5), P2(5), P3(5), P4(5), PPc, CtauK0
       Double precision Xvertex, Yvertex, Zvertex, Random, R1, R2, FF
       Double precision Double_Mass_distr_2pi0
+      common /control_parameter/ cntrl_prmtr
+      double precision cntrl_prmtr
+
       Integer Mchanel(100)
       integer n30calls
 C       
@@ -2678,7 +2689,8 @@ C
      +/    0.000198,   0.1,      0.107,     0.055 /
 C---------------------------------------------------------------------------------   
 C
-      if(Lstart) go to 30           !  Operator for call from Hyp_RegGen routine
+      cntrl_prmtr=Pgamma(1,0)
+      if(Lstart) go to 31           !  Operator for call from Hyp_RegGen routine
 C....................................................................................
 C
 C Exclusive channel decay probabilities 
@@ -2742,10 +2754,11 @@ C
          Pgamma(5,j) = 0.
       enddo
 C      
-      n30calls=0     
       Lstart=.true.   
 C
-   30 n30calls=n30calls+1
+ 31   n30calls=0
+ 30   n30calls=n30calls+1
+      if(n30calls.gt.5000) goto 1030
 C   
       Ireson = Nreson-Mreac2 
 C   
@@ -2788,16 +2801,19 @@ C
       do j=1,Mgamma
          Pgamma(5,j) = 0.
       enddo
-      if (Ireson.eq.1) then                        !  Resonans 1 - pi0        
-        Pc(5) = Ampi0
-        cntrl_prmtr=Pgamma(1,0)
-        if (cntrl_prmtr.gt.0.) then
-          Pc(5) = cntrl_prmtr/1000. ! MeV -> GeV
-        endif
-        if (cntrl_prmtr.eq.(-0.01)) then
-          Pc(5) = 0.001 + regrndm(0)
-        endif
+      if (Ireson.eq.1) then     !  Resonans 1 - pi0        
+         Pc(5) = Ampi0
+c         cntrl_prmtr=Pgamma(1,0)
+c         if (cntrl_prmtr.gt.0.) then
+c            Pc(5) = cntrl_prmtr/1000. ! MeV -> GeV
+c         endif
+         if (cntrl_prmtr.eq.(-0.01)) then
+            Pc(5) = 0.001 + regrndm(0)
+         endif
+         ntries=0
  1331    call reaction_XF(Ireson,Pa,Pb,Pc,T,Pd(5))
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
            if (T.gt.5.0) go to 1331
 	   call abtocds(Pa,Pb(5),Pc,Pd,T)
            if (T.gt.5.0) go to 1331
@@ -2831,8 +2847,11 @@ C
          endif
 c     write (*,*) 'control  = ', cntrl_prmtr
 c     write (*,*) 'nChannel = ', Nchanel
-c         call reaction(Ireson, T, Pd(5))  
+c     call reaction(Ireson, T, Pd(5))
+         ntries=0
  1332    call reaction_XF(Ireson,Pa,Pb,Pc,T,Pd(5))
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
             if (T.gt.5.0) go to 1332
             call abtocds(Pa,Pb(5),Pc,Pd,T)
          if (T.gt.5.0) go to 1332
@@ -2881,7 +2900,7 @@ C
       if (Ireson.eq.3) then                         !  Resonance 3 - omega
 C-       Pc(5) = Amw + (s2w/2.36)*rnd_gauss(1.)     !  Simple Gauss distribution
 C
-         cntrl_prmtr=Pgamma(1,0)
+c         cntrl_prmtr=Pgamma(1,0)
          if (cntrl_prmtr.gt.0.) then
             if(cntrl_prmtr.lt.0.1) WidOmg = cntrl_prmtr*1000. !  GeV->MeV; read width from control parameter from 0 to 0.1 GeV
             if(cntrl_prmtr.eq.0.77) then ! this is rho0 resonance
@@ -2901,11 +2920,12 @@ c 345    call BW_rand_omg(AmOmg,WidOmg ,rnd_BW) !  GAMS BW for omg(782)
   345    call BW_rand_L(AmOmg,WidOmg,L,1000.*th,rnd_BW) !  GAMS BW for L=1 decays  
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV   
 C
-         ntries=1
+         ntries=0
  3451    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) !  Just like eta
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
          if (T.gt.5.0) go to 3451
          call abtocds(Pa,Pb(5),Pc,Pd,T)
-         ntries=ntries+1
 	 if (T.gt.5.0) go to 3451
          if(ntries.gt.1000) then
             write(*,*) 'Giving up generating reaction for'
@@ -2973,8 +2993,11 @@ C
       endif
 C
  3454   if (Ireson.eq.4) then     !  Resonance 4 - K0s
-         Pc(5) = AmK0
+           Pc(5) = AmK0
+           ntries=0
          call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
 	 if (T.gt.5.0) go to 3454            
          call abtocds(Pa,Pb(5),Pc,Pd,T)
          if (T.gt.5.0) go to 3454
@@ -3014,8 +3037,10 @@ C
 C-
  5695    call BW_rand_f2(Amf2,Widf2,rnd_BW)         !  GAMS BW for f2(1275)
 	 Pc(5) = 0.001*rnd_BW                       !  MeV => GeV
-	 
+	 ntries=0
  5696    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
          if (T.gt.5.0) go to 5696
  
 c        Tf2=T ! save first generated T in order not to destroy its distribution
@@ -3091,7 +3116,10 @@ c     try to generate t & missing mass for current mass of 2pi0 system
             write(*,*) 'for M(2pi0) = ', Pc(5), ' GeV. Giving up.'
             goto 854
          endif
+         ntries=0
          call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
          if (T.gt.5.0) go to 855
          call abtocds(Pa,Pb(5),Pc,Pd,T)
 	 if (T.gt.5.0) go to 855                                                     
@@ -3120,7 +3148,10 @@ C
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV
          if (Pc(5).le.(2.* Ampi0 + AmEta)) goto 1077
 C
- 1078    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270)
+         ntries=0
+ 1078    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) !  Just like f2(1270)
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
 	 if (T.gt.5.0) go to 1078
          call abtocds(Pa,Pb(5),Pc,Pd,T)
          if (T.gt.5.0) go to 1000
@@ -3146,14 +3177,16 @@ C
       endif
 C
       if (Ireson.eq.8) then         !  etaPrime	 
-       
+         ntries=0
  1088    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like eta
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
          Pc(5) = AmEtaP ! very small width -> let it be 0.
 	 if (T.gt.5.0) go to 1088
 C	 
 	 call abtocds(Pa,Pb(5),Pc,Pd,T)
 	 if (T.gt.5.0) go to 1000
-         cntrl_prmtr = Pgamma(1,0)
+c         cntrl_prmtr = Pgamma(1,0)
          if (cntrl_prmtr.gt.0.) then
             if(cntrl_prmtr.lt.1.0015.and.cntrl_prmtr.gt.1.0005)
      c           Nchanel=1
@@ -3208,7 +3241,10 @@ C
       endif
 C     
       if (Ireson.eq.9) then     !  a0(980)
+         ntries=0
  1089    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) ! just like f2(1270)
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
 c 366    call BW_rand_f0(1000.*AmA0980,1000.*WidA0980,rnd_BW) !  GAMS BW for f0(500)
          if(T.gt.5.) go to 1089 
          L=0
@@ -3247,8 +3283,11 @@ c1066    call BW_rand_f2(1000.*AmA21320, 1000.*WidA21320 ,rnd_BW) !  GAMS BW for
  1066    call BW_rand_L(1000.*AmA21320, 1000.*WidA21320,L,1000.*th,rnd_BW) !  GAMS BW for spin-2 particle   
          Pc(5) = 0.001*rnd_BW   !  MeV => GeV
          if (Pc(5).le.(Ampi0 + AmEta)) goto 1066
-C    
- 1067    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5))                 !  Just like f2(1270) 
+C
+         ntries=0
+ 1067    call reaction_xf(Ireson,Pa,Pb,Pc,T,Pd(5)) !  Just like f2(1270)
+         ntries=ntries+1
+         if(ntries.gt.1000) goto 1030
          if(T.gt.5.) go to 1067  
          call abtocds(Pa,Pb(5),Pc,Pd,T)      
          if (T.gt.5.0) go to 1000 
@@ -3287,6 +3326,7 @@ C
 C  
 C!!!- Ngamma = 0
       go to 30
+ 1030 Ngamma = 0 ! giveup trying to generate anything
       RETURN
       END       
 C
@@ -3430,7 +3470,10 @@ C
       real regrndm
       double precision R1, R2, T, b, Random, Random2
       double precision MissMass, Mean, s2, Double_MM_distr_2pi0,FF
-      double precision Double_T_distr_f2,Double_MM_distr_f2 
+      double precision Double_T_distr_f2,Double_MM_distr_f2
+      common /control_parameter/ cntrl_prmtr
+      double precision cntrl_prmtr
+
       integer ncalls
       data ncalls /0/
       save ncalls
@@ -3607,15 +3650,25 @@ C
       double precision Double_T_distr_f2,Double_MM_distr_f2
       double precision eta_fgen, eta_fgen_evd,val
       double precision f2_fgen,pi0_fgen,omg_fgen_evd,k0_fgen_evd
+      common /control_parameter/ cntrl_prmtr
+      double precision cntrl_prmtr, frac_cntrl, xfcut
 c      real eta_fgen
       integer ncalls
       data ncalls,pi2 /0, 6.283185307D0 /
       save ncalls,pi2
 C
+c     xf & pt selection 
+      if (cntrl_prmtr.gt.1100.0.and.cntrl_prmtr.lt.1200.0) then
+         frac_cntrl=cntrl_prmtr-dint(cntrl_prmtr)
+         xf = (cntrl_prmtr-frac_cntrl-1100.) / 100.
+         pt = frac_cntrl * 2.
+c         write(*,*) 'xf=',xf,'pt=',pt
+         goto 1000
+      endif
       if (Nreson.lt.1.or.Nreson.gt.10) then
-          write(*,*) 'reaction_XF: ERROR resonance number Nreson=',Nreson
-	  stop 'reaction_XF: ERROR'
-          else
+         write(*,*) 'reaction_XF: ERROR resonance number Nreson=',Nreson
+         stop 'reaction_XF: ERROR'
+      else
 C
   100 go to (134,234,334,434,534,634,734) Nreson	  
 	  
@@ -3751,6 +3804,12 @@ C --- T and MisMas calculation on bases of Pt ans Xf ---
 C
  1000 Rpt= Pt
       RXf= Xf
+      if (cntrl_prmtr.gt.1200.0.and.cntrl_prmtr.lt.1300.0) then
+         frac_cntrl=cntrl_prmtr-dint(cntrl_prmtr)
+         xfcut = (cntrl_prmtr-frac_cntrl-1200.) / 100.
+         if (xf.lt.xfcut) goto 100
+      endif
+
       Ssqrt   = Dsqrt(Dabs((Pa(4)+Pb(4))**2-Pa(1)**2-Pa(2)**2-Pa(3)**2))
       Random2 = pi2*REGRNDM(0)
       Pc(1)   = pt*Dcos(Random2)

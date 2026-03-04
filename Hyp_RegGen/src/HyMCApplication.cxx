@@ -514,6 +514,9 @@ void HyMCApplication::GeneratePrimaries() {
 
   int nCharged = 0;
   int nFinal = istOut;
+  if (nFinal <= 0) {
+    return;
+  }
   double angles[500]; // angles between primary particles direction and beamline
   int indices[500];   // indices of primary particles
 

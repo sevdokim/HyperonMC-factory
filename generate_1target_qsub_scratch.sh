@@ -193,7 +193,8 @@ if [ -f MC_res.dat ] ; then
 	if tar -cf generated.tar log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 Histos.root 
 	then
 	    echo "Archive generated.tar is created. I remove files:"
-	    rm -vf log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2 #Histos.root
+	    rm -vf log_production.bz2 MC_res.dat.bz2 MCgen.dat.bz2
+	    #Histos.root
 	fi
 	chmod a+r $MCRUNSDIR/Run${SEED}.gz
         chown -R $USER_GROUP $MCRUNSDIR/
